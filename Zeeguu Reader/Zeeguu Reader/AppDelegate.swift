@@ -1,4 +1,4 @@
-//
+///
 //  AppDelegate.swift
 //  Zeeguu Reader
 //
@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZeeguuAPI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -16,10 +17,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
-		let splitViewController = self.window!.rootViewController as! UISplitViewController
-		let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-		navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+		self.window?.backgroundColor = UIColor.whiteColor()
+		
+		let splitViewController = UISplitViewController()
+		
+		let mainVC = UINavigationController(rootViewController: ArticleListViewController())
+		let detailVC = UINavigationController(rootViewController: ArticleViewController())
+		
+		splitViewController.viewControllers = [mainVC, detailVC]
+		
+		window?.rootViewController = splitViewController
+		
+//		let splitViewController = self.window!.rootViewController as! UISplitViewController
+		
+		detailVC.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
 		splitViewController.delegate = self
+		self.window?.makeKeyAndVisible()
+		
+		if (!ZeeguuAPI.sharedAPI().isLoggedIn) {
+			ZeeguuAPI.sharedAPI().loginWithEmail("j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
+				print("Logged in: \(success)")
+			}
+		}
 		return true
 	}
 
@@ -48,13 +68,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 	// MARK: - Split view
 
 	func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
-	    guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
-	    guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
-	    if topAsDetailController.detailItem == nil {
-	        // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-	        return true
-	    }
-	    return false
+//	    guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
+//	    guard let topAsDetailController = secondaryAsNavController.topViewController as? ArticleViewController else { return false }
+//	    if topAsDetailController.detailItem == nil {
+//	        // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+//	        return true
+//	    }
+	    return true
 	}
 
 }

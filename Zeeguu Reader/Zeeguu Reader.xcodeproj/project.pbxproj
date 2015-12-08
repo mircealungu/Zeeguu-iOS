@@ -8,13 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		947799D51C17171B00C494ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D41C17171B00C494ED /* AppDelegate.swift */; };
-		947799D71C17171B00C494ED /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D61C17171B00C494ED /* MasterViewController.swift */; };
-		947799D91C17171B00C494ED /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D81C17171B00C494ED /* DetailViewController.swift */; };
-		947799DC1C17171B00C494ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947799DA1C17171B00C494ED /* Main.storyboard */; };
+		947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D61C17171B00C494ED /* ArticleListViewController.swift */; };
+		947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D81C17171B00C494ED /* ArticleViewController.swift */; };
 		947799DE1C17171B00C494ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947799DD1C17171B00C494ED /* Assets.xcassets */; };
 		947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947799DF1C17171B00C494ED /* LaunchScreen.storyboard */; };
 		947799EC1C17171B00C494ED /* Zeeguu_ReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799EB1C17171B00C494ED /* Zeeguu_ReaderTests.swift */; };
 		947799F71C17171B00C494ED /* Zeeguu_ReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */; };
+		94779A071C171A5E00C494ED /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A061C171A5E00C494ED /* Article.swift */; };
+		94779A0B1C171BD400C494ED /* ArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A0A1C171BD400C494ED /* ArticleListView.swift */; };
+		94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A0D1C1722E500C494ED /* UIViewExtension.swift */; };
+		94779A121C17348B00C494ED /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A111C17348B00C494ED /* ArticleView.swift */; };
+		94779A271C17385200C494ED /* ZeeguuAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94779A261C17385200C494ED /* ZeeguuAPI.framework */; };
+		94779A281C17386100C494ED /* ZeeguuAPI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94779A261C17385200C494ED /* ZeeguuAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A291C17452800C494ED /* ZGTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,12 +40,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		94779A1F1C1735A300C494ED /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				94779A281C17386100C494ED /* ZeeguuAPI.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		947799D11C17171B00C494ED /* Zeeguu Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zeeguu Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799D41C17171B00C494ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		947799D61C17171B00C494ED /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		947799D81C17171B00C494ED /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		947799DB1C17171B00C494ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		947799D61C17171B00C494ED /* ArticleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
+		947799D81C17171B00C494ED /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		947799DD1C17171B00C494ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		947799E01C17171B00C494ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		947799E21C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +67,12 @@
 		947799F21C17171B00C494ED /* Zeeguu ReaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zeeguu ReaderUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zeeguu_ReaderUITests.swift; sourceTree = "<group>"; };
 		947799F81C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94779A061C171A5E00C494ED /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		94779A0A1C171BD400C494ED /* ArticleListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListView.swift; sourceTree = "<group>"; };
+		94779A0D1C1722E500C494ED /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		94779A111C17348B00C494ED /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
+		94779A261C17385200C494ED /* ZeeguuAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZeeguuAPI.framework; sourceTree = "<group>"; };
+		94779A291C17452800C494ED /* ZGTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94779A271C17385200C494ED /* ZeeguuAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				947799D31C17171B00C494ED /* Zeeguu Reader */,
+				94779A1E1C17359000C494ED /* Frameworks */,
 				947799EA1C17171B00C494ED /* Zeeguu ReaderTests */,
 				947799F51C17171B00C494ED /* Zeeguu ReaderUITests */,
 				947799D21C17171B00C494ED /* Products */,
@@ -100,12 +126,16 @@
 			isa = PBXGroup;
 			children = (
 				947799D41C17171B00C494ED /* AppDelegate.swift */,
-				947799D61C17171B00C494ED /* MasterViewController.swift */,
-				947799D81C17171B00C494ED /* DetailViewController.swift */,
-				947799DA1C17171B00C494ED /* Main.storyboard */,
+				947799D61C17171B00C494ED /* ArticleListViewController.swift */,
+				947799D81C17171B00C494ED /* ArticleViewController.swift */,
+				94779A061C171A5E00C494ED /* Article.swift */,
+				94779A0A1C171BD400C494ED /* ArticleListView.swift */,
+				94779A111C17348B00C494ED /* ArticleView.swift */,
+				94779A291C17452800C494ED /* ZGTextView.swift */,
 				947799DD1C17171B00C494ED /* Assets.xcassets */,
 				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
 				947799E21C17171B00C494ED /* Info.plist */,
+				94779A0C1C1722C300C494ED /* Extensions */,
 			);
 			path = "Zeeguu Reader";
 			sourceTree = "<group>";
@@ -128,6 +158,22 @@
 			path = "Zeeguu ReaderUITests";
 			sourceTree = "<group>";
 		};
+		94779A0C1C1722C300C494ED /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				94779A0D1C1722E500C494ED /* UIViewExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		94779A1E1C17359000C494ED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				94779A261C17385200C494ED /* ZeeguuAPI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,6 +184,7 @@
 				947799CD1C17171B00C494ED /* Sources */,
 				947799CE1C17171B00C494ED /* Frameworks */,
 				947799CF1C17171B00C494ED /* Resources */,
+				94779A1F1C1735A300C494ED /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -234,7 +281,6 @@
 			files = (
 				947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */,
 				947799DE1C17171B00C494ED /* Assets.xcassets in Resources */,
-				947799DC1C17171B00C494ED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +305,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				947799D91C17171B00C494ED /* DetailViewController.swift in Sources */,
-				947799D71C17171B00C494ED /* MasterViewController.swift in Sources */,
+				94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */,
+				94779A071C171A5E00C494ED /* Article.swift in Sources */,
+				94779A0B1C171BD400C494ED /* ArticleListView.swift in Sources */,
+				947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */,
+				94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */,
+				947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */,
+				94779A121C17348B00C494ED /* ArticleView.swift in Sources */,
 				947799D51C17171B00C494ED /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,14 +348,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		947799DA1C17171B00C494ED /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				947799DB1C17171B00C494ED /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		947799DF1C17171B00C494ED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -403,6 +446,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Zeeguu Reader/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-Reader";
@@ -414,6 +461,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Zeeguu Reader/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-Reader";
@@ -488,6 +539,7 @@
 				947799FD1C17171B00C494ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		947799FE1C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu ReaderTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +548,7 @@
 				94779A001C17171B00C494ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		94779A011C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu ReaderUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +557,7 @@
 				94779A031C17171B00C494ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
