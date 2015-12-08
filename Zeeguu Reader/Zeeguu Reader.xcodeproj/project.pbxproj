@@ -1,0 +1,511 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		947799D51C17171B00C494ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D41C17171B00C494ED /* AppDelegate.swift */; };
+		947799D71C17171B00C494ED /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D61C17171B00C494ED /* MasterViewController.swift */; };
+		947799D91C17171B00C494ED /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D81C17171B00C494ED /* DetailViewController.swift */; };
+		947799DC1C17171B00C494ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947799DA1C17171B00C494ED /* Main.storyboard */; };
+		947799DE1C17171B00C494ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947799DD1C17171B00C494ED /* Assets.xcassets */; };
+		947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947799DF1C17171B00C494ED /* LaunchScreen.storyboard */; };
+		947799EC1C17171B00C494ED /* Zeeguu_ReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799EB1C17171B00C494ED /* Zeeguu_ReaderTests.swift */; };
+		947799F71C17171B00C494ED /* Zeeguu_ReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		947799E81C17171B00C494ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 947799C91C17171B00C494ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 947799D01C17171B00C494ED;
+			remoteInfo = "Zeeguu Reader";
+		};
+		947799F31C17171B00C494ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 947799C91C17171B00C494ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 947799D01C17171B00C494ED;
+			remoteInfo = "Zeeguu Reader";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		947799D11C17171B00C494ED /* Zeeguu Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zeeguu Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		947799D41C17171B00C494ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		947799D61C17171B00C494ED /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		947799D81C17171B00C494ED /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		947799DB1C17171B00C494ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		947799DD1C17171B00C494ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		947799E01C17171B00C494ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		947799E21C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		947799E71C17171B00C494ED /* Zeeguu ReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zeeguu ReaderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		947799EB1C17171B00C494ED /* Zeeguu_ReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zeeguu_ReaderTests.swift; sourceTree = "<group>"; };
+		947799ED1C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		947799F21C17171B00C494ED /* Zeeguu ReaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zeeguu ReaderUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zeeguu_ReaderUITests.swift; sourceTree = "<group>"; };
+		947799F81C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		947799CE1C17171B00C494ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		947799E41C17171B00C494ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		947799EF1C17171B00C494ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		947799C81C17171B00C494ED = {
+			isa = PBXGroup;
+			children = (
+				947799D31C17171B00C494ED /* Zeeguu Reader */,
+				947799EA1C17171B00C494ED /* Zeeguu ReaderTests */,
+				947799F51C17171B00C494ED /* Zeeguu ReaderUITests */,
+				947799D21C17171B00C494ED /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		947799D21C17171B00C494ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				947799D11C17171B00C494ED /* Zeeguu Reader.app */,
+				947799E71C17171B00C494ED /* Zeeguu ReaderTests.xctest */,
+				947799F21C17171B00C494ED /* Zeeguu ReaderUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		947799D31C17171B00C494ED /* Zeeguu Reader */ = {
+			isa = PBXGroup;
+			children = (
+				947799D41C17171B00C494ED /* AppDelegate.swift */,
+				947799D61C17171B00C494ED /* MasterViewController.swift */,
+				947799D81C17171B00C494ED /* DetailViewController.swift */,
+				947799DA1C17171B00C494ED /* Main.storyboard */,
+				947799DD1C17171B00C494ED /* Assets.xcassets */,
+				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
+				947799E21C17171B00C494ED /* Info.plist */,
+			);
+			path = "Zeeguu Reader";
+			sourceTree = "<group>";
+		};
+		947799EA1C17171B00C494ED /* Zeeguu ReaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				947799EB1C17171B00C494ED /* Zeeguu_ReaderTests.swift */,
+				947799ED1C17171B00C494ED /* Info.plist */,
+			);
+			path = "Zeeguu ReaderTests";
+			sourceTree = "<group>";
+		};
+		947799F51C17171B00C494ED /* Zeeguu ReaderUITests */ = {
+			isa = PBXGroup;
+			children = (
+				947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */,
+				947799F81C17171B00C494ED /* Info.plist */,
+			);
+			path = "Zeeguu ReaderUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		947799D01C17171B00C494ED /* Zeeguu Reader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 947799FB1C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu Reader" */;
+			buildPhases = (
+				947799CD1C17171B00C494ED /* Sources */,
+				947799CE1C17171B00C494ED /* Frameworks */,
+				947799CF1C17171B00C494ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Zeeguu Reader";
+			productName = "Zeeguu Reader";
+			productReference = 947799D11C17171B00C494ED /* Zeeguu Reader.app */;
+			productType = "com.apple.product-type.application";
+		};
+		947799E61C17171B00C494ED /* Zeeguu ReaderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 947799FE1C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu ReaderTests" */;
+			buildPhases = (
+				947799E31C17171B00C494ED /* Sources */,
+				947799E41C17171B00C494ED /* Frameworks */,
+				947799E51C17171B00C494ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				947799E91C17171B00C494ED /* PBXTargetDependency */,
+			);
+			name = "Zeeguu ReaderTests";
+			productName = "Zeeguu ReaderTests";
+			productReference = 947799E71C17171B00C494ED /* Zeeguu ReaderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		947799F11C17171B00C494ED /* Zeeguu ReaderUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94779A011C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu ReaderUITests" */;
+			buildPhases = (
+				947799EE1C17171B00C494ED /* Sources */,
+				947799EF1C17171B00C494ED /* Frameworks */,
+				947799F01C17171B00C494ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				947799F41C17171B00C494ED /* PBXTargetDependency */,
+			);
+			name = "Zeeguu ReaderUITests";
+			productName = "Zeeguu ReaderUITests";
+			productReference = 947799F21C17171B00C494ED /* Zeeguu ReaderUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		947799C91C17171B00C494ED /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Jorrit Oosterhof";
+				TargetAttributes = {
+					947799D01C17171B00C494ED = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+					947799E61C17171B00C494ED = {
+						CreatedOnToolsVersion = 7.1.1;
+						TestTargetID = 947799D01C17171B00C494ED;
+					};
+					947799F11C17171B00C494ED = {
+						CreatedOnToolsVersion = 7.1.1;
+						TestTargetID = 947799D01C17171B00C494ED;
+					};
+				};
+			};
+			buildConfigurationList = 947799CC1C17171B00C494ED /* Build configuration list for PBXProject "Zeeguu Reader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 947799C81C17171B00C494ED;
+			productRefGroup = 947799D21C17171B00C494ED /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				947799D01C17171B00C494ED /* Zeeguu Reader */,
+				947799E61C17171B00C494ED /* Zeeguu ReaderTests */,
+				947799F11C17171B00C494ED /* Zeeguu ReaderUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		947799CF1C17171B00C494ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */,
+				947799DE1C17171B00C494ED /* Assets.xcassets in Resources */,
+				947799DC1C17171B00C494ED /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		947799E51C17171B00C494ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		947799F01C17171B00C494ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		947799CD1C17171B00C494ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				947799D91C17171B00C494ED /* DetailViewController.swift in Sources */,
+				947799D71C17171B00C494ED /* MasterViewController.swift in Sources */,
+				947799D51C17171B00C494ED /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		947799E31C17171B00C494ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				947799EC1C17171B00C494ED /* Zeeguu_ReaderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		947799EE1C17171B00C494ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				947799F71C17171B00C494ED /* Zeeguu_ReaderUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		947799E91C17171B00C494ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 947799D01C17171B00C494ED /* Zeeguu Reader */;
+			targetProxy = 947799E81C17171B00C494ED /* PBXContainerItemProxy */;
+		};
+		947799F41C17171B00C494ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 947799D01C17171B00C494ED /* Zeeguu Reader */;
+			targetProxy = 947799F31C17171B00C494ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		947799DA1C17171B00C494ED /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				947799DB1C17171B00C494ED /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		947799DF1C17171B00C494ED /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				947799E01C17171B00C494ED /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		947799F91C17171B00C494ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		947799FA1C17171B00C494ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		947799FC1C17171B00C494ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Zeeguu Reader/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-Reader";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		947799FD1C17171B00C494ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Zeeguu Reader/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-Reader";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		947799FF1C17171B00C494ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Zeeguu ReaderTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-ReaderTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zeeguu Reader.app/Zeeguu Reader";
+			};
+			name = Debug;
+		};
+		94779A001C17171B00C494ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Zeeguu ReaderTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-ReaderTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zeeguu Reader.app/Zeeguu Reader";
+			};
+			name = Release;
+		};
+		94779A021C17171B00C494ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Zeeguu ReaderUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-ReaderUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Zeeguu Reader";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		94779A031C17171B00C494ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Zeeguu ReaderUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-ReaderUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Zeeguu Reader";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		947799CC1C17171B00C494ED /* Build configuration list for PBXProject "Zeeguu Reader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				947799F91C17171B00C494ED /* Debug */,
+				947799FA1C17171B00C494ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		947799FB1C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu Reader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				947799FC1C17171B00C494ED /* Debug */,
+				947799FD1C17171B00C494ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		947799FE1C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu ReaderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				947799FF1C17171B00C494ED /* Debug */,
+				94779A001C17171B00C494ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		94779A011C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu ReaderUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94779A021C17171B00C494ED /* Debug */,
+				94779A031C17171B00C494ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 947799C91C17171B00C494ED /* Project object */;
+}
