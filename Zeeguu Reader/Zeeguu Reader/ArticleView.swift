@@ -54,6 +54,8 @@ class ArticleView: UIView {
 //						contentLabel.frame = CGRectMake(f.origin.x, f.origin.y, f.size.width, height)
 						
 					})
+				} else {
+					print("Failure, no content")
 				}
 			}
 		}
