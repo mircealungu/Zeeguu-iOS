@@ -57,10 +57,9 @@ class ArticleViewController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		let mc = UIMenuController.sharedMenuController()
 		
-		let menuItem = UIMenuItem(title: "Translate", action: "translate:")
-		let menuItem2 = UIMenuItem(title: "Bookmark", action: "bookmark:")
+		let bookmarkItem = UIMenuItem(title: "Bookmark", action: "bookmark:")
 		
-		mc.menuItems = [menuItem, menuItem2]
+		mc.menuItems = [bookmarkItem]
 	}
 	
 	override func viewDidDisappear(animated: Bool) {

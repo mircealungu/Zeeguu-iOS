@@ -53,7 +53,7 @@ class ArticleView: UIView {
 				if let content = dict!["contents"][0]["content"].string {
 					dispatch_async(dispatch_get_main_queue(), { () -> Void in
 						contentLabel.text = content
-						print("Content: \(content)")
+//						print("Content: \(content)")
 						
 //						let fixedWidth = contentLabel.frame.size.width
 ////						contentLabel.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
