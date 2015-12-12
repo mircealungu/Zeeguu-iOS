@@ -44,14 +44,22 @@ class ZGTextView: UITextView {
 	
 	func selectedTextContext() -> String {
 		let range = self.selectedRange
+		print("range: \(range)")
 		
 		let text: NSString = self.text
 		
 		let sentenceBegin = text.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch, range: NSMakeRange(0, range.location), locale: nil)
 		let sentenceEnd = text.rangeOfString(".", options: [], range: NSMakeRange(range.location, text.length - range.location), locale: nil)
+		print("sentenceBegin: \(sentenceBegin)")
+		print("sentenceEnd: \(sentenceEnd)")
 		
-		let begin = (sentenceBegin.location == NSNotFound ? 0 : sentenceBegin.location + 2)
-		let end = (sentenceEnd.location == NSNotFound ? text.length : sentenceEnd.location + 1) - sentenceEnd.location
+		var begin = (sentenceBegin.location == NSNotFound ? 0 : sentenceBegin.location + 2)
+		let end = (sentenceEnd.location == NSNotFound ? text.length : sentenceEnd.location + sentenceEnd.length) - begin
+		if (text.characterAtIndex(begin) == "\n".characterAtIndex(0)) {
+			++begin
+		}
+		print("begin: \(begin)")
+		print("end: \(end)")
 		
 		let newRange = NSMakeRange(begin, end)
 		
@@ -72,7 +80,7 @@ class ZGTextView: UITextView {
 	}
 	
 	func translate(sender: AnyObject?) {
-		NSLog("translate called")
+		print("translate called for \(self.selectedText()) with context: \"\(self.selectedTextContext())\"")
 		ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), context: self.selectedTextContext(), url: article.url) { (translation) -> Void in
 			if let t = translation {
 				print("\"\(self.selectedText())\" translated to \"\(t)\"")
