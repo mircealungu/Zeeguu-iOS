@@ -20,19 +20,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		self.window?.backgroundColor = UIColor.whiteColor()
 		
-		let splitViewController = UISplitViewController()
-		
 		let mainVC = UINavigationController(rootViewController: ArticleListViewController())
-		let detailVC = UINavigationController(rootViewController: ArticleViewController())
+		let toolbarVC = UITabBarController()
 		
-		splitViewController.viewControllers = [mainVC, detailVC]
+		let item = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Favorites, tag: 0)
+		mainVC.tabBarItem = item
 		
-		window?.rootViewController = splitViewController
+		toolbarVC.viewControllers = [mainVC]
 		
-//		let splitViewController = self.window!.rootViewController as! UISplitViewController
+		if (UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone) {
+			
+			self.window?.rootViewController = toolbarVC
+			
+		} else {
+			let splitViewController = UISplitViewController()
+			let detailVC = UINavigationController(rootViewController: ArticleViewController())
+			splitViewController.viewControllers = [toolbarVC, detailVC]
+			detailVC.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+			splitViewController.delegate = self
+			
+			window?.rootViewController = splitViewController
+		}
 		
-		detailVC.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
-		splitViewController.delegate = self
 		self.window?.makeKeyAndVisible()
 		
 		if (!ZeeguuAPI.sharedAPI().isLoggedIn) {
@@ -76,6 +85,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 //	    }
 	    return true
 	}
-
 }
 

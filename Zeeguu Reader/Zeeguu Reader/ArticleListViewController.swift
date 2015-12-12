@@ -10,30 +10,21 @@ import UIKit
 
 class ArticleListViewController: UITableViewController {
 
-	var detailViewController: ArticleViewController? = nil
 	var objects = [Article]()
-
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
-//		self.navigationItem.leftBarButtonItem = self.editButtonItem()
 		
 		self.tableView.estimatedRowHeight = 80
 		
+		self.title = "Zeeguu"
 		self.navigationItem.title = "Zeeguu"
 		
 		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
 		self.navigationItem.rightBarButtonItem = addButton
-		if let split = self.splitViewController {
-		    let controllers = split.viewControllers
-		    self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ArticleViewController
+		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+			self.clearsSelectionOnViewWillAppear = true
 		}
-	}
-
-	override func viewWillAppear(animated: Bool) {
-		self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
-		super.viewWillAppear(animated)
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -46,20 +37,6 @@ class ArticleListViewController: UITableViewController {
 		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
 		self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
 	}
-
-//	// MARK: - Segues
-//
-//	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//		if segue.identifier == "showDetail" {
-//		    if let indexPath = self.tableView.indexPathForSelectedRow {
-//		        let object = objects[indexPath.row] as! NSDate
-//		        let controller = (segue.destinationViewController as! UINavigationController).topViewController as! ArticleViewController
-//		        controller.detailItem = object
-//		        controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-//		        controller.navigationItem.leftItemsSupplementBackButton = true
-//		    }
-//		}
-//	}
 
 	// MARK: - Table View
 
@@ -79,11 +56,6 @@ class ArticleListViewController: UITableViewController {
 		} else {
 			cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
 		}
-//		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-		
-//		let object = objects[indexPath.row] as! NSDate
-//		cell.textLabel!.text = object.description
-		
 		
 		let article = objects[indexPath.row]
 		let articleView = ArticleListView(article: article)
@@ -111,22 +83,24 @@ class ArticleListViewController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let article = objects[indexPath.row]
+		let vc = ArticleViewController(article: article)
+		
 		if let split = self.splitViewController {
-			let article = objects[indexPath.row]
 			var controllers = split.viewControllers
 			controllers.removeLast()
 			
-			let vc = ArticleViewController(article: article)
 			let nav = UINavigationController(rootViewController: vc)
 			
-			
-			//			let controller = (controllers[controllers.count - 1] as! UINavigationController).topViewController as! WebViewController
-			//			controller.detailItem = object
 			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
 			vc.navigationItem.leftItemsSupplementBackButton = true
-			//			split.viewControllers = controllers
-			//			split.viewWillAppear(true)
-			split.showDetailViewController(nav, sender: nil)
+			split.showDetailViewController(nav, sender: self)
+			if let sv = self.splitViewController {
+				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
+			}
+		} else {
+			vc.hidesBottomBarWhenPushed = true
+			self.navigationController?.pushViewController(vc, animated: true)
 		}
 	}
 }
