@@ -37,7 +37,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		// Override point for customization after application launch.
 		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		self.window?.backgroundColor = UIColor.whiteColor()
+		self.setupArticleRootViewcontroller()
+		self.window?.makeKeyAndVisible()
 		
+		if (!ZeeguuAPI.sharedAPI().isLoggedIn) {
+			let vc = UINavigationController(rootViewController: LoginTableViewController())
+			vc.modalPresentationStyle = .FormSheet
+			self.window?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+		}
+		return true
+	}
+	
+	func setupArticleRootViewcontroller() {
 		let mainVC = UINavigationController(rootViewController: ArticleListViewController())
 		let toolbarVC = UITabBarController()
 		
@@ -57,19 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 			detailVC.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
 			splitViewController.delegate = self
 			
-			window?.rootViewController = splitViewController
+			self.window?.rootViewController = splitViewController
 		}
-		
-		self.window?.makeKeyAndVisible()
-		
-		if (!ZeeguuAPI.sharedAPI().isLoggedIn) {
-			ZeeguuAPI.sharedAPI().loginWithEmail("j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
-				print("Logged in: \(success)")
-			}
-		}
-		return true
 	}
-
+	
 	func applicationWillResignActive(application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

@@ -25,6 +25,8 @@
 		94779A271C17385200C494ED /* ZeeguuAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94779A261C17385200C494ED /* ZeeguuAPI.framework */; };
 		94779A281C17386100C494ED /* ZeeguuAPI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94779A261C17385200C494ED /* ZeeguuAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A291C17452800C494ED /* ZGTextView.swift */; };
+		94CEECE31C1D792E00C3D0E3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE21C1D792E00C3D0E3 /* Utils.swift */; };
+		94CEECE51C1D7C3200C3D0E3 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		94779A111C17348B00C494ED /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
 		94779A261C17385200C494ED /* ZeeguuAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZeeguuAPI.framework; sourceTree = "<group>"; };
 		94779A291C17452800C494ED /* ZGTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextView.swift; sourceTree = "<group>"; };
+		94CEECE21C1D792E00C3D0E3 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +146,7 @@
 				94779A291C17452800C494ED /* ZGTextView.swift */,
 				9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */,
 				9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */,
+				94CEECE21C1D792E00C3D0E3 /* Utils.swift */,
 				9408F0411C1C818F002F9637 /* Localizable.strings */,
 				947799DD1C17171B00C494ED /* Assets.xcassets */,
 				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
@@ -174,6 +179,7 @@
 			children = (
 				94779A0D1C1722E500C494ED /* UIViewExtension.swift */,
 				9408F0431C1C8461002F9637 /* StringExtension.swift */,
+				94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -327,8 +333,10 @@
 				947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */,
 				94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */,
 				947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */,
+				94CEECE51C1D7C3200C3D0E3 /* UIViewControllerExtension.swift in Sources */,
 				94779A121C17348B00C494ED /* ArticleView.swift in Sources */,
 				947799D51C17171B00C494ED /* AppDelegate.swift in Sources */,
+				94CEECE31C1D792E00C3D0E3 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

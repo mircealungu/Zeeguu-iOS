@@ -26,3 +26,12 @@
 
 "APP_TITLE" = "Zeeguu";
 "BOOKMARK" = "Bookmark";
+"EMAIL" = "Email";
+"LOGIN" = "Login";
+"LOGIN_FAILED" = "Login failed";
+"LOGIN_FAILED_MESSAGE" = "Login failed. Verify that your entered the correct email address and password.";
+"NO_LOGIN" = "No login credentials";
+"NO_LOGIN_MESSAGE" = "Please enter your login credentials.";
+"OK" = "OK";
+"PASSWORD" = "Password";
+"USERNAME" = "Username";
