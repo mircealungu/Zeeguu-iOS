@@ -35,8 +35,8 @@ class ArticleListViewController: UITableViewController {
 		
 		self.tableView.estimatedRowHeight = 80
 		
-		self.title = "Zeeguu"
-		self.navigationItem.title = "Zeeguu"
+		self.title = "APP_TITLE".localized
+		self.navigationItem.title = "APP_TITLE".localized
 		
 		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
 		self.navigationItem.rightBarButtonItem = addButton

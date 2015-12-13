@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */; };
+		9408F0421C1C818F002F9637 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9408F0411C1C818F002F9637 /* Localizable.strings */; };
+		9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0431C1C8461002F9637 /* StringExtension.swift */; };
+		9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */; };
 		947799D51C17171B00C494ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D41C17171B00C494ED /* AppDelegate.swift */; };
 		947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D61C17171B00C494ED /* ArticleListViewController.swift */; };
 		947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D81C17171B00C494ED /* ArticleViewController.swift */; };
@@ -54,6 +58,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
+		9408F0411C1C818F002F9637 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		9408F0431C1C8461002F9637 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		947799D11C17171B00C494ED /* Zeeguu Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zeeguu Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799D41C17171B00C494ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		947799D61C17171B00C494ED /* ArticleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +140,9 @@
 				94779A0A1C171BD400C494ED /* ArticleListView.swift */,
 				94779A111C17348B00C494ED /* ArticleView.swift */,
 				94779A291C17452800C494ED /* ZGTextView.swift */,
+				9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */,
+				9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */,
+				9408F0411C1C818F002F9637 /* Localizable.strings */,
 				947799DD1C17171B00C494ED /* Assets.xcassets */,
 				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
 				947799E21C17171B00C494ED /* Info.plist */,
@@ -162,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				94779A0D1C1722E500C494ED /* UIViewExtension.swift */,
+				9408F0431C1C8461002F9637 /* StringExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -280,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */,
+				9408F0421C1C818F002F9637 /* Localizable.strings in Resources */,
 				947799DE1C17171B00C494ED /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,7 +320,10 @@
 			files = (
 				94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */,
 				94779A071C171A5E00C494ED /* Article.swift in Sources */,
+				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
+				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
 				94779A0B1C171BD400C494ED /* ArticleListView.swift in Sources */,
+				9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */,
 				947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */,
 				94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */,
 				947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */,
