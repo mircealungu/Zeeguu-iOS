@@ -25,13 +25,21 @@
 */
 
 "APP_TITLE" = "Zeeguu";
+"BASE_LANGUAGE" = "Base language";
 "BOOKMARK" = "Bookmark";
+"CHOOSE_LANGUAGE" = "Choose language";
 "EMAIL" = "Email";
+"LEARN_LANGUAGE" = "Learn";
 "LOGIN" = "Login";
+"LOGIN_OR_REGISTER" = "Login or register";
 "LOGIN_FAILED" = "Login failed";
 "LOGIN_FAILED_MESSAGE" = "Login failed. Verify that your entered the correct email address and password.";
+"NAME" = "Name";
+"NO_LANGUAGE" = "No language";
+"NO_LANGUAGES_TO_SHOW" = "There are no languages yet. Please wait for them to load.";
 "NO_LOGIN" = "No login credentials";
 "NO_LOGIN_MESSAGE" = "Please enter your login credentials.";
 "OK" = "OK";
 "PASSWORD" = "Password";
+"REGISTER" = "Register";
 "USERNAME" = "Username";

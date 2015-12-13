@@ -38,12 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		self.window?.backgroundColor = UIColor.whiteColor()
 		self.setupArticleRootViewcontroller()
-		self.window?.makeKeyAndVisible()
 		
-		if (!ZeeguuAPI.sharedAPI().isLoggedIn) {
-			let vc = UINavigationController(rootViewController: LoginTableViewController())
-			vc.modalPresentationStyle = .FormSheet
-			self.window?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+		let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
+		dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+			if (!ZeeguuAPI.sharedAPI().isLoggedIn) {
+				let vc = UINavigationController(rootViewController: LoginRegisterTableViewController())
+				vc.modalPresentationStyle = .FormSheet
+				self.window?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+			}
 		}
 		return true
 	}
@@ -58,9 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		toolbarVC.viewControllers = [mainVC]
 		
 		if (UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone) {
-			
 			self.window?.rootViewController = toolbarVC
-			
 		} else {
 			let splitViewController = UISplitViewController()
 			let detailVC = UINavigationController(rootViewController: ArticleViewController())
@@ -70,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 			
 			self.window?.rootViewController = splitViewController
 		}
+		self.window?.makeKeyAndVisible()
 	}
 	
 	func applicationWillResignActive(application: UIApplication) {
