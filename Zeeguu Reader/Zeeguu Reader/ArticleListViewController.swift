@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import ZeeguuAPI
 
 class ArticleListViewController: UITableViewController {
 
@@ -40,6 +41,10 @@ class ArticleListViewController: UITableViewController {
 		
 		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
 		self.navigationItem.rightBarButtonItem = addButton
+		
+		let logoutButton = UIBarButtonItem(title: "Logout", style: .Done, target: self, action: "logout:")
+		self.navigationItem.leftBarButtonItem = logoutButton
+		
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			self.clearsSelectionOnViewWillAppear = true
 		}
@@ -54,6 +59,11 @@ class ArticleListViewController: UITableViewController {
 		objects.insert(Article(articleTitle: "Innenminister ärgern sich über lange Asylverfahren", articleUrl: "http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", articleDate: "2015-12-04 15:19", articleSource: "T-Online"), atIndex: 0)
 		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
 		self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+	}
+	
+	func logout(sender: AnyObject) {
+		ZeeguuAPI.sharedAPI().logout()
+		(UIApplication.sharedApplication().delegate as? AppDelegate)?.presentLogin()
 	}
 
 	// MARK: - Table View
