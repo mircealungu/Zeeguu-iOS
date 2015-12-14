@@ -95,7 +95,7 @@ class LanguagesTableViewController: UITableViewController {
 	}
 	
 	func setupLanguages() {
-		ZeeguuAPI.sharedAPI().getAvailableLanguages { (array) -> Void in
+		let completion: (JSON? -> Void) = { (array) -> Void in
 			if let arr = array, langs = arr.rawValue as? [String] {
 				var languages: [(String, String)] = []
 				
@@ -112,6 +112,15 @@ class LanguagesTableViewController: UITableViewController {
 				self.tableView.reloadData()
 			}
 			self.refreshControl?.endRefreshing()
+		}
+		
+		switch (chooseType) {
+			case .BaseLanguage:
+				ZeeguuAPI.sharedAPI().getAvailableNativeLanguages(completion)
+				break;
+			case .LearnLanguage:
+				ZeeguuAPI.sharedAPI().getAvailableLanguages(completion)
+				break;
 		}
 	}
 	
