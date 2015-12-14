@@ -42,9 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
 		dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
 			if (!ZeeguuAPI.sharedAPI().isLoggedIn) {
-				let vc = UINavigationController(rootViewController: LoginRegisterTableViewController())
-				vc.modalPresentationStyle = .FormSheet
-				self.window?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+				self.presentLogin()
 			}
 		}
 		return true
@@ -57,7 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		let item = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Favorites, tag: 0)
 		mainVC.tabBarItem = item
 		
-		toolbarVC.viewControllers = [mainVC]
+		let profileVC = UINavigationController(rootViewController: UIViewController())
+		profileVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Bookmarks, tag: 0)
+		
+		toolbarVC.viewControllers = [mainVC, profileVC]
 		
 		if (UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone) {
 			self.window?.rootViewController = toolbarVC
@@ -71,6 +72,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 			self.window?.rootViewController = splitViewController
 		}
 		self.window?.makeKeyAndVisible()
+	}
+	
+	func presentLogin() {
+		let vc = UINavigationController(rootViewController: LoginRegisterTableViewController())
+		vc.modalPresentationStyle = .FormSheet
+		self.window?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
 	}
 	
 	func applicationWillResignActive(application: UIApplication) {
