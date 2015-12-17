@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		// Override point for customization after application launch.
 		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		self.window?.backgroundColor = UIColor.whiteColor()
-		self.setupArticleRootViewcontroller()
+		self.setupArticleRootViewController()
 		
 		let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
 		dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		return true
 	}
 	
-	func setupArticleRootViewcontroller() {
+	func setupArticleRootViewController() {
 		let mainVC = UINavigationController(rootViewController: ArticleListViewController())
 		let toolbarVC = UITabBarController()
 		
