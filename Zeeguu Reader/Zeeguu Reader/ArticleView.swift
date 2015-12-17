@@ -29,7 +29,7 @@ import ZeeguuAPI
 
 
 class ArticleView: UIView {
-
+	
 	var article: Article!
 	
 	convenience init(article: Article) {
