@@ -36,6 +36,31 @@ class Utils {
 			UIViewController.currentViewController()?.presentViewController(alert, animated: true, completion: nil)
 		}
 	}
-
+	
+	/// Returns the context (sentence) in which the selected text (indicated with the selected range) exists.
+	///
+	/// - parameter text: The text in which some substring was selected.
+	/// - parameter range: The range of the selected substring.
+	/// - returns: The context (sentence) in which the selected substring exists.
+	static func selectedTextContextForText(text: NSString, selectedRange range: NSRange) -> String {
+		print("range: \(range)")
+		
+		let sentenceBegin = text.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch, range: NSMakeRange(0, range.location), locale: nil)
+		let sentenceEnd = text.rangeOfString(".", options: [], range: NSMakeRange(range.location, text.length - range.location), locale: nil)
+		print("sentenceBegin: \(sentenceBegin)")
+		print("sentenceEnd: \(sentenceEnd)")
+		
+		var begin = (sentenceBegin.location == NSNotFound ? 0 : sentenceBegin.location + 2)
+		let end = (sentenceEnd.location == NSNotFound ? text.length : sentenceEnd.location + sentenceEnd.length) - begin
+		if (text.characterAtIndex(begin) == "\n".characterAtIndex(0)) {
+			++begin
+		}
+		print("begin: \(begin)")
+		print("end: \(end)")
+		
+		let newRange = NSMakeRange(begin, end)
+		
+		return text.substringWithRange(newRange)
+	}
 	
 }

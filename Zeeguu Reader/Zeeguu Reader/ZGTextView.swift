@@ -43,31 +43,7 @@ class ZGTextView: UITextView {
 	}
 	
 	func selectedTextContext() -> String {
-		let range = self.selectedRange
-		print("range: \(range)")
-		
-		let text: NSString = self.text
-		
-		let sentenceBegin = text.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch, range: NSMakeRange(0, range.location), locale: nil)
-		let sentenceEnd = text.rangeOfString(".", options: [], range: NSMakeRange(range.location, text.length - range.location), locale: nil)
-		print("sentenceBegin: \(sentenceBegin)")
-		print("sentenceEnd: \(sentenceEnd)")
-		
-		var begin = (sentenceBegin.location == NSNotFound ? 0 : sentenceBegin.location + 2)
-		let end = (sentenceEnd.location == NSNotFound ? text.length : sentenceEnd.location + sentenceEnd.length) - begin
-		if (text.characterAtIndex(begin) == "\n".characterAtIndex(0)) {
-			++begin
-		}
-		print("begin: \(begin)")
-		print("end: \(end)")
-		
-		let newRange = NSMakeRange(begin, end)
-		
-		let beginning = self.beginningOfDocument;
-		let startPos = self.positionFromPosition(beginning, offset:newRange.location);
-		let endPos = self.positionFromPosition(startPos!, offset:newRange.length);
-		let textRange = self.textRangeFromPosition(startPos!, toPosition:endPos!);
-		return self.textInRange(textRange!)!
+		return Utils.selectedTextContextForText(self.text, selectedRange: self.selectedRange)
 	}
 	
 	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
