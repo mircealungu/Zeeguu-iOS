@@ -42,7 +42,7 @@ class ArticleListViewController: UITableViewController {
 		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
 		self.navigationItem.rightBarButtonItem = addButton
 		
-		let logoutButton = UIBarButtonItem(title: "Logout", style: .Done, target: self, action: "logout:")
+		let logoutButton = UIBarButtonItem(title: "LOGOUT".localized, style: .Done, target: self, action: "logout:")
 		self.navigationItem.leftBarButtonItem = logoutButton
 		
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {

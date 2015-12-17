@@ -34,6 +34,7 @@
 "LOGIN_OR_REGISTER" = "Login or register";
 "LOGIN_FAILED" = "Login failed";
 "LOGIN_FAILED_MESSAGE" = "Login failed. Verify that your entered the correct email address and password.";
+"LOGOUT" = "Logout";
 "NAME" = "Name";
 "NO_LANGUAGE" = "No language";
 "NO_LANGUAGES_TO_SHOW" = "There are no languages yet. Please wait for them to load.";
