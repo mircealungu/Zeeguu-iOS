@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 	}
 	
 	func setupArticleRootViewController() {
-		let mainVC = UINavigationController(rootViewController: ArticleListViewController())
+		let mainVC = UINavigationController(rootViewController: FeedOverviewTableViewController())
 		let toolbarVC = UITabBarController()
 		
 		let item = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Favorites, tag: 0)

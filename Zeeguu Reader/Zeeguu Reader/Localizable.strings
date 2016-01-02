@@ -24,9 +24,13 @@
   THE SOFTWARE.
 */
 
+"ADD" = "Add";
+"ADD_FEED" = "Add feed";
+"ALL_FEEDS" = "All feeds";
 "APP_TITLE" = "Zeeguu Reader";
 "BASE_LANGUAGE" = "Base language";
 "BOOKMARK" = "Bookmark";
+"CANCEL" = "Cancel";
 "CHOOSE_LANGUAGE" = "Choose language";
 "EMAIL" = "Email";
 "LEARN_LANGUAGE" = "Learn";
@@ -43,4 +47,5 @@
 "OK" = "OK";
 "PASSWORD" = "Password";
 "REGISTER" = "Register";
+"URL" = "Url";
 "USERNAME" = "Username";
