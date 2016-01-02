@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
             endingLineNumber = "81"
-            landmarkName = "canPerformAction(_:withSender:)"
+            landmarkName = "translate(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

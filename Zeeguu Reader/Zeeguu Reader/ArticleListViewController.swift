@@ -27,7 +27,7 @@
 import UIKit
 import ZeeguuAPI
 
-class ArticleListViewController: UITableViewController {
+class ArticleListViewController: ZGTableViewController {
 
 	var objects = [Article]()
 

@@ -32,7 +32,7 @@ enum LanguageChooseType {
 	case LearnLanguage
 }
 
-class LanguagesTableViewController: UITableViewController {
+class LanguagesTableViewController: ZGTableViewController {
 	var rows: [(String, String)] = []
 	
 	var chooseType: LanguageChooseType = .BaseLanguage

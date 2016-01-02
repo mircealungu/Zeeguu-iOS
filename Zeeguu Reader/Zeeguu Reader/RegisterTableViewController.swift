@@ -27,7 +27,7 @@
 import UIKit
 import ZeeguuAPI
 
-class RegisterTableViewController: UITableViewController, LanguagesTableViewControllerDelegate {
+class RegisterTableViewController: ZGTableViewController, LanguagesTableViewControllerDelegate {
 	let rows = [["NAME".localized, "EMAIL".localized, "PASSWORD".localized], ["LEARN_LANGUAGE".localized, "BASE_LANGUAGE".localized]]
 	
 	let nameField = UITextField.autoLayoutCapapble()
