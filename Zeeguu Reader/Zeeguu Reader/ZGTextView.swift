@@ -57,7 +57,7 @@ class ZGTextView: UITextView {
 	
 	func translate(sender: AnyObject?) {
 		print("translate called for \(self.selectedText()) with context: \"\(self.selectedTextContext())\"")
-		ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), context: self.selectedTextContext(), url: article.url) { (translation) -> Void in
+		ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: article.title, context: self.selectedTextContext(), url: article.url) { (translation) -> Void in
 			if let t = translation {
 				print("\"\(self.selectedText())\" translated to \"\(t)\"")
 				
