@@ -33,16 +33,20 @@ enum LanguageChooseType {
 }
 
 class LanguagesTableViewController: ZGTableViewController {
-	var rows: [(String, String)] = []
+	var rows = [(String, String)]()
 	
 	var chooseType: LanguageChooseType = .BaseLanguage
 	var delegate: LanguagesTableViewControllerDelegate? = nil
 	
-	convenience init(chooseType: LanguageChooseType, delegate: LanguagesTableViewControllerDelegate) {
+	var preselectedLanguage: String? = nil
+	
+	convenience init(chooseType: LanguageChooseType, preselectedLanguage: String? = nil, delegate: LanguagesTableViewControllerDelegate) {
 		self.init(style: .Plain)
 		
 		self.chooseType = chooseType
 		self.delegate = delegate
+		
+		self.preselectedLanguage = preselectedLanguage
 		
 		self.title = "CHOOSE_LANGUAGE".localized
 	}
@@ -87,6 +91,12 @@ class LanguagesTableViewController: ZGTableViewController {
 		if (cell == nil) {
 			cell = UITableViewCell(style: .Default, reuseIdentifier: cellTitle.0)
 			cell?.textLabel?.text = cellTitle.1
+			
+			if let preselected = self.preselectedLanguage {
+				if preselected == cellTitle.0 {
+					cell?.accessoryType = .Checkmark
+				}
+			}
 		}
 		
 		// Configure the cell...
@@ -100,7 +110,7 @@ class LanguagesTableViewController: ZGTableViewController {
 				var languages: [(String, String)] = []
 				
 				for l in langs {
-					if let ll = NSLocale.systemLocale().displayNameForKey(NSLocaleLanguageCode, value: l) {
+					if let ll = LanguagesTableViewController.getNameForLanguageCode(l) {
 						languages.append(l, ll)
 					} else {
 						languages.append(l, l)
@@ -109,9 +119,15 @@ class LanguagesTableViewController: ZGTableViewController {
 				self.rows = languages.sort({ (left, right) -> Bool in
 					return left.0 < right.0
 				})
-				self.tableView.reloadData()
 			}
-			self.refreshControl?.endRefreshing()
+			dispatch_async(dispatch_get_main_queue(), { () -> Void in
+				CATransaction.begin()
+				CATransaction.setCompletionBlock({ () -> Void in
+					self.tableView.reloadData()
+				})
+				self.refreshControl?.endRefreshing()
+				CATransaction.commit()
+			})
 		}
 		
 		switch (chooseType) {
@@ -125,13 +141,17 @@ class LanguagesTableViewController: ZGTableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		self.delegate?.didChooseLanguage(self.rows[indexPath.row], languageType: self.chooseType)
+		self.delegate?.didChooseLanguage(self.rows[indexPath.row].0, languageType: self.chooseType)
 		self.navigationController?.popViewControllerAnimated(true)
+	}
+	
+	static func getNameForLanguageCode(code: String) -> String? {
+		return NSLocale.systemLocale().displayNameForKey(NSLocaleLanguageCode, value: code)
 	}
 }
 
 protocol LanguagesTableViewControllerDelegate {
 	
-	func didChooseLanguage(language: (String, String), languageType: LanguageChooseType)
+	func didChooseLanguage(language: String, languageType: LanguageChooseType)
 	
 }
