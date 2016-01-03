@@ -41,8 +41,16 @@ class BookmarksTableViewController: ZGTableViewController {
 		
 		self.tableView.estimatedRowHeight = 80
 		
-		self.title = "BOOKMARKS".localized
+		self.clearsSelectionOnViewWillAppear = true
 		
+		self.refreshControl = UIRefreshControl()
+		self.refreshControl?.addTarget(self, action: "getBookmarks", forControlEvents: .ValueChanged)
+		self.refreshControl?.beginRefreshing()
+		getBookmarks()
+	}
+	
+	func getBookmarks() {
+		self.bookmarks = [[Bookmark]]()
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
 			if let d = dict?.array {
 				var counter = 0
@@ -66,41 +74,21 @@ class BookmarksTableViewController: ZGTableViewController {
 					self.dates.append(date)
 					++counter
 				}
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+			}
+			dispatch_async(dispatch_get_main_queue(), { () -> Void in
+				CATransaction.begin()
+				CATransaction.setCompletionBlock({ () -> Void in
 					self.tableView.reloadData()
 				})
-			}
+				self.refreshControl?.endRefreshing()
+				CATransaction.commit()
+			})
 		}
-		self.clearsSelectionOnViewWillAppear = true
 	}
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
-	}
-	
-//	func addNewsFeed(sender: AnyObject) {
-//		let addView = AddFeedTableViewController(delegate: self)
-//		let nav = UINavigationController(rootViewController: addView)
-//		self.presentViewController(nav, animated: true, completion: nil)
-//	}
-//	
-//	func addFeed(feed: String) {
-//		self.newsFeeds.append(feed)
-//		let def = NSUserDefaults.standardUserDefaults()
-//		
-//		var feeds = self.newsFeeds
-//		if (feeds.count > 1) {
-//			feeds.removeFirst()
-//		} else {
-//			self.newsFeeds.insert("ALL_FEEDS".localized, atIndex: 0)
-//		}
-//		def.setObject(feeds, forKey: feedsKey)
-//		self.tableView.reloadData()
-//	}
-	
-	func addFeedDidCancel() {
-		
 	}
 	
 	// MARK: - Table View
@@ -130,10 +118,10 @@ class BookmarksTableViewController: ZGTableViewController {
 		return cell
 	}
 	
-	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-		// Return false if you do not want the specified item to be editable.
-		return true
-	}
+//	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//		// Return false if you do not want the specified item to be editable.
+//		return true
+//	}
 	
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		let formatter = NSDateFormatter()
@@ -158,24 +146,24 @@ class BookmarksTableViewController: ZGTableViewController {
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		//		let feed = self.newsFeeds[indexPath.row]
-		let vc = ArticleListViewController()
-		
-		if let split = self.splitViewController {
-			var controllers = split.viewControllers
-			controllers.removeLast()
-			
-			let nav = UINavigationController(rootViewController: vc)
-			
-			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-			vc.navigationItem.leftItemsSupplementBackButton = true
-			split.showDetailViewController(nav, sender: self)
-			if let sv = self.splitViewController {
-				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
-			}
-		} else {
-			vc.hidesBottomBarWhenPushed = true
-			self.navigationController?.pushViewController(vc, animated: true)
-		}
+//		let vc = ArticleListViewController()
+//		
+//		if let split = self.splitViewController {
+//			var controllers = split.viewControllers
+//			controllers.removeLast()
+//			
+//			let nav = UINavigationController(rootViewController: vc)
+//			
+//			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+//			vc.navigationItem.leftItemsSupplementBackButton = true
+//			split.showDetailViewController(nav, sender: self)
+//			if let sv = self.splitViewController {
+//				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
+//			}
+//		} else {
+//			vc.hidesBottomBarWhenPushed = true
+//			self.navigationController?.pushViewController(vc, animated: true)
+//		}
 	}
 
 }
