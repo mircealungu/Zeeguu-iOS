@@ -47,6 +47,7 @@
 "NO_LOGIN_MESSAGE" = "Please enter your login credentials.";
 "OK" = "OK";
 "PASSWORD" = "Password";
+"PROFILE" = "Profile";
 "REGISTER" = "Register";
 "URL" = "Url";
 "USERNAME" = "Username";

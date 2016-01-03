@@ -42,11 +42,6 @@ class ArticleListViewController: ZGTableViewController {
 		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
 		self.navigationItem.rightBarButtonItem = addButton
 		
-		let logoutButton = UIBarButtonItem(title: "LOGOUT".localized, style: .Done, target: self, action: "logout:")
-		self.navigationItem.leftBarButtonItem = logoutButton
-		
-		self.navigationItem.leftItemsSupplementBackButton = true
-		
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			self.clearsSelectionOnViewWillAppear = true
 		}
@@ -64,8 +59,9 @@ class ArticleListViewController: ZGTableViewController {
 	}
 	
 	func logout(sender: AnyObject) {
-		ZeeguuAPI.sharedAPI().logout()
-		(UIApplication.sharedApplication().delegate as? AppDelegate)?.presentLogin()
+		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
+			(UIApplication.sharedApplication().delegate as? AppDelegate)?.presentLogin()
+		}
 	}
 
 	// MARK: - Table View
