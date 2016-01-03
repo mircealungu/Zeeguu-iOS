@@ -52,13 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		let toolbarVC = UITabBarController()
 		
 		let mainVC = UINavigationController(rootViewController: FeedOverviewTableViewController())
-		mainVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "feedsIcon"), selectedImage: UIImage(named: "feedsIconActive"))
-		
 		let bookmarkVC = UINavigationController(rootViewController: BookmarksTableViewController())
-		bookmarkVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "bookmarksIcon"), selectedImage: UIImage(named: "bookmarksIconActive"))
-		
 		let profileVC = UINavigationController(rootViewController: BookmarksTableViewController())
-		profileVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "profileIcon"), selectedImage: UIImage(named: "profileIconActive"))
 		
 		toolbarVC.viewControllers = [mainVC, bookmarkVC, profileVC]
 		

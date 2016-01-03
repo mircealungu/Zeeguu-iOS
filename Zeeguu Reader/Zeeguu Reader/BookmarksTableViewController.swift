@@ -34,6 +34,9 @@ class BookmarksTableViewController: ZGTableViewController {
 	
 	convenience init() {
 		self.init(style: .Plain)
+		
+		self.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "bookmarksIcon"), selectedImage: UIImage(named: "bookmarksIconActive"))
+		self.title = "BOOKMARKS".localized
 	}
 	
 	override func viewDidLoad() {

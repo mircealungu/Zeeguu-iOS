@@ -34,14 +34,15 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	
 	convenience init() {
 		self.init(style: .Grouped)
+		
+		self.tabBarItem = UITabBarItem(title: "APP_TITLE".localized, image: UIImage(named: "feedsIcon"), selectedImage: UIImage(named: "feedsIconActive"))
+		self.title = "APP_TITLE".localized
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		self.tableView.estimatedRowHeight = 80
-		
-		self.title = "APP_TITLE".localized
 		
 		let def = NSUserDefaults.standardUserDefaults()
 		if let feeds = def.objectForKey(feedsKey) {
@@ -138,22 +139,22 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 //		let feed = self.newsFeeds[indexPath.row]
 		let vc = ArticleListViewController()
 		
-		if let split = self.splitViewController {
-			var controllers = split.viewControllers
-			controllers.removeLast()
-			
-			let nav = UINavigationController(rootViewController: vc)
-			
-			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-			vc.navigationItem.leftItemsSupplementBackButton = true
-			split.showDetailViewController(nav, sender: self)
-			if let sv = self.splitViewController {
-				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
-			}
-		} else {
-			vc.hidesBottomBarWhenPushed = true
+//		if let split = self.splitViewController {
+//			var controllers = split.viewControllers
+//			controllers.removeLast()
+//			
+//			let nav = UINavigationController(rootViewController: vc)
+//			
+//			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+//			vc.navigationItem.leftItemsSupplementBackButton = true
+//			split.showDetailViewController(nav, sender: self)
+//			if let sv = self.splitViewController {
+//				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
+//			}
+//		} else {
+//			vc.hidesBottomBarWhenPushed = true
 			self.navigationController?.pushViewController(vc, animated: true)
-		}
+//		}
 	}
 
 }
