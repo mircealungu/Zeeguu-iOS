@@ -40,4 +40,8 @@ class AppIcon {
 		return UIImage(named: active ? "profileIconActive" : "profileIcon")
 	}
 	
+	static func historyIcon(active: Bool = false) -> UIImage? {
+		return UIImage(named: active ? "historyIconActive" : "historyIcon")
+	}
+	
 }
