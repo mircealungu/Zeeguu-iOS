@@ -70,6 +70,7 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	func addNewsFeed(sender: AnyObject) {
 		let addView = AddFeedTableViewController(delegate: self)
 		let nav = UINavigationController(rootViewController: addView)
+		nav.modalPresentationStyle = .FormSheet
 		self.presentViewController(nav, animated: true, completion: nil)
 	}
 	
