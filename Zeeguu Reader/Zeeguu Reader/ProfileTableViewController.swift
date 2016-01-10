@@ -34,7 +34,7 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 	convenience init() {
 		self.init(style: .Grouped)
 		
-		self.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "profileIcon"), selectedImage: UIImage(named: "profileIconActive"))
+		self.tabBarItem = UITabBarItem(title: nil, image: AppIcon.profileIcon(), selectedImage: AppIcon.profileIcon(true))
 		self.title = "PROFILE".localized
 	}
 	
