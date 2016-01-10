@@ -71,7 +71,7 @@ class Bookmark {
 		
 		let formatter = NSDateFormatter()
 		formatter.locale = NSLocale(localeIdentifier: "EN-US")
-		formatter.dateFormat = "EEEE, dd MMMM"
+		formatter.dateFormat = "EEEE, dd MMMM y"
 
 		let date = formatter.dateFromString(bookmarkDate)
 		self.date = date!
