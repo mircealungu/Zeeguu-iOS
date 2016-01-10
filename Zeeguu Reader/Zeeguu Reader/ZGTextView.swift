@@ -35,10 +35,10 @@ class ZGTextView: UITextView {
 		self.init()
 		self.article = article;
 		self.translatesAutoresizingMaskIntoConstraints = false
+		self.font = UIFont.systemFontOfSize(UIFont.systemFontSize())
 	}
 	
 	func selectedText() -> String {
-//		return self.stringByEvaluatingJavaScriptFromString("window.getSelection().toString()")!
 		return self.textInRange(self.selectedTextRange!)!
 	}
 	
@@ -47,39 +47,27 @@ class ZGTextView: UITextView {
 	}
 	
 	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-//		NSLog("can perform action asked: %@, for selected text: %@", NSStringFromSelector(action), self.selectedText())
-		if action == "bookmark:" {
+		if action == "translate:" {
 			translate(self)
-			return true
 		}
 		return false
 	}
 	
 	func translate(sender: AnyObject?) {
 		print("translate called for \(self.selectedText()) with context: \"\(self.selectedTextContext())\"")
-		ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: article.title, context: self.selectedTextContext(), url: article.url) { (translation) -> Void in
-			if let t = translation {
+		ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: article.title, context: self.selectedTextContext(), url: article.url) { (dict) -> Void in
+			if let t = dict?["translation"].string {
 				print("\"\(self.selectedText())\" translated to \"\(t)\"")
 				
-//				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//					let alert = UIAlertController(title: "Translation", message: "\"\(self.selectedText())\" translated to \"\(t)\"", preferredStyle: UIAlertControllerStyle.ActionSheet)
-//					
-//					let selectionRange = self.selectedTextRange;
-//					let selectionStartRect = self.caretRectForPosition(selectionRange!.start);
-//					let selectionEndRect = self.caretRectForPosition(selectionRange!.end);
-//					
-//					let rect = CGRectMake(selectionStartRect.origin.x, selectionStartRect.origin.y, selectionEndRect.origin.x + selectionEndRect.size.width - selectionStartRect.origin.x, selectionStartRect.size.height)
-//					
-//					print("rect: \(rect)")
-//					
-//					alert.popoverPresentationController?.sourceRect = rect
-//					alert.popoverPresentationController?.sourceView = self
-//					
-//					alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
-//						alert.dismissViewControllerAnimated(true, completion: nil)
-//					}))
-//					(UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
-//				})
+				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					let range = self.selectedRange
+					self.scrollEnabled = false
+					
+					self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: UIColor.redColor()]))
+					
+					self.resignFirstResponder()
+					self.scrollEnabled = true
+				})
 			} else {
 				print("translating \"\(self.selectedText())\" went wrong")
 			}
@@ -88,6 +76,10 @@ class ZGTextView: UITextView {
 	
 	func bookmark(sender: AnyObject?) {
 		NSLog("bookmark called")
+	}
+	
+	override func scrollRectToVisible(rect: CGRect, animated: Bool) {
+		// do nothing
 	}
 
 }

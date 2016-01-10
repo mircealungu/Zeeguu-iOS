@@ -31,6 +31,8 @@ import ZeeguuAPI
 class ArticleView: UIView {
 	
 	var article: Article!
+	var titleLabel: UILabel?
+	var contentView: UITextView?
 	
 	convenience init(article: Article) {
 		self.init()
@@ -40,19 +42,27 @@ class ArticleView: UIView {
 		
 		
 		
-		let titleLabel = UILabel.autoLayoutCapapble()
-		titleLabel.text = article.title
+		titleLabel = UILabel.autoLayoutCapapble()
+		titleLabel?.text = article.title
+		titleLabel?.numberOfLines = 0;
+		titleLabel?.font = UIFont.boldSystemFontOfSize(20)
 		
-		let contentLabel = ZGTextView(article: self.article)
-		contentLabel.editable = false;
+		print("fontsize: \(titleLabel?.font.pointSize)")
+		
+		contentView = ZGTextView(article: self.article)
+		contentView?.editable = false;
+		contentView?.textContainerInset = UIEdgeInsetsZero
+		contentView?.textContainer.lineFragmentPadding = 0
+		
+		print("fontsize: \(contentView?.font)")
 		
 		if let contents = article.contents {
-			contentLabel.text = contents
+			contentView?.text = contents
 		} else {
 			ZeeguuAPI.sharedAPI().getContentFromURLs([article.url]) { (dict) -> Void in
 				if let content = dict!["contents"][0]["content"].string {
 					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						contentLabel.text = content
+						self.contentView?.text = content
 //						print("Content: \(content)")
 						
 //						let fixedWidth = contentLabel.frame.size.width
@@ -79,16 +89,24 @@ class ArticleView: UIView {
 		}
 		
 		
-		let views = ["title":titleLabel, "content": contentLabel]
+		let views: [String: UIView] = ["title":titleLabel!, "content": contentView!]
 		
-		self.addSubview(titleLabel)
-		self.addSubview(contentLabel)
+		self.addSubview(titleLabel!)
+		self.addSubview(contentView!)
 		
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[title]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[content]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[title]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[content]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[title]-[content]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
+		print("subviews: \(contentView?.subviews)")
+		
+		self.addConstraint(NSLayoutConstraint(item: contentView!, attribute: .Height, relatedBy: .Equal, toItem: contentView!.subviews[0], attribute: .Height, multiplier: 1, constant: 0))
+	}
+	
+	override func layoutSubviews() {
+		titleLabel?.preferredMaxLayoutWidth = self.frame.width - 20
+		super.layoutSubviews()
 	}
 
 }
