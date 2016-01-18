@@ -21,7 +21,6 @@
 		947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947799DF1C17171B00C494ED /* LaunchScreen.storyboard */; };
 		947799EC1C17171B00C494ED /* Zeeguu_ReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799EB1C17171B00C494ED /* Zeeguu_ReaderTests.swift */; };
 		947799F71C17171B00C494ED /* Zeeguu_ReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */; };
-		94779A071C171A5E00C494ED /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A061C171A5E00C494ED /* Article.swift */; };
 		94779A0B1C171BD400C494ED /* ArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A0A1C171BD400C494ED /* ArticleListView.swift */; };
 		94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A0D1C1722E500C494ED /* UIViewExtension.swift */; };
 		94779A121C17348B00C494ED /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A111C17348B00C494ED /* ArticleView.swift */; };
@@ -29,7 +28,6 @@
 		949F8EA11C466C7000D635A0 /* ZeeguuAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949F8E9E1C466C5F00D635A0 /* ZeeguuAPI.framework */; };
 		94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B758311C36B797001B4294 /* AddFeedTableViewController.swift */; };
 		94C748281C39220400F3DCC2 /* BookmarksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C748271C39220400F3DCC2 /* BookmarksTableViewController.swift */; };
-		94C7482A1C39226000F3DCC2 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C748291C39226000F3DCC2 /* Bookmark.swift */; };
 		94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */; };
 		94CEECE31C1D792E00C3D0E3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE21C1D792E00C3D0E3 /* Utils.swift */; };
 		94CEECE51C1D7C3200C3D0E3 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */; };
@@ -102,7 +100,6 @@
 		947799F21C17171B00C494ED /* Zeeguu ReaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zeeguu ReaderUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zeeguu_ReaderUITests.swift; sourceTree = "<group>"; };
 		947799F81C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		94779A061C171A5E00C494ED /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		94779A0A1C171BD400C494ED /* ArticleListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListView.swift; sourceTree = "<group>"; };
 		94779A0D1C1722E500C494ED /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		94779A111C17348B00C494ED /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
@@ -110,7 +107,6 @@
 		949F8E981C466C5F00D635A0 /* ZeeguuAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZeeguuAPI.xcodeproj; path = "../../Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPI.xcodeproj"; sourceTree = "<group>"; };
 		94B758311C36B797001B4294 /* AddFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFeedTableViewController.swift; sourceTree = "<group>"; };
 		94C748271C39220400F3DCC2 /* BookmarksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewController.swift; sourceTree = "<group>"; };
-		94C748291C39226000F3DCC2 /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		94CEECE21C1D792E00C3D0E3 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -245,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				94C748271C39220400F3DCC2 /* BookmarksTableViewController.swift */,
-				94C748291C39226000F3DCC2 /* Bookmark.swift */,
 			);
 			name = Bookmarks;
 			sourceTree = "<group>";
@@ -256,7 +251,6 @@
 				947799D61C17171B00C494ED /* ArticleListViewController.swift */,
 				94779A0A1C171BD400C494ED /* ArticleListView.swift */,
 				947799D81C17171B00C494ED /* ArticleViewController.swift */,
-				94779A061C171A5E00C494ED /* Article.swift */,
 				94779A111C17348B00C494ED /* ArticleView.swift */,
 			);
 			name = Articles;
@@ -449,10 +443,8 @@
 			files = (
 				94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */,
 				94C748281C39220400F3DCC2 /* BookmarksTableViewController.swift in Sources */,
-				94779A071C171A5E00C494ED /* Article.swift in Sources */,
 				9440B02C1C380CBC00BDD367 /* ZGTableViewController.swift in Sources */,
 				94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */,
-				94C7482A1C39226000F3DCC2 /* Bookmark.swift in Sources */,
 				94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */,
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
