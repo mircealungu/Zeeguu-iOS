@@ -29,7 +29,17 @@ import ZeeguuAPI
 
 class ArticleListViewController: ZGTableViewController {
 
-	var objects = [Article]()
+	var feeds = [Feed]()
+	var articles = [Article]()
+	
+	convenience init(feed: Feed) {
+		self.init(feeds: [feed])
+	}
+	
+	convenience init(feeds: [Feed]) {
+		self.init()
+		self.feeds = feeds
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()

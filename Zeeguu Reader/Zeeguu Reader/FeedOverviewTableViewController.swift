@@ -26,11 +26,13 @@
 
 import UIKit
 
+import ZeeguuAPI
+
 let feedsKey = "newsFeeds"
 
 class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewControllerDelegate {
 
-	var newsFeeds = [String]()
+	var newsFeeds = [AnyObject]()
 	
 	convenience init() {
 		self.init(style: .Grouped)
@@ -44,22 +46,45 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 		
 		self.tableView.estimatedRowHeight = 80
 		
-		let def = NSUserDefaults.standardUserDefaults()
-		if let feeds = def.objectForKey(feedsKey) {
-			self.newsFeeds = feeds as! [String]
-			if self.newsFeeds.count != 0 {
-				self.newsFeeds.insert("ALL_FEEDS".localized, atIndex: 0)
-			}
-		} else {
-			def.setObject(self.newsFeeds, forKey: feedsKey)
-		}
+//		let def = NSUserDefaults.standardUserDefaults()
+//		if let feeds = def.objectForKey(feedsKey) {
+//			self.newsFeeds = feeds as! [String]
+//			if self.newsFeeds.count != 0 {
+//				self.newsFeeds.insert("ALL_FEEDS".localized, atIndex: 0)
+//			}
+//		} else {
+//			def.setObject(self.newsFeeds, forKey: feedsKey)
+//		}
 		
 		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addNewsFeed:")
 		self.navigationItem.rightBarButtonItem = addButton
 		
-//		let logoutButton = UIBarButtonItem(title: "LOGOUT".localized, style: .Done, target: self, action: "logout:")
-//		self.navigationItem.leftBarButtonItem = logoutButton
 		self.clearsSelectionOnViewWillAppear = true
+		
+		self.refreshControl = UIRefreshControl()
+		self.refreshControl?.addTarget(self, action: "getFeeds", forControlEvents: .ValueChanged)
+		self.refreshControl?.beginRefreshing()
+		getFeeds()
+	}
+	
+	func getFeeds() {
+		ZeeguuAPI.sharedAPI().getFeedsBeingFollowed { (feeds) -> Void in
+			if let arr = feeds {
+				self.newsFeeds = arr
+				
+				if (self.newsFeeds.count > 0) {
+					self.newsFeeds.insert("ALL_FEEDS".localized, atIndex: 0)
+				}
+			}
+			dispatch_async(dispatch_get_main_queue(), { () -> Void in
+				CATransaction.begin()
+				CATransaction.setCompletionBlock({ () -> Void in
+					self.tableView.reloadData()
+				})
+				self.refreshControl?.endRefreshing()
+				CATransaction.commit()
+			})
+		}
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -112,7 +137,14 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 		}
 		
 		let feed = newsFeeds[indexPath.row]
-		cell.textLabel?.text = feed
+
+		if let title = feed as? String {
+			cell.textLabel?.text = title
+		} else if let f = feed as? Feed {
+			cell.textLabel?.text = f.title
+		}
+		
+		
 		cell.accessoryType = .DisclosureIndicator
 		
 		return cell
@@ -125,37 +157,31 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	
 	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		if editingStyle == .Delete {
-			self.newsFeeds.removeAtIndex(indexPath.row)
-			let def = NSUserDefaults.standardUserDefaults()
-			
-			var feeds = self.newsFeeds
-			feeds.removeFirst()
-			def.setObject(feeds, forKey: feedsKey)
-			
-			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+			if let feedID = (self.newsFeeds[indexPath.row] as? Feed)?.id {
+				ZeeguuAPI.sharedAPI().stopFollowingFeed(feedID, completion: { (success) -> Void in
+					if success {
+						dispatch_async(dispatch_get_main_queue(), { () -> Void in
+							self.newsFeeds.removeAtIndex(indexPath.row)
+							tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+						})
+					}
+				})
+			}
 		}
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//		let feed = self.newsFeeds[indexPath.row]
-		let vc = ArticleListViewController()
-		
-//		if let split = self.splitViewController {
-//			var controllers = split.viewControllers
-//			controllers.removeLast()
-//			
-//			let nav = UINavigationController(rootViewController: vc)
-//			
-//			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-//			vc.navigationItem.leftItemsSupplementBackButton = true
-//			split.showDetailViewController(nav, sender: self)
-//			if let sv = self.splitViewController {
-//				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
-//			}
-//		} else {
-//			vc.hidesBottomBarWhenPushed = true
+		var vc: UIViewController? = nil
+		if let _ = newsFeeds[indexPath.row] as? String {
+			var arr = newsFeeds
+			arr.removeFirst()
+			vc = ArticleListViewController(feeds: arr as! [Feed])
+		} else if let row = newsFeeds[indexPath.row] as? Feed {
+			vc = ArticleListViewController(feed: row)
+		}
+		if let vc = vc {
 			self.navigationController?.pushViewController(vc, animated: true)
-//		}
+		}
 	}
 
 }
