@@ -49,11 +49,41 @@ class ArticleListViewController: ZGTableViewController {
 		self.title = "APP_TITLE".localized
 		self.navigationItem.title = "APP_TITLE".localized
 		
-		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-		self.navigationItem.rightBarButtonItem = addButton
+//		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
+//		self.navigationItem.rightBarButtonItem = addButton
 		
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			self.clearsSelectionOnViewWillAppear = true
+		}
+		
+		self.refreshControl = UIRefreshControl()
+		self.refreshControl?.addTarget(self, action: "getArticles", forControlEvents: .ValueChanged)
+		self.refreshControl?.beginRefreshing()
+		getArticles()
+	}
+	
+	func getArticles() {
+		var j = 0;
+		for var i = 0; i != feeds.count; ++i {
+			ZeeguuAPI.sharedAPI().getFeedItemsForFeed(feeds[i], completion: { (articles) -> Void in
+				if let arts = articles {
+					self.articles.appendContentsOf(arts)
+					self.articles.sortInPlace({ (lhs, rhs) -> Bool in
+						return lhs.date > rhs.date
+					})
+				}
+				++j
+				if (j == self.feeds.count) {
+					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						CATransaction.begin()
+						CATransaction.setCompletionBlock({ () -> Void in
+							self.tableView.reloadData()
+						})
+						self.refreshControl?.endRefreshing()
+						CATransaction.commit()
+					})
+				}
+			})
 		}
 	}
 
@@ -62,11 +92,12 @@ class ArticleListViewController: ZGTableViewController {
 		// Dispose of any resources that can be recreated.
 	}
 
-	func insertNewObject(sender: AnyObject) {
-		objects.insert(Article(articleTitle: "Innenminister ärgern sich über lange Asylverfahren", articleUrl: "http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", articleDate: "2015-12-04 15:19", articleSource: "T-Online"), atIndex: 0)
-		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-		self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-	}
+//	func insertNewObject(sender: AnyObject) {
+	
+//		objects.insert(Article(articleTitle: "Innenminister ärgern sich über lange Asylverfahren", articleUrl: "http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", articleDate: "2015-12-04 15:19", articleSource: "T-Online"), atIndex: 0)
+//		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+//		self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+//	}
 	
 	func logout(sender: AnyObject) {
 		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
@@ -81,7 +112,7 @@ class ArticleListViewController: ZGTableViewController {
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return objects.count
+		return articles.count
 	}
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -93,7 +124,11 @@ class ArticleListViewController: ZGTableViewController {
 			cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
 		}
 		
-		let article = objects[indexPath.row]
+		for v in cell.contentView.subviews {
+			v.removeFromSuperview()
+		}
+		
+		let article = articles[indexPath.row]
 		let articleView = ArticleListView(article: article)
 		
 		cell.contentView.addSubview(articleView)
@@ -111,7 +146,7 @@ class ArticleListViewController: ZGTableViewController {
 
 	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		if editingStyle == .Delete {
-		    objects.removeAtIndex(indexPath.row)
+		    articles.removeAtIndex(indexPath.row)
 		    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
 		} else if editingStyle == .Insert {
 		    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
@@ -119,7 +154,7 @@ class ArticleListViewController: ZGTableViewController {
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let article = objects[indexPath.row]
+		let article = articles[indexPath.row]
 		let vc = ArticleViewController(article: article)
 		
 		if let split = self.splitViewController {
