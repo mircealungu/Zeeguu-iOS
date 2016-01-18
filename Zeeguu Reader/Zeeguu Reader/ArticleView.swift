@@ -56,36 +56,8 @@ class ArticleView: UIView {
 		
 		print("fontsize: \(contentView?.font)")
 		
-		if let contents = article.contents {
-			contentView?.text = contents
-		} else {
-			ZeeguuAPI.sharedAPI().getContentFromURLs([article.url]) { (dict) -> Void in
-				if let content = dict!["contents"][0]["content"].string {
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						self.contentView?.text = content
-//						print("Content: \(content)")
-						
-//						let fixedWidth = contentLabel.frame.size.width
-////						contentLabel.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-//						let newSize = contentLabel.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-//						var newFrame = contentLabel.frame
-//						newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-//						contentLabel.frame = newFrame;
-//						contentLabel.scrollEnabled = false
-//						
-////						self.systemLayoutSizeFittingSize(UILayoutFittingExpandedSize)
-						
-//						contentLabel.layoutManager.ensureLayoutForTextContainer(contentLabel.textContainer)
-//						let containerSize = contentLabel.layoutManager.usedRectForTextContainer(contentLabel.textContainer)
-//						let height = ceil(containerSize.height + contentLabel.textContainerInset.top + contentLabel.textContainerInset.bottom)
-//						let f = contentLabel.frame
-//						contentLabel.frame = CGRectMake(f.origin.x, f.origin.y, f.size.width, height)
-						
-					})
-				} else {
-					print("Failure, no content")
-				}
-			}
+		article.getContents { (contents) -> Void in
+			self.contentView?.text = contents
 		}
 		
 		

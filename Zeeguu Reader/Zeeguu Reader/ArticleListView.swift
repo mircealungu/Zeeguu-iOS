@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import ZeeguuAPI
 
 class ArticleListView: UIView {
 	
@@ -43,7 +44,7 @@ class ArticleListView: UIView {
 		titleLabel.text = article.title
 		
 		let sourceLabel = UILabel.autoLayoutCapapble()
-		sourceLabel.text = article.source
+		sourceLabel.text = article.feed.title
 		
 		let dateLabel = UILabel.autoLayoutCapapble()
 		dateLabel.text = article.date

@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import ZeeguuAPI
 
 class ArticleViewController: UIViewController {
 	
