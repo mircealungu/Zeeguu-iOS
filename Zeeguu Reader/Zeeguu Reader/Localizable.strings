@@ -31,11 +31,12 @@
 "BASE_LANGUAGE" = "Base language";
 "BOOKMARK" = "Bookmark";
 "BOOKMARKS" = "Bookmarks";
-"HISTORY" = "History";
 "CANCEL" = "Cancel";
 "CHOOSE_LANGUAGE" = "Choose language";
+"CHOOSE_FEEDS_TO_ADD" = "Select the news feeds you want to follow.";
 "EMAIL" = "Email";
 "FINDING_FEEDS" = "Finding feeds...";
+"HISTORY" = "History";
 "LEARN_LANGUAGE" = "Learn";
 "LOGIN" = "Login";
 "LOGIN_OR_REGISTER" = "Login or register";

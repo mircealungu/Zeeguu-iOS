@@ -114,6 +114,10 @@ class FindingFeedsTableViewController: ZGTableViewController {
 		return cell!
 	}
 	
+	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+		return "CHOOSE_FEEDS_TO_ADD".localized
+	}
+	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let feed = rows[indexPath.row]
 		if selectedFeeds.containsObject(feed) {
@@ -124,6 +128,7 @@ class FindingFeedsTableViewController: ZGTableViewController {
 			tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
 		}
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+		self.navigationItem.rightBarButtonItem?.enabled = Bool(selectedFeeds.count)
 	}
 	
 	func addFeeds(sender: UIBarButtonItem) {
