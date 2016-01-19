@@ -64,6 +64,10 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl?.addTarget(self, action: "getFeeds", forControlEvents: .ValueChanged)
 		self.refreshControl?.beginRefreshing()
+		
+		self.tableView.rowHeight = UITableViewAutomaticDimension
+		self.tableView.estimatedRowHeight = 80
+		
 		getFeeds()
 	}
 	
@@ -99,18 +103,22 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 		self.presentViewController(nav, animated: true, completion: nil)
 	}
 	
-	func addFeed(feed: String) {
-		self.newsFeeds.append(feed)
-		let def = NSUserDefaults.standardUserDefaults()
-		
-		var feeds = self.newsFeeds
-		if (feeds.count > 1) {
-			feeds.removeFirst()
-		} else {
-			self.newsFeeds.insert("ALL_FEEDS".localized, atIndex: 0)
-		}
-		def.setObject(feeds, forKey: feedsKey)
-		self.tableView.reloadData()
+//	func addFeed(feed: String) {
+//		self.newsFeeds.append(feed)
+//		let def = NSUserDefaults.standardUserDefaults()
+//		
+//		var feeds = self.newsFeeds
+//		if (feeds.count > 1) {
+//			feeds.removeFirst()
+//		} else {
+//			self.newsFeeds.insert("ALL_FEEDS".localized, atIndex: 0)
+//		}
+//		def.setObject(feeds, forKey: feedsKey)
+//		self.tableView.reloadData()
+//	}
+	
+	func addFeedDidAddFeeds(feeds: [Feed]) {
+		getFeeds()
 	}
 	
 	func addFeedDidCancel() {
@@ -128,26 +136,33 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let queueCell = tableView.dequeueReusableCellWithIdentifier("Cell")
-		var cell: UITableViewCell
-		if let c = queueCell {
-			cell = c
-		} else {
-			cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-		}
-		
 		let feed = newsFeeds[indexPath.row]
-
-		if let title = feed as? String {
-			cell.textLabel?.text = title
-		} else if let f = feed as? Feed {
-			cell.textLabel?.text = f.title
+		
+		if indexPath.row == 0 {
+			var cell = tableView.dequeueReusableCellWithIdentifier("ALL_FEEDS")
+			if cell == nil {
+				cell = UITableViewCell(style: .Default, reuseIdentifier: "ALL_FEEDS")
+			}
+			cell?.textLabel?.text = feed as? String
+			cell?.accessoryType = .DisclosureIndicator
+			return cell!
+		} else {
+			var cell = tableView.dequeueReusableCellWithIdentifier("feed") as? FeedTableViewCell
+			if cell == nil {
+				cell = FeedTableViewCell(reuseIdentifier: "feed")
+			}
+			if let f = feed as? Feed {
+				cell?.title = f.title
+				cell?.feedDescription = f.feedDescription
+				f.getImage({ (image) -> Void in
+					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						cell?.feedImage = image
+					})
+				})
+			}
+			cell?.accessoryType = .DisclosureIndicator
+			return cell!
 		}
-		
-		
-		cell.accessoryType = .DisclosureIndicator
-		
-		return cell
 	}
 	
 	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

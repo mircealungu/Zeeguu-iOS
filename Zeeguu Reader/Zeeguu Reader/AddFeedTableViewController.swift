@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import ZeeguuAPI
 
 class AddFeedTableViewController: UITableViewController {
 	let rows = ["URL".localized]
@@ -78,17 +79,25 @@ class AddFeedTableViewController: UITableViewController {
 	func setupTextFields() {
 		urlField.placeholder = "URL".localized
 		urlField.keyboardType = .URL
+		urlField.returnKeyType = .Done
 		urlField.autocapitalizationType = .None
 		urlField.adjustsFontSizeToFitWidth = true
+		urlField.becomeFirstResponder()
+		urlField.addTarget(self, action: "textFieldEnterPressed:", forControlEvents: .EditingDidEndOnExit)
+	}
+	
+	func textFieldEnterPressed(textField: UITextField) {
+		if textField.isEqual(urlField) {
+			addFeed(self.navigationItem.rightBarButtonItem!)
+		}
 	}
 	
 	func addFeed(sender: UIBarButtonItem) {
 		let feed = urlField.text
 		
 		if let f = feed {
-			self.dismissViewControllerAnimated(true, completion: { () -> Void in
-				self.delegate?.addFeed(f)
-			})
+			let vc = FindingFeedsTableViewController(feedURL: f, delegate: delegate)
+			self.navigationController?.pushViewController(vc, animated: true)
 		}
 	}
 	
@@ -104,7 +113,7 @@ class AddFeedTableViewController: UITableViewController {
 
 protocol AddFeedTableViewControllerDelegate {
 	
-	func addFeed(feed:String)
+	func addFeedDidAddFeeds(feeds: [Feed])
 	func addFeedDidCancel()
 	
 }

@@ -35,6 +35,7 @@
 "CANCEL" = "Cancel";
 "CHOOSE_LANGUAGE" = "Choose language";
 "EMAIL" = "Email";
+"FINDING_FEEDS" = "Finding feeds...";
 "LEARN_LANGUAGE" = "Learn";
 "LOGIN" = "Login";
 "LOGIN_OR_REGISTER" = "Login or register";
