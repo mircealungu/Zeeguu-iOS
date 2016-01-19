@@ -49,16 +49,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 	}
 	
 	func setupArticleRootViewController() {
-		let mainVC = UINavigationController(rootViewController: ArticleListViewController())
 		let toolbarVC = UITabBarController()
 		
-		let item = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Favorites, tag: 0)
-		mainVC.tabBarItem = item
+		let mainVC = UINavigationController(rootViewController: FeedOverviewTableViewController())
+		let bookmarkVC = UINavigationController(rootViewController: BookmarksTableViewController())
+		let profileVC = UINavigationController(rootViewController: ProfileTableViewController())
 		
-		let profileVC = UINavigationController(rootViewController: UIViewController())
-		profileVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Bookmarks, tag: 0)
-		
-		toolbarVC.viewControllers = [mainVC, profileVC]
+		toolbarVC.viewControllers = [mainVC, bookmarkVC, profileVC]
 		
 		if (UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone) {
 			self.window?.rootViewController = toolbarVC

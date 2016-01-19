@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import ZeeguuAPI
 
 class ArticleViewController: UIViewController {
 	
@@ -40,12 +41,17 @@ class ArticleViewController: UIViewController {
 		// Do any additional setup after loading the view, typically from a nib.
 		self.view.backgroundColor = UIColor.whiteColor()
 		if let art = article {
+			let sv = UIScrollView.autoLayoutCapapble()
 			let view = ArticleView(article: art)
-			let views: [String: AnyObject] = ["v":view, "top":self.topLayoutGuide]
+			let views: [String: AnyObject] = ["sv": sv,"v":view, "top":self.topLayoutGuide]
 			
-			self.view.addSubview(view)
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[top][v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+			self.view.addSubview(sv)
+			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+			
+			sv.addSubview(view)
+			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		}
 	}
 
@@ -57,7 +63,7 @@ class ArticleViewController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		let mc = UIMenuController.sharedMenuController()
 		
-		let bookmarkItem = UIMenuItem(title: "BOOKMARK".localized, action: "bookmark:")
+		let bookmarkItem = UIMenuItem(title: "TRANSLATE".localized, action: "translate:")
 		
 		mc.menuItems = [bookmarkItem]
 	}

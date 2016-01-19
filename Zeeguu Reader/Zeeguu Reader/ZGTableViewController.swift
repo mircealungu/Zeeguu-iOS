@@ -1,20 +1,20 @@
 //
-//  Article.swift
+//  ZGTableViewController.swift
 //  Zeeguu Reader
 //
-//  Created by Jorrit Oosterhof on 08-12-15.
+//  Created by Jorrit Oosterhof on 02-01-16.
 //  Copyright © 2015 Jorrit Oosterhof.
-//
+// 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
 //  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 //  copies of the Software, and to permit persons to whom the Software is
 //  furnished to do so, subject to the following conditions:
-//
+//  
 //  The above copyright notice and this permission notice shall be included in
 //  all copies or substantial portions of the Software.
-//
+//  
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
@@ -26,17 +26,23 @@
 
 import UIKit
 
-class Article {
-	var source: String
-	var title: String
-	var url: String
-	var date: String
-	var contents: String?
-	
-	init(articleTitle: String, articleUrl: String, articleDate: String, articleSource: String) {
-		source = articleSource;
-		title = articleTitle;
-		url = articleUrl;
-		date = articleDate;
+class ZGTableViewController: UITableViewController {
+
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		if (self.clearsSelectionOnViewWillAppear) {
+			let selectedRow = self.tableView.indexPathForSelectedRow
+			if let row = selectedRow {
+				self.tableView.deselectRowAtIndexPath(row, animated: animated)
+				
+				self.transitionCoordinator()?.notifyWhenInteractionEndsUsingBlock({ (context) -> Void in
+					if (context.isCancelled()) {
+						self.tableView.selectRowAtIndexPath(row, animated: false, scrollPosition: .None)
+					}
+				})
+			}
+		}
 	}
+
 }

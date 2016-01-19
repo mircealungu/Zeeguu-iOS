@@ -24,11 +24,19 @@
   THE SOFTWARE.
 */
 
+"ADD" = "Add";
+"ADD_FEED" = "Add feed";
+"ALL_FEEDS" = "All feeds";
 "APP_TITLE" = "Zeeguu Reader";
 "BASE_LANGUAGE" = "Base language";
 "BOOKMARK" = "Bookmark";
+"BOOKMARKS" = "Bookmarks";
+"CANCEL" = "Cancel";
 "CHOOSE_LANGUAGE" = "Choose language";
+"CHOOSE_FEEDS_TO_ADD" = "Select the news feeds you want to follow.";
 "EMAIL" = "Email";
+"FINDING_FEEDS" = "Finding feeds...";
+"HISTORY" = "History";
 "LEARN_LANGUAGE" = "Learn";
 "LOGIN" = "Login";
 "LOGIN_OR_REGISTER" = "Login or register";
@@ -42,5 +50,7 @@
 "NO_LOGIN_MESSAGE" = "Please enter your login credentials.";
 "OK" = "OK";
 "PASSWORD" = "Password";
+"PROFILE" = "Profile";
 "REGISTER" = "Register";
+"URL" = "Url";
 "USERNAME" = "Username";

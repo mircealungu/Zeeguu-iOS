@@ -27,15 +27,15 @@
 import UIKit
 import ZeeguuAPI
 
-class RegisterTableViewController: UITableViewController, LanguagesTableViewControllerDelegate {
+class RegisterTableViewController: ZGTableViewController, LanguagesTableViewControllerDelegate {
 	let rows = [["NAME".localized, "EMAIL".localized, "PASSWORD".localized], ["LEARN_LANGUAGE".localized, "BASE_LANGUAGE".localized]]
 	
 	let nameField = UITextField.autoLayoutCapapble()
 	let emailField = UITextField.autoLayoutCapapble()
 	let passwordField = UITextField.autoLayoutCapapble()
 	
-	var learnLanguage: (String, String)? = nil
-	var baseLanguage: (String, String)? = nil
+	var learnLanguage: String? = nil
+	var baseLanguage: String? = nil
 	
 	convenience init() {
 		self.init(style: .Grouped)
@@ -87,11 +87,11 @@ class RegisterTableViewController: UITableViewController, LanguagesTableViewCont
 		if (indexPath.section == 1) {
 			if (indexPath.row == 0) {
 				if let learn = learnLanguage {
-					cell?.detailTextLabel?.text = learn.1
+					cell?.detailTextLabel?.text = LanguagesTableViewController.getNameForLanguageCode(learn)
 				}
 			} else if (indexPath.row == 1) {
 				if let base = baseLanguage {
-					cell?.detailTextLabel?.text = base.1
+					cell?.detailTextLabel?.text = LanguagesTableViewController.getNameForLanguageCode(base)
 				}
 			}
 		}
@@ -118,7 +118,7 @@ class RegisterTableViewController: UITableViewController, LanguagesTableViewCont
 		let email = emailField.text
 		let password = passwordField.text
 		
-		if let na = name,  em = email, pw = password, base = baseLanguage?.0, learn = learnLanguage?.0 {
+		if let na = name,  em = email, pw = password, base = baseLanguage, learn = learnLanguage {
 			ZeeguuAPI.sharedAPI().registerUserWithUsername(na, email: em, password: pw, completion: { (success) -> Void in
 				if (success) {
 					ZeeguuAPI.sharedAPI().setLearnedLanguage(learn, completion: { (success) -> Void in })
@@ -137,15 +137,15 @@ class RegisterTableViewController: UITableViewController, LanguagesTableViewCont
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if (indexPath.section == 1) {
 			if (indexPath.row == 0) {
-				self.navigationController?.pushViewController(LanguagesTableViewController(chooseType: .LearnLanguage, delegate: self), animated: true)
+				self.navigationController?.pushViewController(LanguagesTableViewController(chooseType: .LearnLanguage, preselectedLanguage: learnLanguage, delegate: self), animated: true)
 			} else if (indexPath.row == 1) {
-				self.navigationController?.pushViewController(LanguagesTableViewController(chooseType: .BaseLanguage, delegate: self), animated: true)
+				self.navigationController?.pushViewController(LanguagesTableViewController(chooseType: .BaseLanguage, preselectedLanguage: baseLanguage, delegate: self), animated: true)
 			}
 		}
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 	}
 	
-	func didChooseLanguage(language: (String, String), languageType: LanguageChooseType) {
+	func didChooseLanguage(language: String, languageType: LanguageChooseType) {
 		switch (languageType) {
 			case .BaseLanguage:
 				baseLanguage = language

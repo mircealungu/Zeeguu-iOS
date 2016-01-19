@@ -31,6 +31,8 @@ import ZeeguuAPI
 class ArticleView: UIView {
 	
 	var article: Article!
+	var titleLabel: UILabel?
+	var contentView: UITextView?
 	
 	convenience init(article: Article) {
 		self.init()
@@ -40,55 +42,43 @@ class ArticleView: UIView {
 		
 		
 		
-		let titleLabel = UILabel.autoLayoutCapapble()
-		titleLabel.text = article.title
+		titleLabel = UILabel.autoLayoutCapapble()
+		titleLabel?.text = article.title
+		titleLabel?.numberOfLines = 0;
+		titleLabel?.font = UIFont.boldSystemFontOfSize(20)
 		
-		let contentLabel = ZGTextView(article: self.article)
-		contentLabel.editable = false;
+		print("fontsize: \(titleLabel?.font.pointSize)")
 		
-		if let contents = article.contents {
-			contentLabel.text = contents
-		} else {
-			ZeeguuAPI.sharedAPI().getContentFromURLs([article.url]) { (dict) -> Void in
-				if let content = dict!["contents"][0]["content"].string {
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						contentLabel.text = content
-//						print("Content: \(content)")
-						
-//						let fixedWidth = contentLabel.frame.size.width
-////						contentLabel.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-//						let newSize = contentLabel.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-//						var newFrame = contentLabel.frame
-//						newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-//						contentLabel.frame = newFrame;
-//						contentLabel.scrollEnabled = false
-//						
-////						self.systemLayoutSizeFittingSize(UILayoutFittingExpandedSize)
-						
-//						contentLabel.layoutManager.ensureLayoutForTextContainer(contentLabel.textContainer)
-//						let containerSize = contentLabel.layoutManager.usedRectForTextContainer(contentLabel.textContainer)
-//						let height = ceil(containerSize.height + contentLabel.textContainerInset.top + contentLabel.textContainerInset.bottom)
-//						let f = contentLabel.frame
-//						contentLabel.frame = CGRectMake(f.origin.x, f.origin.y, f.size.width, height)
-						
-					})
-				} else {
-					print("Failure, no content")
-				}
-			}
+		contentView = ZGTextView(article: self.article)
+		contentView?.editable = false;
+		contentView?.textContainerInset = UIEdgeInsetsZero
+		contentView?.textContainer.lineFragmentPadding = 0
+		
+		print("fontsize: \(contentView?.font)")
+		
+		article.getContents { (contents) -> Void in
+			self.contentView?.text = contents
 		}
 		
 		
-		let views = ["title":titleLabel, "content": contentLabel]
+		let views: [String: UIView] = ["title":titleLabel!, "content": contentView!]
 		
-		self.addSubview(titleLabel)
-		self.addSubview(contentLabel)
+		self.addSubview(titleLabel!)
+		self.addSubview(contentView!)
 		
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[title]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[content]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[title]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[content]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[title]-[content]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
+		print("subviews: \(contentView?.subviews)")
+		
+		self.addConstraint(NSLayoutConstraint(item: contentView!, attribute: .Height, relatedBy: .Equal, toItem: contentView!.subviews[0], attribute: .Height, multiplier: 1, constant: 0))
+	}
+	
+	override func layoutSubviews() {
+		titleLabel?.preferredMaxLayoutWidth = self.frame.width - 20
+		super.layoutSubviews()
 	}
 
 }

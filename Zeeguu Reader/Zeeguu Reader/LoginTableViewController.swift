@@ -27,7 +27,7 @@
 import UIKit
 import ZeeguuAPI
 
-class LoginTableViewController: UITableViewController {
+class LoginTableViewController: ZGTableViewController {
 	let rows = ["EMAIL".localized, "PASSWORD".localized]
 	
 	let emailField = UITextField.autoLayoutCapapble()

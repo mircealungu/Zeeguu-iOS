@@ -1,8 +1,8 @@
 //
-//  StringExtension.swift
+//  AppIcon.swift
 //  Zeeguu Reader
 //
-//  Created by Jorrit Oosterhof on 12-12-15.
+//  Created by Jorrit Oosterhof on 10-01-16.
 //  Copyright © 2015 Jorrit Oosterhof.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,16 +26,22 @@
 
 import UIKit
 
-extension String {
-	var localized: String {
-		return NSLocalizedString(self, comment: "")
+class AppIcon {
+	
+	static func newsIcon(active: Bool = false) -> UIImage? {
+		return UIImage(named: active ? "feedsIconActive" : "feedsIcon")
 	}
 	
-	func localizedWithComment(comment: String) -> String {
-		return NSLocalizedString(self, comment: comment)
+	static func bookmarksIcon(active: Bool = false) -> UIImage? {
+		return UIImage(named: active ? "bookmarksIconActive" : "bookmarksIcon")
 	}
 	
-	func insert(string:String,ind:Int) -> String {
-		return String(self.characters.prefix(ind)) + string + String(self.characters.suffix(self.characters.count - ind))
+	static func profileIcon(active: Bool = false) -> UIImage? {
+		return UIImage(named: active ? "profileIconActive" : "profileIcon")
 	}
+	
+	static func historyIcon(active: Bool = false) -> UIImage? {
+		return UIImage(named: active ? "historyIconActive" : "historyIcon")
+	}
+	
 }

@@ -11,6 +11,10 @@
 		9408F0421C1C818F002F9637 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9408F0411C1C818F002F9637 /* Localizable.strings */; };
 		9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0431C1C8461002F9637 /* StringExtension.swift */; };
 		9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */; };
+		9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */; };
+		9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */; };
+		9440B02C1C380CBC00BDD367 /* ZGTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */; };
+		945658191C42B804000CDF3F /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945658181C42B804000CDF3F /* AppIcon.swift */; };
 		947799D51C17171B00C494ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D41C17171B00C494ED /* AppDelegate.swift */; };
 		947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D61C17171B00C494ED /* ArticleListViewController.swift */; };
 		947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D81C17171B00C494ED /* ArticleViewController.swift */; };
@@ -18,13 +22,16 @@
 		947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947799DF1C17171B00C494ED /* LaunchScreen.storyboard */; };
 		947799EC1C17171B00C494ED /* Zeeguu_ReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799EB1C17171B00C494ED /* Zeeguu_ReaderTests.swift */; };
 		947799F71C17171B00C494ED /* Zeeguu_ReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */; };
-		94779A071C171A5E00C494ED /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A061C171A5E00C494ED /* Article.swift */; };
 		94779A0B1C171BD400C494ED /* ArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A0A1C171BD400C494ED /* ArticleListView.swift */; };
 		94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A0D1C1722E500C494ED /* UIViewExtension.swift */; };
 		94779A121C17348B00C494ED /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A111C17348B00C494ED /* ArticleView.swift */; };
-		94779A271C17385200C494ED /* ZeeguuAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94779A261C17385200C494ED /* ZeeguuAPI.framework */; };
-		94779A281C17386100C494ED /* ZeeguuAPI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94779A261C17385200C494ED /* ZeeguuAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A291C17452800C494ED /* ZGTextView.swift */; };
+		949B6C411C4D038C00CF9BB0 /* ZeeguuAPI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 949F8E9E1C466C5F00D635A0 /* ZeeguuAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		949B6C431C4D4DDC00CF9BB0 /* FindingFeedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B6C421C4D4DDC00CF9BB0 /* FindingFeedsTableViewController.swift */; };
+		949F8EA11C466C7000D635A0 /* ZeeguuAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949F8E9E1C466C5F00D635A0 /* ZeeguuAPI.framework */; };
+		94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B758311C36B797001B4294 /* AddFeedTableViewController.swift */; };
+		94C748281C39220400F3DCC2 /* BookmarksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C748271C39220400F3DCC2 /* BookmarksTableViewController.swift */; };
+		94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */; };
 		94CEECE31C1D792E00C3D0E3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE21C1D792E00C3D0E3 /* Utils.swift */; };
 		94CEECE51C1D7C3200C3D0E3 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */; };
 		94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */; };
@@ -47,6 +54,20 @@
 			remoteGlobalIDString = 947799D01C17171B00C494ED;
 			remoteInfo = "Zeeguu Reader";
 		};
+		949F8E9D1C466C5F00D635A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 949F8E981C466C5F00D635A0 /* ZeeguuAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 94DD1EB21C09FA0E005271E6;
+			remoteInfo = ZeeguuAPI;
+		};
+		949F8E9F1C466C5F00D635A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 949F8E981C466C5F00D635A0 /* ZeeguuAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 94DD1EBC1C09FA0F005271E6;
+			remoteInfo = ZeeguuAPITests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,7 +77,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				94779A281C17386100C494ED /* ZeeguuAPI.framework in CopyFiles */,
+				949B6C411C4D038C00CF9BB0 /* ZeeguuAPI.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +88,10 @@
 		9408F0411C1C818F002F9637 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9408F0431C1C8461002F9637 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedOverviewTableViewController.swift; sourceTree = "<group>"; };
+		9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTableViewController.swift; sourceTree = "<group>"; };
+		945658181C42B804000CDF3F /* AppIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		947799D11C17171B00C494ED /* Zeeguu Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zeeguu Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799D41C17171B00C494ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		947799D61C17171B00C494ED /* ArticleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
@@ -80,12 +105,15 @@
 		947799F21C17171B00C494ED /* Zeeguu ReaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zeeguu ReaderUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zeeguu_ReaderUITests.swift; sourceTree = "<group>"; };
 		947799F81C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		94779A061C171A5E00C494ED /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		94779A0A1C171BD400C494ED /* ArticleListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListView.swift; sourceTree = "<group>"; };
 		94779A0D1C1722E500C494ED /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		94779A111C17348B00C494ED /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
-		94779A261C17385200C494ED /* ZeeguuAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZeeguuAPI.framework; sourceTree = "<group>"; };
 		94779A291C17452800C494ED /* ZGTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextView.swift; sourceTree = "<group>"; };
+		949B6C421C4D4DDC00CF9BB0 /* FindingFeedsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindingFeedsTableViewController.swift; sourceTree = "<group>"; };
+		949F8E981C466C5F00D635A0 /* ZeeguuAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZeeguuAPI.xcodeproj; path = "../../Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPI.xcodeproj"; sourceTree = "<group>"; };
+		94B758311C36B797001B4294 /* AddFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFeedTableViewController.swift; sourceTree = "<group>"; };
+		94C748271C39220400F3DCC2 /* BookmarksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewController.swift; sourceTree = "<group>"; };
+		94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		94CEECE21C1D792E00C3D0E3 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterTableViewController.swift; sourceTree = "<group>"; };
@@ -98,7 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94779A271C17385200C494ED /* ZeeguuAPI.framework in Frameworks */,
+				949F8EA11C466C7000D635A0 /* ZeeguuAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +147,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9440B0281C37F14C00BDD367 /* Feeds */ = {
+			isa = PBXGroup;
+			children = (
+				9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */,
+				94B758311C36B797001B4294 /* AddFeedTableViewController.swift */,
+				949B6C421C4D4DDC00CF9BB0 /* FindingFeedsTableViewController.swift */,
+				9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */,
+			);
+			name = Feeds;
+			sourceTree = "<group>";
+		};
 		947799C81C17171B00C494ED = {
 			isa = PBXGroup;
 			children = (
@@ -144,15 +183,14 @@
 			isa = PBXGroup;
 			children = (
 				947799D41C17171B00C494ED /* AppDelegate.swift */,
-				947799D61C17171B00C494ED /* ArticleListViewController.swift */,
-				947799D81C17171B00C494ED /* ArticleViewController.swift */,
-				94779A061C171A5E00C494ED /* Article.swift */,
-				94779A0A1C171BD400C494ED /* ArticleListView.swift */,
-				94779A111C17348B00C494ED /* ArticleView.swift */,
-				94779A291C17452800C494ED /* ZGTextView.swift */,
-				9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */,
+				9440B0281C37F14C00BDD367 /* Feeds */,
+				94C748261C3921E600F3DCC2 /* Bookmarks */,
+				94C7482D1C39496300F3DCC2 /* Profile */,
+				94C7482B1C3936F400F3DCC2 /* Articles */,
+				94C7482C1C393D1100F3DCC2 /* Classes */,
 				94CEECE61C1DA24000C3D0E3 /* Login/Register */,
 				94CEECE21C1D792E00C3D0E3 /* Utils.swift */,
+				945658181C42B804000CDF3F /* AppIcon.swift */,
 				9408F0411C1C818F002F9637 /* Localizable.strings */,
 				947799DD1C17171B00C494ED /* Assets.xcassets */,
 				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
@@ -193,9 +231,55 @@
 		94779A1E1C17359000C494ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				94779A261C17385200C494ED /* ZeeguuAPI.framework */,
+				949F8E981C466C5F00D635A0 /* ZeeguuAPI.xcodeproj */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		949F8E991C466C5F00D635A0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				949F8E9E1C466C5F00D635A0 /* ZeeguuAPI.framework */,
+				949F8EA01C466C5F00D635A0 /* ZeeguuAPITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		94C748261C3921E600F3DCC2 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				94C748271C39220400F3DCC2 /* BookmarksTableViewController.swift */,
+			);
+			name = Bookmarks;
+			sourceTree = "<group>";
+		};
+		94C7482B1C3936F400F3DCC2 /* Articles */ = {
+			isa = PBXGroup;
+			children = (
+				947799D61C17171B00C494ED /* ArticleListViewController.swift */,
+				94779A0A1C171BD400C494ED /* ArticleListView.swift */,
+				947799D81C17171B00C494ED /* ArticleViewController.swift */,
+				94779A111C17348B00C494ED /* ArticleView.swift */,
+			);
+			name = Articles;
+			sourceTree = "<group>";
+		};
+		94C7482C1C393D1100F3DCC2 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				94779A291C17452800C494ED /* ZGTextView.swift */,
+				9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */,
+				9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		94C7482D1C39496300F3DCC2 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		94CEECE61C1DA24000C3D0E3 /* Login/Register */ = {
@@ -301,6 +385,12 @@
 			mainGroup = 947799C81C17171B00C494ED;
 			productRefGroup = 947799D21C17171B00C494ED /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 949F8E991C466C5F00D635A0 /* Products */;
+					ProjectRef = 949F8E981C466C5F00D635A0 /* ZeeguuAPI.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				947799D01C17171B00C494ED /* Zeeguu Reader */,
@@ -309,6 +399,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		949F8E9E1C466C5F00D635A0 /* ZeeguuAPI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ZeeguuAPI.framework;
+			remoteRef = 949F8E9D1C466C5F00D635A0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		949F8EA01C466C5F00D635A0 /* ZeeguuAPITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ZeeguuAPITests.xctest;
+			remoteRef = 949F8E9F1C466C5F00D635A0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		947799CF1C17171B00C494ED /* Resources */ = {
@@ -343,21 +450,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */,
-				94779A071C171A5E00C494ED /* Article.swift in Sources */,
+				94C748281C39220400F3DCC2 /* BookmarksTableViewController.swift in Sources */,
+				9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */,
+				9440B02C1C380CBC00BDD367 /* ZGTableViewController.swift in Sources */,
 				94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */,
+				94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */,
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
 				94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */,
 				94779A0B1C171BD400C494ED /* ArticleListView.swift in Sources */,
+				9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */,
 				94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */,
 				9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */,
 				947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */,
 				94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */,
 				947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */,
 				94CEECE51C1D7C3200C3D0E3 /* UIViewControllerExtension.swift in Sources */,
+				945658191C42B804000CDF3F /* AppIcon.swift in Sources */,
 				94779A121C17348B00C494ED /* ArticleView.swift in Sources */,
 				947799D51C17171B00C494ED /* AppDelegate.swift in Sources */,
+				94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */,
 				94CEECE31C1D792E00C3D0E3 /* Utils.swift in Sources */,
+				949B6C431C4D4DDC00CF9BB0 /* FindingFeedsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

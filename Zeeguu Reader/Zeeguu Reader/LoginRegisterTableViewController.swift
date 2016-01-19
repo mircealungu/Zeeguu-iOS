@@ -26,7 +26,7 @@
 
 import UIKit
 
-class LoginRegisterTableViewController: UITableViewController {
+class LoginRegisterTableViewController: ZGTableViewController {
 	let rows = ["LOGIN".localized, "REGISTER".localized]
 	
 	convenience init() {
