@@ -151,7 +151,7 @@ class HistoryTableViewController: ZGTableViewController {
 		let bookmark = self.bookmarks[indexPath.section][indexPath.row]
 		
 		let vc = HistoryItemViewController(bookmark: bookmark)
-		vc.hidesBottomBarWhenPushed = true
+		
 		self.navigationController?.pushViewController(vc, animated: true)
 		
 //		let vc = ArticleListViewController()
