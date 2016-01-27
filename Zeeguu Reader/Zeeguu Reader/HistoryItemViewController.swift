@@ -31,6 +31,10 @@ class HistoryItemViewController: UIViewController {
 
 	let bookmark: Bookmark
 	
+	private let translationLabel = UILabel.autoLayoutCapapble()
+	private let languageLabel = UILabel.autoLayoutCapapble()
+	private let contextLabel = UILabel.autoLayoutCapapble()
+	
 	init(bookmark: Bookmark) {
 		self.bookmark = bookmark
 		super.init(nibName: nil, bundle: nil)
@@ -50,17 +54,19 @@ class HistoryItemViewController: UIViewController {
 		let sv = UIScrollView.autoLayoutCapapble()
 		let v = UIView.autoLayoutCapapble()
 		
-		let translationLabel = UILabel.autoLayoutCapapble()
-		let languageLabel = UILabel.autoLayoutCapapble()
-		let contextLabel = UILabel.autoLayoutCapapble()
-		
 		translationLabel.numberOfLines = 0;
 		languageLabel.numberOfLines = 0;
 		contextLabel.numberOfLines = 0;
 		
-		translationLabel.preferredMaxLayoutWidth = self.view.frame.size.width - 40
-		languageLabel.preferredMaxLayoutWidth = self.view.frame.size.width - 40
-		contextLabel.preferredMaxLayoutWidth = self.view.frame.size.width - 40
+		if let nav = self.navigationController {
+			translationLabel.preferredMaxLayoutWidth = nav.view.frame.size.width - 40
+			languageLabel.preferredMaxLayoutWidth = nav.view.frame.size.width - 40
+			contextLabel.preferredMaxLayoutWidth = nav.view.frame.size.width - 40
+		} else {
+			translationLabel.preferredMaxLayoutWidth = self.view.frame.size.width - 40
+			languageLabel.preferredMaxLayoutWidth = self.view.frame.size.width - 40
+			contextLabel.preferredMaxLayoutWidth = self.view.frame.size.width - 40
+		}
 		
 		translationLabel.font = UIFont.boldSystemFontOfSize(20)
 		languageLabel.font = UIFont.systemFontOfSize(14)
@@ -94,7 +100,7 @@ class HistoryItemViewController: UIViewController {
 			regex.enumerateMatchesInString(context.string, options: [], range: range, usingBlock: { (results, flags, stop) -> Void in
 				let substringRange = results?.rangeAtIndex(1);
 				if let r = substringRange {
-					contextAttr.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(contextLabel.font.pointSize)], range: r)
+					contextAttr.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(self.contextLabel.font.pointSize)], range: r)
 				}
 			})
 			
@@ -111,7 +117,7 @@ class HistoryItemViewController: UIViewController {
 		v.addSubview(contextLabel)
 		
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
