@@ -27,9 +27,10 @@
 import UIKit
 import ZeeguuAPI
 
-class ArticleViewController: UIViewController {
+class ArticleViewController: UIViewController, ArticleViewDelegate {
 	
 	var article: Article?
+	let refresher = UIRefreshControl()
 	
 	convenience init(article: Article) {
 		self.init()
@@ -42,8 +43,11 @@ class ArticleViewController: UIViewController {
 		self.view.backgroundColor = UIColor.whiteColor()
 		if let art = article {
 			let sv = UIScrollView.autoLayoutCapapble()
-			let view = ArticleView(article: art)
+			let view = ArticleView(article: art, delegate: self)
 			let views: [String: AnyObject] = ["sv": sv,"v":view, "top":self.topLayoutGuide]
+			
+			sv.addSubview(refresher)
+			
 			
 			self.view.addSubview(sv)
 			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
@@ -52,6 +56,8 @@ class ArticleViewController: UIViewController {
 			sv.addSubview(view)
 			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+			
+			refresher.beginRefreshing()
 		}
 	}
 
@@ -74,6 +80,13 @@ class ArticleViewController: UIViewController {
 		mc.menuItems = nil
 	}
 
-
+	func articleContentsDidLoad() {
+		CATransaction.begin()
+		CATransaction.setCompletionBlock({ () -> Void in
+			self.refresher.removeFromSuperview()
+		})
+		refresher.endRefreshing()
+		CATransaction.commit()
+	}
 }
 

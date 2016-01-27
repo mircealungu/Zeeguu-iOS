@@ -33,12 +33,13 @@ class ArticleView: UIView {
 	var article: Article!
 	var titleLabel: UILabel?
 	var contentView: UITextView?
+	var delegate: ArticleViewDelegate?
 	
-	convenience init(article: Article) {
+	convenience init(article: Article, delegate: ArticleViewDelegate?) {
 		self.init()
 		self.article = article;
 		self.translatesAutoresizingMaskIntoConstraints = false
-		
+		self.delegate = delegate
 		
 		
 		
@@ -58,6 +59,7 @@ class ArticleView: UIView {
 		
 		article.getContents { (contents) -> Void in
 			self.contentView?.text = contents
+			self.delegate?.articleContentsDidLoad()
 		}
 		
 		
@@ -81,4 +83,8 @@ class ArticleView: UIView {
 		super.layoutSubviews()
 	}
 
+}
+
+protocol ArticleViewDelegate {
+	func articleContentsDidLoad()
 }
