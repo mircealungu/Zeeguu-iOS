@@ -37,6 +37,7 @@
 		94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */; };
 		94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */; };
 		94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */; };
+		94F208861C58C6F30005EB2F /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,7 @@
 		94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterTableViewController.swift; sourceTree = "<group>"; };
 		94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRegisterTableViewController.swift; sourceTree = "<group>"; };
 		94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagesTableViewController.swift; sourceTree = "<group>"; };
+		94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				947799D61C17171B00C494ED /* ArticleListViewController.swift */,
+				94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */,
 				94779A0A1C171BD400C494ED /* ArticleListView.swift */,
 				947799D81C17171B00C494ED /* ArticleViewController.swift */,
 				94779A111C17348B00C494ED /* ArticleView.swift */,
@@ -453,6 +456,7 @@
 				94C748281C39220400F3DCC2 /* BookmarksTableViewController.swift in Sources */,
 				9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */,
 				9440B02C1C380CBC00BDD367 /* ZGTableViewController.swift in Sources */,
+				94F208861C58C6F30005EB2F /* ArticleTableViewCell.swift in Sources */,
 				94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */,
 				94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */,
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,

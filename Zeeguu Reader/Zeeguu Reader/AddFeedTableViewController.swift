@@ -45,10 +45,18 @@ class AddFeedTableViewController: UITableViewController {
 		self.title = "ADD_FEED".localized
 		
 		let addButton = UIBarButtonItem(title: "ADD".localized, style: .Done, target: self, action: "addFeed:")
+		addButton.enabled = false
 		self.navigationItem.rightBarButtonItem = addButton
 		
 		let cancelButton = UIBarButtonItem(title: "CANCEL".localized, style: .Plain, target: self, action: "cancel:")
 		self.navigationItem.leftBarButtonItem = cancelButton
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldChanged:", name: UITextFieldTextDidChangeNotification, object: urlField)
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		urlField.becomeFirstResponder()
 	}
 	
 	// MARK: - Table view data source
@@ -76,13 +84,16 @@ class AddFeedTableViewController: UITableViewController {
 		return cell!
 	}
 	
+	func textFieldChanged(notification: NSNotification) {
+		self.navigationItem.rightBarButtonItem?.enabled = urlField.text?.characters.count > 0
+	}
+	
 	func setupTextFields() {
 		urlField.placeholder = "URL".localized
 		urlField.keyboardType = .URL
 		urlField.returnKeyType = .Done
 		urlField.autocapitalizationType = .None
 		urlField.adjustsFontSizeToFitWidth = true
-		urlField.becomeFirstResponder()
 		urlField.addTarget(self, action: "textFieldEnterPressed:", forControlEvents: .EditingDidEndOnExit)
 	}
 	
@@ -102,6 +113,7 @@ class AddFeedTableViewController: UITableViewController {
 	}
 	
 	func cancel(sender: UIBarButtonItem) {
+		urlField.resignFirstResponder()
 		self.dismissViewControllerAnimated(true, completion: { () -> Void in
 			self.delegate?.addFeedDidCancel()
 		})

@@ -106,6 +106,8 @@ class FindingFeedsTableViewController: ZGTableViewController {
 			})
 		}
 		
+		cell?.selectionStyle = .None
+		
 //		cell?.textLabel?.text = cellTitle
 		
 		
