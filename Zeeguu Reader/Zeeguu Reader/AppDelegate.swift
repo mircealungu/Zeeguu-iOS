@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		let toolbarVC = UITabBarController()
 		
 		let mainVC = UINavigationController(rootViewController: FeedOverviewTableViewController())
-		let bookmarkVC = UINavigationController(rootViewController: BookmarksTableViewController())
+		let bookmarkVC = UINavigationController(rootViewController: HistoryTableViewController())
 		let profileVC = UINavigationController(rootViewController: ProfileTableViewController())
 		
 		toolbarVC.viewControllers = [mainVC, bookmarkVC, profileVC]

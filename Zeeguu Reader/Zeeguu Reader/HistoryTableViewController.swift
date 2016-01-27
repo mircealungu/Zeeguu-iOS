@@ -1,5 +1,5 @@
 //
-//  BookmarksTableViewController.swift
+//  HistoryTableViewController.swift
 //  Zeeguu Reader
 //
 //  Created by Jorrit Oosterhof on 03-01-16.
@@ -27,7 +27,7 @@
 import UIKit
 import ZeeguuAPI
 
-class BookmarksTableViewController: ZGTableViewController {
+class HistoryTableViewController: ZGTableViewController {
 
 	var bookmarks = [[Bookmark]]()
 	var dates = [String]()
