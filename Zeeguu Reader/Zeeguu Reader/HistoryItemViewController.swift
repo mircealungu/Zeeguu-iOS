@@ -120,7 +120,7 @@ class HistoryItemViewController: UIViewController {
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[t]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[l]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
