@@ -37,6 +37,7 @@
 		94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */; };
 		94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */; };
 		94F208861C58C6F30005EB2F /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */; };
+		94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208891C58D4870005EB2F /* HistoryItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,7 @@
 		94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRegisterTableViewController.swift; sourceTree = "<group>"; };
 		94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagesTableViewController.swift; sourceTree = "<group>"; };
 		94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
+		94F208891C58D4870005EB2F /* HistoryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */,
+				94F208891C58D4870005EB2F /* HistoryItemViewController.swift */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
 				94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */,
+				94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */,
 				9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */,
 				94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */,
 				9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */,

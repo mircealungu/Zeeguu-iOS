@@ -148,6 +148,10 @@ class LanguagesTableViewController: ZGTableViewController {
 	static func getNameForLanguageCode(code: String) -> String? {
 		return NSLocale.systemLocale().displayNameForKey(NSLocaleLanguageCode, value: code)
 	}
+	
+	static func getEnglishNameForLanguageCode(code: String) -> String? {
+		return NSLocale(localeIdentifier: "en-US").displayNameForKey(NSLocaleLanguageCode, value: code)
+	}
 }
 
 protocol LanguagesTableViewControllerDelegate {

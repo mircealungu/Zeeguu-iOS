@@ -34,6 +34,8 @@
 "CANCEL" = "Cancel";
 "CHOOSE_LANGUAGE" = "Choose language";
 "CHOOSE_FEEDS_TO_ADD" = "Select the news feeds you want to follow.";
+"CONTEXT" = "Context";
+"CONTEXT_OF_%@" = "Context of %@";
 "EMAIL" = "Email";
 "FINDING_FEEDS" = "Finding feeds...";
 "HISTORY" = "History";
@@ -44,6 +46,7 @@
 "LOGIN_FAILED_MESSAGE" = "Login failed. Verify that your entered the correct email address and password.";
 "LOGOUT" = "Logout";
 "NAME" = "Name";
+"NO_CONTEXT" = "No context given.";
 "NO_LANGUAGE" = "No language";
 "NO_LANGUAGES_TO_SHOW" = "There are no languages yet. Please wait for them to load.";
 "NO_LOGIN" = "No login credentials";
@@ -52,5 +55,7 @@
 "PASSWORD" = "Password";
 "PROFILE" = "Profile";
 "REGISTER" = "Register";
+"TRANSLATED_TO_%@%@" = "'%@' translated to '%@'";
 "URL" = "Url";
 "USERNAME" = "Username";
+"WORD_IS_LANGUAGE_%@%@" = "%@ is a %@ word";

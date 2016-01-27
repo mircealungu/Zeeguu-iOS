@@ -148,7 +148,12 @@ class HistoryTableViewController: ZGTableViewController {
 //	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		//		let feed = self.newsFeeds[indexPath.row]
+		let bookmark = self.bookmarks[indexPath.section][indexPath.row]
+		
+		let vc = HistoryItemViewController(bookmark: bookmark)
+		vc.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(vc, animated: true)
+		
 //		let vc = ArticleListViewController()
 //		
 //		if let split = self.splitViewController {
