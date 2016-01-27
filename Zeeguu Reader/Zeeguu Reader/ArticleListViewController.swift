@@ -116,26 +116,17 @@ class ArticleListViewController: ZGTableViewController {
 	}
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let queueCell = tableView.dequeueReusableCellWithIdentifier("Cell")
-		var cell: UITableViewCell
-		if let c = queueCell {
-			cell = c
-		} else {
-			cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-		}
-		
-		for v in cell.contentView.subviews {
-			v.removeFromSuperview()
-		}
+		let queueCell = tableView.dequeueReusableCellWithIdentifier("Cell") as? ArticleTableViewCell
 		
 		let article = articles[indexPath.row]
-		let articleView = ArticleListView(article: article)
-		
-		cell.contentView.addSubview(articleView)
-		let views = ["v":articleView]
-		cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[v]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[v]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		
+		var cell: ArticleTableViewCell
+		if let c = queueCell {
+			cell = c
+			cell.setArticle(article)
+		} else {
+			cell = ArticleTableViewCell(article: article, reuseIdentifier: "Cell")
+		}
+		cell.accessoryType = .DisclosureIndicator
 		return cell
 	}
 
