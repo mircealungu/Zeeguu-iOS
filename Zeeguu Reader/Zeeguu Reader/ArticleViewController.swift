@@ -30,7 +30,8 @@ import ZeeguuAPI
 class ArticleViewController: UIViewController, ArticleViewDelegate {
 	
 	var article: Article?
-	let refresher = UIRefreshControl()
+	private var articleView: ArticleView?
+	private let refresher = UIRefreshControl()
 	
 	convenience init(article: Article) {
 		self.init()
@@ -43,21 +44,23 @@ class ArticleViewController: UIViewController, ArticleViewDelegate {
 		self.view.backgroundColor = UIColor.whiteColor()
 		if let art = article {
 			let sv = UIScrollView.autoLayoutCapapble()
-			let view = ArticleView(article: art, delegate: self)
-			let views: [String: AnyObject] = ["sv": sv,"v":view, "top":self.topLayoutGuide]
+			articleView = ArticleView(article: art, delegate: self)
+			let views: [String: AnyObject] = ["sv": sv, "v": articleView!]
 			
 			sv.addSubview(refresher)
-			
 			
 			self.view.addSubview(sv)
 			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 			
-			sv.addSubview(view)
+			sv.addSubview(articleView!)
 			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 			
 			refresher.beginRefreshing()
+			
+			let translateBut = UIBarButtonItem(title: "TRANSLATION_MODE".localized, style: .Plain, target: self, action: "toggleTranslationMode:")
+			self.navigationItem.rightBarButtonItem = translateBut
 		}
 	}
 
@@ -78,6 +81,22 @@ class ArticleViewController: UIViewController, ArticleViewDelegate {
 		let mc = UIMenuController.sharedMenuController()
 		
 		mc.menuItems = nil
+	}
+	
+	func toggleTranslationMode(sender: UIBarButtonItem) {
+		let sheet = UIAlertController(title: "TRANSLATION_MODE".localized, message: "TRANSLATION_MODE_DESCRIPTION".localized, preferredStyle: .ActionSheet)
+		
+		sheet.addAction(UIAlertAction(title: "INSTANT_TRANSLATION".localized, style: .Default, handler: { (action) -> Void in
+			self.articleView?.contentView?.willInstantlyTranslate = true
+		}))
+		
+		sheet.addAction(UIAlertAction(title: "ASK_BEFORE_TRANSLATION".localized, style: .Default, handler: { (action) -> Void in
+			self.articleView?.contentView?.willInstantlyTranslate = false
+		}))
+		
+		sheet.popoverPresentationController?.barButtonItem = sender
+		
+		self.presentViewController(sheet, animated: true, completion: nil)
 	}
 
 	func articleContentsDidLoad() {

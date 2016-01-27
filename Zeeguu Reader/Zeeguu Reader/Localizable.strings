@@ -28,6 +28,7 @@
 "ADD_FEED" = "Add feed";
 "ALL_FEEDS" = "All feeds";
 "APP_TITLE" = "Zeeguu Reader";
+"ASK_BEFORE_TRANSLATION" = "Ask before translation";
 "BASE_LANGUAGE" = "Base language";
 "BOOKMARK" = "Bookmark";
 "BOOKMARKS" = "Bookmarks";
@@ -39,6 +40,7 @@
 "EMAIL" = "Email";
 "FINDING_FEEDS" = "Finding feeds...";
 "HISTORY" = "History";
+"INSTANT_TRANSLATION" = "Instant translation";
 "LEARN_LANGUAGE" = "Learn";
 "LOGIN" = "Login";
 "LOGIN_OR_REGISTER" = "Login or register";
@@ -55,7 +57,10 @@
 "PASSWORD" = "Password";
 "PROFILE" = "Profile";
 "REGISTER" = "Register";
+"TRANSLATE" = "Translate";
 "TRANSLATED_TO_%@%@" = "'%@' translated to '%@'";
+"TRANSLATION_MODE" = "Translate mode";
+"TRANSLATION_MODE_DESCRIPTION" = "You can have your translations in two ways: either instantly after selecting or after selecting and pressing a translate button. With the latter method, you can select a longer piece of text to translate.";
 "URL" = "Url";
 "USERNAME" = "Username";
 "WORD_IS_LANGUAGE_%@%@" = "%@ is a %@ word";

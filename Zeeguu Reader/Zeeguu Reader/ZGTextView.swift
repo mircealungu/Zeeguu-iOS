@@ -30,6 +30,9 @@ import ZeeguuAPI
 class ZGTextView: UITextView {
 
 	var article: Article!
+	var willInstantlyTranslate = true
+	
+	private var isTranslating = false
 	
 	convenience init(article: Article) {
 		self.init()
@@ -48,13 +51,31 @@ class ZGTextView: UITextView {
 	
 	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
 		if action == "translate:" {
-			translate(self)
+			if (willInstantlyTranslate) {
+				translate(self)
+				return false
+			}
+			return true
 		}
 		return false
 	}
 	
 	func translate(sender: AnyObject?) {
+		if (isTranslating) {
+			return
+		}
+		isTranslating = true
 		print("translate called for \(self.selectedText()) with context: \"\(self.selectedTextContext())\"")
+		
+		let range = self.selectedRange
+//		let firstCharAfterRange = NSMakeRange(range.location + range.length, 1)
+		
+		let attributes = self.attributedText.attributesAtIndex(range.location + range.length, effectiveRange: nil)
+		print("attributes: \(attributes)")
+		if let color = attributes[NSForegroundColorAttributeName] where color.isEqual(UIColor.lightGrayColor()) {
+			self.selectedTextRange = nil
+			return
+		}
 		ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: article.title, context: self.selectedTextContext(), url: article.url) { (dict) -> Void in
 			if let t = dict?["translation"].string {
 				print("\"\(self.selectedText())\" translated to \"\(t)\"")
@@ -63,7 +84,7 @@ class ZGTextView: UITextView {
 					let range = self.selectedRange
 					self.scrollEnabled = false
 					
-					self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: UIColor.redColor()]))
+					self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: UIColor.lightGrayColor()]))
 					
 					self.resignFirstResponder()
 					self.scrollEnabled = true
@@ -71,6 +92,7 @@ class ZGTextView: UITextView {
 			} else {
 				print("translating \"\(self.selectedText())\" went wrong")
 			}
+			self.isTranslating = false
 		}
 	}
 	

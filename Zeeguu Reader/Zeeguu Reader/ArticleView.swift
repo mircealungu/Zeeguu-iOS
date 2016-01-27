@@ -32,7 +32,7 @@ class ArticleView: UIView {
 	
 	var article: Article!
 	var titleLabel: UILabel?
-	var contentView: UITextView?
+	var contentView: ZGTextView?
 	var delegate: ArticleViewDelegate?
 	
 	convenience init(article: Article, delegate: ArticleViewDelegate?) {
