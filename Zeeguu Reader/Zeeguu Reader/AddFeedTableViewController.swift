@@ -27,7 +27,7 @@
 import UIKit
 import ZeeguuAPI
 
-class AddFeedTableViewController: UITableViewController {
+class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 	let rows = ["URL".localized]
 	
 	let urlField = UITextField.autoLayoutCapapble()
@@ -85,11 +85,29 @@ class AddFeedTableViewController: UITableViewController {
 	}
 	
 	func textFieldChanged(notification: NSNotification) {
-		self.navigationItem.rightBarButtonItem?.enabled = urlField.text?.characters.count > 0
+		self.navigationItem.rightBarButtonItem?.enabled = urlField.text?.characters.count > "http://".characters.count
+	}
+	
+	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+		if (textField != urlField) {
+			return true
+		}
+		if let t = textField.text {
+			let newString: NSString = NSString(string: t).stringByReplacingCharactersInRange(range, withString: string)
+			let http: NSString = "http://"
+			if (newString.length < http.length) {
+				return false
+			} else if (!newString.hasPrefix(http as String)) {
+				return false
+			}
+		}
+		return true
 	}
 	
 	func setupTextFields() {
 		urlField.placeholder = "URL".localized
+		urlField.text = "http://"
+		urlField.delegate = self
 		urlField.keyboardType = .URL
 		urlField.returnKeyType = .Done
 		urlField.autocapitalizationType = .None
