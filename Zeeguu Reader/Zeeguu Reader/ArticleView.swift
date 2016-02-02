@@ -33,13 +33,11 @@ class ArticleView: UIScrollView {
 	var article: Article?
 	var titleLabel: UILabel
 	var contentView: ZGTextView
-	var articleViewDelegate: ArticleViewDelegate?
 	
 	private let refresher: UIRefreshControl
 	
-	init(article: Article?, delegate: ArticleViewDelegate?) {
+	init(article: Article?) {
 		self.article = article;
-		self.articleViewDelegate = delegate
 		self.refresher = UIRefreshControl()
 		
 		self.titleLabel = UILabel.autoLayoutCapable()
@@ -68,9 +66,10 @@ class ArticleView: UIScrollView {
 		contentView.textContainerInset = UIEdgeInsetsZero
 		contentView.textContainer.lineFragmentPadding = 0
 		
+		self.indicateLoadingArticle(true)
 		article?.getContents { (contents) -> Void in
 			self.contentView.text = contents
-			self.articleViewDelegate?.articleContentsDidLoad()
+			self.indicateLoadingArticle(false)
 		}
 		
 		
@@ -95,7 +94,7 @@ class ArticleView: UIScrollView {
 		super.layoutSubviews()
 	}
 	
-	func indicateLoadingArticle(loading: Bool) {
+	private func indicateLoadingArticle(loading: Bool) {
 		if loading {
 			self.addSubview(refresher)
 			refresher.beginRefreshing()
@@ -112,8 +111,4 @@ class ArticleView: UIScrollView {
 		}
 	}
 
-}
-
-protocol ArticleViewDelegate {
-	func articleContentsDidLoad()
 }

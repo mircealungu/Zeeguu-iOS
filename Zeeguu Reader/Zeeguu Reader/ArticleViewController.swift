@@ -27,18 +27,16 @@
 import UIKit
 import ZeeguuAPI
 
-class ArticleViewController: UIViewController, ArticleViewDelegate {
+class ArticleViewController: UIViewController {
 	
 	var article: Article?
 	private var articleView: ArticleView
 	
 	init(article: Article? = nil) {
 		self.article = article
-		self.articleView = ArticleView(article: self.article, delegate: nil)
+		self.articleView = ArticleView(article: self.article)
 		
 		super.init(nibName: nil, bundle: nil)
-		
-		self.articleView.articleViewDelegate = self
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -54,8 +52,6 @@ class ArticleViewController: UIViewController, ArticleViewDelegate {
 		self.view.addSubview(articleView)
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		
-		self.articleView.indicateLoadingArticle(true)
 		
 		let translateBut = UIBarButtonItem(title: "TRANSLATION_MODE".localized, style: .Plain, target: self, action: "toggleTranslationMode:")
 		self.navigationItem.rightBarButtonItem = translateBut
@@ -94,10 +90,6 @@ class ArticleViewController: UIViewController, ArticleViewDelegate {
 		sheet.popoverPresentationController?.barButtonItem = sender
 		
 		self.presentViewController(sheet, animated: true, completion: nil)
-	}
-
-	func articleContentsDidLoad() {
-		self.articleView.indicateLoadingArticle(false)
 	}
 }
 
