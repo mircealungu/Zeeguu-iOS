@@ -30,13 +30,11 @@ import ZeeguuAPI
 class HistoryItemViewController: UIViewController {
 
 	let bookmark: Bookmark
-	
-	private let translationLabel = UILabel.autoLayoutCapable()
-	private let languageLabel = UILabel.autoLayoutCapable()
-	private let contextLabel = UILabel.autoLayoutCapable()
+	private let historyItemView: HistoryItemView
 	
 	init(bookmark: Bookmark) {
 		self.bookmark = bookmark
+		self.historyItemView = HistoryItemView(bookmark: self.bookmark)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -51,82 +49,17 @@ class HistoryItemViewController: UIViewController {
 		
 		self.title = bookmark.word
 		
-		let sv = UIScrollView.autoLayoutCapable()
-		let v = UIView.autoLayoutCapable()
-		
-		translationLabel.numberOfLines = 0;
-		languageLabel.numberOfLines = 0;
-		contextLabel.numberOfLines = 0;
-		
 		if let nav = self.navigationController {
-			translationLabel.preferredMaxLayoutWidth = nav.view.frame.size.width - 40
-			languageLabel.preferredMaxLayoutWidth = nav.view.frame.size.width - 40
-			contextLabel.preferredMaxLayoutWidth = nav.view.frame.size.width - 40
+			self.historyItemView.setSuperViewWidth(nav.view.frame.size.width)
 		} else {
-			translationLabel.preferredMaxLayoutWidth = self.view.frame.size.width - 40
-			languageLabel.preferredMaxLayoutWidth = self.view.frame.size.width - 40
-			contextLabel.preferredMaxLayoutWidth = self.view.frame.size.width - 40
+			self.historyItemView.setSuperViewWidth(self.view.frame.size.width)
 		}
 		
-		translationLabel.font = UIFont.boldSystemFontOfSize(20)
-		languageLabel.font = UIFont.systemFontOfSize(14)
-		languageLabel.textColor = UIColor.lightGrayColor()
-		contextLabel.font = UIFont.systemFontOfSize(16)
-		
-		translationLabel.text = String(format: "TRANSLATED_TO_%@%@".localized, arguments: [bookmark.word, bookmark.translation[0]])
-		
-		let languageName = LanguagesTableViewController.getEnglishNameForLanguageCode(bookmark.wordLanguage)
-		if let lang = languageName {
-			languageLabel.text = String(format: "WORD_IS_LANGUAGE_%@%@".localized, arguments: [bookmark.word, lang])
-		} else {
-			languageLabel.text = String(format: "WORD_IS_LANGUAGE_%@%@".localized, arguments: [bookmark.word, "'" + bookmark.wordLanguage + "'"])
-		}
-		
-		var context: NSAttributedString
-		if let c = bookmark.context where c.characters.count > 0 {
-			context = NSAttributedString(string: c)
-		} else {
-			context = NSAttributedString(string: "NO_CONTEXT".localized, attributes: [NSFontAttributeName: UIFont.italicSystemFontOfSize(contextLabel.font.pointSize)])
-		}
-			let attrStr = NSMutableAttributedString()
-			attrStr.appendAttributedString(NSAttributedString(string: String(format: "CONTEXT_OF_%@".localized, arguments: [bookmark.word]), attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(contextLabel.font.pointSize)]))
-			attrStr.appendAttributedString(NSAttributedString(string: "\n"))
-			
-			let contextAttr = NSMutableAttributedString(attributedString: context)
-			
-			let regex = try! NSRegularExpression(pattern: "(\(bookmark.word))", options: [])
-			let range = NSMakeRange(0, contextAttr.length)
-			
-			regex.enumerateMatchesInString(context.string, options: [], range: range, usingBlock: { (results, flags, stop) -> Void in
-				let substringRange = results?.rangeAtIndex(1);
-				if let r = substringRange {
-					contextAttr.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(self.contextLabel.font.pointSize)], range: r)
-				}
-			})
-			
-			attrStr.appendAttributedString(contextAttr)
-			
-			contextLabel.attributedText = attrStr
-		
-		let views: [String: AnyObject] = ["v": v, "sv": sv, "t": translationLabel, "l": languageLabel, "c": contextLabel]
-		
-		self.view.addSubview(sv)
-		sv.addSubview(v)
-		v.addSubview(translationLabel)
-		v.addSubview(languageLabel)
-		v.addSubview(contextLabel)
+		let views: [String: AnyObject] = ["sv": self.historyItemView]
+		self.view.addSubview(self.historyItemView)
 		
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		
-		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[t]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[l]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[c]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		
-		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[t][l]-[c]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 	}
 	
 	override func didReceiveMemoryWarning() {
