@@ -91,13 +91,6 @@ class ArticleListViewController: ZGTableViewController {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-
-//	func insertNewObject(sender: AnyObject) {
-	
-//		objects.insert(Article(articleTitle: "Innenminister ärgern sich über lange Asylverfahren", articleUrl: "http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", articleDate: "2015-12-04 15:19", articleSource: "T-Online"), atIndex: 0)
-//		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-//		self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-//	}
 	
 	func logout(sender: AnyObject) {
 		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
@@ -114,7 +107,7 @@ class ArticleListViewController: ZGTableViewController {
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return articles.count
 	}
-
+	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let queueCell = tableView.dequeueReusableCellWithIdentifier("Cell") as? ArticleTableViewCell
 		
