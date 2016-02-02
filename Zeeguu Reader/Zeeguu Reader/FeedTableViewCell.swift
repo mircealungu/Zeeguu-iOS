@@ -61,9 +61,9 @@ class FeedTableViewCell: UITableViewCell {
 	}
 	
 	init(reuseIdentifier: String?) {
-		titleField = UILabel.autoLayoutCapapble()
-		descriptionField = UILabel.autoLayoutCapapble()
-		feedImageView = UIImageView.autoLayoutCapapble()
+		titleField = UILabel.autoLayoutCapable()
+		descriptionField = UILabel.autoLayoutCapable()
+		feedImageView = UIImageView.autoLayoutCapable()
 		super.init(style: .Default, reuseIdentifier: reuseIdentifier)
 		setupLayout()
 	}

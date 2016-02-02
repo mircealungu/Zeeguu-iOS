@@ -43,7 +43,7 @@ class ArticleView: UIView {
 		
 		
 		
-		titleLabel = UILabel.autoLayoutCapapble()
+		titleLabel = UILabel.autoLayoutCapable()
 		titleLabel?.text = article.title
 		titleLabel?.numberOfLines = 0;
 		titleLabel?.font = UIFont.boldSystemFontOfSize(20)

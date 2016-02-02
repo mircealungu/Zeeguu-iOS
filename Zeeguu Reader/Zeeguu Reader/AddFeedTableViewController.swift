@@ -30,7 +30,7 @@ import ZeeguuAPI
 class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 	let rows = ["URL".localized]
 	
-	let urlField = UITextField.autoLayoutCapapble()
+	let urlField = UITextField.autoLayoutCapable()
 	var delegate: AddFeedTableViewControllerDelegate?
 	
 	convenience init(delegate: AddFeedTableViewControllerDelegate) {

@@ -69,7 +69,7 @@ class LanguagesTableViewController: ZGTableViewController {
 			return 1
 		}
 		
-		let emptyLabel = UILabel.autoLayoutCapapble()
+		let emptyLabel = UILabel.autoLayoutCapable()
 		emptyLabel.text = "NO_LANGUAGES_TO_SHOW".localized
 		emptyLabel.numberOfLines = 0
 		emptyLabel.textAlignment = .Center

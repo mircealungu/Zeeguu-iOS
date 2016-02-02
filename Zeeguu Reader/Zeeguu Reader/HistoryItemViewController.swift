@@ -31,9 +31,9 @@ class HistoryItemViewController: UIViewController {
 
 	let bookmark: Bookmark
 	
-	private let translationLabel = UILabel.autoLayoutCapapble()
-	private let languageLabel = UILabel.autoLayoutCapapble()
-	private let contextLabel = UILabel.autoLayoutCapapble()
+	private let translationLabel = UILabel.autoLayoutCapable()
+	private let languageLabel = UILabel.autoLayoutCapable()
+	private let contextLabel = UILabel.autoLayoutCapable()
 	
 	init(bookmark: Bookmark) {
 		self.bookmark = bookmark
@@ -51,8 +51,8 @@ class HistoryItemViewController: UIViewController {
 		
 		self.title = bookmark.word
 		
-		let sv = UIScrollView.autoLayoutCapapble()
-		let v = UIView.autoLayoutCapapble()
+		let sv = UIScrollView.autoLayoutCapable()
+		let v = UIView.autoLayoutCapable()
 		
 		translationLabel.numberOfLines = 0;
 		languageLabel.numberOfLines = 0;

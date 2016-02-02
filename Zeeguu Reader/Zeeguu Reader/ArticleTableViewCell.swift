@@ -37,9 +37,9 @@ class ArticleTableViewCell: UITableViewCell {
 	
 	init(article: Article, reuseIdentifier: String?) {
 		self.article = article
-		titleField = UILabel.autoLayoutCapapble()
-		descriptionField = UILabel.autoLayoutCapapble()
-		articleImageView = UIImageView.autoLayoutCapapble()
+		titleField = UILabel.autoLayoutCapable()
+		descriptionField = UILabel.autoLayoutCapable()
+		articleImageView = UIImageView.autoLayoutCapable()
 		super.init(style: .Default, reuseIdentifier: reuseIdentifier)
 		setupLayout()
 		updateLabels()

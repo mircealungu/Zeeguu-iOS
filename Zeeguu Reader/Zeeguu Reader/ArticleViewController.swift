@@ -43,7 +43,7 @@ class ArticleViewController: UIViewController, ArticleViewDelegate {
 		// Do any additional setup after loading the view, typically from a nib.
 		self.view.backgroundColor = UIColor.whiteColor()
 		if let art = article {
-			let sv = UIScrollView.autoLayoutCapapble()
+			let sv = UIScrollView.autoLayoutCapable()
 			articleView = ArticleView(article: art, delegate: self)
 			let views: [String: AnyObject] = ["sv": sv, "v": articleView!]
 			

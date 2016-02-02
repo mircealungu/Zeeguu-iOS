@@ -28,7 +28,7 @@ import UIKit
 
 class ZGTextFieldTableViewCell: UITableViewCell {
 	
-	let titleLabel = UILabel.autoLayoutCapapble()
+	let titleLabel = UILabel.autoLayoutCapable()
 	var textField: UITextField?
 	var leftBoundary = 120
 	
