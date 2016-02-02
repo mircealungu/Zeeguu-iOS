@@ -41,8 +41,10 @@ class ArticleView: UIView {
 		self.translatesAutoresizingMaskIntoConstraints = false
 		self.delegate = delegate
 		
-		
-		
+		setupLayout()
+	}
+	
+	private func setupLayout() {
 		titleLabel = UILabel.autoLayoutCapable()
 		titleLabel?.text = article.title
 		titleLabel?.numberOfLines = 0;
