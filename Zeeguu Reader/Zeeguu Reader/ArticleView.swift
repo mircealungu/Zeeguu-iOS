@@ -99,8 +99,13 @@ class ArticleView: UIScrollView {
 			self.addSubview(refresher)
 			refresher.beginRefreshing()
 		} else {
+			// This delay (execution of the CATransaction calls is delayed by 0.1 seconds)
+			// is there to prevent glitching in the interface.
 			let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
 			dispatch_after(delayTime, dispatch_get_main_queue()) {
+				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+				// This enables us to attach a completion block to the animation, removing the refresher before
+				// animation is complete also causes glitching.
 				CATransaction.begin()
 				CATransaction.setCompletionBlock({ () -> Void in
 					self.refresher.removeFromSuperview()
