@@ -60,6 +60,18 @@ class ZGTextView: UITextView {
 		return false
 	}
 	
+	private func isSelectionAlreadyTranslated() -> Bool {
+		let range = self.selectedRange
+		
+		let attributes = self.attributedText.attributesAtIndex(range.location + range.length, effectiveRange: nil)
+		print("attributes: \(attributes)")
+		if let color = attributes[NSForegroundColorAttributeName] where color.isEqual(UIColor.lightGrayColor()) {
+			self.selectedTextRange = nil
+			return true
+		}
+		return false
+	}
+	
 	func translate(sender: AnyObject?) {
 		if (isTranslating) {
 			return
@@ -67,15 +79,10 @@ class ZGTextView: UITextView {
 		isTranslating = true
 		print("translate called for \(self.selectedText()) with context: \"\(self.selectedTextContext())\"")
 		
-		let range = self.selectedRange
-//		let firstCharAfterRange = NSMakeRange(range.location + range.length, 1)
-		
-		let attributes = self.attributedText.attributesAtIndex(range.location + range.length, effectiveRange: nil)
-		print("attributes: \(attributes)")
-		if let color = attributes[NSForegroundColorAttributeName] where color.isEqual(UIColor.lightGrayColor()) {
-			self.selectedTextRange = nil
+		if isSelectionAlreadyTranslated() {
 			return
 		}
+		
 		if let art = article {
 			ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: art.title, context: self.selectedTextContext(), url: art.url) { (dict) -> Void in
 				if let t = dict?["translation"].string {
