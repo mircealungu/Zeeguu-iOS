@@ -30,38 +30,35 @@ import ZeeguuAPI
 class ArticleViewController: UIViewController, ArticleViewDelegate {
 	
 	var article: Article?
-	private var articleView: ArticleView?
-	private let refresher = UIRefreshControl()
+	private var articleView: ArticleView
 	
-	convenience init(article: Article) {
-		self.init()
+	init(article: Article? = nil) {
 		self.article = article
+		self.articleView = ArticleView(article: self.article, delegate: nil)
+		
+		super.init(nibName: nil, bundle: nil)
+		
+		self.articleView.articleViewDelegate = self
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		self.view.backgroundColor = UIColor.whiteColor()
-		if let art = article {
-			let sv = UIScrollView.autoLayoutCapable()
-			articleView = ArticleView(article: art, delegate: self)
-			let views: [String: AnyObject] = ["sv": sv, "v": articleView!]
-			
-			sv.addSubview(refresher)
-			
-			self.view.addSubview(sv)
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-			
-			sv.addSubview(articleView!)
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-			
-			refresher.beginRefreshing()
-			
-			let translateBut = UIBarButtonItem(title: "TRANSLATION_MODE".localized, style: .Plain, target: self, action: "toggleTranslationMode:")
-			self.navigationItem.rightBarButtonItem = translateBut
-		}
+		let views: [String: AnyObject] = ["v": articleView]
+		
+		self.view.addSubview(articleView)
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		
+		self.articleView.indicateLoadingArticle(true)
+		
+		let translateBut = UIBarButtonItem(title: "TRANSLATION_MODE".localized, style: .Plain, target: self, action: "toggleTranslationMode:")
+		self.navigationItem.rightBarButtonItem = translateBut
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -87,11 +84,11 @@ class ArticleViewController: UIViewController, ArticleViewDelegate {
 		let sheet = UIAlertController(title: "TRANSLATION_MODE".localized, message: "TRANSLATION_MODE_DESCRIPTION".localized, preferredStyle: .ActionSheet)
 		
 		sheet.addAction(UIAlertAction(title: "INSTANT_TRANSLATION".localized, style: .Default, handler: { (action) -> Void in
-			self.articleView?.contentView?.willInstantlyTranslate = true
+			self.articleView.contentView.willInstantlyTranslate = true
 		}))
 		
 		sheet.addAction(UIAlertAction(title: "ASK_BEFORE_TRANSLATION".localized, style: .Default, handler: { (action) -> Void in
-			self.articleView?.contentView?.willInstantlyTranslate = false
+			self.articleView.contentView.willInstantlyTranslate = false
 		}))
 		
 		sheet.popoverPresentationController?.barButtonItem = sender
@@ -102,12 +99,7 @@ class ArticleViewController: UIViewController, ArticleViewDelegate {
 	func articleContentsDidLoad() {
 		let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
 		dispatch_after(delayTime, dispatch_get_main_queue()) {
-			CATransaction.begin()
-			CATransaction.setCompletionBlock({ () -> Void in
-				self.refresher.removeFromSuperview()
-			})
-			self.refresher.endRefreshing()
-			CATransaction.commit()
+			self.articleView.indicateLoadingArticle(false)
 		}
 	}
 }

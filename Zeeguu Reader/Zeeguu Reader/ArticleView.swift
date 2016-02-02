@@ -28,61 +28,85 @@ import UIKit
 import ZeeguuAPI
 
 
-class ArticleView: UIView {
+class ArticleView: UIScrollView {
 	
-	var article: Article!
-	var titleLabel: UILabel?
-	var contentView: ZGTextView?
-	var delegate: ArticleViewDelegate?
+	var article: Article?
+	var titleLabel: UILabel
+	var contentView: ZGTextView
+	var articleViewDelegate: ArticleViewDelegate?
 	
-	convenience init(article: Article, delegate: ArticleViewDelegate?) {
-		self.init()
+	private let refresher: UIRefreshControl
+	
+	init(article: Article?, delegate: ArticleViewDelegate?) {
 		self.article = article;
-		self.translatesAutoresizingMaskIntoConstraints = false
-		self.delegate = delegate
+		self.articleViewDelegate = delegate
+		self.refresher = UIRefreshControl()
+		
+		self.titleLabel = UILabel.autoLayoutCapable()
+		self.contentView = ZGTextView(article: self.article)
+		
+		super.init(frame: CGRectZero)
 		
 		setupLayout()
 	}
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
+	}
 	
 	private func setupLayout() {
-		titleLabel = UILabel.autoLayoutCapable()
-		titleLabel?.text = article.title
-		titleLabel?.numberOfLines = 0;
-		titleLabel?.font = UIFont.boldSystemFontOfSize(20)
+		self.translatesAutoresizingMaskIntoConstraints = false
 		
-		print("fontsize: \(titleLabel?.font.pointSize)")
+		let view = UIView.autoLayoutCapable()
+		self.addSubview(view)
 		
-		contentView = ZGTextView(article: self.article)
-		contentView?.editable = false;
-		contentView?.textContainerInset = UIEdgeInsetsZero
-		contentView?.textContainer.lineFragmentPadding = 0
+		titleLabel.text = article?.title
+		titleLabel.numberOfLines = 0;
+		titleLabel.font = UIFont.boldSystemFontOfSize(20)
 		
-		print("fontsize: \(contentView?.font)")
+		contentView.editable = false;
+		contentView.textContainerInset = UIEdgeInsetsZero
+		contentView.textContainer.lineFragmentPadding = 0
 		
-		article.getContents { (contents) -> Void in
-			self.contentView?.text = contents
-			self.delegate?.articleContentsDidLoad()
+		article?.getContents { (contents) -> Void in
+			self.contentView.text = contents
+			self.articleViewDelegate?.articleContentsDidLoad()
 		}
 		
 		
-		let views: [String: UIView] = ["title":titleLabel!, "content": contentView!]
+		let views: [String: UIView] = ["sv": self, "v": view, "title": titleLabel, "content": contentView]
 		
-		self.addSubview(titleLabel!)
-		self.addSubview(contentView!)
+		view.addSubview(titleLabel)
+		view.addSubview(contentView)
+		
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[title]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[content]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[title]-[content]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
-		print("subviews: \(contentView?.subviews)")
-		
-		self.addConstraint(NSLayoutConstraint(item: contentView!, attribute: .Height, relatedBy: .Equal, toItem: contentView!.subviews[0], attribute: .Height, multiplier: 1, constant: 0))
+		self.addConstraint(NSLayoutConstraint(item: contentView, attribute: .Height, relatedBy: .Equal, toItem: contentView.subviews[0], attribute: .Height, multiplier: 1, constant: 0))
 	}
 	
 	override func layoutSubviews() {
-		titleLabel?.preferredMaxLayoutWidth = self.frame.width - 20
+		titleLabel.preferredMaxLayoutWidth = self.frame.width - 20
 		super.layoutSubviews()
+	}
+	
+	func indicateLoadingArticle(loading: Bool) {
+		if loading {
+			self.addSubview(refresher)
+			refresher.beginRefreshing()
+		} else {
+			CATransaction.begin()
+			CATransaction.setCompletionBlock({ () -> Void in
+				self.refresher.removeFromSuperview()
+			})
+			self.refresher.endRefreshing()
+			CATransaction.commit()
+		}
 	}
 
 }

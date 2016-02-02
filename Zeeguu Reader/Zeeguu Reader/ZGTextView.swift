@@ -29,12 +29,12 @@ import ZeeguuAPI
 
 class ZGTextView: UITextView {
 
-	var article: Article!
+	var article: Article?
 	var willInstantlyTranslate = true
 	
 	private var isTranslating = false
 	
-	convenience init(article: Article) {
+	convenience init(article: Article?) {
 		self.init()
 		self.article = article;
 		self.translatesAutoresizingMaskIntoConstraints = false
@@ -76,23 +76,25 @@ class ZGTextView: UITextView {
 			self.selectedTextRange = nil
 			return
 		}
-		ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: article.title, context: self.selectedTextContext(), url: article.url) { (dict) -> Void in
-			if let t = dict?["translation"].string {
-				print("\"\(self.selectedText())\" translated to \"\(t)\"")
-				
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					let range = self.selectedRange
-					self.scrollEnabled = false
+		if let art = article {
+			ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: art.title, context: self.selectedTextContext(), url: art.url) { (dict) -> Void in
+				if let t = dict?["translation"].string {
+					print("\"\(self.selectedText())\" translated to \"\(t)\"")
 					
-					self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: UIColor.lightGrayColor()]))
-					
-					self.resignFirstResponder()
-					self.scrollEnabled = true
-				})
-			} else {
-				print("translating \"\(self.selectedText())\" went wrong")
+					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						let range = self.selectedRange
+						self.scrollEnabled = false
+						
+						self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: UIColor.lightGrayColor()]))
+						
+						self.resignFirstResponder()
+						self.scrollEnabled = true
+					})
+				} else {
+					print("translating \"\(self.selectedText())\" went wrong")
+				}
+				self.isTranslating = false
 			}
-			self.isTranslating = false
 		}
 	}
 	
