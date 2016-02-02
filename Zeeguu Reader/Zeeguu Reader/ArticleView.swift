@@ -100,12 +100,15 @@ class ArticleView: UIScrollView {
 			self.addSubview(refresher)
 			refresher.beginRefreshing()
 		} else {
-			CATransaction.begin()
-			CATransaction.setCompletionBlock({ () -> Void in
-				self.refresher.removeFromSuperview()
-			})
-			self.refresher.endRefreshing()
-			CATransaction.commit()
+			let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
+			dispatch_after(delayTime, dispatch_get_main_queue()) {
+				CATransaction.begin()
+				CATransaction.setCompletionBlock({ () -> Void in
+					self.refresher.removeFromSuperview()
+				})
+				self.refresher.endRefreshing()
+				CATransaction.commit()
+			}
 		}
 	}
 

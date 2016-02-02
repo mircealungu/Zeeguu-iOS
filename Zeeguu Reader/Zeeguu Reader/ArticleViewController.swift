@@ -97,10 +97,7 @@ class ArticleViewController: UIViewController, ArticleViewDelegate {
 	}
 
 	func articleContentsDidLoad() {
-		let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
-		dispatch_after(delayTime, dispatch_get_main_queue()) {
-			self.articleView.indicateLoadingArticle(false)
-		}
+		self.articleView.indicateLoadingArticle(false)
 	}
 }
 
