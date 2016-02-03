@@ -12,6 +12,7 @@
 		9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0431C1C8461002F9637 /* StringExtension.swift */; };
 		9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */; };
 		9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */; };
+		942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942667A11C60CA1600CF00FA /* HistoryItemView.swift */; };
 		9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */; };
 		9440B02C1C380CBC00BDD367 /* ZGTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */; };
 		945658191C42B804000CDF3F /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945658181C42B804000CDF3F /* AppIcon.swift */; };
@@ -22,7 +23,6 @@
 		947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947799DF1C17171B00C494ED /* LaunchScreen.storyboard */; };
 		947799EC1C17171B00C494ED /* Zeeguu_ReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799EB1C17171B00C494ED /* Zeeguu_ReaderTests.swift */; };
 		947799F71C17171B00C494ED /* Zeeguu_ReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */; };
-		94779A0B1C171BD400C494ED /* ArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A0A1C171BD400C494ED /* ArticleListView.swift */; };
 		94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A0D1C1722E500C494ED /* UIViewExtension.swift */; };
 		94779A121C17348B00C494ED /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A111C17348B00C494ED /* ArticleView.swift */; };
 		94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A291C17452800C494ED /* ZGTextView.swift */; };
@@ -30,13 +30,15 @@
 		949B6C431C4D4DDC00CF9BB0 /* FindingFeedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B6C421C4D4DDC00CF9BB0 /* FindingFeedsTableViewController.swift */; };
 		949F8EA11C466C7000D635A0 /* ZeeguuAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949F8E9E1C466C5F00D635A0 /* ZeeguuAPI.framework */; };
 		94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B758311C36B797001B4294 /* AddFeedTableViewController.swift */; };
-		94C748281C39220400F3DCC2 /* BookmarksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C748271C39220400F3DCC2 /* BookmarksTableViewController.swift */; };
+		94C748281C39220400F3DCC2 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */; };
 		94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */; };
 		94CEECE31C1D792E00C3D0E3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE21C1D792E00C3D0E3 /* Utils.swift */; };
 		94CEECE51C1D7C3200C3D0E3 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */; };
 		94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */; };
 		94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */; };
 		94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */; };
+		94F208861C58C6F30005EB2F /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */; };
+		94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208891C58D4870005EB2F /* HistoryItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,7 @@
 		9408F0431C1C8461002F9637 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		942667A11C60CA1600CF00FA /* HistoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemView.swift; sourceTree = "<group>"; };
 		9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedOverviewTableViewController.swift; sourceTree = "<group>"; };
 		9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTableViewController.swift; sourceTree = "<group>"; };
 		945658181C42B804000CDF3F /* AppIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
@@ -105,20 +108,21 @@
 		947799F21C17171B00C494ED /* Zeeguu ReaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zeeguu ReaderUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zeeguu_ReaderUITests.swift; sourceTree = "<group>"; };
 		947799F81C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		94779A0A1C171BD400C494ED /* ArticleListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListView.swift; sourceTree = "<group>"; };
 		94779A0D1C1722E500C494ED /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		94779A111C17348B00C494ED /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
 		94779A291C17452800C494ED /* ZGTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextView.swift; sourceTree = "<group>"; };
 		949B6C421C4D4DDC00CF9BB0 /* FindingFeedsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindingFeedsTableViewController.swift; sourceTree = "<group>"; };
 		949F8E981C466C5F00D635A0 /* ZeeguuAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZeeguuAPI.xcodeproj; path = "../../Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPI.xcodeproj"; sourceTree = "<group>"; };
 		94B758311C36B797001B4294 /* AddFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFeedTableViewController.swift; sourceTree = "<group>"; };
-		94C748271C39220400F3DCC2 /* BookmarksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewController.swift; sourceTree = "<group>"; };
+		94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		94CEECE21C1D792E00C3D0E3 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterTableViewController.swift; sourceTree = "<group>"; };
 		94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRegisterTableViewController.swift; sourceTree = "<group>"; };
 		94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagesTableViewController.swift; sourceTree = "<group>"; };
+		94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
+		94F208891C58D4870005EB2F /* HistoryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,7 +188,7 @@
 			children = (
 				947799D41C17171B00C494ED /* AppDelegate.swift */,
 				9440B0281C37F14C00BDD367 /* Feeds */,
-				94C748261C3921E600F3DCC2 /* Bookmarks */,
+				94C748261C3921E600F3DCC2 /* History */,
 				94C7482D1C39496300F3DCC2 /* Profile */,
 				94C7482B1C3936F400F3DCC2 /* Articles */,
 				94C7482C1C393D1100F3DCC2 /* Classes */,
@@ -245,19 +249,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		94C748261C3921E600F3DCC2 /* Bookmarks */ = {
+		94C748261C3921E600F3DCC2 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				94C748271C39220400F3DCC2 /* BookmarksTableViewController.swift */,
+				94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */,
+				94F208891C58D4870005EB2F /* HistoryItemViewController.swift */,
+				942667A11C60CA1600CF00FA /* HistoryItemView.swift */,
 			);
-			name = Bookmarks;
+			name = History;
 			sourceTree = "<group>";
 		};
 		94C7482B1C3936F400F3DCC2 /* Articles */ = {
 			isa = PBXGroup;
 			children = (
 				947799D61C17171B00C494ED /* ArticleListViewController.swift */,
-				94779A0A1C171BD400C494ED /* ArticleListView.swift */,
+				94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */,
 				947799D81C17171B00C494ED /* ArticleViewController.swift */,
 				94779A111C17348B00C494ED /* ArticleView.swift */,
 			);
@@ -450,15 +456,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */,
-				94C748281C39220400F3DCC2 /* BookmarksTableViewController.swift in Sources */,
+				94C748281C39220400F3DCC2 /* HistoryTableViewController.swift in Sources */,
 				9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */,
 				9440B02C1C380CBC00BDD367 /* ZGTableViewController.swift in Sources */,
+				94F208861C58C6F30005EB2F /* ArticleTableViewCell.swift in Sources */,
 				94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */,
 				94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */,
+				942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */,
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
 				94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */,
-				94779A0B1C171BD400C494ED /* ArticleListView.swift in Sources */,
+				94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */,
 				9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */,
 				94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */,
 				9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */,

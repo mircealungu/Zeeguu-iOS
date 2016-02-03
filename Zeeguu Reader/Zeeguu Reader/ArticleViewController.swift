@@ -30,29 +30,31 @@ import ZeeguuAPI
 class ArticleViewController: UIViewController {
 	
 	var article: Article?
+	private var articleView: ArticleView
 	
-	convenience init(article: Article) {
-		self.init()
+	init(article: Article? = nil) {
 		self.article = article
+		self.articleView = ArticleView(article: self.article)
+		
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		self.view.backgroundColor = UIColor.whiteColor()
-		if let art = article {
-			let sv = UIScrollView.autoLayoutCapapble()
-			let view = ArticleView(article: art)
-			let views: [String: AnyObject] = ["sv": sv,"v":view, "top":self.topLayoutGuide]
-			
-			self.view.addSubview(sv)
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[sv]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-			
-			sv.addSubview(view)
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-			self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		}
+		let views: [String: AnyObject] = ["v": articleView]
+		
+		self.view.addSubview(articleView)
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		
+		let translateBut = UIBarButtonItem(title: "TRANSLATION_MODE".localized, style: .Plain, target: self, action: "toggleTranslationMode:")
+		self.navigationItem.rightBarButtonItem = translateBut
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -73,7 +75,21 @@ class ArticleViewController: UIViewController {
 		
 		mc.menuItems = nil
 	}
-
-
+	
+	func toggleTranslationMode(sender: UIBarButtonItem) {
+		let sheet = UIAlertController(title: "TRANSLATION_MODE".localized, message: "TRANSLATION_MODE_DESCRIPTION".localized, preferredStyle: .ActionSheet)
+		
+		sheet.addAction(UIAlertAction(title: "INSTANT_TRANSLATION".localized, style: .Default, handler: { (action) -> Void in
+			self.articleView.contentView.willInstantlyTranslate = true
+		}))
+		
+		sheet.addAction(UIAlertAction(title: "ASK_BEFORE_TRANSLATION".localized, style: .Default, handler: { (action) -> Void in
+			self.articleView.contentView.willInstantlyTranslate = false
+		}))
+		
+		sheet.popoverPresentationController?.barButtonItem = sender
+		
+		self.presentViewController(sheet, animated: true, completion: nil)
+	}
 }
 

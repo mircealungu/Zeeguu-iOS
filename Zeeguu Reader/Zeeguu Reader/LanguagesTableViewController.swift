@@ -69,7 +69,7 @@ class LanguagesTableViewController: ZGTableViewController {
 			return 1
 		}
 		
-		let emptyLabel = UILabel.autoLayoutCapapble()
+		let emptyLabel = UILabel.autoLayoutCapable()
 		emptyLabel.text = "NO_LANGUAGES_TO_SHOW".localized
 		emptyLabel.numberOfLines = 0
 		emptyLabel.textAlignment = .Center
@@ -121,6 +121,9 @@ class LanguagesTableViewController: ZGTableViewController {
 				})
 			}
 			dispatch_async(dispatch_get_main_queue(), { () -> Void in
+				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+				// This enables us to attach a completion block to the animation, reloading data before
+				// animation is complete causes glitching.
 				CATransaction.begin()
 				CATransaction.setCompletionBlock({ () -> Void in
 					self.tableView.reloadData()
@@ -147,6 +150,10 @@ class LanguagesTableViewController: ZGTableViewController {
 	
 	static func getNameForLanguageCode(code: String) -> String? {
 		return NSLocale.systemLocale().displayNameForKey(NSLocaleLanguageCode, value: code)
+	}
+	
+	static func getEnglishNameForLanguageCode(code: String) -> String? {
+		return NSLocale(localeIdentifier: "en-US").displayNameForKey(NSLocaleLanguageCode, value: code)
 	}
 }
 

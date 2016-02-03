@@ -29,9 +29,12 @@ import ZeeguuAPI
 
 class ZGTextView: UITextView {
 
-	var article: Article!
+	var article: Article?
+	var willInstantlyTranslate = true
 	
-	convenience init(article: Article) {
+	private var isTranslating = false
+	
+	convenience init(article: Article?) {
 		self.init()
 		self.article = article;
 		self.translatesAutoresizingMaskIntoConstraints = false
@@ -48,28 +51,56 @@ class ZGTextView: UITextView {
 	
 	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
 		if action == "translate:" {
-			translate(self)
+			if (willInstantlyTranslate) {
+				translate(self)
+				return false
+			}
+			return true
+		}
+		return false
+	}
+	
+	private func isSelectionAlreadyTranslated() -> Bool {
+		let range = self.selectedRange
+		
+		let attributes = self.attributedText.attributesAtIndex(range.location + range.length, effectiveRange: nil)
+		print("attributes: \(attributes)")
+		if let color = attributes[NSForegroundColorAttributeName] where color.isEqual(UIColor.lightGrayColor()) {
+			self.selectedTextRange = nil
+			return true
 		}
 		return false
 	}
 	
 	func translate(sender: AnyObject?) {
+		if (isTranslating) {
+			return
+		}
+		isTranslating = true
 		print("translate called for \(self.selectedText()) with context: \"\(self.selectedTextContext())\"")
-		ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: article.title, context: self.selectedTextContext(), url: article.url) { (dict) -> Void in
-			if let t = dict?["translation"].string {
-				print("\"\(self.selectedText())\" translated to \"\(t)\"")
-				
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					let range = self.selectedRange
-					self.scrollEnabled = false
+		
+		if isSelectionAlreadyTranslated() {
+			return
+		}
+		
+		if let art = article {
+			ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: art.title, context: self.selectedTextContext(), url: art.url) { (dict) -> Void in
+				if let t = dict?["translation"].string {
+					print("\"\(self.selectedText())\" translated to \"\(t)\"")
 					
-					self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: UIColor.redColor()]))
-					
-					self.resignFirstResponder()
-					self.scrollEnabled = true
-				})
-			} else {
-				print("translating \"\(self.selectedText())\" went wrong")
+					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						let range = self.selectedRange
+						self.scrollEnabled = false
+						
+						self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: UIColor.lightGrayColor()]))
+						
+						self.resignFirstResponder()
+						self.scrollEnabled = true
+					})
+				} else {
+					print("translating \"\(self.selectedText())\" went wrong")
+				}
+				self.isTranslating = false
 			}
 		}
 	}

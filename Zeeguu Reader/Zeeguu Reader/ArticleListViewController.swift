@@ -75,6 +75,9 @@ class ArticleListViewController: ZGTableViewController {
 				++j
 				if (j == self.feeds.count) {
 					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+						// This enables us to attach a completion block to the animation, reloading data before
+						// animation is complete causes glitching.
 						CATransaction.begin()
 						CATransaction.setCompletionBlock({ () -> Void in
 							self.tableView.reloadData()
@@ -91,13 +94,6 @@ class ArticleListViewController: ZGTableViewController {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-
-//	func insertNewObject(sender: AnyObject) {
-	
-//		objects.insert(Article(articleTitle: "Innenminister ärgern sich über lange Asylverfahren", articleUrl: "http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", articleDate: "2015-12-04 15:19", articleSource: "T-Online"), atIndex: 0)
-//		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-//		self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-//	}
 	
 	func logout(sender: AnyObject) {
 		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
@@ -114,28 +110,19 @@ class ArticleListViewController: ZGTableViewController {
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return articles.count
 	}
-
+	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let queueCell = tableView.dequeueReusableCellWithIdentifier("Cell")
-		var cell: UITableViewCell
-		if let c = queueCell {
-			cell = c
-		} else {
-			cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-		}
-		
-		for v in cell.contentView.subviews {
-			v.removeFromSuperview()
-		}
+		let queueCell = tableView.dequeueReusableCellWithIdentifier("Cell") as? ArticleTableViewCell
 		
 		let article = articles[indexPath.row]
-		let articleView = ArticleListView(article: article)
-		
-		cell.contentView.addSubview(articleView)
-		let views = ["v":articleView]
-		cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[v]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[v]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		
+		var cell: ArticleTableViewCell
+		if let c = queueCell {
+			cell = c
+			cell.setArticle(article)
+		} else {
+			cell = ArticleTableViewCell(article: article, reuseIdentifier: "Cell")
+		}
+		cell.accessoryType = .DisclosureIndicator
 		return cell
 	}
 

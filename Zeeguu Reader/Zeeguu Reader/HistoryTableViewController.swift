@@ -1,5 +1,5 @@
 //
-//  BookmarksTableViewController.swift
+//  HistoryTableViewController.swift
 //  Zeeguu Reader
 //
 //  Created by Jorrit Oosterhof on 03-01-16.
@@ -27,7 +27,7 @@
 import UIKit
 import ZeeguuAPI
 
-class BookmarksTableViewController: ZGTableViewController {
+class HistoryTableViewController: ZGTableViewController {
 
 	var bookmarks = [[Bookmark]]()
 	var dates = [String]()
@@ -53,13 +53,13 @@ class BookmarksTableViewController: ZGTableViewController {
 	}
 	
 	func getBookmarks() {
-		self.bookmarks = [[Bookmark]]()
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
 			if let d = dict?.array {
+				var items = [[Bookmark]]()
 				var counter = 0
 				
 				for arr in d {
-					self.bookmarks.append([Bookmark]())
+					items.append([Bookmark]())
 					let date: String = arr["date"].stringValue
 					if let bms = arr["bookmarks"].array {
 						for bm in bms {
@@ -71,14 +71,18 @@ class BookmarksTableViewController: ZGTableViewController {
 							let to = bm["to"].arrayObject
 							let url = bm["url"].stringValue
 							
-							self.bookmarks[counter].append(Bookmark(title: title, context: context, url: url, bookmarkDate: date, word: from, wordLanguage: fromLang, translation: to as! [String], translationLanguage: toLang))
+							items[counter].append(Bookmark(title: title, context: context, url: url, bookmarkDate: date, word: from, wordLanguage: fromLang, translation: to as! [String], translationLanguage: toLang))
 						}
 					}
 					self.dates.append(date)
 					++counter
 				}
+				self.bookmarks = items
 			}
 			dispatch_async(dispatch_get_main_queue(), { () -> Void in
+				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+				// This enables us to attach a completion block to the animation, reloading data before
+				// animation is complete causes glitching.
 				CATransaction.begin()
 				CATransaction.setCompletionBlock({ () -> Void in
 					self.tableView.reloadData()
@@ -148,7 +152,12 @@ class BookmarksTableViewController: ZGTableViewController {
 //	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		//		let feed = self.newsFeeds[indexPath.row]
+		let bookmark = self.bookmarks[indexPath.section][indexPath.row]
+		
+		let vc = HistoryItemViewController(bookmark: bookmark)
+		
+		self.navigationController?.pushViewController(vc, animated: true)
+		
 //		let vc = ArticleListViewController()
 //		
 //		if let split = self.splitViewController {

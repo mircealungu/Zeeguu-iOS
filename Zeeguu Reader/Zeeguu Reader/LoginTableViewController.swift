@@ -30,8 +30,8 @@ import ZeeguuAPI
 class LoginTableViewController: ZGTableViewController {
 	let rows = ["EMAIL".localized, "PASSWORD".localized]
 	
-	let emailField = UITextField.autoLayoutCapapble()
-	let passwordField = UITextField.autoLayoutCapapble()
+	let emailField = UITextField.autoLayoutCapable()
+	let passwordField = UITextField.autoLayoutCapable()
 	
 	convenience init() {
 		self.init(style: .Grouped)

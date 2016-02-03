@@ -28,57 +28,92 @@ import UIKit
 import ZeeguuAPI
 
 
-class ArticleView: UIView {
+class ArticleView: UIScrollView {
 	
-	var article: Article!
-	var titleLabel: UILabel?
-	var contentView: UITextView?
+	var article: Article?
+	var titleLabel: UILabel
+	var contentView: ZGTextView
 	
-	convenience init(article: Article) {
-		self.init()
+	private let refresher: UIRefreshControl
+	
+	init(article: Article?) {
 		self.article = article;
+		self.refresher = UIRefreshControl()
+		
+		self.titleLabel = UILabel.autoLayoutCapable()
+		self.contentView = ZGTextView(article: self.article)
+		
+		super.init(frame: CGRectZero)
+		
+		setupLayout()
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
+	}
+	
+	private func setupLayout() {
 		self.translatesAutoresizingMaskIntoConstraints = false
 		
+		let view = UIView.autoLayoutCapable()
+		self.addSubview(view)
 		
+		titleLabel.text = article?.title
+		titleLabel.numberOfLines = 0;
+		titleLabel.font = UIFont.boldSystemFontOfSize(20)
 		
+		contentView.editable = false;
+		contentView.textContainerInset = UIEdgeInsetsZero
+		contentView.textContainer.lineFragmentPadding = 0
 		
-		titleLabel = UILabel.autoLayoutCapapble()
-		titleLabel?.text = article.title
-		titleLabel?.numberOfLines = 0;
-		titleLabel?.font = UIFont.boldSystemFontOfSize(20)
-		
-		print("fontsize: \(titleLabel?.font.pointSize)")
-		
-		contentView = ZGTextView(article: self.article)
-		contentView?.editable = false;
-		contentView?.textContainerInset = UIEdgeInsetsZero
-		contentView?.textContainer.lineFragmentPadding = 0
-		
-		print("fontsize: \(contentView?.font)")
-		
-		article.getContents { (contents) -> Void in
-			self.contentView?.text = contents
+		self.indicateLoadingArticle(true)
+		article?.getContents { (contents) -> Void in
+			self.contentView.text = contents
+			self.indicateLoadingArticle(false)
 		}
 		
 		
-		let views: [String: UIView] = ["title":titleLabel!, "content": contentView!]
+		let views: [String: UIView] = ["sv": self, "v": view, "title": titleLabel, "content": contentView]
 		
-		self.addSubview(titleLabel!)
-		self.addSubview(contentView!)
+		view.addSubview(titleLabel)
+		view.addSubview(contentView)
+		
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v(==sv)]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[title]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[content]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[title]-[content]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
-		print("subviews: \(contentView?.subviews)")
-		
-		self.addConstraint(NSLayoutConstraint(item: contentView!, attribute: .Height, relatedBy: .Equal, toItem: contentView!.subviews[0], attribute: .Height, multiplier: 1, constant: 0))
+		self.addConstraint(NSLayoutConstraint(item: contentView, attribute: .Height, relatedBy: .Equal, toItem: contentView.subviews[0], attribute: .Height, multiplier: 1, constant: 0))
 	}
 	
 	override func layoutSubviews() {
-		titleLabel?.preferredMaxLayoutWidth = self.frame.width - 20
+		titleLabel.preferredMaxLayoutWidth = self.frame.width - 20
 		super.layoutSubviews()
+	}
+	
+	private func indicateLoadingArticle(loading: Bool) {
+		if loading {
+			self.addSubview(refresher)
+			refresher.beginRefreshing()
+		} else {
+			// This delay (execution of the CATransaction calls is delayed by 0.1 seconds)
+			// is there to prevent glitching in the interface.
+			let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
+			dispatch_after(delayTime, dispatch_get_main_queue()) {
+				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+				// This enables us to attach a completion block to the animation, removing the refresher before
+				// animation is complete also causes glitching.
+				CATransaction.begin()
+				CATransaction.setCompletionBlock({ () -> Void in
+					self.refresher.removeFromSuperview()
+				})
+				self.refresher.endRefreshing()
+				CATransaction.commit()
+			}
+		}
 	}
 
 }

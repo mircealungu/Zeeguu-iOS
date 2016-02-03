@@ -29,7 +29,7 @@ import UIKit
 extension UIView {
 	
 	/// Returns an instance of (subclass of) UIView that has its `translatesAutoresizingMaskIntoConstraints` property set to false
-	static func autoLayoutCapapble() -> Self {
+	static func autoLayoutCapable() -> Self {
 		let instance = self.init()
 		instance.translatesAutoresizingMaskIntoConstraints = false
 		return instance

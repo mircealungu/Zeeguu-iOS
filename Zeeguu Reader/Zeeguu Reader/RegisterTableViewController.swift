@@ -30,9 +30,9 @@ import ZeeguuAPI
 class RegisterTableViewController: ZGTableViewController, LanguagesTableViewControllerDelegate {
 	let rows = [["NAME".localized, "EMAIL".localized, "PASSWORD".localized], ["LEARN_LANGUAGE".localized, "BASE_LANGUAGE".localized]]
 	
-	let nameField = UITextField.autoLayoutCapapble()
-	let emailField = UITextField.autoLayoutCapapble()
-	let passwordField = UITextField.autoLayoutCapapble()
+	let nameField = UITextField.autoLayoutCapable()
+	let emailField = UITextField.autoLayoutCapable()
+	let passwordField = UITextField.autoLayoutCapable()
 	
 	var learnLanguage: String? = nil
 	var baseLanguage: String? = nil

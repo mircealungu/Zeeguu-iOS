@@ -27,10 +27,10 @@
 import UIKit
 import ZeeguuAPI
 
-class AddFeedTableViewController: UITableViewController {
+class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 	let rows = ["URL".localized]
 	
-	let urlField = UITextField.autoLayoutCapapble()
+	let urlField = UITextField.autoLayoutCapable()
 	var delegate: AddFeedTableViewControllerDelegate?
 	
 	convenience init(delegate: AddFeedTableViewControllerDelegate) {
@@ -45,10 +45,18 @@ class AddFeedTableViewController: UITableViewController {
 		self.title = "ADD_FEED".localized
 		
 		let addButton = UIBarButtonItem(title: "ADD".localized, style: .Done, target: self, action: "addFeed:")
+		addButton.enabled = false
 		self.navigationItem.rightBarButtonItem = addButton
 		
 		let cancelButton = UIBarButtonItem(title: "CANCEL".localized, style: .Plain, target: self, action: "cancel:")
 		self.navigationItem.leftBarButtonItem = cancelButton
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldChanged:", name: UITextFieldTextDidChangeNotification, object: urlField)
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		urlField.becomeFirstResponder()
 	}
 	
 	// MARK: - Table view data source
@@ -76,13 +84,34 @@ class AddFeedTableViewController: UITableViewController {
 		return cell!
 	}
 	
+	func textFieldChanged(notification: NSNotification) {
+		self.navigationItem.rightBarButtonItem?.enabled = urlField.text?.characters.count > "http://".characters.count
+	}
+	
+	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+		if (textField != urlField) {
+			return true
+		}
+		if let t = textField.text {
+			let newString: NSString = NSString(string: t).stringByReplacingCharactersInRange(range, withString: string)
+			let http: NSString = "http://"
+			if (newString.length < http.length) {
+				return false
+			} else if (!newString.hasPrefix(http as String)) {
+				return false
+			}
+		}
+		return true
+	}
+	
 	func setupTextFields() {
 		urlField.placeholder = "URL".localized
+		urlField.text = "http://"
+		urlField.delegate = self
 		urlField.keyboardType = .URL
 		urlField.returnKeyType = .Done
 		urlField.autocapitalizationType = .None
 		urlField.adjustsFontSizeToFitWidth = true
-		urlField.becomeFirstResponder()
 		urlField.addTarget(self, action: "textFieldEnterPressed:", forControlEvents: .EditingDidEndOnExit)
 	}
 	
@@ -102,6 +131,7 @@ class AddFeedTableViewController: UITableViewController {
 	}
 	
 	func cancel(sender: UIBarButtonItem) {
+		urlField.resignFirstResponder()
 		self.dismissViewControllerAnimated(true, completion: { () -> Void in
 			self.delegate?.addFeedDidCancel()
 		})
