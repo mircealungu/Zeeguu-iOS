@@ -46,7 +46,7 @@ class ZGTextView: UITextView {
 	}
 	
 	func selectedTextContext() -> String {
-		return Utils.selectedTextContextForText(self.text, selectedRange: self.selectedRange)
+		return Utils.selectedTextContextForText(self.attributedText, selectedRange: self.selectedRange)
 	}
 	
 	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
