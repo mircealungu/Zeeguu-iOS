@@ -1,5 +1,5 @@
 //
-//  FindingFeedsTableViewController.swift
+//  SelectFeedsTableViewController.swift
 //  Zeeguu Reader
 //
 //  Created by Jorrit Oosterhof on 18-01-16.
@@ -27,7 +27,7 @@
 import UIKit
 import ZeeguuAPI
 
-class FindingFeedsTableViewController: ZGTableViewController {
+class SelectFeedsTableViewController: ZGTableViewController {
 	var rows = [Feed]()
 	var selectedFeeds = NSMutableArray()
 	var feedURL = ""
