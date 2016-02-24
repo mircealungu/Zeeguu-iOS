@@ -28,6 +28,7 @@
 		94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A291C17452800C494ED /* ZGTextView.swift */; };
 		949B6C411C4D038C00CF9BB0 /* ZeeguuAPI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 949F8E9E1C466C5F00D635A0 /* ZeeguuAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		949B6C431C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B6C421C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift */; };
+		949D59B31C7DD32D007C4A0C /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949D59B21C7DD32D007C4A0C /* AppColor.swift */; };
 		949F8EA11C466C7000D635A0 /* ZeeguuAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949F8E9E1C466C5F00D635A0 /* ZeeguuAPI.framework */; };
 		94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B758311C36B797001B4294 /* AddFeedTableViewController.swift */; };
 		94C748281C39220400F3DCC2 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */; };
@@ -112,6 +113,7 @@
 		94779A111C17348B00C494ED /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
 		94779A291C17452800C494ED /* ZGTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextView.swift; sourceTree = "<group>"; };
 		949B6C421C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFeedsTableViewController.swift; sourceTree = "<group>"; };
+		949D59B21C7DD32D007C4A0C /* AppColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
 		949F8E981C466C5F00D635A0 /* ZeeguuAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZeeguuAPI.xcodeproj; path = "../../Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPI.xcodeproj"; sourceTree = "<group>"; };
 		94B758311C36B797001B4294 /* AddFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFeedTableViewController.swift; sourceTree = "<group>"; };
 		94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				94CEECE61C1DA24000C3D0E3 /* Login/Register */,
 				94CEECE21C1D792E00C3D0E3 /* Utils.swift */,
 				945658181C42B804000CDF3F /* AppIcon.swift */,
+				949D59B21C7DD32D007C4A0C /* AppColor.swift */,
 				9408F0411C1C818F002F9637 /* Localizable.strings */,
 				947799DD1C17171B00C494ED /* Assets.xcassets */,
 				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
@@ -478,6 +481,7 @@
 				94779A121C17348B00C494ED /* ArticleView.swift in Sources */,
 				947799D51C17171B00C494ED /* AppDelegate.swift in Sources */,
 				94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */,
+				949D59B31C7DD32D007C4A0C /* AppColor.swift in Sources */,
 				94CEECE31C1D792E00C3D0E3 /* Utils.swift in Sources */,
 				949B6C431C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift in Sources */,
 			);

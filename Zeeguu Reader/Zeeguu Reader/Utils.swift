@@ -64,7 +64,7 @@ class Utils {
 			let color = context.attribute(NSForegroundColorAttributeName, atIndex: i, effectiveRange: effectiveRange)
 			
 			if let c = color {
-				if c.isEqual(UIColor.lightGrayColor()) {
+				if c.isEqual(AppColor.getTranslationTextColor()) {
 					if effectiveRange != nil {
 						let r = effectiveRange.move()
 						contextStr.replaceCharactersInRange(r, withString: "")
