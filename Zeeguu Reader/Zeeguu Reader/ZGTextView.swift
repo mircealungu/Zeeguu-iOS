@@ -46,7 +46,7 @@ class ZGTextView: UITextView {
 	}
 	
 	func selectedTextContext() -> String {
-		return Utils.selectedTextContextForText(self.text, selectedRange: self.selectedRange)
+		return Utils.selectedTextContextForText(self.attributedText, selectedRange: self.selectedRange)
 	}
 	
 	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
@@ -65,7 +65,7 @@ class ZGTextView: UITextView {
 		
 		let attributes = self.attributedText.attributesAtIndex(range.location + range.length, effectiveRange: nil)
 		print("attributes: \(attributes)")
-		if let color = attributes[NSForegroundColorAttributeName] where color.isEqual(UIColor.lightGrayColor()) {
+		if let color = attributes[NSForegroundColorAttributeName] where color.isEqual(AppColor.getTranslationTextColor()) {
 			self.selectedTextRange = nil
 			return true
 		}
@@ -92,7 +92,7 @@ class ZGTextView: UITextView {
 						let range = self.selectedRange
 						self.scrollEnabled = false
 						
-						self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: UIColor.lightGrayColor()]))
+						self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: AppColor.getTranslationTextColor()]))
 						
 						self.resignFirstResponder()
 						self.scrollEnabled = true

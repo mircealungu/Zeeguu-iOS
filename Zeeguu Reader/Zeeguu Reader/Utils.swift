@@ -42,25 +42,49 @@ class Utils {
 	/// - parameter text: The text in which some substring was selected.
 	/// - parameter range: The range of the selected substring.
 	/// - returns: The context (sentence) in which the selected substring exists.
-	static func selectedTextContextForText(text: NSString, selectedRange range: NSRange) -> String {
-		print("range: \(range)")
-		
-		let sentenceBegin = text.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch, range: NSMakeRange(0, range.location), locale: nil)
-		let sentenceEnd = text.rangeOfString(".", options: [], range: NSMakeRange(range.location, text.length - range.location), locale: nil)
-		print("sentenceBegin: \(sentenceBegin)")
-		print("sentenceEnd: \(sentenceEnd)")
+	static func selectedTextContextForText(text: NSAttributedString, selectedRange range: NSRange) -> String {
+		let str: NSString = text.string;
+		let sentenceBegin = str.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch, range: NSMakeRange(0, range.location), locale: nil)
+		let sentenceEnd = str.rangeOfString(".", options: [], range: NSMakeRange(range.location, text.length - range.location), locale: nil)
 		
 		var begin = (sentenceBegin.location == NSNotFound ? 0 : sentenceBegin.location + 2)
 		let end = (sentenceEnd.location == NSNotFound ? text.length : sentenceEnd.location + sentenceEnd.length) - begin
-		if (text.characterAtIndex(begin) == "\n".characterAtIndex(0)) {
+		if (str.characterAtIndex(begin) == "\n".characterAtIndex(0)) {
 			++begin
 		}
-		print("begin: \(begin)")
-		print("end: \(end)")
 		
 		let newRange = NSMakeRange(begin, end)
+		let context: NSAttributedString = text.attributedSubstringFromRange(newRange)
+		let contextStr: NSMutableString = NSMutableString(string: context.string)
 		
-		return text.substringWithRange(newRange)
+		// context is the context that may contain other translations
+		
+		for var i = context.length - 1; i >= 0; --i {
+			let effectiveRange = NSRangePointer()
+			let color = context.attribute(NSForegroundColorAttributeName, atIndex: i, effectiveRange: effectiveRange)
+			
+			if let c = color {
+				if c.isEqual(AppColor.getTranslationTextColor()) {
+					if effectiveRange != nil {
+						let r = effectiveRange.move()
+						contextStr.replaceCharactersInRange(r, withString: "")
+						i = r.location + 1
+					} else {
+						contextStr.replaceCharactersInRange(NSMakeRange(i, 1), withString: "")
+					}
+					// if the text is light gray, it is a previous translation
+					// if effectiveRange is not NULL (pointing to 0x0) remove the characters in
+					// that range from contextStr (plain (mutable) string, without attributes like color)
+					// update i and go on
+					// if effectiveRange is the NULL pointer, just remove this single character that was light gray
+					// check documenation of NSAttributedString attribute:atIndex:effectiveRange: for more info about effectiveRange
+				}
+			}
+			
+			
+		}
+		
+		return String(contextStr)
 	}
 	
 }

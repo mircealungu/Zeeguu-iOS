@@ -125,7 +125,7 @@ class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 		let feed = urlField.text
 		
 		if let f = feed {
-			let vc = FindingFeedsTableViewController(feedURL: f, delegate: delegate)
+			let vc = SelectFeedsTableViewController(feedURL: f, delegate: delegate)
 			self.navigationController?.pushViewController(vc, animated: true)
 		}
 	}
