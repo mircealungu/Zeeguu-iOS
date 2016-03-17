@@ -58,7 +58,6 @@ class ArticleView: UIScrollView {
 		let view = UIView.autoLayoutCapable()
 		self.addSubview(view)
 		
-		titleLabel.text = article?.title
 		titleLabel.numberOfLines = 0;
 		titleLabel.font = UIFont.boldSystemFontOfSize(20)
 		
@@ -66,10 +65,13 @@ class ArticleView: UIScrollView {
 		contentView.textContainerInset = UIEdgeInsetsZero
 		contentView.textContainer.lineFragmentPadding = 0
 		
-		self.indicateLoadingArticle(true)
-		article?.getContents { (contents) -> Void in
-			self.contentView.text = contents
-			self.indicateLoadingArticle(false)
+		if let art = article {
+			titleLabel.text = art.title
+			self.indicateLoadingArticle(true)
+			art.getContents { (contents) -> Void in
+				self.contentView.text = contents
+				self.indicateLoadingArticle(false)
+			}
 		}
 		
 		
