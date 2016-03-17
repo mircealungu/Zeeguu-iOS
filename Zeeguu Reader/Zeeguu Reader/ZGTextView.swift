@@ -42,7 +42,10 @@ class ZGTextView: UITextView {
 	}
 	
 	func selectedText() -> String {
-		return self.textInRange(self.selectedTextRange!)!
+		if let r = self.selectedTextRange, t = self.textInRange(r) {
+			return t
+		}
+		return ""
 	}
 	
 	func selectedTextContext() -> String {
