@@ -26,7 +26,7 @@
 
 import UIKit
 
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 let feedsKey = "newsFeeds"
 

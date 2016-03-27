@@ -25,7 +25,7 @@
 //
 
 import UIKit
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 class LoginTableViewController: ZGTableViewController {
 	let rows = ["EMAIL".localized, "PASSWORD".localized]
