@@ -53,7 +53,7 @@ class ArticleViewController: UIViewController {
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
-		let translateBut = UIBarButtonItem(title: "TRANSLATION_MODE".localized, style: .Plain, target: self, action: "toggleTranslationMode:")
+		let translateBut = UIBarButtonItem(title: "TRANSLATION_MODE".localized, style: .Plain, target: self, action: #selector(ArticleViewController.toggleTranslationMode(_:)))
 		self.navigationItem.rightBarButtonItem = translateBut
 	}
 
@@ -65,7 +65,7 @@ class ArticleViewController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		let mc = UIMenuController.sharedMenuController()
 		
-		let bookmarkItem = UIMenuItem(title: "TRANSLATE".localized, action: "translate:")
+		let bookmarkItem = UIMenuItem(title: "TRANSLATE".localized, action: Selector("translate:"))
 		
 		mc.menuItems = [bookmarkItem]
 	}

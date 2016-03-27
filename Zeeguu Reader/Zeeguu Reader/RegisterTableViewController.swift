@@ -41,7 +41,7 @@ class RegisterTableViewController: ZGTableViewController, LanguagesTableViewCont
 		self.init(style: .Grouped)
 		
 		self.title = "REGISTER".localized
-		let loginButton = UIBarButtonItem(title: "REGISTER".localized, style: .Done, target: self, action: "register:")
+		let loginButton = UIBarButtonItem(title: "REGISTER".localized, style: .Done, target: self, action: #selector(RegisterTableViewController.register(_:)))
 		self.navigationItem.rightBarButtonItem = loginButton
 	}
 	

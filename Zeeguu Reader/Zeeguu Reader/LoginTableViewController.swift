@@ -37,7 +37,7 @@ class LoginTableViewController: ZGTableViewController {
 		self.init(style: .Grouped)
 		
 		self.title = "LOGIN".localized
-		let loginButton = UIBarButtonItem(title: "LOGIN".localized, style: .Done, target: self, action: "login:")
+		let loginButton = UIBarButtonItem(title: "LOGIN".localized, style: .Done, target: self, action: #selector(LoginTableViewController.login(_:)))
 		self.navigationItem.rightBarButtonItem = loginButton
 	}
 

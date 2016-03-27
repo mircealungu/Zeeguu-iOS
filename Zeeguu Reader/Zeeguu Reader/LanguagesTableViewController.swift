@@ -55,7 +55,7 @@ class LanguagesTableViewController: ZGTableViewController {
 		super.viewDidLoad()
 		
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl?.addTarget(self, action: "setupLanguages", forControlEvents: .ValueChanged)
+		self.refreshControl?.addTarget(self, action: #selector(LanguagesTableViewController.setupLanguages), forControlEvents: .ValueChanged)
 		self.refreshControl?.beginRefreshing()
 		setupLanguages()
 	}

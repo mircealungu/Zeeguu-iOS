@@ -43,13 +43,13 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 		
 		self.tableView.estimatedRowHeight = 80
 		
-		let logoutButton = UIBarButtonItem(title: "LOGOUT".localized, style: .Done, target: self, action: "logout:")
+		let logoutButton = UIBarButtonItem(title: "LOGOUT".localized, style: .Done, target: self, action: #selector(ProfileTableViewController.logout(_:)))
 		self.navigationItem.leftBarButtonItem = logoutButton
 		
 		self.clearsSelectionOnViewWillAppear = true
 		
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl?.addTarget(self, action: "getUserData", forControlEvents: .ValueChanged)
+		self.refreshControl?.addTarget(self, action: #selector(ProfileTableViewController.getUserData), forControlEvents: .ValueChanged)
 		self.refreshControl?.beginRefreshing()
 		getUserData()
 	}
@@ -154,5 +154,10 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 		print("self.data: \(self.data)")
 	}
 	
+	func logout(sender: AnyObject) {
+		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
+			(UIApplication.sharedApplication().delegate as? AppDelegate)?.presentLogin()
+		}
+	}
 	
 }

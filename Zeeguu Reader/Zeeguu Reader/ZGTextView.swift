@@ -53,7 +53,7 @@ class ZGTextView: UITextView {
 	}
 	
 	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-		if action == "translate:" {
+		if action == #selector(ZGTextView.translate(_:)) {
 			if (willInstantlyTranslate) {
 				translate(self)
 				return false
