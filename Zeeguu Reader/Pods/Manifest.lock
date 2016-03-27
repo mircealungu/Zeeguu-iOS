@@ -1,0 +1,18 @@
+PODS:
+  - SwiftyJSON (2.3.2)
+  - Zeeguu-API-iOS (1.0.0):
+    - SwiftyJSON (~> 2.3)
+
+DEPENDENCIES:
+  - Zeeguu-API-iOS (from `~/Documents/Studie/2015-2016/Period 2/Short Programming
+    Project/Zeeguu-API-iOS`)
+
+EXTERNAL SOURCES:
+  Zeeguu-API-iOS:
+    :path: ~/Documents/Studie/2015-2016/Period 2/Short Programming Project/Zeeguu-API-iOS
+
+SPEC CHECKSUMS:
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Zeeguu-API-iOS: 7d8fcb86c07187ac2750ca1dc01a8405f00d89c7
+
+COCOAPODS: 0.39.0
