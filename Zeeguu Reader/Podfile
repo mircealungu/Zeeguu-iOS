@@ -4,7 +4,6 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'Zeeguu Reader' do
-#	pod 'Zeeguu-API-iOS', :git => 'https://github.com/mircealungu/Zeeguu-API-iOS'
-	pod 'Zeeguu-API-iOS', :path => '~/Documents/Studie/2015-2016/Period 2/Short Programming Project/Zeeguu-API-iOS' # Using local version until remote repo is updated
+	pod 'Zeeguu-API-iOS', :git => 'https://github.com/mircealungu/Zeeguu-API-iOS'
 end
 
