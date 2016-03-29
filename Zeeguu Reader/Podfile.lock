@@ -4,12 +4,16 @@ PODS:
     - SwiftyJSON (~> 2.3)
 
 DEPENDENCIES:
-  - Zeeguu-API-iOS (from `~/Documents/Studie/2015-2016/Period 2/Short Programming
-    Project/Zeeguu-API-iOS`)
+  - Zeeguu-API-iOS (from `https://github.com/mircealungu/Zeeguu-API-iOS`)
 
 EXTERNAL SOURCES:
   Zeeguu-API-iOS:
-    :path: ~/Documents/Studie/2015-2016/Period 2/Short Programming Project/Zeeguu-API-iOS
+    :git: https://github.com/mircealungu/Zeeguu-API-iOS
+
+CHECKOUT OPTIONS:
+  Zeeguu-API-iOS:
+    :commit: c202646cf9e9b622397860488d5268c02610ab7b
+    :git: https://github.com/mircealungu/Zeeguu-API-iOS
 
 SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
