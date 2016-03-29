@@ -25,7 +25,7 @@
 //
 
 import UIKit
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 class ZGTextView: UITextView {
 
@@ -42,7 +42,10 @@ class ZGTextView: UITextView {
 	}
 	
 	func selectedText() -> String {
-		return self.textInRange(self.selectedTextRange!)!
+		if let r = self.selectedTextRange, t = self.textInRange(r) {
+			return t
+		}
+		return ""
 	}
 	
 	func selectedTextContext() -> String {
@@ -50,7 +53,7 @@ class ZGTextView: UITextView {
 	}
 	
 	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-		if action == "translate:" {
+		if action == #selector(ZGTextView.translate(_:)) {
 			if (willInstantlyTranslate) {
 				translate(self)
 				return false

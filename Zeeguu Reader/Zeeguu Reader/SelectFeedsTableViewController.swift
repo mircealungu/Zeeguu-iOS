@@ -25,7 +25,7 @@
 //
 
 import UIKit
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 class SelectFeedsTableViewController: ZGTableViewController {
 	var rows = [Feed]()
@@ -45,12 +45,12 @@ class SelectFeedsTableViewController: ZGTableViewController {
 		
 		self.title = "ADD_FEED".localized
 		
-		let addButton = UIBarButtonItem(title: "ADD".localized, style: .Done, target: self, action: "addFeeds:")
+		let addButton = UIBarButtonItem(title: "ADD".localized, style: .Done, target: self, action: #selector(SelectFeedsTableViewController.addFeeds(_:)))
 		addButton.enabled = false
 		self.navigationItem.rightBarButtonItem = addButton
 		
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl?.addTarget(self, action: "findFeeds", forControlEvents: .ValueChanged)
+		self.refreshControl?.addTarget(self, action: #selector(SelectFeedsTableViewController.findFeeds), forControlEvents: .ValueChanged)
 		self.refreshControl?.attributedTitle = NSAttributedString(string: "FINDING_FEEDS".localized)
 		self.refreshControl?.beginRefreshing()
 		

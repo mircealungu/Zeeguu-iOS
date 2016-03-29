@@ -25,7 +25,7 @@
 //
 
 import UIKit
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 class RegisterTableViewController: ZGTableViewController, LanguagesTableViewControllerDelegate {
 	let rows = [["NAME".localized, "EMAIL".localized, "PASSWORD".localized], ["LEARN_LANGUAGE".localized, "BASE_LANGUAGE".localized]]
@@ -41,7 +41,7 @@ class RegisterTableViewController: ZGTableViewController, LanguagesTableViewCont
 		self.init(style: .Grouped)
 		
 		self.title = "REGISTER".localized
-		let loginButton = UIBarButtonItem(title: "REGISTER".localized, style: .Done, target: self, action: "register:")
+		let loginButton = UIBarButtonItem(title: "REGISTER".localized, style: .Done, target: self, action: #selector(RegisterTableViewController.register(_:)))
 		self.navigationItem.rightBarButtonItem = loginButton
 	}
 	

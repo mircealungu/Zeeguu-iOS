@@ -50,7 +50,7 @@ class Utils {
 		var begin = (sentenceBegin.location == NSNotFound ? 0 : sentenceBegin.location + 2)
 		let end = (sentenceEnd.location == NSNotFound ? text.length : sentenceEnd.location + sentenceEnd.length) - begin
 		if (str.characterAtIndex(begin) == "\n".characterAtIndex(0)) {
-			++begin
+			begin += 1
 		}
 		
 		let newRange = NSMakeRange(begin, end)
@@ -59,8 +59,8 @@ class Utils {
 		
 		// context is the context that may contain other translations
 		
-		for var i = context.length - 1; i >= 0; --i {
-			let effectiveRange = NSRangePointer()
+		for var i in (0 ..< context.length).reverse() {
+			let effectiveRange: NSRangePointer = nil
 			let color = context.attribute(NSForegroundColorAttributeName, atIndex: i, effectiveRange: effectiveRange)
 			
 			if let c = color {

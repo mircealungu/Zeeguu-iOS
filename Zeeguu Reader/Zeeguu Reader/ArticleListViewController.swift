@@ -25,7 +25,7 @@
 //
 
 import UIKit
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 class ArticleListViewController: ZGTableViewController {
 
@@ -57,14 +57,14 @@ class ArticleListViewController: ZGTableViewController {
 		}
 		
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl?.addTarget(self, action: "getArticles", forControlEvents: .ValueChanged)
+		self.refreshControl?.addTarget(self, action: #selector(ArticleListViewController.getArticles), forControlEvents: .ValueChanged)
 		self.refreshControl?.beginRefreshing()
 		getArticles()
 	}
 	
 	func getArticles() {
 		var j = 0;
-		for var i = 0; i != feeds.count; ++i {
+		for i in 0 ..< feeds.count {
 			ZeeguuAPI.sharedAPI().getFeedItemsForFeed(feeds[i], completion: { (articles) -> Void in
 				if let arts = articles {
 					self.articles.appendContentsOf(arts)
@@ -72,7 +72,7 @@ class ArticleListViewController: ZGTableViewController {
 						return lhs.date > rhs.date
 					})
 				}
-				++j
+				j += 1;
 				if (j == self.feeds.count) {
 					dispatch_async(dispatch_get_main_queue(), { () -> Void in
 						// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
@@ -93,12 +93,6 @@ class ArticleListViewController: ZGTableViewController {
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
-	}
-	
-	func logout(sender: AnyObject) {
-		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
-			(UIApplication.sharedApplication().delegate as? AppDelegate)?.presentLogin()
-		}
 	}
 
 	// MARK: - Table View

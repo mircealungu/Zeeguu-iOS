@@ -25,7 +25,7 @@
 //
 
 import UIKit
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 enum LanguageChooseType {
 	case BaseLanguage
@@ -55,7 +55,7 @@ class LanguagesTableViewController: ZGTableViewController {
 		super.viewDidLoad()
 		
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl?.addTarget(self, action: "setupLanguages", forControlEvents: .ValueChanged)
+		self.refreshControl?.addTarget(self, action: #selector(LanguagesTableViewController.setupLanguages), forControlEvents: .ValueChanged)
 		self.refreshControl?.beginRefreshing()
 		setupLanguages()
 	}

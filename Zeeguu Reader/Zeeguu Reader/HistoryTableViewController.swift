@@ -25,7 +25,7 @@
 //
 
 import UIKit
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 class HistoryTableViewController: ZGTableViewController {
 
@@ -47,7 +47,7 @@ class HistoryTableViewController: ZGTableViewController {
 		self.clearsSelectionOnViewWillAppear = true
 		
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl?.addTarget(self, action: "getBookmarks", forControlEvents: .ValueChanged)
+		self.refreshControl?.addTarget(self, action: #selector(HistoryTableViewController.getBookmarks), forControlEvents: .ValueChanged)
 		self.refreshControl?.beginRefreshing()
 		getBookmarks()
 	}
@@ -75,7 +75,7 @@ class HistoryTableViewController: ZGTableViewController {
 						}
 					}
 					self.dates.append(date)
-					++counter
+					counter += 1
 				}
 				self.bookmarks = items
 			}

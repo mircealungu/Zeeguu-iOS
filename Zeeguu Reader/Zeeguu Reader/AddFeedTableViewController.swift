@@ -25,7 +25,7 @@
 //
 
 import UIKit
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 	let rows = ["URL".localized]
@@ -44,14 +44,14 @@ class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 		
 		self.title = "ADD_FEED".localized
 		
-		let addButton = UIBarButtonItem(title: "ADD".localized, style: .Done, target: self, action: "addFeed:")
+		let addButton = UIBarButtonItem(title: "ADD".localized, style: .Done, target: self, action: #selector(AddFeedTableViewController.addFeed(_:)))
 		addButton.enabled = false
 		self.navigationItem.rightBarButtonItem = addButton
 		
-		let cancelButton = UIBarButtonItem(title: "CANCEL".localized, style: .Plain, target: self, action: "cancel:")
+		let cancelButton = UIBarButtonItem(title: "CANCEL".localized, style: .Plain, target: self, action: #selector(AddFeedTableViewController.cancel(_:)))
 		self.navigationItem.leftBarButtonItem = cancelButton
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldChanged:", name: UITextFieldTextDidChangeNotification, object: urlField)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddFeedTableViewController.textFieldChanged(_:)), name: UITextFieldTextDidChangeNotification, object: urlField)
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -112,7 +112,7 @@ class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 		urlField.returnKeyType = .Done
 		urlField.autocapitalizationType = .None
 		urlField.adjustsFontSizeToFitWidth = true
-		urlField.addTarget(self, action: "textFieldEnterPressed:", forControlEvents: .EditingDidEndOnExit)
+		urlField.addTarget(self, action: #selector(AddFeedTableViewController.textFieldEnterPressed(_:)), forControlEvents: .EditingDidEndOnExit)
 	}
 	
 	func textFieldEnterPressed(textField: UITextField) {

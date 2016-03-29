@@ -26,7 +26,7 @@
 
 import UIKit
 
-import ZeeguuAPI
+import Zeeguu_API_iOS
 
 let feedsKey = "newsFeeds"
 
@@ -56,13 +56,13 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 //			def.setObject(self.newsFeeds, forKey: feedsKey)
 //		}
 		
-		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addNewsFeed:")
+		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(FeedOverviewTableViewController.addNewsFeed(_:)))
 		self.navigationItem.rightBarButtonItem = addButton
 		
 		self.clearsSelectionOnViewWillAppear = true
 		
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl?.addTarget(self, action: "getFeeds", forControlEvents: .ValueChanged)
+		self.refreshControl?.addTarget(self, action: #selector(FeedOverviewTableViewController.getFeeds), forControlEvents: .ValueChanged)
 		self.refreshControl?.beginRefreshing()
 		
 		self.tableView.rowHeight = UITableViewAutomaticDimension

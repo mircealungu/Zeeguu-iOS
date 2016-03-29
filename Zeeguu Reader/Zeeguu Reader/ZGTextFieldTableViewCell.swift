@@ -37,7 +37,7 @@ class ZGTextFieldTableViewCell: UITableViewCell {
 		
 		self.selectionStyle = .None
 		
-		let tapper = UITapGestureRecognizer(target: self, action: "didTapCell:")
+		let tapper = UITapGestureRecognizer(target: self, action: #selector(ZGTextFieldTableViewCell.didTapCell(_:)))
 		self.addGestureRecognizer(tapper)
 		
 		titleLabel.text = title
