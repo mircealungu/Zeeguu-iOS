@@ -117,5 +117,13 @@ class ArticleView: UIScrollView {
 			}
 		}
 	}
+	
+	func increaseFontSize(sender: AnyObject) {
+		contentView.font = contentView.font!.fontWithSize(contentView.font!.pointSize + 1)
+	}
+	
+	func decreaseFontSize(sender: AnyObject) {
+		contentView.font = contentView.font!.fontWithSize(contentView.font!.pointSize - 1)
+	}
 
 }

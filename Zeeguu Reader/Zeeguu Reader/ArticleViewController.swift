@@ -54,7 +54,18 @@ class ArticleViewController: UIViewController {
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		let translateBut = UIBarButtonItem(title: "TRANSLATION_MODE".localized, style: .Plain, target: self, action: #selector(ArticleViewController.toggleTranslationMode(_:)))
-		self.navigationItem.rightBarButtonItem = translateBut
+//		self.navigationItem.rightBarButtonItem = translateBut
+		
+		
+		
+		let butSmaller = UIBarButtonItem(title: "A", style: .Plain, target: articleView, action: #selector(ArticleView.decreaseFontSize(_:)))
+		let butLarger = UIBarButtonItem(title: "A", style: .Plain, target: articleView, action: #selector(ArticleView.increaseFontSize(_:)))
+		butSmaller.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(13)], forState: .Normal)
+		butLarger.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(21)], forState: .Normal)
+		
+		self.navigationItem.rightBarButtonItems = [translateBut, butLarger, butSmaller]
+		
+		
 	}
 
 	override func didReceiveMemoryWarning() {
