@@ -63,6 +63,12 @@ class ArticleViewController: UIViewController {
 		butSmaller.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(13)], forState: .Normal)
 		butLarger.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(21)], forState: .Normal)
 		
+		if article == nil {
+			translateBut.enabled = false;
+			butSmaller.enabled = false;
+			butLarger.enabled = false;
+		}
+		
 		self.navigationItem.rightBarButtonItems = [translateBut, butLarger, butSmaller]
 		
 		
