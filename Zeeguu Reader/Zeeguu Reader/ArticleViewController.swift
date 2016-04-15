@@ -82,7 +82,7 @@ class ArticleViewController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		let mc = UIMenuController.sharedMenuController()
 		
-		let bookmarkItem = UIMenuItem(title: "TRANSLATE".localized, action: Selector("translate:"))
+		let bookmarkItem = UIMenuItem(title: "TRANSLATE".localized, action: NSSelectorFromString("translate:"))
 		
 		mc.menuItems = [bookmarkItem]
 	}
