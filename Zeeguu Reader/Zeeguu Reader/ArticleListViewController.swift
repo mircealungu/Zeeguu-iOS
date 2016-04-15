@@ -147,9 +147,7 @@ class ArticleListViewController: ZGTableViewController {
 			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
 			vc.navigationItem.leftItemsSupplementBackButton = true
 			split.showDetailViewController(nav, sender: self)
-			if let sv = self.splitViewController {
-				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
-			}
+			UIApplication.sharedApplication().sendAction(split.displayModeButtonItem().action, to: split.displayModeButtonItem().target, from: nil, forEvent: nil)
 		} else {
 			vc.hidesBottomBarWhenPushed = true
 			self.navigationController?.pushViewController(vc, animated: true)
