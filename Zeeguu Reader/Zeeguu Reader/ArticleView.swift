@@ -27,12 +27,38 @@
 import UIKit
 import Zeeguu_API_iOS
 
+enum ArticleViewTranslationMode {
+	case Instant
+	case Ask
+}
 
 class ArticleView: UIScrollView {
 	
 	var article: Article?
 	var titleLabel: UILabel
 	var contentView: ZGTextView
+	
+	var translationMode: ArticleViewTranslationMode {
+		get {
+			return self.contentView.willInstantlyTranslate ? .Instant : .Ask
+		}
+		set(mode) {
+			self.contentView.willInstantlyTranslate = mode == .Instant
+		}
+	}
+	
+	var fontSize: CGFloat {
+		get {
+			if let s = contentView.font?.pointSize {
+				return s
+			}
+			return 0
+		}
+		set(size) {
+			contentView.font = contentView.font?.fontWithSize(size)
+		}
+	}
+	
 	
 	private let refresher: UIRefreshControl
 	
@@ -116,14 +142,6 @@ class ArticleView: UIScrollView {
 				CATransaction.commit()
 			}
 		}
-	}
-	
-	func increaseFontSize(sender: AnyObject) {
-		contentView.font = contentView.font!.fontWithSize(contentView.font!.pointSize + 1)
-	}
-	
-	func decreaseFontSize(sender: AnyObject) {
-		contentView.font = contentView.font!.fontWithSize(contentView.font!.pointSize - 1)
 	}
 
 }

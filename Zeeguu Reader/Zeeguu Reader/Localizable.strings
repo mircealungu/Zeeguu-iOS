@@ -39,6 +39,7 @@
 "CONTEXT_OF_%@" = "Context of %@";
 "EMAIL" = "Email";
 "FINDING_FEEDS" = "Finding feeds...";
+"FONTSIZE" = "Fontsize";
 "HISTORY" = "History";
 "INSTANT_TRANSLATION" = "Instant translation";
 "LEARN_LANGUAGE" = "Learn";
@@ -54,6 +55,7 @@
 "NO_LOGIN" = "No login credentials";
 "NO_LOGIN_MESSAGE" = "Please enter your login credentials.";
 "OK" = "OK";
+"OPTIONS" = "Options";
 "PASSWORD" = "Password";
 "PROFILE" = "Profile";
 "REGISTER" = "Register";

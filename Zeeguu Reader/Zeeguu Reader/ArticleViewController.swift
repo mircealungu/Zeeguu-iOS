@@ -30,12 +30,25 @@ import Zeeguu_API_iOS
 class ArticleViewController: UIViewController {
 	
 	var article: Article?
-	private var articleView: ArticleView
+	private var _articleView: ArticleView
+	var articleView: ArticleView {
+		get {
+			return _articleView
+		}
+	}
+	
+	var translationMode: ArticleViewTranslationMode {
+		get {
+			return self._articleView.translationMode
+		}
+		set(mode) {
+			self._articleView.translationMode = mode
+		}
+	}
 	
 	init(article: Article? = nil) {
 		self.article = article
-		self.articleView = ArticleView(article: self.article)
-		
+		self._articleView = ArticleView(article: self.article)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -47,31 +60,18 @@ class ArticleViewController: UIViewController {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		self.view.backgroundColor = UIColor.whiteColor()
-		let views: [String: AnyObject] = ["v": articleView]
+		let views: [String: AnyObject] = ["v": _articleView]
 		
-		self.view.addSubview(articleView)
+		self.view.addSubview(_articleView)
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
-		let translateBut = UIBarButtonItem(title: "TRANSLATION_MODE".localized, style: .Plain, target: self, action: #selector(ArticleViewController.toggleTranslationMode(_:)))
-//		self.navigationItem.rightBarButtonItem = translateBut
-		
-		
-		
-		let butSmaller = UIBarButtonItem(title: "A", style: .Plain, target: articleView, action: #selector(ArticleView.decreaseFontSize(_:)))
-		let butLarger = UIBarButtonItem(title: "A", style: .Plain, target: articleView, action: #selector(ArticleView.increaseFontSize(_:)))
-		butSmaller.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(13)], forState: .Normal)
-		butLarger.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(21)], forState: .Normal)
+		let translateBut = UIBarButtonItem(title: "OPTIONS".localized, style: .Plain, target: self, action: #selector(ArticleViewController.showOptions(_:)))
+		self.navigationItem.rightBarButtonItem = translateBut
 		
 		if article == nil {
 			translateBut.enabled = false;
-			butSmaller.enabled = false;
-			butLarger.enabled = false;
 		}
-		
-		self.navigationItem.rightBarButtonItems = [translateBut, butLarger, butSmaller]
-		
-		
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -93,20 +93,12 @@ class ArticleViewController: UIViewController {
 		mc.menuItems = nil
 	}
 	
-	func toggleTranslationMode(sender: UIBarButtonItem) {
-		let sheet = UIAlertController(title: "TRANSLATION_MODE".localized, message: "TRANSLATION_MODE_DESCRIPTION".localized, preferredStyle: .ActionSheet)
-		
-		sheet.addAction(UIAlertAction(title: "INSTANT_TRANSLATION".localized, style: .Default, handler: { (action) -> Void in
-			self.articleView.contentView.willInstantlyTranslate = true
-		}))
-		
-		sheet.addAction(UIAlertAction(title: "ASK_BEFORE_TRANSLATION".localized, style: .Default, handler: { (action) -> Void in
-			self.articleView.contentView.willInstantlyTranslate = false
-		}))
-		
-		sheet.popoverPresentationController?.barButtonItem = sender
-		
-		self.presentViewController(sheet, animated: true, completion: nil)
+	func showOptions(sender: UIBarButtonItem) {
+		let vc = ArticleViewOptionsTableViewController(parent: self)
+		vc.popoverPresentationController?.barButtonItem = sender
+		self.presentViewController(vc, animated: true, completion: nil)
 	}
+	
+
 }
 
