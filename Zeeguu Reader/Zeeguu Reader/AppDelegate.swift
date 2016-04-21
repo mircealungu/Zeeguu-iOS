@@ -25,7 +25,8 @@
 //
 
 import UIKit
-import Zeeguu_API_iOS
+//import Zeeguu_API_iOS
+import Zeeguu_API_iOS_debug
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {

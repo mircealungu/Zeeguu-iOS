@@ -1,6 +1,0 @@
-framework module Zeeguu_API_iOS {
-  umbrella header "Zeeguu-API-iOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

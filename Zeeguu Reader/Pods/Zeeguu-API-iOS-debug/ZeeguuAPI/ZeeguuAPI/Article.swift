@@ -26,13 +26,19 @@
 
 import UIKit
 
-public class Article: CustomStringConvertible {
+public func ==(lhs: Article, rhs: Article) -> Bool {
+	return lhs.feed == rhs.feed && lhs.title == rhs.title && lhs.url == rhs.url && lhs.date == rhs.date && lhs.summary == rhs.summary
+}
+
+public class Article: CustomStringConvertible, Equatable {
 	public var feed: Feed
 	public var title: String
 	public var url: String
 	public var date: String
 	public var summary: String
 	private var contents: String?
+	private var personalDifficulty: String?
+	private var generalDifficulty: String?
 	
 	public var description: String {
 		let str = feed.description.stringByReplacingOccurrencesOfString("\n", withString: "\n\t")
@@ -61,6 +67,23 @@ public class Article: CustomStringConvertible {
 					ZeeguuAPI.sharedAPI().debugPrint("Failure, no content")
 				}
 			}
+		}
+	}
+	
+	public func getDifficulty(personalized: Bool = true, completion: (difficulty: String) -> Void) {
+		let difficulty = personalized ? personalDifficulty : generalDifficulty
+		if let diff = difficulty {
+			completion(difficulty: diff)
+		} else {
+			getContents({ (contents) in
+				ZeeguuAPI.sharedAPI().getDifficultyForTexts([contents], langCode: self.feed.language, personalized: personalized, completion: { (dict) in
+					if let d = dict {
+						// process difficulty dictionary
+					} else {
+						ZeeguuAPI.sharedAPI().debugPrint("Failure, no difficulty")
+					}
+				})
+			})
 		}
 	}
 }

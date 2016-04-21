@@ -10,113 +10,71 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>00B9B2F441F12010EF18FEEE15393B88</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>ZeeguuAPI.h</string>
-			<key>path</key>
-			<string>ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>0297D5C94FCB6219C918797C013496BE</key>
+		<key>02798EB6D1A1256CBE26EDFE61F40505</key>
 		<dict>
 			<key>fileRef</key>
-			<string>6BCEA5642F7AD1C4C083BC31D4039893</string>
+			<string>F05A2DDA9058082E37FAAA448F008219</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>02EC91DC86ED6333F436458386056458</key>
+		<key>04DD5F6E319746C65576A9DF481A691D</key>
 		<dict>
-			<key>buildConfigurations</key>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
 			<array>
-				<string>08BDB0FA28F7B8F76598C5C0A34F958A</string>
-				<string>B1F5ECF15B51E301C4937AE0086F0424</string>
+				<string>1003C9B9572228423769087A4015A62A</string>
 			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
 			<key>isa</key>
-			<string>XCConfigurationList</string>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
-		<key>035851A5EE69C3D86446DFF79DD3B971</key>
+		<key>091D3B20BB85E12350F88C2F67E82332</key>
 		<dict>
-			<key>buildConfigurations</key>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>75E17143D3970E06ED58B77F8417023C</string>
+			<key>remoteInfo</key>
+			<string>Zeeguu-API-iOS-debug</string>
+		</dict>
+		<key>09640EA87278F7975890BA800815771A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C2563801D30AF63F65208F47E1556020</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0A122E667E20E968D58F0D79872DBCC1</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
 			<array>
-				<string>F8B0DB4205E0D3F2FE3016129B0A5D00</string>
-				<string>BFAEC79C32BCC1B22BA0E854C6AB7F38</string>
+				<string>AB34EE6F4E86F82799127143C6F84E29</string>
 			</array>
-			<key>defaultConfigurationIsVisible</key>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
 		</dict>
-		<key>08BDB0FA28F7B8F76598C5C0A34F958A</key>
+		<key>0AF2BD800901BE8F60FD36698F6C07E3</key>
 		<dict>
-			<key>baseConfigurationReference</key>
-			<string>C6F800AA4AA17DE35DF0EAF28CD0C449</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Zeeguu-API-iOS/Zeeguu-API-iOS-prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/Zeeguu-API-iOS/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.0</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>@executable_path/Frameworks</string>
-					<string>@loader_path/Frameworks</string>
-				</array>
-				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/Zeeguu-API-iOS/Zeeguu-API-iOS.modulemap</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>PRODUCT_NAME</key>
-				<string>Zeeguu_API_iOS</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
-			</dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
 			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>110662B1591A5B6C10EBF89D6677E458</string>
+			<key>remoteInfo</key>
+			<string>SwiftyJSON</string>
 		</dict>
 		<key>0C1805969725FC77D450392ADD34E8F7</key>
 		<dict>
@@ -131,143 +89,52 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>0E245E40CBC1976609D7DA6824065754</key>
+		<key>1003C9B9572228423769087A4015A62A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6BCEA5642F7AD1C4C083BC31D4039893</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>110662B1591A5B6C10EBF89D6677E458</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>F8B204DCA49252B02D4034D22769DEB1</string>
+			<key>buildPhases</key>
+			<array>
+				<string>DD1D58880B081754BBF9E0F266BC7CE6</string>
+				<string>04DD5F6E319746C65576A9DF481A691D</string>
+				<string>8034034DE7F43A2A43BADD83C16E9E25</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>SwiftyJSON</string>
+			<key>productName</key>
+			<string>SwiftyJSON</string>
+			<key>productReference</key>
+			<string>785377B1695AA82093DB8827788F07D8</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>149764E8DEF73B75816211561789E6A0</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>33CA46EFB5CEDF4174EEDA0AE25019D1</string>
-				<string>1885B13BACA2451DC920D65711B547B9</string>
+				<string>3BA41F2726C67EA7E5D406235B9881AA</string>
 			</array>
 			<key>isa</key>
 			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>0E30AEA73D8D99A2639169EB28DE4B79</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A8EF60BDF9C94DF9967872FD8463D33A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>0F74F2A2FC7E6740D1F9132CDFE236AD</key>
-		<dict>
-			<key>fileRef</key>
-			<string>BB437FE33D1B9A6311F4B35860BEFB3C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1039BD96896D91A8C39B4CBFA27D0E2A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>ZeeguuAPI.swift</string>
-			<key>path</key>
-			<string>ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>183BE248DFCEF4B94CE5F3E7991D22A7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>Debug.swift</string>
-			<key>path</key>
-			<string>ZeeguuAPI/ZeeguuAPI/Debug.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1885B13BACA2451DC920D65711B547B9</key>
-		<dict>
-			<key>fileRef</key>
-			<string>7FBB8E66972498D64C7D973539530E8C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1B7598D61701426C90C66A5A5FC0EA82</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>Zeeguu_API_iOS.framework</string>
-			<key>path</key>
-			<string>Zeeguu_API_iOS.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>1CC6C99DAECFF7F431710297E31ED51D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>88E1314C5B8F16AC5242E08312E72005</string>
-				<string>E59ABA35C8681C65CEE6DAE53F328187</string>
-				<string>AAA1D22A7C90149CCD9AAF7BA9BE2311</string>
-				<string>9A58D13AF370A42E85E6B2FC2EBB8527</string>
-				<string>0F74F2A2FC7E6740D1F9132CDFE236AD</string>
-				<string>66C39B7747A6D2E110588F5B43F30952</string>
-				<string>23EB9E2D11B0750DBD6172E9CF74E51A</string>
-				<string>4DA1F2BED342D3CD386E9F53546B7245</string>
-				<string>E7B492F702F204252B144A5DA7079904</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1F522E83C1CAC4CAEA75268562E78C65</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5F4A63C631359C07DE2700A5730DE22B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>20C758280F481EF3CDD3119B418BEF1A</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>22E4E729829F227E69E2F376F8041DCB</string>
-				<string>EF3145EDA0D03DDF5720822CB2E38AD9</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>22E4E729829F227E69E2F376F8041DCB</key>
+		<key>16949AC7893EEDCFA74401D786593AF6</key>
 		<dict>
 			<key>baseConfigurationReference</key>
 			<string>2AE3BFFF674A80767508E2638689C217</string>
@@ -331,12 +198,108 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>23EB9E2D11B0750DBD6172E9CF74E51A</key>
+		<key>1960E7D4E7B97AE73123E08C1E7EE363</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>2BC02676269A63C6AAFC7091408AA4E6</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/Zeeguu-API-iOS-debug/Zeeguu-API-iOS-debug-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Zeeguu-API-iOS-debug/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Zeeguu-API-iOS-debug/Zeeguu-API-iOS-debug.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>PRODUCT_NAME</key>
+				<string>Zeeguu_API_iOS_debug</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>1AE4DC9486E3FF980587B169F999A781</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>110662B1591A5B6C10EBF89D6677E458</string>
+			<key>remoteInfo</key>
+			<string>SwiftyJSON</string>
+		</dict>
+		<key>1C400CCA7E460AA637EFA68DFC39ED7D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Zeeguu-API-iOS-debug.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>22CD0048BC1FE518755D4B9281CBD814</key>
 		<dict>
 			<key>fileRef</key>
-			<string>1039BD96896D91A8C39B4CBFA27D0E2A</string>
+			<string>471EDE3D24CEC190C80AB131F1E11CD6</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>279A7F794CEBF2122F49132AFD0F2F05</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>C321250677565E259C9BBD60E280EC92</string>
+				<string>92B4E2A81B21509D1D3D8C257F740B09</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>SwiftyJSON</string>
+			<key>path</key>
+			<string>SwiftyJSON</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>2AE3BFFF674A80767508E2638689C217</key>
 		<dict>
@@ -348,6 +311,34 @@
 			<string>text.xcconfig</string>
 			<key>path</key>
 			<string>Pods-Zeeguu Reader.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2BC02676269A63C6AAFC7091408AA4E6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Zeeguu-API-iOS-debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2CC2E2E9D0BB0E0335F5A5456D596DD4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Bookmark.swift</string>
+			<key>path</key>
+			<string>ZeeguuAPI/ZeeguuAPI/Bookmark.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -365,42 +356,96 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
-		<key>3059C2529C53438A78FA113F191D87CA</key>
+		<key>2F2C6C4A6EEF67B4E98B497047D45F9C</key>
 		<dict>
-			<key>children</key>
+			<key>buildConfigurationList</key>
+			<string>BD89D8CBB07469734A1B1F709AD61016</string>
+			<key>buildPhases</key>
 			<array>
-				<string>AAC96AB685DF4B097B7B5713FA660FFB</string>
-				<string>97170EF5CC561CC522DE3955E2E05622</string>
+				<string>149764E8DEF73B75816211561789E6A0</string>
+				<string>0A122E667E20E968D58F0D79872DBCC1</string>
+				<string>3D0692167DA2636323D02186FE323B72</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>FE150D8FFB3488703C713584268E9EF9</string>
+				<string>D78B7A80B510CD06313F670974C8DE3E</string>
 			</array>
 			<key>isa</key>
-			<string>PBXGroup</string>
+			<string>PBXNativeTarget</string>
 			<key>name</key>
-			<string>Pods</string>
+			<string>Pods-Zeeguu Reader</string>
+			<key>productName</key>
+			<string>Pods-Zeeguu Reader</string>
+			<key>productReference</key>
+			<string>57D6E9AEA9F95C906EF405F9BE9F77FF</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>379C38AB5217485D852829E1990575A7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>SwiftyJSON.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>30F9FC53F0F6CCB961D5712DA0D17FE9</key>
+		<key>3BA41F2726C67EA7E5D406235B9881AA</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C835AEE0DC8A46422C3AB86766B24835</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>3D0692167DA2636323D02186FE323B72</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>88BB36D55D9FCE2280BC7C706ABCCE9E</string>
-				<string>A91B38DF0D3B0C8C66D1CEED2EDDFDB4</string>
+				<string>F4BAE105386843CC7DB40ECC31F8A913</string>
 			</array>
 			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
+			<string>PBXHeadersBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>33CA46EFB5CEDF4174EEDA0AE25019D1</key>
+		<key>3EC29C9577DBC081F1F375633680B2A7</key>
 		<dict>
-			<key>fileRef</key>
-			<string>899F84084D4B0FE4C3957F571D468CFA</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Debug.swift</string>
+			<key>path</key>
+			<string>ZeeguuAPI/ZeeguuAPI/Debug.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>36A244A64721585CB9A3C584097DAA9A</key>
+		<key>3F73AD043830A0DFCC542C8D9E155493</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Zeeguu-API-iOS-debug-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>471EDE3D24CEC190C80AB131F1E11CD6</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -415,94 +460,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>396BE27BB04C4B8B58BD0011568743A8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>Article.swift</string>
-			<key>path</key>
-			<string>ZeeguuAPI/ZeeguuAPI/Article.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3C55FCE72576B8CDFFC1BE1A80E7E56F</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>73CD306D136033EEC5B4890700768BC2</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>3E3805CDA9FD976C604AB2E0560C8063</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>02EC91DC86ED6333F436458386056458</string>
-			<key>buildPhases</key>
-			<array>
-				<string>1CC6C99DAECFF7F431710297E31ED51D</string>
-				<string>30F9FC53F0F6CCB961D5712DA0D17FE9</string>
-				<string>88F85A55D42C010B2014A5DF9875FBEA</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>D6F3C2CB4BDCFE40067D047CE7225ECB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Zeeguu-API-iOS</string>
-			<key>productName</key>
-			<string>Zeeguu-API-iOS</string>
-			<key>productReference</key>
-			<string>1B7598D61701426C90C66A5A5FC0EA82</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
-		</dict>
-		<key>403CE7494CBFAB7B104E12FFD15CAC1C</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F6C8AEB0F461497192DBAE9DE3678DC0</string>
-				<string>7954A90D350DA85D5C0BEEA2A1A5B540</string>
-				<string>C6F800AA4AA17DE35DF0EAF28CD0C449</string>
-				<string>6DFD7A1E299E68E656F6B543103086E3</string>
-				<string>6FD3263686C69D517BDADB7C41248C6B</string>
-				<string>5F4A63C631359C07DE2700A5730DE22B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/Zeeguu-API-iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>446C422EAB0F50543A1C3768A502001B</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>0297D5C94FCB6219C918797C013496BE</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
 		<key>479F4A0A72C58E522B7956F6673054E3</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -516,38 +473,92 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4DA1F2BED342D3CD386E9F53546B7245</key>
-		<dict>
-			<key>fileRef</key>
-			<string>909718B067F5D4E8A8DE1349B60E5FAE</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>537E3A4612CC27DB83C2F69DF2D54E2C</key>
+		<key>4BAF042A9E2B8D6208C2213A0FDE5863</key>
 		<dict>
 			<key>isa</key>
 			<string>PBXTargetDependency</string>
 			<key>name</key>
 			<string>SwiftyJSON</string>
 			<key>target</key>
-			<string>7AABCDD2C5F1E31F5B0C59168E2D3FB9</string>
+			<string>110662B1591A5B6C10EBF89D6677E458</string>
 			<key>targetProxy</key>
-			<string>9FA1B6933BDEFFC5DAF323BDD2C810AD</string>
+			<string>1AE4DC9486E3FF980587B169F999A781</string>
 		</dict>
-		<key>55AD43CBFFB203AD351C1B12E978F31E</key>
+		<key>4F45D1ADA2A46FABFB57F05FF343D440</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>Bookmark.swift</string>
+			<string>text.plist.xml</string>
 			<key>path</key>
-			<string>ZeeguuAPI/ZeeguuAPI/Bookmark.swift</string>
+			<string>Info.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>519509109818741A002B086B1215CC42</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SwiftyJSON-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>537B3E87C18BA4DD7CA9E04DFE3F85A5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>ZeeguuAPI.h</string>
+			<key>path</key>
+			<string>ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>560E257146E55155325F3BF3155AEFFC</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>DDB0BDAC8FA56383A12B6F05D1A10634</string>
+				<string>1C400CCA7E460AA637EFA68DFC39ED7D</string>
+				<string>2BC02676269A63C6AAFC7091408AA4E6</string>
+				<string>AFE848D3462A5965B1267ECBE53B08A9</string>
+				<string>BB33083C05A4819BA781D19C89E81434</string>
+				<string>3F73AD043830A0DFCC542C8D9E155493</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/Zeeguu-API-iOS-debug</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>57D6E9AEA9F95C906EF405F9BE9F77FF</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods_Zeeguu_Reader.framework</string>
+			<key>path</key>
+			<string>Pods_Zeeguu_Reader.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>59C36C43953F96F647B61E964745DC74</key>
 		<dict>
@@ -572,6 +583,91 @@
 			<string>Target Support Files/Pods-Zeeguu Reader</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5C0BDF1B83785CA2EECEE795E9807D48</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>279A7F794CEBF2122F49132AFD0F2F05</string>
+				<string>DFDFC9D3CA75FFC3A0A34058CAA6E208</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5C7D3B61E830B2193D0C392E9E123B80</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SwiftyJSON-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5C92B072E42418739CF59D424F3934F5</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>2BC02676269A63C6AAFC7091408AA4E6</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/Zeeguu-API-iOS-debug/Zeeguu-API-iOS-debug-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Zeeguu-API-iOS-debug/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Zeeguu-API-iOS-debug/Zeeguu-API-iOS-debug.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>Zeeguu_API_iOS_debug</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
 		</dict>
 		<key>5CE5176205D06FF3FFE3DDDA9291E44B</key>
 		<dict>
@@ -646,18 +742,42 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>5F4A63C631359C07DE2700A5730DE22B</key>
+		<key>5FC7C5768F1352E2575E18CC714FA4CC</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>ZeeguuAPI.swift</string>
 			<key>path</key>
-			<string>Zeeguu-API-iOS-umbrella.h</string>
+			<string>ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>626C21A5FE67A995E9A0C08DD29AD7CD</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Zeeguu_API_iOS_debug.framework</string>
+			<key>path</key>
+			<string>Zeeguu_API_iOS_debug.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>657E38F85A7ADD1A7B0A2389C80EE4E4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C321250677565E259C9BBD60E280EC92</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>65B35BF8E63AD31F1FDAD1F7E7313A21</key>
 		<dict>
@@ -673,25 +793,12 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>66C39B7747A6D2E110588F5B43F30952</key>
+		<key>684AB27EC21713FB218C49B2FD9E566E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>6DFD7A1E299E68E656F6B543103086E3</string>
+			<string>519509109818741A002B086B1215CC42</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>681864D1392C2E162BF5C79460E7614E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>6BCEA5642F7AD1C4C083BC31D4039893</key>
 		<dict>
@@ -706,33 +813,22 @@
 			<key>sourceTree</key>
 			<string>DEVELOPER_DIR</string>
 		</dict>
-		<key>6D1AA1E452C34BB43A11B6DB629DFAAD</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B386D493E5833C28B51AD70D282386D2</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>6DFD7A1E299E68E656F6B543103086E3</key>
+		<key>6BE50C540C492E3A0AFDB0B182B4A3DA</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>ZeeguuAPIEndpoint.swift</string>
 			<key>path</key>
-			<string>Zeeguu-API-iOS-dummy.m</string>
+			<string>ZeeguuAPI/ZeeguuAPI/ZeeguuAPIEndpoint.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>6FD3263686C69D517BDADB7C41248C6B</key>
+		<key>6F9EAD34A7E408278FE0AA39EF33347C</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -741,16 +837,23 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>Zeeguu-API-iOS-prefix.pch</string>
+			<string>SwiftyJSON-prefix.pch</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>73CD306D136033EEC5B4890700768BC2</key>
+		<key>6F9F9E960ABD33D82C963B5EAA6FFA6B</key>
 		<dict>
 			<key>fileRef</key>
-			<string>6BCEA5642F7AD1C4C083BC31D4039893</string>
+			<string>3F73AD043830A0DFCC542C8D9E155493</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>74857149DC1E0D599B8A01A78349A926</key>
 		<dict>
@@ -820,240 +923,13 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>7954A90D350DA85D5C0BEEA2A1A5B540</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Zeeguu-API-iOS.modulemap</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7AABCDD2C5F1E31F5B0C59168E2D3FB9</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>035851A5EE69C3D86446DFF79DD3B971</string>
-			<key>buildPhases</key>
-			<array>
-				<string>0E245E40CBC1976609D7DA6824065754</string>
-				<string>446C422EAB0F50543A1C3768A502001B</string>
-				<string>6D1AA1E452C34BB43A11B6DB629DFAAD</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>SwiftyJSON</string>
-			<key>productName</key>
-			<string>SwiftyJSON</string>
-			<key>productReference</key>
-			<string>B0AAFCEFA741AF1F2ACCF0F950488F86</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
-		</dict>
-		<key>7B2E3F5951F1923B8378568646EA91BF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>SwiftyJSON.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7BC38EFE23EA499AA869FA14A415C858</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>SwiftyJSON.modulemap</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7DB346D0F39D3F0E887471402A8071AB</key>
+		<key>7512B92AE37B62C5A6E1442000095489</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
-				<string>65B35BF8E63AD31F1FDAD1F7E7313A21</string>
-				<string>3059C2529C53438A78FA113F191D87CA</string>
-				<string>9F14C7E0A38177309AB0CFA727F64D5B</string>
-				<string>870A949FD1D9C3D75E13BD4A1FFD8389</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7FBB8E66972498D64C7D973539530E8C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>SwiftyJSON.swift</string>
-			<key>path</key>
-			<string>Source/SwiftyJSON.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>82EEB56251A51AB343DB547B63753569</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Zeeguu-API-iOS</string>
-			<key>target</key>
-			<string>3E3805CDA9FD976C604AB2E0560C8063</string>
-			<key>targetProxy</key>
-			<string>B4BDF0983FA8FA3E7CA74406910E30AD</string>
-		</dict>
-		<key>870A949FD1D9C3D75E13BD4A1FFD8389</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>59C36C43953F96F647B61E964745DC74</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Targets Support Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>88BB36D55D9FCE2280BC7C706ABCCE9E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6BCEA5642F7AD1C4C083BC31D4039893</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>88E1314C5B8F16AC5242E08312E72005</key>
-		<dict>
-			<key>fileRef</key>
-			<string>396BE27BB04C4B8B58BD0011568743A8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>88F85A55D42C010B2014A5DF9875FBEA</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>1F522E83C1CAC4CAEA75268562E78C65</string>
-				<string>D8D4B27B318AD22313EE1094B042FC48</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>899F84084D4B0FE4C3957F571D468CFA</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SwiftyJSON-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8D68083B3738E3ADAF5A8FBC623F220B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SwiftyJSON-umbrella.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCEA4E1526FA7C9F9425AB08F9CFEAD</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B1B357B970B1B58B885FBCF7F6A56055</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>909718B067F5D4E8A8DE1349B60E5FAE</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>ZeeguuAPIDefaults.swift</string>
-			<key>path</key>
-			<string>ZeeguuAPI/ZeeguuAPI/ZeeguuAPIDefaults.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>97170EF5CC561CC522DE3955E2E05622</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>396BE27BB04C4B8B58BD0011568743A8</string>
-				<string>55AD43CBFFB203AD351C1B12E978F31E</string>
-				<string>183BE248DFCEF4B94CE5F3E7991D22A7</string>
-				<string>36A244A64721585CB9A3C584097DAA9A</string>
-				<string>BB437FE33D1B9A6311F4B35860BEFB3C</string>
-				<string>00B9B2F441F12010EF18FEEE15393B88</string>
-				<string>1039BD96896D91A8C39B4CBFA27D0E2A</string>
-				<string>909718B067F5D4E8A8DE1349B60E5FAE</string>
-				<string>EF861C64A2358A65F836293512E54C7A</string>
-				<string>403CE7494CBFAB7B104E12FFD15CAC1C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Zeeguu-API-iOS</string>
-			<key>path</key>
-			<string>Zeeguu-API-iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9A58D13AF370A42E85E6B2FC2EBB8527</key>
-		<dict>
-			<key>fileRef</key>
-			<string>36A244A64721585CB9A3C584097DAA9A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9F14C7E0A38177309AB0CFA727F64D5B</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CF7A697B1DEA1AE315D9A8A987912D53</string>
-				<string>B0AAFCEFA741AF1F2ACCF0F950488F86</string>
-				<string>1B7598D61701426C90C66A5A5FC0EA82</string>
+				<string>57D6E9AEA9F95C906EF405F9BE9F77FF</string>
+				<string>785377B1695AA82093DB8827788F07D8</string>
+				<string>626C21A5FE67A995E9A0C08DD29AD7CD</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -1062,262 +938,37 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>9FA1B6933BDEFFC5DAF323BDD2C810AD</key>
+		<key>75E17143D3970E06ED58B77F8417023C</key>
 		<dict>
-			<key>containerPortal</key>
-			<string>D41D8CD98F00B204E9800998ECF8427E</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>7AABCDD2C5F1E31F5B0C59168E2D3FB9</string>
-			<key>remoteInfo</key>
-			<string>SwiftyJSON</string>
-		</dict>
-		<key>A004999A9FEE86B8114A5C139036DFEC</key>
-		<dict>
-			<key>children</key>
+			<key>buildConfigurationList</key>
+			<string>8FDA374B9409056F182F6B44B4CFD1CC</string>
+			<key>buildPhases</key>
 			<array>
-				<string>681864D1392C2E162BF5C79460E7614E</string>
-				<string>7BC38EFE23EA499AA869FA14A415C858</string>
-				<string>7B2E3F5951F1923B8378568646EA91BF</string>
-				<string>899F84084D4B0FE4C3957F571D468CFA</string>
-				<string>A7DF652772E37EC012B64B0AD99C65E7</string>
-				<string>8D68083B3738E3ADAF5A8FBC623F220B</string>
+				<string>B690153A1B7E8559850780913C62080E</string>
+				<string>920119991C6BBF92C30B5D1F700E0704</string>
+				<string>99CD660631405AC2C3E29239DD16FE27</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>4BAF042A9E2B8D6208C2213A0FDE5863</string>
 			</array>
 			<key>isa</key>
-			<string>PBXGroup</string>
+			<string>PBXNativeTarget</string>
 			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/SwiftyJSON</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>Zeeguu-API-iOS-debug</string>
+			<key>productName</key>
+			<string>Zeeguu-API-iOS-debug</string>
+			<key>productReference</key>
+			<string>626C21A5FE67A995E9A0C08DD29AD7CD</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
 		</dict>
-		<key>A68D573F0936397E79A8D40F23A0C2A6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-Zeeguu Reader-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A7DF652772E37EC012B64B0AD99C65E7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SwiftyJSON-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A8EF60BDF9C94DF9967872FD8463D33A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-Zeeguu Reader-umbrella.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A91B38DF0D3B0C8C66D1CEED2EDDFDB4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F05A2DDA9058082E37FAAA448F008219</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>AAA1D22A7C90149CCD9AAF7BA9BE2311</key>
-		<dict>
-			<key>fileRef</key>
-			<string>183BE248DFCEF4B94CE5F3E7991D22A7</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>AAC96AB685DF4B097B7B5713FA660FFB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>7FBB8E66972498D64C7D973539530E8C</string>
-				<string>A004999A9FEE86B8114A5C139036DFEC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>SwiftyJSON</string>
-			<key>path</key>
-			<string>SwiftyJSON</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B0AAFCEFA741AF1F2ACCF0F950488F86</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>SwiftyJSON.framework</string>
-			<key>path</key>
-			<string>SwiftyJSON.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>B1B357B970B1B58B885FBCF7F6A56055</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C835AEE0DC8A46422C3AB86766B24835</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B1F5ECF15B51E301C4937AE0086F0424</key>
+		<key>766665B41B22F5309B37DDD3A4D3517F</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>C6F800AA4AA17DE35DF0EAF28CD0C449</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Zeeguu-API-iOS/Zeeguu-API-iOS-prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/Zeeguu-API-iOS/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.0</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>@executable_path/Frameworks</string>
-					<string>@loader_path/Frameworks</string>
-				</array>
-				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/Zeeguu-API-iOS/Zeeguu-API-iOS.modulemap</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>PRODUCT_NAME</key>
-				<string>Zeeguu_API_iOS</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>B386D493E5833C28B51AD70D282386D2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8D68083B3738E3ADAF5A8FBC623F220B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>B4BDF0983FA8FA3E7CA74406910E30AD</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>D41D8CD98F00B204E9800998ECF8427E</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>3E3805CDA9FD976C604AB2E0560C8063</string>
-			<key>remoteInfo</key>
-			<string>Zeeguu-API-iOS</string>
-		</dict>
-		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>name</key>
-			<string>Podfile</string>
-			<key>path</key>
-			<string>../Podfile</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-			<key>xcLanguageSpecificationIdentifier</key>
-			<string>xcode.lang.ruby</string>
-		</dict>
-		<key>BA95E6CBC5E4224570F32156C856A5B3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-Zeeguu Reader-resources.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BB437FE33D1B9A6311F4B35860BEFB3C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>HTTPMethod.swift</string>
-			<key>path</key>
-			<string>ZeeguuAPI/ZeeguuAPI/HTTPMethod.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BFAEC79C32BCC1B22BA0E854C6AB7F38</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>7B2E3F5951F1923B8378568646EA91BF</string>
+			<string>379C38AB5217485D852829E1990575A7</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -1370,46 +1021,7 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>C6F800AA4AA17DE35DF0EAF28CD0C449</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Zeeguu-API-iOS.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C835AEE0DC8A46422C3AB86766B24835</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-Zeeguu Reader-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CE643335E8703B2338A4124105AE1C66</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>6BCEA5642F7AD1C4C083BC31D4039893</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CF7A697B1DEA1AE315D9A8A987912D53</key>
+		<key>785377B1695AA82093DB8827788F07D8</key>
 		<dict>
 			<key>explicitFileType</key>
 			<string>wrapper.framework</string>
@@ -1418,67 +1030,64 @@
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>name</key>
-			<string>Pods_Zeeguu_Reader.framework</string>
+			<string>SwiftyJSON.framework</string>
 			<key>path</key>
-			<string>Pods_Zeeguu_Reader.framework</string>
+			<string>SwiftyJSON.framework</string>
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>D41D8CD98F00B204E9800998ECF8427E</key>
+		<key>7DB346D0F39D3F0E887471402A8071AB</key>
 		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastSwiftUpdateCheck</key>
-				<string>0700</string>
-				<key>LastUpgradeCheck</key>
-				<string>0700</string>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>2D8E8EC45A3A1A1D94AE762CB5028504</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
+			<key>children</key>
+			<array>
+				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
+				<string>65B35BF8E63AD31F1FDAD1F7E7313A21</string>
+				<string>5C0BDF1B83785CA2EECEE795E9807D48</string>
+				<string>7512B92AE37B62C5A6E1442000095489</string>
+				<string>870A949FD1D9C3D75E13BD4A1FFD8389</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8034034DE7F43A2A43BADD83C16E9E25</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>D674DFFA8BEC8A7D8F5FA5F1B2424DDD</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>7DB346D0F39D3F0E887471402A8071AB</string>
-			<key>productRefGroup</key>
-			<string>9F14C7E0A38177309AB0CFA727F64D5B</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>F041537734970B936DF386AD891AE530</string>
-				<string>7AABCDD2C5F1E31F5B0C59168E2D3FB9</string>
-				<string>3E3805CDA9FD976C604AB2E0560C8063</string>
-			</array>
 		</dict>
-		<key>D6F3C2CB4BDCFE40067D047CE7225ECB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>SwiftyJSON</string>
-			<key>target</key>
-			<string>7AABCDD2C5F1E31F5B0C59168E2D3FB9</string>
-			<key>targetProxy</key>
-			<string>FD8179B28CE68E899BB9B30328E3522B</string>
-		</dict>
-		<key>D8D4B27B318AD22313EE1094B042FC48</key>
+		<key>829C0A0ED53E9D19BB380955F9286544</key>
 		<dict>
 			<key>fileRef</key>
-			<string>00B9B2F441F12010EF18FEEE15393B88</string>
+			<string>2CC2E2E9D0BB0E0335F5A5456D596DD4</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>870A949FD1D9C3D75E13BD4A1FFD8389</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>59C36C43953F96F647B61E964745DC74</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Targets Support Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8E5A9430E3DA812795CD542D52563617</key>
+		<dict>
+			<key>fileRef</key>
+			<string>537B3E87C18BA4DD7CA9E04DFE3F85A5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1489,32 +1098,182 @@
 				</array>
 			</dict>
 		</dict>
-		<key>E59ABA35C8681C65CEE6DAE53F328187</key>
+		<key>8FDA374B9409056F182F6B44B4CFD1CC</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>5C92B072E42418739CF59D424F3934F5</string>
+				<string>1960E7D4E7B97AE73123E08C1E7EE363</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>920119991C6BBF92C30B5D1F700E0704</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>971D4C34C1B2DE7BAD9B47185C037ED5</string>
+				<string>02798EB6D1A1256CBE26EDFE61F40505</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>92B4E2A81B21509D1D3D8C257F740B09</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4F45D1ADA2A46FABFB57F05FF343D440</string>
+				<string>F154255E8ED5AF3A9D79632A8AE042D5</string>
+				<string>379C38AB5217485D852829E1990575A7</string>
+				<string>519509109818741A002B086B1215CC42</string>
+				<string>6F9EAD34A7E408278FE0AA39EF33347C</string>
+				<string>5C7D3B61E830B2193D0C392E9E123B80</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/SwiftyJSON</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>971D4C34C1B2DE7BAD9B47185C037ED5</key>
 		<dict>
 			<key>fileRef</key>
-			<string>55AD43CBFFB203AD351C1B12E978F31E</string>
+			<string>6BCEA5642F7AD1C4C083BC31D4039893</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>E695020645CA519B83566C12F62A1BE5</key>
+		<key>99CD660631405AC2C3E29239DD16FE27</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>6F9F9E960ABD33D82C963B5EAA6FFA6B</string>
+				<string>8E5A9430E3DA812795CD542D52563617</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>9A8F49F356FC047637CDF376FF588753</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Article.swift</string>
 			<key>path</key>
-			<string>Pods-Zeeguu Reader.modulemap</string>
+			<string>ZeeguuAPI/ZeeguuAPI/Article.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>E7B492F702F204252B144A5DA7079904</key>
+		<key>A68D573F0936397E79A8D40F23A0C2A6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-Zeeguu Reader-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A8EF60BDF9C94DF9967872FD8463D33A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-Zeeguu Reader-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AB34EE6F4E86F82799127143C6F84E29</key>
 		<dict>
 			<key>fileRef</key>
-			<string>EF861C64A2358A65F836293512E54C7A</string>
+			<string>6BCEA5642F7AD1C4C083BC31D4039893</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>E834EDC65BCDB3D1E36B2D9F4242E996</key>
+		<key>AFE848D3462A5965B1267ECBE53B08A9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Zeeguu-API-iOS-debug-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B63CA47D1A677FAD98C66000BA44061A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AFE848D3462A5965B1267ECBE53B08A9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B690153A1B7E8559850780913C62080E</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>EF85320CBF55C6A12549CACE446F8EB0</string>
+				<string>829C0A0ED53E9D19BB380955F9286544</string>
+				<string>E4F9761D898BB75C94B6EE9D380274A8</string>
+				<string>22CD0048BC1FE518755D4B9281CBD814</string>
+				<string>DB70FD7DAB3D36C7B77BA6B0C3B2ACD4</string>
+				<string>B63CA47D1A677FAD98C66000BA44061A</string>
+				<string>E65DBE8505910BCE869774A4FF297357</string>
+				<string>09640EA87278F7975890BA800815771A</string>
+				<string>DD4C37F92905A36A1343ADA7740B0F9A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>name</key>
+			<string>Podfile</string>
+			<key>path</key>
+			<string>../Podfile</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.ruby</string>
+		</dict>
+		<key>BA95E6CBC5E4224570F32156C856A5B3</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1523,11 +1282,68 @@
 			<key>lastKnownFileType</key>
 			<string>text.script.sh</string>
 			<key>path</key>
-			<string>Pods-Zeeguu Reader-frameworks.sh</string>
+			<string>Pods-Zeeguu Reader-resources.sh</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>EF3145EDA0D03DDF5720822CB2E38AD9</key>
+		<key>BB33083C05A4819BA781D19C89E81434</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Zeeguu-API-iOS-debug-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BD89D8CBB07469734A1B1F709AD61016</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>16949AC7893EEDCFA74401D786593AF6</string>
+				<string>C44AA07BD5CE493F5387439C7A01504B</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>C2563801D30AF63F65208F47E1556020</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>ZeeguuAPIDefaults.swift</string>
+			<key>path</key>
+			<string>ZeeguuAPI/ZeeguuAPI/ZeeguuAPIDefaults.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C321250677565E259C9BBD60E280EC92</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>SwiftyJSON.swift</string>
+			<key>path</key>
+			<string>Source/SwiftyJSON.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C44AA07BD5CE493F5387439C7A01504B</key>
 		<dict>
 			<key>baseConfigurationReference</key>
 			<string>EF47129ADE8CB9FAA999548F461BA851</string>
@@ -1589,92 +1405,108 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>EF47129ADE8CB9FAA999548F461BA851</key>
+		<key>C835AEE0DC8A46422C3AB86766B24835</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
+			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>Pods-Zeeguu Reader.release.xcconfig</string>
+			<string>Pods-Zeeguu Reader-dummy.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>EF861C64A2358A65F836293512E54C7A</key>
+		<key>CE643335E8703B2338A4124105AE1C66</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>6BCEA5642F7AD1C4C083BC31D4039893</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
+			<string>PBXGroup</string>
 			<key>name</key>
-			<string>ZeeguuAPIEndpoint.swift</string>
-			<key>path</key>
-			<string>ZeeguuAPI/ZeeguuAPI/ZeeguuAPIEndpoint.swift</string>
+			<string>iOS</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>F041537734970B936DF386AD891AE530</key>
+		<key>D41D8CD98F00B204E9800998ECF8427E</key>
 		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastSwiftUpdateCheck</key>
+				<string>0700</string>
+				<key>LastUpgradeCheck</key>
+				<string>0700</string>
+			</dict>
 			<key>buildConfigurationList</key>
-			<string>20C758280F481EF3CDD3119B418BEF1A</string>
-			<key>buildPhases</key>
-			<array>
-				<string>8FCEA4E1526FA7C9F9425AB08F9CFEAD</string>
-				<string>3C55FCE72576B8CDFFC1BE1A80E7E56F</string>
-				<string>FF8FADA7C415080644559E96BBB46ABA</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>537E3A4612CC27DB83C2F69DF2D54E2C</string>
-				<string>82EEB56251A51AB343DB547B63753569</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-Zeeguu Reader</string>
-			<key>productName</key>
-			<string>Pods-Zeeguu Reader</string>
-			<key>productReference</key>
-			<string>CF7A697B1DEA1AE315D9A8A987912D53</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
-		</dict>
-		<key>F05A2DDA9058082E37FAAA448F008219</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
+			<string>2D8E8EC45A3A1A1D94AE762CB5028504</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
 			<string>0</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>SwiftyJSON.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>7DB346D0F39D3F0E887471402A8071AB</string>
+			<key>productRefGroup</key>
+			<string>7512B92AE37B62C5A6E1442000095489</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>2F2C6C4A6EEF67B4E98B497047D45F9C</string>
+				<string>110662B1591A5B6C10EBF89D6677E458</string>
+				<string>75E17143D3970E06ED58B77F8417023C</string>
+			</array>
 		</dict>
-		<key>F6C8AEB0F461497192DBAE9DE3678DC0</key>
+		<key>D674DFFA8BEC8A7D8F5FA5F1B2424DDD</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>5C7D3B61E830B2193D0C392E9E123B80</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
-		<key>F8B0DB4205E0D3F2FE3016129B0A5D00</key>
+		<key>D78B7A80B510CD06313F670974C8DE3E</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>Zeeguu-API-iOS-debug</string>
+			<key>target</key>
+			<string>75E17143D3970E06ED58B77F8417023C</string>
+			<key>targetProxy</key>
+			<string>091D3B20BB85E12350F88C2F67E82332</string>
+		</dict>
+		<key>DB70FD7DAB3D36C7B77BA6B0C3B2ACD4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E508F3D80553905886DBC2DCB27D261C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DD1D22AF36D03168BE3F03C85E4D760A</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>7B2E3F5951F1923B8378568646EA91BF</string>
+			<string>379C38AB5217485D852829E1990575A7</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -1729,31 +1561,199 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>FD8179B28CE68E899BB9B30328E3522B</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>D41D8CD98F00B204E9800998ECF8427E</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>7AABCDD2C5F1E31F5B0C59168E2D3FB9</string>
-			<key>remoteInfo</key>
-			<string>SwiftyJSON</string>
-		</dict>
-		<key>FF8FADA7C415080644559E96BBB46ABA</key>
+		<key>DD1D58880B081754BBF9E0F266BC7CE6</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>0E30AEA73D8D99A2639169EB28DE4B79</string>
+				<string>684AB27EC21713FB218C49B2FD9E566E</string>
+				<string>657E38F85A7ADD1A7B0A2389C80EE4E4</string>
 			</array>
 			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
+			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
+		</dict>
+		<key>DD4C37F92905A36A1343ADA7740B0F9A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6BE50C540C492E3A0AFDB0B182B4A3DA</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DDB0BDAC8FA56383A12B6F05D1A10634</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DFDFC9D3CA75FFC3A0A34058CAA6E208</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>9A8F49F356FC047637CDF376FF588753</string>
+				<string>2CC2E2E9D0BB0E0335F5A5456D596DD4</string>
+				<string>3EC29C9577DBC081F1F375633680B2A7</string>
+				<string>471EDE3D24CEC190C80AB131F1E11CD6</string>
+				<string>E508F3D80553905886DBC2DCB27D261C</string>
+				<string>537B3E87C18BA4DD7CA9E04DFE3F85A5</string>
+				<string>5FC7C5768F1352E2575E18CC714FA4CC</string>
+				<string>C2563801D30AF63F65208F47E1556020</string>
+				<string>6BE50C540C492E3A0AFDB0B182B4A3DA</string>
+				<string>560E257146E55155325F3BF3155AEFFC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Zeeguu-API-iOS-debug</string>
+			<key>path</key>
+			<string>Zeeguu-API-iOS-debug</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E4F9761D898BB75C94B6EE9D380274A8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3EC29C9577DBC081F1F375633680B2A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E508F3D80553905886DBC2DCB27D261C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>HTTPMethod.swift</string>
+			<key>path</key>
+			<string>ZeeguuAPI/ZeeguuAPI/HTTPMethod.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E65DBE8505910BCE869774A4FF297357</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5FC7C5768F1352E2575E18CC714FA4CC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E695020645CA519B83566C12F62A1BE5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods-Zeeguu Reader.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E834EDC65BCDB3D1E36B2D9F4242E996</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-Zeeguu Reader-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>EF47129ADE8CB9FAA999548F461BA851</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-Zeeguu Reader.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>EF85320CBF55C6A12549CACE446F8EB0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9A8F49F356FC047637CDF376FF588753</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F05A2DDA9058082E37FAAA448F008219</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SwiftyJSON.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>F154255E8ED5AF3A9D79632A8AE042D5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SwiftyJSON.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F4BAE105386843CC7DB40ECC31F8A913</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A8EF60BDF9C94DF9967872FD8463D33A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>F8B204DCA49252B02D4034D22769DEB1</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>DD1D22AF36D03168BE3F03C85E4D760A</string>
+				<string>766665B41B22F5309B37DDD3A4D3517F</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>FE150D8FFB3488703C713584268E9EF9</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>SwiftyJSON</string>
+			<key>target</key>
+			<string>110662B1591A5B6C10EBF89D6677E458</string>
+			<key>targetProxy</key>
+			<string>0AF2BD800901BE8F60FD36698F6C07E3</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>
