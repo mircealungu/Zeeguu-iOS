@@ -81,6 +81,7 @@ class ArticleListViewController: ZGTableViewController {
 						CATransaction.begin()
 						CATransaction.setCompletionBlock({ () -> Void in
 							self.tableView.reloadData()
+							self.getDifficulties()
 						})
 						self.refreshControl?.endRefreshing()
 						CATransaction.commit()
@@ -89,6 +90,36 @@ class ArticleListViewController: ZGTableViewController {
 			})
 		}
 	}
+	
+	func getDifficulties() {
+		let arts = self.articles
+		let urls = arts.map({ $0.url })
+		ZeeguuAPI.sharedAPI().getContentFromURLs(urls) { (dict) in
+			if var d = dict?["contents"].array {
+				d.sortInPlace({ (lhs, rhs) -> Bool in
+					if let l = lhs["id"].string, r = rhs["id"].string {
+						return Int(l) < Int(r)
+					}
+					return false
+				})
+				var texts = [String]()
+				for i in 0 ..< d.count {
+					let content = d[i]
+					if let s = content["content"].string {
+						// TODO: give arts[i] the retrieved contents
+						texts.append(s)
+					}
+				}
+				
+				ZeeguuAPI.sharedAPI().getDifficultyForTexts(texts, langCode: self.articles[0].feed.language, completion: { (dict) in
+					print("dict: \(dict)")
+					// TODO: give article entries a difficulty indication
+				})
+			}
+		}
+		
+	}
+	
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
