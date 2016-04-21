@@ -50,9 +50,6 @@ class ArticleListViewController: ZGTableViewController {
 		self.title = "APP_TITLE".localized
 		self.navigationItem.title = "APP_TITLE".localized
 		
-//		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-//		self.navigationItem.rightBarButtonItem = addButton
-		
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			self.clearsSelectionOnViewWillAppear = true
 		}
@@ -64,17 +61,19 @@ class ArticleListViewController: ZGTableViewController {
 	}
 	
 	func getArticles() {
-		var j = 0;
 		for i in 0 ..< feeds.count {
 			ZeeguuAPI.sharedAPI().getFeedItemsForFeed(feeds[i], completion: { (articles) -> Void in
 				if let arts = articles {
-					self.articles.appendContentsOf(arts)
+					for art in arts {
+						if !self.articles.contains({ $0 == art }) {
+							self.articles.append(art);
+						}
+					}
 					self.articles.sortInPlace({ (lhs, rhs) -> Bool in
 						return lhs.date > rhs.date
 					})
 				}
-				j += 1;
-				if (j == self.feeds.count) {
+				if (i == self.feeds.count - 1) {
 					dispatch_async(dispatch_get_main_queue(), { () -> Void in
 						// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
 						// This enables us to attach a completion block to the animation, reloading data before
