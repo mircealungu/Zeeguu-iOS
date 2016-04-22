@@ -32,6 +32,7 @@ class ArticleListViewController: ZGTableViewController {
 
 	var feeds = [Feed]()
 	var articles = [Article]()
+	var loadedAllContents = false
 	
 	convenience init(feed: Feed) {
 		self.init(feeds: [feed])
@@ -95,6 +96,7 @@ class ArticleListViewController: ZGTableViewController {
 		let arts = self.articles
 		let urls = arts.map({ $0.url })
 		ZeeguuAPI.sharedAPI().getContentFromURLs(urls) { (dict) in
+			print("dict: \(dict)")
 			if var d = dict?["contents"].array {
 				d.sortInPlace({ (lhs, rhs) -> Bool in
 					if let l = lhs["id"].string, r = rhs["id"].string {
@@ -106,11 +108,17 @@ class ArticleListViewController: ZGTableViewController {
 				for i in 0 ..< d.count {
 					let content = d[i]
 					if let s = content["content"].string {
-						// TODO: give arts[i] the retrieved contents
+						arts[i].setContents(s)
 						texts.append(s)
 					}
+					if let s = content["image"].string {
+						arts[i].setImageURL(s)
+					}
 				}
-				
+				self.loadedAllContents = true
+				dispatch_async(dispatch_get_main_queue(), {
+					self.tableView.reloadData()
+				})
 				ZeeguuAPI.sharedAPI().getDifficultyForTexts(texts, langCode: self.articles[0].feed.language, completion: { (dict) in
 					print("dict: \(dict)")
 					// TODO: give article entries a difficulty indication
@@ -147,6 +155,18 @@ class ArticleListViewController: ZGTableViewController {
 		} else {
 			cell = ArticleTableViewCell(article: article, reuseIdentifier: "Cell")
 		}
+
+		// TODO: Disabled this for now as not all images seem to correspond to the main image
+//		if self.loadedAllContents {
+//			article.getImage({ (image) in
+//				if let i = image {
+//					dispatch_async(dispatch_get_main_queue(), {
+//						cell.setArticleImage(i)
+//					})
+//				}
+//			})
+//		}
+	
 		cell.accessoryType = .DisclosureIndicator
 		return cell
 	}

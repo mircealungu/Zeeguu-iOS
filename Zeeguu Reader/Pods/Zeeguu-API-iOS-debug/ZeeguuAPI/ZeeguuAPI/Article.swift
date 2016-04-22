@@ -36,6 +36,8 @@ public class Article: CustomStringConvertible, Equatable {
 	public var url: String
 	public var date: String
 	public var summary: String
+	private var imageURL: String?
+	private var image: UIImage?
 	private var contents: String?
 	private var personalDifficulty: String?
 	private var generalDifficulty: String?
@@ -53,19 +55,36 @@ public class Article: CustomStringConvertible, Equatable {
 		self.summary = summary
 	}
 	
+	public func setContents(contents: String) {
+		self.contents = contents
+	}
+	
+	public func setImageURL(imageURL: String) {
+		self.imageURL = imageURL
+	}
+	
 	public func getContents(completion: (contents: String) -> Void) {
-		if let con = contents {
-			completion(contents: con)
-		} else {
-			ZeeguuAPI.sharedAPI().getContentFromURLs([url]) { (dict) -> Void in
-				if let content = dict!["contents"][0]["content"].string {
-					self.contents = content
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						completion(contents: content)
-					})
-				} else {
-					ZeeguuAPI.sharedAPI().debugPrint("Failure, no content")
+		_getContents { (contents) in
+			if let c = contents {
+				completion(contents: c.0)
+			}
+		}
+	}
+	
+	public func getImage(completion: (image: UIImage?) -> Void) {
+		_getContents { (contents) in
+			if let c = contents, imURL = NSURL(string: c.1) {
+				let request = NSMutableURLRequest(URL: imURL)
+				ZeeguuAPI.sharedAPI().sendAsynchronousRequestWithDataResponse(request) { (data, error) -> Void in
+					if let res = data {
+						completion(image: UIImage(data: res))
+					} else {
+						ZeeguuAPI.sharedAPI().debugPrint("Could not get image with url '\(self.imageURL)', error: \(error)")
+						completion(image: nil)
+					}
 				}
+			} else {
+				completion(image: nil)
 			}
 		}
 	}
@@ -84,6 +103,24 @@ public class Article: CustomStringConvertible, Equatable {
 					}
 				})
 			})
+		}
+	}
+	
+	private func _getContents(completion: (contents: (String, String)?) -> Void) {
+		if let con = contents, imURL = imageURL {
+			completion(contents: (con, imURL))
+		} else {
+			ZeeguuAPI.sharedAPI().getContentFromURLs([url]) { (dict) -> Void in
+				if let content = dict!["contents"][0]["content"].string, imURL = dict!["contents"][0]["image"].string {
+					self.contents = content
+					self.imageURL = imURL
+					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						completion(contents: (content, imURL))
+					})
+				} else {
+					ZeeguuAPI.sharedAPI().debugPrint("Failure, no content")
+				}
+			}
 		}
 	}
 }

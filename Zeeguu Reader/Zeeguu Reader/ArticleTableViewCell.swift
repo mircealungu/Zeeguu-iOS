@@ -91,4 +91,8 @@ class ArticleTableViewCell: UITableViewCell {
 		updateLabels()
 	}
 
+	func setArticleImage(image: UIImage) {
+		self.articleImageView.image = image
+	}
+	
 }
