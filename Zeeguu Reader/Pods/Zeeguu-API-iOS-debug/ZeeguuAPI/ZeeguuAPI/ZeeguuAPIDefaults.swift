@@ -41,27 +41,27 @@ extension ZeeguuAPI {
 		var path: NSString = NSString(string: ZeeguuAPI.apiHost).stringByAppendingPathComponent(endPoint.rawValue)
 		
 		// Add pathcomponent to the host if there are any (for example, adding <email> to host/add_user: host/add_user/<email>)
-		if (pathComponents != nil) {
-			for pathComponent in pathComponents! {
+		if let pathComponents = pathComponents {
+			for pathComponent in pathComponents {
 				path = path.stringByAppendingPathComponent(pathComponent.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet())!);
 			}
 		}
 		
 		// Append session id to url if we have one
 		var delimiter = "?"
-		if (self.isLoggedIn) {
+		if self.isLoggedIn {
 			path = path.stringByAppendingString("?session=" + String(self.currentSessionID))
 			delimiter = "&"
 		}
 		
 		// Convert the parameters (if any) to a string of the form "key1=value1&key2=value2"
 		var params = ""
-		if (parameters != nil) {
-			params = self.httpQueryStringForDictionary(parameters!)
+		if let parameters = parameters {
+			params = self.httpQueryStringForDictionary(parameters)
 		}
 		
 		// Add parameters to url if method is GET or jsonBody is not nil
-		if ((method == HTTPMethod.GET || jsonBody != nil) && params.characters.count > 0) {
+		if (method == HTTPMethod.GET || jsonBody != nil) && params.characters.count > 0 {
 			path = path.stringByAppendingString(delimiter + params)
 		}
 		
@@ -70,11 +70,11 @@ extension ZeeguuAPI {
 		let request = NSMutableURLRequest(URL: url!)
 		
 		// Set request to be POST (if method is POST) and add the parameters to the request
-		if (method == HTTPMethod.POST) {
+		if method == HTTPMethod.POST {
 			request.HTTPMethod = method.rawValue
 			request.HTTPBody = params.dataUsingEncoding(NSUTF8StringEncoding)
 			request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField:"Content-Type");
-			if (self.enableDebugOutput) {
+			if self.enableDebugOutput {
 				print("httpbody: \(NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)))")
 			}
 		}
@@ -116,16 +116,17 @@ extension ZeeguuAPI {
 		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
 			self.debugPrint("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
-			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
-				let response = String(data: data!, encoding: NSUTF8StringEncoding)!
-				self.debugPrint("Response from url \"\(request.URL)\": \(response)\n\n");
-				completion(response: response, error: nil)
+			
+			if let d = data, r = response as? NSHTTPURLResponse where r.statusCode == 200 {
+				let resp = String(data: d, encoding: NSUTF8StringEncoding)!
+				self.debugPrint("Response from url \"\(request.URL)\": \(resp)\n\n");
+				completion(response: resp, error: nil)
 			} else {
-				if (response != nil) {
-					self.debugPrint("Response object for url \"\(request.URL)\": \(response)\n\n");
+				if let r = response {
+					self.debugPrint("Response object for url \"\(request.URL)\": \(r)\n\n");
 				}
-				if (error != nil) {
-					self.debugPrint("Error for url \"\(request.URL)\": \(error)\n\n");
+				if let e = error {
+					self.debugPrint("Error for url \"\(request.URL)\": \(e)\n\n");
 				}
 				completion(response: nil, error: error)
 			}
@@ -194,7 +195,7 @@ extension ZeeguuAPI {
 	}
 	
 	func checkIfLoggedIn() -> Bool {
-		if (!self.isLoggedIn) {
+		if !self.isLoggedIn {
 			print("There is no user logged in currently!")
 			return false
 		}
@@ -202,7 +203,7 @@ extension ZeeguuAPI {
 	}
 	
 	func checkBooleanResponse(response: String?, error: NSError?, completion: (success: Bool) -> Void) {
-		if (response != nil && response == "OK") {
+		if let r = response where r == "OK" {
 			completion(success: true)
 		} else {
 			completion(success: false)
@@ -210,8 +211,8 @@ extension ZeeguuAPI {
 	}
 	
 	func checkJSONResponse(response: String?, error: NSError?, completion: (dict: JSON?) -> Void) {
-		if (response != nil) {
-			completion(dict: JSON.parse(response!))
+		if let r = response {
+			completion(dict: JSON.parse(r))
 		} else {
 			completion(dict: nil)
 		}
@@ -219,8 +220,8 @@ extension ZeeguuAPI {
 	
 	func checkStringResponse(response: String?, error: NSError?, completion: (string: String?) -> Void) {
 		debugPrint("repsonse: \(response)")
-		if (response != nil) {
-			completion(string: response!)
+		if let r = response {
+			completion(string: r)
 		} else {
 			completion(string: nil)
 		}
@@ -232,7 +233,7 @@ extension ZeeguuAPI {
 	///
 	/// - parameter show: Indicates whether to show or hide the network activity indicator.
 	func showNetworkIndicator(show: Bool) {
-		if (show) {
+		if show {
 			networkActivityCounter += 1
 		} else {
 			networkActivityCounter -= 1
@@ -240,7 +241,7 @@ extension ZeeguuAPI {
 				networkActivityCounter = 0
 			}
 		}
-		if (networkActivityCounter <= 0) {
+		if networkActivityCounter <= 0 {
 			UIApplication.sharedApplication().networkActivityIndicatorVisible = false
 		} else {
 			UIApplication.sharedApplication().networkActivityIndicatorVisible = true
@@ -248,7 +249,7 @@ extension ZeeguuAPI {
 	}
 	
 	func debugPrint(text: String) {
-		if (self.enableDebugOutput) {
+		if self.enableDebugOutput {
 			print(text)
 		}
 	}

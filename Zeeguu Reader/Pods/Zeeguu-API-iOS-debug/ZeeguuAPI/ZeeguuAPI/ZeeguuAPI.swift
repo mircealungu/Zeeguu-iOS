@@ -548,9 +548,9 @@ public class ZeeguuAPI {
 	/// - parameter personalized: Calculate difficulty score specific for the current user.
 	/// - parameter rankBoundary: Upper boundary for word frequency rank (1-10000)
 	/// - parameter completion: A block that will receive an array with the difficulties.
-	public func getDifficultyForTexts(texts: Array<String>, langCode: String, personalized: Bool = true, rankBoundary: Float = 10000, completion: (dict: JSON?) -> Void) {
+	public func getDifficultyForTexts(texts: Array<String>, langCode: String, personalized: Bool = true, rankBoundary: Float = 10000, completion: (difficulties: [ArticleDifficulty]?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
-			return completion(dict: nil)
+			return completion(difficulties: nil)
 		}
 		var newTexts: [Dictionary<String, String>] = []
 		var counter = 0
@@ -563,7 +563,35 @@ public class ZeeguuAPI {
 		
 		let request = self.requestWithEndPoint(.GetDifficultyForText, pathComponents: [langCode], method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
+			self.checkJSONResponse(response, error: error, completion: { (dict) in
+				if var array = dict?["difficulties"].array {
+					array.sortInPlace({ (lhs, rhs) -> Bool in
+						if let l = lhs["id"].string, r = rhs["id"].string {
+							return Int(l) < Int(r)
+						}
+						return false
+					})
+					
+					// The following piece of code loops over texts and tries to find the corresponding
+					// difficulty in array. As array is sorted, if we don't find it, our current index (i) is
+					// still lower than 'id' of the first difficulty in array. if we don't find difficulty, we insert
+					// .Unknown string in the difficulties array
+					var difficulties = [ArticleDifficulty]()
+					var arrayIndex = 0
+					for i in 0 ..< texts.count {
+						let textIndex = i + 1
+						if let idxStr = (arrayIndex < array.count ? array[arrayIndex]["id"].string : nil), idx = Int(idxStr), diff = array[i]["estimated_difficulty"].string, difficulty = ArticleDifficulty(rawValue: diff) where idx == textIndex {
+							difficulties.append(difficulty)
+							arrayIndex += 1
+						} else {
+							difficulties.append(.Unknown)
+						}
+					}
+					completion(difficulties: difficulties)
+				} else {
+					completion(difficulties: nil)
+				}
+			})
 		}
 	}
 	
@@ -595,8 +623,8 @@ public class ZeeguuAPI {
 	///
 	/// - parameter urls: The urls to get the content from.
 	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
-	/// - parameter completion: A block that will receive an array with the contents of the urls.
-	public func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (dict: JSON?) -> Void) {
+	/// - parameter completion: A block that will receive an array with the pairs (contents, image) of the urls.
+	public func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (contents: [(String, String)]?) -> Void) {
 		var newURLs: [Dictionary<String, String>] = []
 		var counter = 0
 		for url in urls {
@@ -608,7 +636,36 @@ public class ZeeguuAPI {
 		
 		let request = self.requestWithEndPoint(.GetContentFromURL, method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
+			self.checkJSONResponse(response, error: error, completion: { (dict) in
+				if var array = dict?["contents"].array {
+					array.sortInPlace({ (lhs, rhs) -> Bool in
+						if let l = lhs["id"].string, r = rhs["id"].string {
+							return Int(l) < Int(r)
+						}
+						return false
+					})
+					
+					// The following piece of code loops over newURLs and tries to find the corresponding
+					// content in array. As array is sorted, if we don't find it, our current index (i) is
+					// still lower than 'id' of the first content in array. if we don't find content, we insert
+					// an empty string in the contents array
+					var contents = [(String, String)]()
+					var arrayIndex = 0
+					for i in 0 ..< newURLs.count {
+						let urlIndex = i + 1
+						
+						if let idxStr = (arrayIndex < array.count ? array[arrayIndex]["id"].string : nil), idx = Int(idxStr), content = array[arrayIndex]["content"].string, image = array[arrayIndex]["image"].string where idx == urlIndex {
+							contents.append((content, image))
+							arrayIndex += 1
+						} else {
+							contents.append(("", ""))
+						}
+					}
+					completion(contents: contents)
+				} else {
+					completion(contents: nil)
+				}
+			})
 		}
 	}
 	
