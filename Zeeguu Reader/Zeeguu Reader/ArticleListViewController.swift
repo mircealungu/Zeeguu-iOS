@@ -46,7 +46,7 @@ class ArticleListViewController: ZGTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.tableView.estimatedRowHeight = 80
+		self.tableView.estimatedRowHeight = 100
 		
 		self.title = "APP_TITLE".localized
 		self.navigationItem.title = "APP_TITLE".localized
@@ -93,39 +93,11 @@ class ArticleListViewController: ZGTableViewController {
 	}
 	
 	func getDifficulties() {
-		let arts = self.articles
-		let urls = arts.map({ $0.url })
-		ZeeguuAPI.sharedAPI().getContentFromURLs(urls) { (dict) in
-			print("dict: \(dict)")
-			if var d = dict?["contents"].array {
-				d.sortInPlace({ (lhs, rhs) -> Bool in
-					if let l = lhs["id"].string, r = rhs["id"].string {
-						return Int(l) < Int(r)
-					}
-					return false
-				})
-				var texts = [String]()
-				for i in 0 ..< d.count {
-					let content = d[i]
-					if let s = content["content"].string {
-						arts[i].setContents(s)
-						texts.append(s)
-					}
-					if let s = content["image"].string {
-						arts[i].setImageURL(s)
-					}
-				}
-				self.loadedAllContents = true
-				dispatch_async(dispatch_get_main_queue(), {
-					self.tableView.reloadData()
-				})
-				ZeeguuAPI.sharedAPI().getDifficultyForTexts(texts, langCode: self.articles[0].feed.language, completion: { (dict) in
-					print("dict: \(dict)")
-					// TODO: give article entries a difficulty indication
-				})
-			}
+		Article.getDifficultiesForArticles(self.articles) { (success) in
+			dispatch_async(dispatch_get_main_queue(), { 
+				self.tableView.reloadData()
+			})
 		}
-		
 	}
 	
 

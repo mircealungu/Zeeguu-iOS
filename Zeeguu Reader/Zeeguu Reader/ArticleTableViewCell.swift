@@ -36,11 +36,16 @@ class ArticleTableViewCell: UITableViewCell {
 	private var descriptionField: UILabel
 	private var articleImageView: UIImageView
 	
+	private var difficultyLabel: UILabel
+	private var difficultyView: UIView
+	
 	init(article: Article, reuseIdentifier: String?) {
 		self.article = article
 		titleField = UILabel.autoLayoutCapable()
 		descriptionField = UILabel.autoLayoutCapable()
 		articleImageView = UIImageView.autoLayoutCapable()
+		difficultyLabel = UILabel.autoLayoutCapable()
+		difficultyView = UIView.autoLayoutCapable()
 		super.init(style: .Default, reuseIdentifier: reuseIdentifier)
 		setupLayout()
 		updateLabels()
@@ -61,24 +66,44 @@ class ArticleTableViewCell: UITableViewCell {
 		descriptionField.numberOfLines = 0
 		articleImageView.contentMode = .ScaleAspectFit
 		
+		difficultyLabel.text = ArticleDifficulty.Unknown.description
+		difficultyLabel.font = UIFont.systemFontOfSize(12)
+		
+		difficultyView.layer.cornerRadius = 5
+		difficultyView.clipsToBounds = true
+		difficultyView.backgroundColor = ArticleDifficulty.Unknown.color
+		
 		self.contentView.addSubview(titleField)
 		self.contentView.addSubview(descriptionField)
 		self.contentView.addSubview(articleImageView)
+		self.contentView.addSubview(difficultyLabel)
+		self.contentView.addSubview(difficultyView)
 		
-		let views: [String: UIView] = ["t": titleField, "d": descriptionField, "i": articleImageView]
+		let views: [String: UIView] = ["t": titleField, "d": descriptionField, "i": articleImageView, "diff": difficultyLabel, "diff2": difficultyView]
 		
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[i(60)]-[t]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[i]-[d]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[i]-[diff2(10)]-[diff]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
-		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[i]-8-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[t]-1-[d]-(>=0)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[i(80)]-8-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[t]-1-[diff]-1-[d]-(>=0)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[diff2(10)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
-		self.contentView.addConstraint(NSLayoutConstraint(item: articleImageView, attribute: .Height, relatedBy: .Equal, toItem: articleImageView, attribute: .Width, multiplier: 1, constant: 0))
+//		self.contentView.addConstraint(NSLayoutConstraint(item: articleImageView, attribute: .Height, relatedBy: .Equal, toItem: articleImageView, attribute: .Width, multiplier: 1, constant: 0))
+		self.contentView.addConstraint(NSLayoutConstraint(item: difficultyView, attribute: .CenterY, relatedBy: .Equal, toItem: difficultyLabel, attribute: .CenterY, multiplier: 1, constant: 0))
 	}
 	
 	private func updateLabels() {
 		titleField.text = article.title
 		descriptionField.text = article.summary
+		
+		if self.article.isPersonalDifficultyLoaded {
+			self.article.getDifficulty(completion: { (difficulty) in
+				self.difficultyLabel.text = difficulty.description
+				self.difficultyView.backgroundColor = difficulty.color
+			})
+		}
+		
 		article.feed.getImage { (image) -> Void in
 			dispatch_async(dispatch_get_main_queue(), { () -> Void in
 				self.articleImageView.image = image

@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		7D0D0CCC2AAB1BBF6713F0BF /* Pods_Zeeguu_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967E94399204D55C5DC584B1 /* Pods_Zeeguu_Reader.framework */; };
 		9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */; };
-		9408F0421C1C818F002F9637 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9408F0411C1C818F002F9637 /* Localizable.strings */; };
 		9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0431C1C8461002F9637 /* StringExtension.swift */; };
 		9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */; };
+		9415E5221CCF7E980091954A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9415E5241CCF7E980091954A /* Localizable.strings */; };
 		9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */; };
 		942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942667A11C60CA1600CF00FA /* HistoryItemView.swift */; };
 		9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */; };
@@ -61,9 +61,9 @@
 
 /* Begin PBXFileReference section */
 		9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
-		9408F0411C1C818F002F9637 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9408F0431C1C8461002F9637 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		9415E5231CCF7E980091954A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		942667A11C60CA1600CF00FA /* HistoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemView.swift; sourceTree = "<group>"; };
 		9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedOverviewTableViewController.swift; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 				94CEECE21C1D792E00C3D0E3 /* Utils.swift */,
 				945658181C42B804000CDF3F /* AppIcon.swift */,
 				949D59B21C7DD32D007C4A0C /* AppColor.swift */,
-				9408F0411C1C818F002F9637 /* Localizable.strings */,
+				9415E5241CCF7E980091954A /* Localizable.strings */,
 				947799DD1C17171B00C494ED /* Assets.xcassets */,
 				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
 				947799E21C17171B00C494ED /* Info.plist */,
@@ -389,7 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */,
-				9408F0421C1C818F002F9637 /* Localizable.strings in Resources */,
+				9415E5221CCF7E980091954A /* Localizable.strings in Resources */,
 				947799DE1C17171B00C494ED /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,6 +525,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9415E5241CCF7E980091954A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9415E5231CCF7E980091954A /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		947799DF1C17171B00C494ED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
