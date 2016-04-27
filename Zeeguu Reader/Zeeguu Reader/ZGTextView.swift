@@ -28,6 +28,8 @@ import UIKit
 //import Zeeguu_API_iOS
 import Zeeguu_API_iOS_debug
 
+import AVFoundation
+
 class ZGTextView: UITextView {
 
 	var article: Article?
@@ -40,7 +42,26 @@ class ZGTextView: UITextView {
 		self.article = article;
 		self.translatesAutoresizingMaskIntoConstraints = false
 		self.font = UIFont.systemFontOfSize(UIFont.systemFontSize())
+		
+//		let recog = UITapGestureRecognizer(target: self, action: #selector(ZGTextView.tap(_:)))
+//		self.addGestureRecognizer(recog)
 	}
+	
+//	func tap(recognizer: UITapGestureRecognizer) {
+//		let point = recognizer.locationInView(self)
+//		let charIndex = self.layoutManager.characterIndexForPoint(point, inTextContainer: self.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+//		
+//		if (charIndex < self.textStorage.length) {
+//			let text: NSString = self.text
+//			text.enumerateSubstringsInRange(NSMakeRange(0, self.textStorage.length), options: .ByWords, usingBlock: { (substring, substringRange, enclosingRange, stop) in
+//				if (NSLocationInRange(charIndex, enclosingRange)) {
+////					let range = enclosingRange.toRange()
+//					self.selectedRange = enclosingRange
+//					stop.memory = true
+//				}
+//			})
+//		}
+//	}
 	
 	func selectedText() -> String {
 		if let r = self.selectedTextRange, t = self.textInRange(r) {
@@ -100,6 +121,14 @@ class ZGTextView: UITextView {
 						
 						self.resignFirstResponder()
 						self.scrollEnabled = true
+						
+						let synthesizer = AVSpeechSynthesizer()
+						
+						let utterance = AVSpeechUtterance(string: self.selectedText())
+						utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
+						
+						synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+						synthesizer.speakUtterance(utterance)
 					})
 				} else {
 					print("translating \"\(self.selectedText())\" went wrong")
