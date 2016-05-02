@@ -85,9 +85,9 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Zeeguu Reader/SwiftyJSON.framework"
-  install_framework "Pods-Zeeguu Reader/Zeeguu_API_iOS_debug.framework"
+  install_framework "Pods-Zeeguu Reader/Zeeguu_API_iOS.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Zeeguu Reader/SwiftyJSON.framework"
-  install_framework "Pods-Zeeguu Reader/Zeeguu_API_iOS_debug.framework"
+  install_framework "Pods-Zeeguu Reader/Zeeguu_API_iOS.framework"
 fi

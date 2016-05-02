@@ -1,22 +1,22 @@
 PODS:
   - SwiftyJSON (2.3.2)
-  - Zeeguu-API-iOS-debug (1.0.4):
+  - Zeeguu-API-iOS (1.0.5):
     - SwiftyJSON (~> 2.3)
 
 DEPENDENCIES:
-  - Zeeguu-API-iOS-debug (from `https://github.com/JorritO/Zeeguu-API-iOS`)
+  - Zeeguu-API-iOS (from `https://github.com/mircealungu/Zeeguu-API-iOS`)
 
 EXTERNAL SOURCES:
-  Zeeguu-API-iOS-debug:
-    :git: https://github.com/JorritO/Zeeguu-API-iOS
+  Zeeguu-API-iOS:
+    :git: https://github.com/mircealungu/Zeeguu-API-iOS
 
 CHECKOUT OPTIONS:
-  Zeeguu-API-iOS-debug:
-    :commit: 6a1c9ad34e40688fad2df8aade4b3e38b35252a9
-    :git: https://github.com/JorritO/Zeeguu-API-iOS
+  Zeeguu-API-iOS:
+    :commit: 5d41e38714f02ac6afb6cd11e28ce704a513de76
+    :git: https://github.com/mircealungu/Zeeguu-API-iOS
 
 SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
-  Zeeguu-API-iOS-debug: 1bef2a3425d4070955b139c401be227b636322c4
+  Zeeguu-API-iOS: 9a80d9320a426b1ef1b603ab97bf2523bd42d0c5
 
 COCOAPODS: 0.39.0

@@ -41,19 +41,14 @@ public class Article: CustomStringConvertible, Equatable {
 		return contents != nil
 	}
 	
-	public var isPersonalDifficultyLoaded: Bool {
-		return personalDifficulty != nil
-	}
-	
-	public var isGeneralDifficultyLoaded: Bool {
-		return generalDifficulty != nil
+	public var isDifficultyLoaded: Bool {
+		return difficulty != nil
 	}
 	
 	private var imageURL: String?
 	private var image: UIImage?
 	private var contents: String?
-	private var personalDifficulty: ArticleDifficulty?
-	private var generalDifficulty: ArticleDifficulty?
+	private var difficulty: ArticleDifficulty?
 	
 	public var description: String {
 		let str = feed.description.stringByReplacingOccurrencesOfString("\n", withString: "\n\t")
@@ -94,19 +89,14 @@ public class Article: CustomStringConvertible, Equatable {
 		}
 	}
 	
-	public func getDifficulty(personalized: Bool = true, completion: (difficulty: ArticleDifficulty) -> Void) {
-		let difficulty = personalized ? personalDifficulty : generalDifficulty
+	public func getDifficulty(difficultyComputer: String = "default", completion: (difficulty: ArticleDifficulty) -> Void) {
 		if let diff = difficulty {
 			completion(difficulty: diff)
 		} else {
 			getContents({ (contents) in
-				ZeeguuAPI.sharedAPI().getDifficultyForTexts([contents], langCode: self.feed.language, personalized: personalized, completion: { (difficulties) in
+				ZeeguuAPI.sharedAPI().getDifficultyForTexts([contents], langCode: self.feed.language, difficultyComputer: difficultyComputer, completion: { (difficulties) in
 					if let diffs = difficulties {
-						if (personalized) {
-							self.personalDifficulty = diffs[0]
-						} else {
-							self.generalDifficulty = diffs[0]
-						}
+						self.difficulty = diffs[0]
 						completion(difficulty: diffs[0])
 					} else {
 						completion(difficulty: .Unknown)
@@ -138,11 +128,7 @@ public class Article: CustomStringConvertible, Equatable {
 							if !articles[i].isContentLoaded {
 								continue
 							}
-							if (personalized) {
-								articles[i].personalDifficulty = diffs[i]
-							} else {
-								articles[i].generalDifficulty = diffs[i]
-							}
+							articles[i].difficulty = diffs[i]
 						}
 						completion(success: true)
 					} else {
@@ -182,9 +168,9 @@ public class Article: CustomStringConvertible, Equatable {
 	}
 	
 	
-	private func _getContents(completion: (contents: (String, String)?) -> Void) {
+	private func _getContents(completion: (contents: (String, String, ArticleDifficulty)?) -> Void) {
 		if let con = contents, imURL = imageURL {
-			completion(contents: (con, imURL))
+			completion(contents: (con, imURL, difficulty == nil ? .Unknown : difficulty!))
 		} else {
 			ZeeguuAPI.sharedAPI().getContentFromURLs([url]) { (contents) in
 				if let content = contents?[0] {

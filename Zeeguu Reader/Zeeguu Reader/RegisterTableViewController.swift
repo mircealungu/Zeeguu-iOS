@@ -25,8 +25,7 @@
 //
 
 import UIKit
-//import Zeeguu_API_iOS
-import Zeeguu_API_iOS_debug
+import Zeeguu_API_iOS
 
 class RegisterTableViewController: ZGTableViewController, LanguagesTableViewControllerDelegate {
 	let rows = [["NAME".localized, "EMAIL".localized, "PASSWORD".localized], ["LEARN_LANGUAGE".localized, "BASE_LANGUAGE".localized]]

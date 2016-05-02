@@ -4,7 +4,6 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'Zeeguu Reader' do
-#	pod 'Zeeguu-API-iOS', :git => 'https://github.com/mircealungu/Zeeguu-API-iOS'
-	pod 'Zeeguu-API-iOS-debug', :git => 'https://github.com/JorritO/Zeeguu-API-iOS'
+	pod 'Zeeguu-API-iOS', :git => 'https://github.com/mircealungu/Zeeguu-API-iOS'
 end
 
