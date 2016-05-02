@@ -96,7 +96,7 @@ class ArticleTableViewCell: UITableViewCell {
 		titleField.text = article.title
 		descriptionField.text = article.summary
 		
-		if self.article.isPersonalDifficultyLoaded {
+		if self.article.isDifficultyLoaded {
 			self.article.getDifficulty(completion: { (difficulty) in
 				self.difficultyLabel.text = difficulty.description
 				self.difficultyView.backgroundColor = difficulty.color
