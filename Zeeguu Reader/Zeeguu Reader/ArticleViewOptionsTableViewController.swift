@@ -88,15 +88,15 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 			let stepper = UIStepper()
 			stepper.minimumValue = 8
 			stepper.maximumValue = 30
-			stepper.value = Double(parent.articleView.fontSize)
+//			stepper.value = Double(parent.articleView.fontSize)
 			stepper.setIncrementImage(letterImageWithFontSize(20), forState: .Normal)
 			stepper.setDecrementImage(letterImageWithFontSize(14), forState: .Normal)
 			stepper.addTarget(self, action: #selector(ArticleViewOptionsTableViewController.changeFontSize(_:)), forControlEvents: .ValueChanged)
 			cell?.accessoryView = stepper
 		} else if sec == 1 {
-			if (row == 0 && parent.articleView.translationMode == .Instant) || (row == 1 && parent.articleView.translationMode == .Ask) {
-				cell?.accessoryType = .Checkmark
-			}
+//			if (row == 0 && parent.articleView.translationMode == .Instant) || (row == 1 && parent.articleView.translationMode == .Ask) {
+//				cell?.accessoryType = .Checkmark
+//			}
 		}
 		
         return cell!
@@ -106,11 +106,11 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 		let sec = indexPath.section
 		let row = indexPath.row
 		if sec == 1 {
-			if row == 0 {
-				parent.articleView.translationMode = .Instant
-			} else if row == 1 {
-				parent.articleView.translationMode = .Ask
-			}
+//			if row == 0 {
+//				parent.articleView.translationMode = .Instant
+//			} else if row == 1 {
+//				parent.articleView.translationMode = .Ask
+//			}
 		}
 		self.tableView.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(1, 1)), withRowAnimation: .Automatic)
 	}
@@ -144,6 +144,7 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	}
 	
 	func changeFontSize(sender: UIStepper) {
-		parent.articleView.fontSize = CGFloat(sender.value)
+//		parent.articleView.fontSize = CGFloat(sender.value)
+		
 	}
 }

@@ -25,31 +25,36 @@
 //
 
 import UIKit
+import WebKit
 import Zeeguu_API_iOS
 
-class ArticleViewController: UIViewController {
+class ArticleViewController: UIViewController, WKNavigationDelegate {
 	
 	var article: Article?
-	private var _articleView: ArticleView
-	var articleView: ArticleView {
-		get {
-			return _articleView
-		}
-	}
+//	private var _articleView: ArticleView
+//	var articleView: ArticleView {
+//		get {
+//			return _articleView
+//		}
+//	}
 	
-	var translationMode: ArticleViewTranslationMode {
-		get {
-			return self._articleView.translationMode
-		}
-		set(mode) {
-			self._articleView.translationMode = mode
-		}
-	}
+	private var webview: ZGWebView
+	
+//	var translationMode: ArticleViewTranslationMode {
+//		get {
+//			return self._articleView.translationMode
+//		}
+//		set(mode) {
+//			self._articleView.translationMode = mode
+//		}
+//	}
 	
 	init(article: Article? = nil) {
 		self.article = article
-		self._articleView = ArticleView(article: self.article)
+//		self._articleView = ArticleView(article: self.article)
+		self.webview = ZGWebView(article: self.article)
 		super.init(nibName: nil, bundle: nil)
+		self.webview.navigationDelegate = self
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -60,17 +65,29 @@ class ArticleViewController: UIViewController {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		self.view.backgroundColor = UIColor.whiteColor()
-		let views: [String: AnyObject] = ["v": _articleView]
+//		let views: [String: AnyObject] = ["v": _articleView]
+		let views: [String: AnyObject] = ["v": webview]
 		
-		self.view.addSubview(_articleView)
+//		self.view.addSubview(_articleView)
+		self.view.addSubview(webview)
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
-		let translateBut = UIBarButtonItem(title: "OPTIONS".localized, style: .Plain, target: self, action: #selector(ArticleViewController.showOptions(_:)))
-		self.navigationItem.rightBarButtonItem = translateBut
+//		let jsBut = UIBarButtonItem(title: "Execute JS".localized, style: .Plain, target: self, action: #selector(ArticleViewController.doJS(_:)))
+//		self.navigationItem.leftBarButtonItem = jsBut
 		
+		let optionsBut = UIBarButtonItem(title: "OPTIONS".localized, style: .Plain, target: self, action: #selector(ArticleViewController.showOptions(_:)))
+		self.navigationItem.rightBarButtonItem = optionsBut
+		
+//		if let str = article?.url, url = NSURL(string: "http://www.readability.com/m?url=\(str)") {
+//			webview.loadRequest(NSURLRequest(URL: url))
+//		}
+		if let str = article?.url, url = NSURL(string: str) {
+			webview.loadRequest(NSURLRequest(URL: url))
+		}
+
 		if article == nil {
-			translateBut.enabled = false;
+			optionsBut.enabled = false;
 		}
 	}
 
@@ -99,6 +116,25 @@ class ArticleViewController: UIViewController {
 		self.presentViewController(vc, animated: true, completion: nil)
 	}
 	
+//	func doJS(sender: UIBarButtonItem) {
+//		let jsFilePath = NSBundle.mainBundle().pathForResource("SelectionScripts", ofType: "js")
+//		if let jsf = jsFilePath, jsFile = try? String(contentsOfFile: jsf) {
+//			webview.evaluateJavaScript(jsFile, completionHandler: { (data, error) in
+//				print("data: \(data)")
+//				print("error: \(error)")
+//			})
+//		}
+//	}
+	
+	func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+		let jsFilePath = NSBundle.mainBundle().pathForResource("SelectionScripts", ofType: "js")
+		if let jsf = jsFilePath, jsFile = try? String(contentsOfFile: jsf) {
+			webView.evaluateJavaScript(jsFile, completionHandler: { (data, error) in
+				print("data: \(data)")
+				print("error: \(error)")
+			})
+		}
+	}
 
 }
 
