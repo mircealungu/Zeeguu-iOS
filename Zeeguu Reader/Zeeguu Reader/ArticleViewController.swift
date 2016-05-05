@@ -28,7 +28,7 @@ import UIKit
 import WebKit
 import Zeeguu_API_iOS
 
-class ArticleViewController: UIViewController, WKNavigationDelegate {
+class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
 	
 	var article: Article?
 //	private var _articleView: ArticleView
@@ -38,7 +38,15 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
 //		}
 //	}
 	
-	private var webview: ZGWebView
+	private var _webview: ZGWebView?
+	private var webview: ZGWebView { // _webview will never be nil when the initializer is finished
+		get {
+			return _webview!
+		}
+		set {
+			_webview = newValue
+		}
+	}
 	
 //	var translationMode: ArticleViewTranslationMode {
 //		get {
@@ -51,9 +59,15 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
 	
 	init(article: Article? = nil) {
 		self.article = article
-//		self._articleView = ArticleView(article: self.article)
-		self.webview = ZGWebView(article: self.article)
+		//		self._articleView = ArticleView(article: self.article)
 		super.init(nibName: nil, bundle: nil)
+		
+		let controller = WKUserContentController()
+		controller.addScriptMessageHandler(self, name: "zeeguu")
+		let config = WKWebViewConfiguration()
+		config.userContentController = controller
+		self.webview = ZGWebView(article: self.article, webViewConfiguration: config)
+		
 		self.webview.navigationDelegate = self
 	}
 
@@ -127,12 +141,37 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
 //	}
 	
 	func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-		let jsFilePath = NSBundle.mainBundle().pathForResource("SelectionScripts", ofType: "js")
-		if let jsf = jsFilePath, jsFile = try? String(contentsOfFile: jsf) {
-			webView.evaluateJavaScript(jsFile, completionHandler: { (data, error) in
-				print("data: \(data)")
-				print("error: \(error)")
+		Utils.loadJSFileToWebView(webView, jsFileName: "jquery-2.2.3.min")
+		Utils.loadJSFileToWebView(webView, jsFileName: "SelectionScripts")
+	}
+	
+	func translate(action: ZGJavaScriptAction) {
+		var action = action
+		if let word = action.getWord(), art = article {
+			ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: "To be implemented", url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
+				if let t = translation?["translation"].string {
+					print("\"\(word)\" translated to \"\(t)\"")
+					action.changeWord(t)
+					self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
+						print("result: \(result)")
+						print("error: \(error)")
+					})
+				}
 			})
+		}
+	}
+	
+	func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+		print("Received message: \(message.body)")
+		if let dict = message.body as? Dictionary<String, String> {
+			let action = ZGJavaScriptAction.parseMessage(dict)
+			
+			switch action {
+			case .Translate(_, _):
+				self.translate(action)
+			default:
+				break
+			}
 		}
 	}
 

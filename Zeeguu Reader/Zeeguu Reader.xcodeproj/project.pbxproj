@@ -30,6 +30,7 @@
 		94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A291C17452800C494ED /* ZGTextView.swift */; };
 		949B6C431C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B6C421C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift */; };
 		949D59B31C7DD32D007C4A0C /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949D59B21C7DD32D007C4A0C /* AppColor.swift */; };
+		949FC8451CDA337A003BFA44 /* jquery-2.2.3.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 949FC8441CDA337A003BFA44 /* jquery-2.2.3.min.js */; };
 		94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B758311C36B797001B4294 /* AddFeedTableViewController.swift */; };
 		94C748281C39220400F3DCC2 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */; };
 		94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */; };
@@ -42,6 +43,7 @@
 		94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208891C58D4870005EB2F /* HistoryItemViewController.swift */; };
 		94F7AFF31CD89F7B00BBF12F /* SelectionScripts.js in Resources */ = {isa = PBXBuildFile; fileRef = 94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */; };
 		94F7AFF51CD8A79F00BBF12F /* ZGWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */; };
+		94FC8D021CDB874F0032E72A /* ZGJavaScriptAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,7 @@
 		94779A291C17452800C494ED /* ZGTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextView.swift; sourceTree = "<group>"; };
 		949B6C421C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFeedsTableViewController.swift; sourceTree = "<group>"; };
 		949D59B21C7DD32D007C4A0C /* AppColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		949FC8441CDA337A003BFA44 /* jquery-2.2.3.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-2.2.3.min.js"; sourceTree = "<group>"; };
 		94B758311C36B797001B4294 /* AddFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFeedTableViewController.swift; sourceTree = "<group>"; };
 		94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 		94F208891C58D4870005EB2F /* HistoryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
 		94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SelectionScripts.js; sourceTree = "<group>"; };
 		94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGWebView.swift; sourceTree = "<group>"; };
+		94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGJavaScriptAction.swift; sourceTree = "<group>"; };
 		967E94399204D55C5DC584B1 /* Pods_Zeeguu_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zeeguu_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A27474D14E9A03DE22909E5A /* Pods-Zeeguu Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.release.xcconfig"; sourceTree = "<group>"; };
 		D89D98A602FDEFAA0D83B7FC /* Pods-Zeeguu Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.debug.xcconfig"; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 				9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */,
 				9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */,
 				94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */,
+				94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -289,6 +294,7 @@
 		94F7AFEE1CD89D1C00BBF12F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				949FC8441CDA337A003BFA44 /* jquery-2.2.3.min.js */,
 				94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */,
 			);
 			name = Resources;
@@ -402,6 +408,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949FC8451CDA337A003BFA44 /* jquery-2.2.3.min.js in Resources */,
 				947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */,
 				94F7AFF31CD89F7B00BBF12F /* SelectionScripts.js in Resources */,
 				9415E5221CCF7E980091954A /* Localizable.strings in Resources */,
@@ -486,6 +493,7 @@
 				94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */,
 				94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */,
 				942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */,
+				94FC8D021CDB874F0032E72A /* ZGJavaScriptAction.swift in Sources */,
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
 				94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */,

@@ -31,30 +31,35 @@ import Zeeguu_API_iOS
 class ZGWebView: WKWebView {
 	
 	var article: Article?
-	var willInstantlyTranslate = true
-	let coverView = UIView.autoLayoutCapable()
+	var willInstantlyTranslate: Bool
+	let coverView: UIView
 	
 	private var isTranslating = false
 	
-	convenience init(article: Article?) {
-		self.init()
+	init(article: Article?, webViewConfiguration: WKWebViewConfiguration? = nil) {
+		self.willInstantlyTranslate = true
+		self.coverView = UIView.autoLayoutCapable()
+		if let wvc = webViewConfiguration {
+			super.init(frame: CGRectZero, configuration: wvc)
+		} else {
+			super.init()
+		}
 		self.article = article;
 		self.translatesAutoresizingMaskIntoConstraints = false
 		self.coverView.userInteractionEnabled = false
-//		self.font = UIFont.systemFontOfSize(UIFont.systemFontSize())
 	}
 	
-	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-		print("canPerformAction: \(action)")
-		if action == #selector(ZGTextView.translate(_:)) {
-			if (willInstantlyTranslate) {
-				translate(self)
-				return false
-			}
-			return true
-		}
-		return false
-	}
+//	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+//		print("canPerformAction: \(action)")
+//		if action == #selector(ZGTextView.translate(_:)) {
+//			if (willInstantlyTranslate) {
+//				translate(self)
+//				return false
+//			}
+//			return true
+//		}
+//		return false
+//	}
 	
 	func translate(sender: AnyObject?) {
 		if isTranslating {

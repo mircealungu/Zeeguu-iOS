@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import WebKit
 
 class Utils {
 	
@@ -87,4 +88,14 @@ class Utils {
 		return String(contextStr)
 	}
 	
+	static func loadJSFileToWebView(webView: WKWebView, jsFileName: String) {
+			let jsFilePath = NSBundle.mainBundle().pathForResource(jsFileName, ofType: "js")
+			if let jsf = jsFilePath, jsFile = try? String(contentsOfFile: jsf) {
+				webView.evaluateJavaScript(jsFile, completionHandler: { (data, error) in
+					if let err = error {
+						print("Error loading JavaScript file '\(jsFileName)': \(err)")
+					}
+				})
+			}
+	}
 }
