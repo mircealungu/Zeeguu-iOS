@@ -84,10 +84,18 @@ function encloseAllText() {
 	});
 }
 
+
+
 function encloseAllWords() {
 	var elements = Array.prototype.slice.call(document.querySelectorAll(zeeguuParagraphTagName));
 	elements.forEach(function (el) {
-		zgjq(el).html(zgjq(el).text().replace(/\b(\w+)\b/g, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">"));
+		var word = /([a-zA-Z0-9À-ÖØ-öø-ÿĀ-ſƀ-ɏ_-]+)/g;
+		// Used https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_script to create above regex
+
+		var text = zgjq(el).text();
+		var newText = text.replace(word, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">");
+		zgjq(el).html(newText);
+		//zgjq(el).html(zgjq(el).text().replace(/(\S+)/g, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">"));
 	});
 }
 
@@ -110,6 +118,10 @@ function wordClickHandler(event) {
 	var message = {action: "translate", word: word, id: id};
 
 	window.webkit.messageHandlers.zeeguu.postMessage(message);
+}
+
+function getContextOfClickedWord(wordID) {
+	var el = document.getElementById(wordID);
 }
 
 function translationClickHandler(event) {
