@@ -27,10 +27,14 @@
 zgjq = jQuery.noConflict(true);
 
 var zeeguuIDCounter = 0;
+var zeeguuPeriodCounter = 0;
 
 var zeeguuParagraphTagName = "zeeguuParagraph";
 var zeeguuWordTagName = "zeeguuWord";
 var zeeguuTranslatedWordTagName = "zeeguuTranslatedWord";
+
+var zeeguuPeriodTagName = "zeeguuPeriod";
+var zeeguuPeriodID = "zeeguuPeriod";
 
 var zeeguuuTranslatedWordID = "zeeguuTranslatedWord";
 var zeeguuuTranslationID = "zeeguuTranslation";
@@ -53,7 +57,7 @@ function setupZeeguuJS() {
 }
 
 function textNodesUnder(el){
-	var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
+	var n, a=[], walk=document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
 	while(n=walk.nextNode()) a.push(n);
 	return a;
 }
@@ -70,6 +74,7 @@ function encloseAllText() {
 	var noEnter = ["script", "style", "iframe", "canvas"];
 	bodyElements.forEach(function (el) {
 		var textNodes = textNodesUnder(el);
+
 		textNodes.forEach(function (node) {
 			if (node.nodeValue.trim().length == 0) {
 				return;
@@ -77,7 +82,6 @@ function encloseAllText() {
 			if (noEnter.indexOf(node.parentNode.nodeName.toLowerCase()) > -1) {
 				return;
 			}
-
 			wrapNode(node, zeeguuParagraphTagName);
 		});
 
@@ -92,8 +96,12 @@ function encloseAllWords() {
 		var word = /([a-zA-Z0-9À-ÖØ-öø-ÿĀ-ſƀ-ɏ_-]+)/g;
 		// Used https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_script to create above regex
 
-		var text = zgjq(el).text();
-		var newText = text.replace(word, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">");
+		var dot = /\./g;
+
+		var newText = zgjq(el).text().replace(word, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">");
+		newText = newText.replace(dot, function (x) {
+			return "<" + zeeguuPeriodTagName + " id=\"" + zeeguuPeriodID + zeeguuPeriodCounter++ + "\">" + x + "</" + zeeguuPeriodTagName + ">";
+		});
 		zgjq(el).html(newText);
 		//zgjq(el).html(zgjq(el).text().replace(/(\S+)/g, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">"));
 	});
@@ -115,19 +123,45 @@ function wordClickHandler(event) {
 
 	event.target.setAttribute("id", id);
 
-	var message = {action: "translate", word: word, id: id};
+	var context = getContextOfClickedWord(id);
+
+	var message = {action: "translate", word: word, context: context, id: id};
 
 	window.webkit.messageHandlers.zeeguu.postMessage(message);
 }
 
 function getContextOfClickedWord(wordID) {
 	var el = document.getElementById(wordID);
+
+	var text = zgjq(el).text();
+
+	var prev = el;
+	while (prev.previousSibling != null) {
+		var p = prev.previousSibling;
+		if (p.tagName && p.tagName.toLowerCase() == zeeguuPeriodTagName.toLowerCase()) {
+			break;
+		}
+		text = zgjq(p).text() + text;
+		prev = prev.previousSibling;
+	}
+
+	var next = el;
+	while (next.nextSibling != null) {
+		var n = next.nextSibling;
+		text = text + zgjq(n).text();
+		next = next.nextSibling;
+		if (n.tagName && n.tagName.toLowerCase() == zeeguuPeriodTagName.toLowerCase()) {
+			break;
+		}
+	}
+	return text.trim();
 }
 
 function translationClickHandler(event) {
 	var word = event.target.getAttribute("data-zeeguu-translation");
 	var originalWordID = event.target.getAttribute("data-zeeguu-original-word-id");
 	var wordElement = document.getElementById(originalWordID);
+
 	var message = {action: "editTranslation", oldTranslation: word, originalWord: wordElement.innerHTML, id: event.target.getAttribute("id")};
 
 	window.webkit.messageHandlers.zeeguu.postMessage(message);
