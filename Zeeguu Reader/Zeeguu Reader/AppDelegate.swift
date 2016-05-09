@@ -57,17 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		
 		toolbarVC.viewControllers = [mainVC, bookmarkVC, profileVC]
 		
-		if (UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone) {
-			self.window?.rootViewController = toolbarVC
-		} else {
-			let splitViewController = UISplitViewController()
-			let detailVC = UINavigationController(rootViewController: ArticleViewController())
-			splitViewController.viewControllers = [toolbarVC, detailVC]
-			detailVC.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
-			splitViewController.delegate = self
-			
-			self.window?.rootViewController = splitViewController
-		}
+		let splitViewController = UISplitViewController()
+		let detailVC = UINavigationController(rootViewController: ArticleViewController())
+		splitViewController.viewControllers = [toolbarVC, detailVC]
+		detailVC.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+		splitViewController.delegate = self
+		
+		self.window?.rootViewController = splitViewController
 		self.window?.makeKeyAndVisible()
 	}
 	
@@ -102,13 +98,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 	// MARK: - Split view
 
 	func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
-//	    guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
-//	    guard let topAsDetailController = secondaryAsNavController.topViewController as? ArticleViewController else { return false }
-//	    if topAsDetailController.detailItem == nil {
-//	        // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-//	        return true
-//	    }
-	    return true
+		if let secondaryAsNavController = secondaryViewController as? UINavigationController, topAsDetailController = secondaryAsNavController.topViewController as? ArticleViewController {
+			if let art = topAsDetailController.article {
+				if let tabBarController = primaryViewController as? UITabBarController, selectedNVC = tabBarController.selectedViewController as? UINavigationController, topVC = selectedNVC.topViewController as? ArticleListViewController where topVC.articles.contains(art) {
+					secondaryAsNavController.setViewControllers([ArticleViewController()], animated: false)
+					secondaryAsNavController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem() // Make sure navigation controller does not become empty
+					
+					selectedNVC.pushViewController(topAsDetailController, animated: true)
+				} else if let tabBarController = primaryViewController as? UITabBarController, firstNVC = tabBarController.viewControllers?[0] as? UINavigationController, topVC = firstNVC.topViewController as? ArticleListViewController where topVC.articles.contains(art) {
+					secondaryAsNavController.setViewControllers([ArticleViewController()], animated: false)
+					secondaryAsNavController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem() // Make sure navigation controller does not become empty
+					
+					firstNVC.pushViewController(topAsDetailController, animated: false)
+				}
+				
+			} else {
+				// Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+				return true
+			}
+		}
+	    return false
+	}
+	
+	func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
+		if let tabBarController = primaryViewController as? UITabBarController, selectedNVC = tabBarController.selectedViewController as? UINavigationController, topVC = selectedNVC.topViewController as? ArticleViewController {
+			// There is an article viewController in the sidebar, move it to detailViewController of splitview
+			selectedNVC.popViewControllerAnimated(true)
+			return UINavigationController(rootViewController: topVC)
+		}
+		return nil
+	}
+	
+	func splitViewController(splitViewController: UISplitViewController, showDetailViewController vc: UIViewController, sender: AnyObject?) -> Bool {
+		if splitViewController.collapsed {
+			let tabBarController = splitViewController.viewControllers.first as! UITabBarController
+			let selectedNavigationViewController = tabBarController.selectedViewController as! UINavigationController
+			
+			// Push view controller
+			var viewControllerToPush = vc
+			if let navController = vc as? UINavigationController {
+				viewControllerToPush = navController.topViewController!
+			}
+			selectedNavigationViewController.pushViewController(viewControllerToPush, animated: true)
+			
+			return true
+		}
+		
+		return false
 	}
 }
 
