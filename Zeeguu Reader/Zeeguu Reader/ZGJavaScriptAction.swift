@@ -44,7 +44,7 @@ enum ZGJavaScriptAction {
 	///
 	/// **Important**: Before using `ZGJavaScriptAction.getJavaScriptExpression`, use `ZGJavaScriptAction.setTranslation` to set a new translation, to make sure the JavaScript expression can be created!
 	case EditTranslation(Dictionary<String, String>)
-	/// The change font size action.
+	/// The change font size action. The value indicates the factor of change (1 = +10%, -1 = -10%, ...)
 	case ChangeFontSize(Int)
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
@@ -99,6 +99,8 @@ enum ZGJavaScriptAction {
 				return "updateTranslationForID(\"\(word)\", \"\(id)\")"
 			}
 			fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
+		case let .ChangeFontSize(factor):
+			return "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(100 + factor * 10)%'"
 		default:
 			return ""
 		}

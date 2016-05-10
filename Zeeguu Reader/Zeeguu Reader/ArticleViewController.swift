@@ -39,7 +39,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 //	}
 	
 	private var _webview: ZGWebView?
-	private var webview: ZGWebView { // _webview will never be nil when the initializer is finished
+	private(set) var webview: ZGWebView { // _webview will never be nil when the initializer is finished
 		get {
 			return _webview!
 		}

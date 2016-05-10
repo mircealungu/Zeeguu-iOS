@@ -86,9 +86,9 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 		if sec == 0 && row == 0 {
 			cell?.selectionStyle = .None
 			let stepper = UIStepper()
-			stepper.minimumValue = 8
-			stepper.maximumValue = 30
-//			stepper.value = Double(parent.articleView.fontSize)
+			stepper.minimumValue = -5
+			stepper.maximumValue = 10
+			stepper.value = 0
 			stepper.setIncrementImage(letterImageWithFontSize(20), forState: .Normal)
 			stepper.setDecrementImage(letterImageWithFontSize(14), forState: .Normal)
 			stepper.addTarget(self, action: #selector(ArticleViewOptionsTableViewController.changeFontSize(_:)), forControlEvents: .ValueChanged)
@@ -145,6 +145,10 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	
 	func changeFontSize(sender: UIStepper) {
 //		parent.articleView.fontSize = CGFloat(sender.value)
-		
+		let action = ZGJavaScriptAction.ChangeFontSize(Int(sender.value))
+		parent.webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
+			print("result: \(result)")
+			print("error: \(error)")
+		}
 	}
 }
