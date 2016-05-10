@@ -32,18 +32,20 @@ Holds a JavaScript action to be executed.
 enum ZGJavaScriptAction {
 	/// No action
 	case None
-	/// The translate action. The first value contains the word to be translated, the second value contains the (html) id of the word.
+	/// The translate action.
 	///
 	/// Use the `ZGJavaScriptAction.getJavaScriptExpression` method to retrieve a JavaScript expression that will insert the translation behind the original word.
 	///
-	/// **Important**: Before using `ZGJavaScriptAction.getJavaScriptExpression`, use `ZGJavaScriptAction.changeWord` to replace the word with its translation. Otherwise, the original word is inserted!
+	/// **Important**: Before using `ZGJavaScriptAction.getJavaScriptExpression`, use `ZGJavaScriptAction.setTranslation` to set a translation, to make sure the JavaScript expression can be created!
 	case Translate(Dictionary<String, String>)
-	/// The edit translation action. The first value contains the translation to be edited, the second value contains the original word, the third value contains the (html) id of the word.
+	/// The edit translation action.
 	///
 	/// Use the `ZGJavaScriptAction.getJavaScriptExpression` method to retrieve a JavaScript expression that will update the translation behind the original word.
 	///
-	/// **Important**: Before using `ZGJavaScriptAction.getJavaScriptExpression`, use `ZGJavaScriptAction.changeWord` to replace the translation with the new (custom) translation. Otherwise, the translation will not be updated!
+	/// **Important**: Before using `ZGJavaScriptAction.getJavaScriptExpression`, use `ZGJavaScriptAction.setTranslation` to set a new translation, to make sure the JavaScript expression can be created!
 	case EditTranslation(Dictionary<String, String>)
+	/// The change font size action.
+	case ChangeFontSize(Int)
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
