@@ -147,11 +147,11 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func translate(action: ZGJavaScriptAction) {
 		var action = action
-		if let word = action.getWord(), art = article {
-			ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: "To be implemented", url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
+		if let word = action.getActionInformation()["word"], context = action.getActionInformation()["context"], art = article {
+			ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
 				if let t = translation?["translation"].string {
 					print("\"\(word)\" translated to \"\(t)\"")
-					action.changeWord(t)
+					action.setTranslation(t)
 					self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
 						print("result: \(result)")
 						print("error: \(error)")
@@ -167,7 +167,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			let action = ZGJavaScriptAction.parseMessage(dict)
 			
 			switch action {
-			case .Translate(_, _):
+			case .Translate(_):
 				self.translate(action)
 			default:
 				break

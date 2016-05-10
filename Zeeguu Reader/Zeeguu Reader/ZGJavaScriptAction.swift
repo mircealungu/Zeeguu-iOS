@@ -37,66 +37,66 @@ enum ZGJavaScriptAction {
 	/// Use the `ZGJavaScriptAction.getJavaScriptExpression` method to retrieve a JavaScript expression that will insert the translation behind the original word.
 	///
 	/// **Important**: Before using `ZGJavaScriptAction.getJavaScriptExpression`, use `ZGJavaScriptAction.changeWord` to replace the word with its translation. Otherwise, the original word is inserted!
-	case Translate(String, String)
+	case Translate(Dictionary<String, String>)
 	/// The edit translation action. The first value contains the translation to be edited, the second value contains the original word, the third value contains the (html) id of the word.
 	///
 	/// Use the `ZGJavaScriptAction.getJavaScriptExpression` method to retrieve a JavaScript expression that will update the translation behind the original word.
 	///
 	/// **Important**: Before using `ZGJavaScriptAction.getJavaScriptExpression`, use `ZGJavaScriptAction.changeWord` to replace the translation with the new (custom) translation. Otherwise, the translation will not be updated!
-	case EditTranslation(String, String, String)
+	case EditTranslation(Dictionary<String, String>)
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
-		if let action = dict["action"], id = dict["id"] {
+		var dict = dict
+		if let action = dict.removeValueForKey("action"), _ = dict["id"] {
 			if action == "translate" {
-				if let word = dict["word"] {
-					return .Translate(word, id)
+				if let _ = dict["word"] {
+					return .Translate(dict)
 				}
 			} else if action == "editTranslation" {
-				if let old = dict["oldTranslation"], orig = dict["originalWord"] {
-					return .EditTranslation(old, orig, id)
+				if let _ = dict["oldTranslation"], _ = dict["originalWord"] {
+					return .EditTranslation(dict)
 				}
 			}
 		}
 		return .None
 	}
 	
-	mutating func changeWord(newWord: String) {
+	mutating func setTranslation(newWord: String) {
 		switch self {
-		case let .Translate(_, id):
-			self = .Translate(newWord, id)
-		case let .EditTranslation(_, orig, id):
-			self = .EditTranslation(newWord, orig, id)
+		case var .Translate(dict):
+			dict["translation"] = newWord
+			self = .Translate(dict)
+		case var .EditTranslation(dict):
+			dict["newTranslation"] = newWord
+			self = .EditTranslation(dict)
 		default:
 			break // do nothing
 		}
 	}
 	
-	func getWord() -> String? {
+	func getActionInformation() -> Dictionary<String, String> {
 		switch self {
-		case let .Translate(word, _):
-			return word
-		case let .EditTranslation(word, _, _):
-			return word
+		case let .Translate(dict):
+			return dict
+		case let .EditTranslation(dict):
+			return dict
 		default:
-			return nil
-		}
-	}
-	
-	func getOriginalWord() -> String? {
-		switch self {
-		case let .EditTranslation(_, word, _):
-			return word
-		default:
-			return nil
+			return [:]
 		}
 	}
 	
 	func getJavaScriptExpression() -> String {
 		switch self {
-		case let .Translate(word, id):
-			return "insertTranslationForID(\"\(word)\", \"\(id)\")"
-		case let .EditTranslation(word, _, id):
-			return "updateTranslationForID(\"\(word)\", \"\(id)\")"
+		case let .Translate(dict):
+			if let word = dict["translation"], id = dict["id"] {
+				return "insertTranslationForID(\"\(word)\", \"\(id)\")"
+			}
+			fatalError("The ZGJavaScriptAction.Translate(_) dictionary is in an incorrect state!")
+		case let .EditTranslation(dict):
+			if let word = dict["newTranslation"], id = dict["id"] {
+				return "updateTranslationForID(\"\(word)\", \"\(id)\")"
+			}
+			fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
 		default:
 			return ""
 		}

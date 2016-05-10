@@ -138,18 +138,24 @@ function getContextOfClickedWord(wordID) {
 	var prev = el;
 	while (prev.previousSibling != null) {
 		var p = prev.previousSibling;
+		prev = prev.previousSibling;
 		if (p.tagName && p.tagName.toLowerCase() == zeeguuPeriodTagName.toLowerCase()) {
 			break;
 		}
+		if (p.tagName && p.tagName.toLowerCase() == zeeguuTranslatedWordTagName.toLowerCase()) {
+			continue;
+		}
 		text = zgjq(p).text() + text;
-		prev = prev.previousSibling;
 	}
 
 	var next = el;
 	while (next.nextSibling != null) {
 		var n = next.nextSibling;
-		text = text + zgjq(n).text();
 		next = next.nextSibling;
+		if (n.tagName && n.tagName.toLowerCase() == zeeguuTranslatedWordTagName.toLowerCase()) {
+			continue;
+		}
+		text = text + zgjq(n).text();
 		if (n.tagName && n.tagName.toLowerCase() == zeeguuPeriodTagName.toLowerCase()) {
 			break;
 		}
