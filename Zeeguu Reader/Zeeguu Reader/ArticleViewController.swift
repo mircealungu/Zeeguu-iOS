@@ -48,14 +48,20 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 	}
 	
-//	var translationMode: ArticleViewTranslationMode {
-//		get {
-//			return self._articleView.translationMode
-//		}
-//		set(mode) {
-//			self._articleView.translationMode = mode
-//		}
-//	}
+	private var _translationMode = ArticleViewTranslationMode.Instant
+	var translationMode: ArticleViewTranslationMode {
+		get {
+			return _translationMode
+		}
+		set(mode) {
+			_translationMode = mode
+			let action = ZGJavaScriptAction.ChangeTranslationMode(_translationMode == .Instant)
+			webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
+				print("result: \(result)")
+				print("error: \(error)")
+			}
+		}
+	}
 	
 	init(article: Article? = nil) {
 		self.article = article
@@ -147,7 +153,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func translate(action: ZGJavaScriptAction) {
 		var action = action
-		if let word = action.getActionInformation()["word"], context = action.getActionInformation()["context"], art = article {
+		if let word = action.getActionInformation()?["word"], context = action.getActionInformation()?["context"], art = article {
 			ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
 				if let t = translation?["translation"].string {
 					print("\"\(word)\" translated to \"\(t)\"")

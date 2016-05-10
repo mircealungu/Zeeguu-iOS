@@ -94,9 +94,9 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 			stepper.addTarget(self, action: #selector(ArticleViewOptionsTableViewController.changeFontSize(_:)), forControlEvents: .ValueChanged)
 			cell?.accessoryView = stepper
 		} else if sec == 1 {
-//			if (row == 0 && parent.articleView.translationMode == .Instant) || (row == 1 && parent.articleView.translationMode == .Ask) {
-//				cell?.accessoryType = .Checkmark
-//			}
+			if (row == 0 && parent.translationMode == .Instant) || (row == 1 && parent.translationMode == .Ask) {
+				cell?.accessoryType = .Checkmark
+			}
 		}
 		
         return cell!
@@ -106,11 +106,11 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 		let sec = indexPath.section
 		let row = indexPath.row
 		if sec == 1 {
-//			if row == 0 {
-//				parent.articleView.translationMode = .Instant
-//			} else if row == 1 {
-//				parent.articleView.translationMode = .Ask
-//			}
+			if row == 0 {
+				parent.translationMode = .Instant
+			} else if row == 1 {
+				parent.translationMode = .Ask
+			}
 		}
 		self.tableView.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(1, 1)), withRowAnimation: .Automatic)
 	}
@@ -144,7 +144,6 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	}
 	
 	func changeFontSize(sender: UIStepper) {
-//		parent.articleView.fontSize = CGFloat(sender.value)
 		let action = ZGJavaScriptAction.ChangeFontSize(Int(sender.value))
 		parent.webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
 			print("result: \(result)")

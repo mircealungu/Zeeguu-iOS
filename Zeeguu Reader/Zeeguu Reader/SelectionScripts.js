@@ -39,6 +39,8 @@ var zeeguuPeriodID = "zeeguuPeriod";
 var zeeguuuTranslatedWordID = "zeeguuTranslatedWord";
 var zeeguuuTranslationID = "zeeguuTranslation";
 
+var zeeguuTranslatesImmediately = true;
+
 function setupZeeguuJS() {
 	var myCustomViewport = 'width=device-width';
 	var viewportElement = document.querySelector('meta[name=viewport]');

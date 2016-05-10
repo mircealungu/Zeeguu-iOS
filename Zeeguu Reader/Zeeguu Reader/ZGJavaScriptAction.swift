@@ -46,6 +46,8 @@ enum ZGJavaScriptAction {
 	case EditTranslation(Dictionary<String, String>)
 	/// The change font size action. The value indicates the factor of change (1 = +10%, -1 = -10%, ...)
 	case ChangeFontSize(Int)
+	/// The change translate mode action. The value indicates the translation mode (true = immediately, false = ask)
+	case ChangeTranslationMode(Bool)
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
@@ -76,14 +78,14 @@ enum ZGJavaScriptAction {
 		}
 	}
 	
-	func getActionInformation() -> Dictionary<String, String> {
+	func getActionInformation() -> Dictionary<String, String>? {
 		switch self {
 		case let .Translate(dict):
 			return dict
 		case let .EditTranslation(dict):
 			return dict
 		default:
-			return [:]
+			return nil
 		}
 	}
 	
@@ -101,6 +103,8 @@ enum ZGJavaScriptAction {
 			fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
 		case let .ChangeFontSize(factor):
 			return "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(100 + factor * 10)%'"
+		case let .ChangeTranslationMode(immediately):
+			return "zeeguuTranslatesImmediately = \(immediately ? "true" : "false");"
 		default:
 			return ""
 		}
