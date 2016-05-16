@@ -42,6 +42,8 @@ var zeeguuuTranslationID = "zeeguuTranslation";
 var zeeguuTranslatesImmediately = true;
 var zeeguuLinksAreDisabled = false;
 
+var zeeguuInlineTextElementsToWalkThrough = ["a", "b", "i", "u"];
+
 function setupZeeguuJS() {
 	var myCustomViewport = 'width=device-width';
 	var viewportElement = document.querySelector('meta[name=viewport]');
@@ -133,36 +135,83 @@ function wordClickHandler(event) {
 	window.webkit.messageHandlers.zeeguu.postMessage(message);
 }
 
+
+function elementIsPeriod(el) {
+	return el.tagName && el.tagName.toLowerCase() == zeeguuPeriodTagName.toLowerCase();
+}
+
+function elementIsTranslation(el) {
+	return el.tagName && el.tagName.toLowerCase() == zeeguuTranslatedWordTagName.toLowerCase();
+}
+
+function enterParagraphOutSideCurrent(el, directionIsPrevious) {
+	var siblingProperty = directionIsPrevious ? "previousSibling" : "nextSibling";
+	var firstLastChildOfParagraph = directionIsPrevious ? "firstChild" : "lastChild";
+	var firstLastChildOfLink = directionIsPrevious ? "lastChild" : "firstChild";
+
+	var parentSibling = null;
+	var isInside = false;
+	if (zeeguuInlineTextElementsToWalkThrough.indexOf(el.parentNode.parentNode.tagName.toLowerCase()) != -1) { // The parent of el (zeeguuParagraph) has a parent that is in the walkthrough list (such as 'a')
+		isInside = true;
+		parentSibling = el.parentNode.parentNode[siblingProperty];
+	} else {
+		parentSibling = el.parentNode[siblingProperty];
+	}
+
+	if (parentSibling == null) {
+		return null;
+	}
+
+	if (el == el.parentNode[firstLastChildOfParagraph] && zeeguuInlineTextElementsToWalkThrough.indexOf(parentSibling.tagName.toLowerCase()) != -1) { // There is a link (or bold, etc.) next to the parent
+		// Assume that each 'a' element has a zeeguu paragraph as first child
+		var zeeguuParagraph = el.parentNode[siblingProperty].firstChild;
+		return zeeguuParagraph[firstLastChildOfLink];
+	} else if (isInside && el == el.parentNode[firstLastChildOfParagraph] && parentSibling.tagName.toLowerCase() == zeeguuParagraphTagName.toLowerCase()) { // We are in a link (or bold, etc.) and want to continue in the adjoining zeeguuParagraph
+		return parentSibling[firstLastChildOfLink];
+	}
+	return null;
+}
+
+function getContextNextTo(element, directionIsPrevious) {
+	var siblingProperty = directionIsPrevious ? "previousSibling" : "nextSibling";
+
+	var text = "";
+	var siblingElement = element[siblingProperty];
+	while (siblingElement != null) {
+		var currentElement = siblingElement;
+		siblingElement = siblingElement[siblingProperty];
+
+		if (elementIsTranslation(currentElement)) {
+			continue;
+		}
+
+		if (!directionIsPrevious) {
+			text = text + zgjq(currentElement).text();
+		}
+
+		if (elementIsPeriod(currentElement)) {
+			break;
+		}
+
+		if (directionIsPrevious) {
+			text = zgjq(currentElement).text() + text;
+		}
+
+		if (siblingElement == null) {
+			siblingElement = enterParagraphOutSideCurrent(currentElement, directionIsPrevious);
+		}
+	}
+	return text;
+}
+
 function getContextOfClickedWord(wordID) {
 	var el = document.getElementById(wordID);
 
 	var text = zgjq(el).text();
 
-	var prev = el;
-	while (prev.previousSibling != null) {
-		var p = prev.previousSibling;
-		prev = prev.previousSibling;
-		if (p.tagName && p.tagName.toLowerCase() == zeeguuPeriodTagName.toLowerCase()) {
-			break;
-		}
-		if (p.tagName && p.tagName.toLowerCase() == zeeguuTranslatedWordTagName.toLowerCase()) {
-			continue;
-		}
-		text = zgjq(p).text() + text;
-	}
+	text = getContextNextTo(el, true) + text;
+	text = text + getContextNextTo(el, false);
 
-	var next = el;
-	while (next.nextSibling != null) {
-		var n = next.nextSibling;
-		next = next.nextSibling;
-		if (n.tagName && n.tagName.toLowerCase() == zeeguuTranslatedWordTagName.toLowerCase()) {
-			continue;
-		}
-		text = text + zgjq(n).text();
-		if (n.tagName && n.tagName.toLowerCase() == zeeguuPeriodTagName.toLowerCase()) {
-			break;
-		}
-	}
 	return text.trim();
 }
 
