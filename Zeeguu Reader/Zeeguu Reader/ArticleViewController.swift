@@ -63,6 +63,21 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 	}
 	
+	private var _disableLinks = false
+	var disableLinks: Bool {
+		get {
+			return _disableLinks
+		}
+		set(disable) {
+			_disableLinks = disable
+			let action = ZGJavaScriptAction.DisableLinks(disable)
+			webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
+				print("result: \(result)")
+				print("error: \(error)")
+			}
+		}
+	}
+	
 	init(article: Article? = nil) {
 		self.article = article
 		//		self._articleView = ArticleView(article: self.article)

@@ -40,6 +40,7 @@ var zeeguuuTranslatedWordID = "zeeguuTranslatedWord";
 var zeeguuuTranslationID = "zeeguuTranslation";
 
 var zeeguuTranslatesImmediately = true;
+var zeeguuLinksAreDisabled = false;
 
 function setupZeeguuJS() {
 	var myCustomViewport = 'width=device-width';
@@ -185,6 +186,18 @@ function insertTranslationForID(translation, id) {
 	translationElement.innerHTML = " (" + translation + ")";
 	translationElement.addEventListener("click", translationClickHandler);
 	insertElementAfter(translationElement, wordElement);
+}
+
+function zeeguuUpdateLinkState() {
+	var func = function (idx, el) {
+		var attrToAdd = zeeguuLinksAreDisabled ? "data-zeeguu-href" : "href";
+		var attrToRemove = zeeguuLinksAreDisabled ? "href" : "data-zeeguu-href";
+
+		zgjq(el).attr(attrToAdd, zgjq(el).attr(attrToRemove));
+		zgjq(el).removeAttr(attrToRemove);
+	};
+
+	zgjq("a").each(func);
 }
 
 function insertElementAfter(newElement, afterElement) {

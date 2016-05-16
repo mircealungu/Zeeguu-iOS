@@ -48,6 +48,8 @@ enum ZGJavaScriptAction {
 	case ChangeFontSize(Int)
 	/// The change translate mode action. The value indicates the translation mode (true = immediately, false = ask)
 	case ChangeTranslationMode(Bool)
+	/// The enable/disable links action. The value indicates whether links should be disabled or not.
+	case DisableLinks(Bool)
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
@@ -105,6 +107,8 @@ enum ZGJavaScriptAction {
 			return "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(100 + factor * 10)%'"
 		case let .ChangeTranslationMode(immediately):
 			return "zeeguuTranslatesImmediately = \(immediately ? "true" : "false");"
+		case let .DisableLinks(disable):
+			return "zeeguuLinksAreDisabled = \(disable ? "true" : "false"); zeeguuUpdateLinkState();"
 		default:
 			return ""
 		}

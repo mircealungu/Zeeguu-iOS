@@ -34,8 +34,9 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	init(parent: ArticleViewController) {
 		let s1 = ["FONTSIZE".localized]
 		let s2 = ["INSTANT_TRANSLATION".localized, "ASK_BEFORE_TRANSLATION".localized]
+		let s3 = ["DISABLE_LINKS".localized]
 		
-		data = [s1, s2]
+		data = [s1, s2, s3]
 		self.parent = parent
 		super.init(style: .Grouped)
 		self.modalPresentationStyle = .Popover
@@ -97,6 +98,13 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 			if (row == 0 && parent.translationMode == .Instant) || (row == 1 && parent.translationMode == .Ask) {
 				cell?.accessoryType = .Checkmark
 			}
+		} else if sec == 2 {
+			if row == 0 {
+				let sw = UISwitch()
+				sw.addTarget(self, action: #selector(ArticleViewOptionsTableViewController.setLinkState(_:)), forControlEvents: .ValueChanged)
+				cell?.accessoryView = sw
+				sw.on = self.parent.disableLinks
+			}
 		}
 		
         return cell!
@@ -149,5 +157,9 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 			print("result: \(result)")
 			print("error: \(error)")
 		}
+	}
+	
+	func setLinkState(sender: UISwitch) {
+		self.parent.disableLinks = sender.on
 	}
 }
