@@ -119,8 +119,10 @@ function addClickListeners() {
 	})
 }
 
+var zeeguuSelectionFirstWord = null;
+
 function wordClickHandler(event) {
-	if (event.target.hasAttribute("id")) {
+	if (zeeguuTranslatesImmediately && event.target.hasAttribute("id")) {
 		return; // Already translated
 	}
 	var word = event.target.innerText;
@@ -128,11 +130,49 @@ function wordClickHandler(event) {
 
 	event.target.setAttribute("id", id);
 
-	var context = getContextOfClickedWord(id);
+	var message = undefined;
+	if (zeeguuTranslatesImmediately) {
+		var context = getContextOfClickedWord(id);
 
-	var message = {action: "translate", word: word, context: context, id: id};
+		message = {action: "translate", word: word, context: context, id: id};
 
-	window.webkit.messageHandlers.zeeguu.postMessage(message);
+		window.webkit.messageHandlers.zeeguu.postMessage(message);
+	} else {
+		event.target.setAttribute("style", "background-color: yellow;");
+		if (zeeguuSelectionFirstWord != null) {
+			var text = walkElementsFrom(event.target);
+			console.log("text: " + text);
+		} else {
+			zeeguuSelectionFirstWord = event.target;
+		}
+	}
+}
+
+
+function walkElementsFrom(element) {
+	var text = "";
+	var siblingElement = element.previousSibling;
+	while (siblingElement != null) {
+		var currentElement = siblingElement;
+		siblingElement = siblingElement.previousSibling;
+
+		if (elementIsTranslation(currentElement)) {
+			continue;
+		}
+
+		text = zgjq(currentElement).text() + text;
+
+		zgjq(currentElement).attr("style", "background-color: yellow;");
+
+		if (currentElement == zeeguuSelectionFirstWord) {
+			break;
+		}
+
+		if (siblingElement == null) {
+			siblingElement = enterParagraphOutSideCurrent(currentElement, false);
+		}
+	}
+	return text;
 }
 
 
@@ -254,3 +294,16 @@ function insertElementAfter(newElement, afterElement) {
 }
 
 setupZeeguuJS();
+/************************************************* Get Nodes under selection... *************************************************/
+function getSelectionHtml() {
+	var range = window.getSelection().getRangeAt(0);
+	var content = range.cloneContents();
+//    $('body').append('<span id="selection_html_placeholder"></span>');
+//    var placeholder = document.getElementById('selection_html_placeholder');
+//    placeholder.appendChild(content);
+	var htmlContent = range.commonAncestorContainer;
+//    var htmlContent = placeholder.innerHTML;
+//    $('#selection_html_placeholder').remove();
+	return htmlContent;
+}
+/*********************************************************************************************************************************/
