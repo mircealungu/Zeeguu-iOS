@@ -85,6 +85,11 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		
 		let controller = WKUserContentController()
 		controller.addScriptMessageHandler(self, name: "zeeguu")
+		
+		Utils.addUserScriptToUserContentController(controller, jsFileName: "jquery-2.2.3.min")
+		Utils.addUserScriptToUserContentController(controller, jsFileName: "SelectionScripts")
+		Utils.addStyleSheetToUserContentController(controller, cssFileName: "zeeguu")
+		
 		let config = WKWebViewConfiguration()
 		config.userContentController = controller
 		self.webview = ZGWebView(article: self.article, webViewConfiguration: config)
@@ -160,11 +165,6 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 //			})
 //		}
 //	}
-	
-	func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-		Utils.loadJSFileToWebView(webView, jsFileName: "jquery-2.2.3.min")
-		Utils.loadJSFileToWebView(webView, jsFileName: "SelectionScripts")
-	}
 	
 	func translate(action: ZGJavaScriptAction) {
 		var action = action
