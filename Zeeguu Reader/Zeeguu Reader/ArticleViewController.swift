@@ -139,7 +139,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	override func viewDidAppear(animated: Bool) {
 		let mc = UIMenuController.sharedMenuController()
 		
-		let bookmarkItem = UIMenuItem(title: "TRANSLATE".localized, action: NSSelectorFromString("translate:"))
+		let bookmarkItem = UIMenuItem(title: "TRANSLATE".localized, action: #selector(ArticleViewController.translateSelection(_:)))
 		
 		mc.menuItems = [bookmarkItem]
 	}
@@ -166,7 +166,41 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 //		}
 //	}
 	
+	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+		let bool = super.canPerformAction(action, withSender: sender)
+		print("vc bool: \(bool)")
+		return bool
+		print("vc canPerformAction: \(action)")
+		if action == #selector(ArticleViewController.translateSelection(_:)) {
+//			if (willInstantlyTranslate) {
+//				translate(self)
+//				return false
+//			}
+			return true
+		}
+		return false
+	}
+	
+	func translateSelection(sender: AnyObject?) {
+		
+	}
+	
 	func translate(action: ZGJavaScriptAction) {
+		if translationMode == .Ask {
+			let mc = UIMenuController.sharedMenuController()
+			let dict = action.getActionInformation();
+			
+			if let r = dict, rx = r["left"], ry = r["top"], rw = r["width"], rh = r["height"], x = Double(rx), y = Double(ry), w = Double(rw), h = Double(rh) {
+				let topGuide = self.topLayoutGuide
+				let rect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
+				
+//				self.becomeFirstResponder()
+				webview.becomeFirstResponder()
+				mc.setTargetRect(rect, inView: webview)
+				mc.setMenuVisible(true, animated: true)
+			}
+			return
+		}
 		var action = action
 		if let word = action.getActionInformation()?["word"], context = action.getActionInformation()?["context"], art = article {
 			ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
@@ -184,7 +218,14 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
 		print("Received message: \(message.body)")
-		if let dict = message.body as? Dictionary<String, String> {
+		if let body = message.body as? Dictionary<String, AnyObject> {
+			var dict = Dictionary<String, String>()
+			
+			for (key, value) in body {
+				dict[key] = String(value)
+			}
+			
+			
 			let action = ZGJavaScriptAction.parseMessage(dict)
 			
 			switch action {
@@ -193,6 +234,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			default:
 				break
 			}
+			
 		}
 	}
 

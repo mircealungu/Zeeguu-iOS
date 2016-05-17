@@ -50,14 +50,18 @@ class ZGWebView: WKWebView {
 	}
 	
 //	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-//		print("canPerformAction: \(action)")
-//		if action == #selector(ZGTextView.translate(_:)) {
-//			if (willInstantlyTranslate) {
-//				translate(self)
-//				return false
-//			}
-//			return true
-//		}
+//		let bool = super.canPerformAction(action, withSender: sender)
+//		print("webview bool: \(bool)")
+//		return bool
+//		
+//		print("webview canPerformAction: \(action)")
+////		if action == #selector(ZGTextView.translate(_:)) {
+////			if (willInstantlyTranslate) {
+////				translate(self)
+////				return false
+////			}
+////			return true
+////		}
 //		return false
 //	}
 	

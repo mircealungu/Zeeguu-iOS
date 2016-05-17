@@ -138,43 +138,61 @@ function wordClickHandler(event) {
 
 		window.webkit.messageHandlers.zeeguu.postMessage(message);
 	} else {
-		event.target.setAttribute("style", "background-color: yellow;");
-		if (zeeguuSelectionFirstWord != null) {
-			var text = walkElementsFrom(event.target);
-			console.log("text: " + text);
-		} else {
-			zeeguuSelectionFirstWord = event.target;
-		}
+		handleSelection(event.target, id);
 	}
 }
 
+function handleSelection(tappedNode, tappedNodeID) {
+	zgjq(tappedNode).addClass("zeeguuSelection");
+	if (zeeguuSelectionFirstWord != null) {
 
-function walkElementsFrom(element) {
-	var text = "";
-	var siblingElement = element.previousSibling;
-	while (siblingElement != null) {
-		var currentElement = siblingElement;
-		siblingElement = siblingElement.previousSibling;
+		var text = "";
 
-		if (elementIsTranslation(currentElement)) {
-			continue;
+		var selectionComplete = false;
+		var callback = function (currentElement, directionIsPrevious) {
+			if (elementIsTranslation(currentElement)) {
+				return "continue";
+			}
+
+			text = zgjq(currentElement).text() + text;
+
+			zgjq(currentElement).addClass("zeeguuSelection");
+
+			if (currentElement == zeeguuSelectionFirstWord) {
+				selectionComplete = true;
+				return "break";
+			}
+		};
+
+
+		var first = zeeguuSelectionFirstWord;
+		var second = tappedNode;
+		var comparison = first.compareDocumentPosition(second);
+
+		if (comparison & Node.DOCUMENT_POSITION_FOLLOWING) { // second is following first
+			walkElementsStartingWith(second, true, callback); // walk from second to the left to first
+		} else { // assume first is following second, as this is only done for zeeguuWord elements.
+			// zeeguuWord elements should not be contained by other zeeguuWord elements
+			walkElementsStartingWith(second, false, callback); // walk from second to the right to first
 		}
 
-		text = zgjq(currentElement).text() + text;
+		var rect = second.getBoundingClientRect();
+		console.log("rect: ");
+		console.log(rect);
+		var message = {action: "translate", word: text, context: text, id: tappedNodeID, selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
 
-		zgjq(currentElement).attr("style", "background-color: yellow;");
+		window.webkit.messageHandlers.zeeguu.postMessage(message);
 
-		if (currentElement == zeeguuSelectionFirstWord) {
-			break;
-		}
+		console.log(message);
 
-		if (siblingElement == null) {
-			siblingElement = enterParagraphOutSideCurrent(currentElement, false);
-		}
+
+		//zeeguuSelectionFirstWord.removeAttr("style");
+		zeeguuSelectionFirstWord = null;
+
+	} else {
+		zeeguuSelectionFirstWord = event.target;
 	}
-	return text;
 }
-
 
 function elementIsPeriod(el) {
 	return el.tagName && el.tagName.toLowerCase() == zeeguuPeriodTagName.toLowerCase();
@@ -212,7 +230,7 @@ function enterParagraphOutSideCurrent(el, directionIsPrevious) {
 	return null;
 }
 
-function getContextNextTo(element, directionIsPrevious) {
+function walkElementsStartingWith(element, directionIsPrevious, callback) {
 	var siblingProperty = directionIsPrevious ? "previousSibling" : "nextSibling";
 
 	var text = "";
@@ -221,8 +239,25 @@ function getContextNextTo(element, directionIsPrevious) {
 		var currentElement = siblingElement;
 		siblingElement = siblingElement[siblingProperty];
 
+		if (callback != undefined && callback != null) {
+			var str = callback(currentElement, directionIsPrevious);
+			if (str === "continue") continue;
+			if (str === "break") break;
+		}
+
+		if (siblingElement == null) {
+			siblingElement = enterParagraphOutSideCurrent(currentElement, directionIsPrevious);
+		}
+	}
+	return text;
+}
+
+function getContextNextTo(element, directionIsPrevious) {
+	var text = "";
+
+	walkElementsStartingWith(element, directionIsPrevious, function (currentElement, directionIsPrevious) {
 		if (elementIsTranslation(currentElement)) {
-			continue;
+			return "continue";
 		}
 
 		if (!directionIsPrevious) {
@@ -230,17 +265,14 @@ function getContextNextTo(element, directionIsPrevious) {
 		}
 
 		if (elementIsPeriod(currentElement)) {
-			break;
+			return "break";
 		}
 
 		if (directionIsPrevious) {
 			text = zgjq(currentElement).text() + text;
 		}
+	});
 
-		if (siblingElement == null) {
-			siblingElement = enterParagraphOutSideCurrent(currentElement, directionIsPrevious);
-		}
-	}
 	return text;
 }
 
@@ -292,6 +324,9 @@ function zeeguuUpdateLinkState() {
 function insertElementAfter(newElement, afterElement) {
 	afterElement.parentNode.insertBefore(newElement, afterElement.nextSibling);
 }
+
+document.body.style.webkitTouchCallout='none';
+document.body.style.KhtmlUserSelect='none';
 
 setupZeeguuJS();
 /************************************************* Get Nodes under selection... *************************************************/
