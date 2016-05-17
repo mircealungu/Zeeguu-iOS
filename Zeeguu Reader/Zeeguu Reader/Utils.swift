@@ -103,10 +103,7 @@ class Utils {
 			"style.innerHTML = \"\(cssFile.stringByReplacingOccurrencesOfString("\n", withString: "\\n"))\";\n",
 			"document.getElementsByTagName(\"head\")[0].appendChild(style);"].reduce("", combine: +);
 			
-			print("css js: \(js)")
-			
 			let script = WKUserScript(source: js, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
-			print("script: \(script)")
 			controller.addUserScript(script)
 		}
 	}
