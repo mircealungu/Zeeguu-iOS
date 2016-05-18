@@ -166,20 +166,28 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 //		}
 //	}
 	
-	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-		let bool = super.canPerformAction(action, withSender: sender)
-		print("vc bool: \(bool)")
-		return bool
-		print("vc canPerformAction: \(action)")
-		if action == #selector(ArticleViewController.translateSelection(_:)) {
-//			if (willInstantlyTranslate) {
-//				translate(self)
-//				return false
-//			}
-			return true
-		}
-		return false
+//	override func targetForAction(action: Selector, withSender sender: AnyObject?) -> AnyObject? {
+//		return self.canPerformAction(action, withSender: sender) ? self : nil
+//	}
+	
+	override func canBecomeFirstResponder() -> Bool {
+		return true
 	}
+	
+//	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+//		let bool = super.canPerformAction(action, withSender: sender)
+//		print("vc bool: \(bool)")
+////		return bool
+//		print("vc canPerformAction: \(action)")
+//		if action == #selector(ArticleViewController.translateSelection(_:)) {
+////			if (willInstantlyTranslate) {
+////				translate(self)
+////				return false
+////			}
+//			return true
+//		}
+//		return false
+//	}
 	
 	func translateSelection(sender: AnyObject?) {
 		
@@ -194,8 +202,21 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 				let topGuide = self.topLayoutGuide
 				let rect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
 				
-//				self.becomeFirstResponder()
-				webview.becomeFirstResponder()
+//				let keyWindow = UIApplication.sharedApplication().keyWindow
+//				var fs = keyWindow?.performSelector(NSSelectorFromString("firstResponder")).takeRetainedValue()
+//				
+//				print("firstresponder: \(fs)")
+//				print("firstresponder can resign: \(fs?.canResignFirstResponder())")
+//				
+//				print("self.view can become: \(self.view.canBecomeFirstResponder())")
+//				print("self can become: \(self.canBecomeFirstResponder())")
+//				print("webview can become: \(webview.canBecomeFirstResponder())")
+				
+//				self.view.becomeFirstResponder()
+				self.becomeFirstResponder()
+//				webview.becomeFirstResponder()
+//				fs = keyWindow?.performSelector(NSSelectorFromString("firstResponder")).takeRetainedValue()
+//				print("firstresponder: \(fs)")
 				mc.setTargetRect(rect, inView: webview)
 				mc.setMenuVisible(true, animated: true)
 			}
