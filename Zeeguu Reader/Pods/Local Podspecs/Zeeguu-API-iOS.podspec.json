@@ -1,6 +1,6 @@
 {
   "name": "Zeeguu-API-iOS",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "summary": "An API for Zeeguu for iOS",
   "description": "The iOS Framework that acts as a layer in front of the Zeeguu server.",
   "homepage": "https://github.com/mircealungu/Zeeguu-API-iOS",
@@ -11,12 +11,12 @@
   },
   "source": {
     "git": "https://github.com/mircealungu/Zeeguu-API-iOS.git",
-    "tag": "1.0.5"
+    "tag": "1.0.9"
   },
   "source_files": "ZeeguuAPI/ZeeguuAPI/*.{swift,h}",
   "dependencies": {
     "SwiftyJSON": [
-      "~> 2.3"
+
     ]
   },
   "resources": "ZeeguuAPI/ZeeguuAPI/*.lproj"

@@ -28,8 +28,12 @@ import UIKit
 
 /// This class is a gateway to the Zeeguu API. You can use the instance of this class obtained by `ZeeguuAPI.sharedAPI()` to communicate with the Zeeguu API.
 public class ZeeguuAPI {
+	
+	// MARK: Properties -
+	
 	private static let instance = ZeeguuAPI()
 	
+	/// Whether to enable debug output. Set this to `true` to see debug output and find out why an endpoint is not returning what you expect.
 	public var enableDebugOutput = false
 	
 	var currentSessionID: Int {
@@ -48,6 +52,8 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	// MARK: Static methods -
+	
 	/// Get the `ZeeguuAPI` instance. This method is the only way to get an instance of the ZeeguuAPI class.
 	///
 	/// - returns: The shared `ZeeguuAPI` instance.
@@ -62,6 +68,10 @@ public class ZeeguuAPI {
 			self.currentSessionID = def.objectForKey(ZeeguuAPI.sessionIDKey)!.integerValue
 		}
 	}
+	
+	// MARK: Methods -
+	
+	// MARK: User operations
 	
 	/// Registers a user.
 	///
@@ -208,6 +218,8 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	// MARK: Zeeguu API Languages
+	
 	/// Retrieves the language codes of all available languages that the Zeeguu API supports as a learning language.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
@@ -228,18 +240,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Retrieves the words that the user is currently studying.
-	///
-	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of words.
-	public func getStudyingWords(completion: (array: JSON?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(array: nil)
-		}
-		let request = self.requestWithEndPoint(.UserWords, method: .GET)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
-		}
-	}
+	// MARK: Bookmark operations
 	
 	/// Retrieves the bookmarks of the user, organized by date.
 	///
@@ -416,6 +417,49 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	/// Retrieves all learned bookmarks for the current user.
+	///
+	/// - parameter langCode: The language code for which to retrieve the bookmarks.
+	/// - parameter completion: A block that will receive a dictionary with the bookmarks.
+	public func getLearnedBookmarksWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetLearnedBookmarks, pathComponents: [langCode], method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	// MARK: Words operations
+	
+	/// Retrieves the words that the user is currently studying.
+	///
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of words.
+	public func getStudyingWords(completion: (array: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(array: nil)
+		}
+		let request = self.requestWithEndPoint(.UserWords, method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	/// Retrieves all not looked up words for the current user.
+	///
+	/// - parameter langCode: The language code for which to retrieve the words.
+	/// - parameter completion: A block that will receive a dictionary with the words.
+	public func getNotLookedUpWordsWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetNotLookedUpWords, pathComponents: [langCode], method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
 	/// Retrieves all words that have not been encountered yet by the current user.
 	///
 	/// - parameter langCode: The language code for which to retrieve the words.
@@ -471,6 +515,8 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	// MARK: Statistics
 	
 	/// Retrieves the lower bound percentage of basic vocabulary.
 	///
@@ -537,33 +583,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Retrieves all learned bookmarks for the current user.
-	///
-	/// - parameter langCode: The language code for which to retrieve the bookmarks.
-	/// - parameter completion: A block that will receive a dictionary with the bookmarks.
-	public func getLearnedBookmarksWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(dict: nil)
-		}
-		let request = self.requestWithEndPoint(.GetLearnedBookmarks, pathComponents: [langCode], method: .GET)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
-		}
-	}
-	
-	/// Retrieves all not looked up words for the current user.
-	///
-	/// - parameter langCode: The language code for which to retrieve the words.
-	/// - parameter completion: A block that will receive a dictionary with the words.
-	public func getNotLookedUpWordsWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(dict: nil)
-		}
-		let request = self.requestWithEndPoint(.GetNotLookedUpWords, pathComponents: [langCode], method: .GET)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
-		}
-	}
+	// MARK: Content operations
 	
 	/// Retrieves the difficulties for the texts supplied.
 	///
@@ -646,6 +666,7 @@ public class ZeeguuAPI {
 	/// Retrieves the content and an image from the given urls.
 	///
 	/// - parameter urls: The urls to get the content from.
+	/// - parameter langCode: If not `nil`, the difficulty is calculated for all the contents.
 	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
 	/// - parameter completion: A block that will receive an array with the pairs (contents, image) of the urls.
 	public func getContentFromURLs(urls: Array<String>, langCode: String? = nil, maxTimeout: Int = 10, completion: (contents: [(String, String, ArticleDifficulty)]?) -> Void) {
@@ -700,6 +721,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	// MARK: Feed operations
 	
 	/// Retrieves all feeds that were found at the given url.
 	///

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7D0D0CCC2AAB1BBF6713F0BF /* Pods_Zeeguu_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967E94399204D55C5DC584B1 /* Pods_Zeeguu_Reader.framework */; };
 		9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */; };
 		9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0431C1C8461002F9637 /* StringExtension.swift */; };
 		9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */; };
@@ -45,6 +44,7 @@
 		94F7AFF31CD89F7B00BBF12F /* SelectionScripts.js in Resources */ = {isa = PBXBuildFile; fileRef = 94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */; };
 		94F7AFF51CD8A79F00BBF12F /* ZGWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */; };
 		94FC8D021CDB874F0032E72A /* ZGJavaScriptAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */; };
+		C64224C010805D40DD672A3B /* Pods_Zeeguu_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48CDF19FFC36B1EEB27D5FE2 /* Pods_Zeeguu_Reader.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +65,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		44F98B3CC36CEA2DA0CFC6CC /* Pods-Zeeguu Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.release.xcconfig"; sourceTree = "<group>"; };
+		48CDF19FFC36B1EEB27D5FE2 /* Pods_Zeeguu_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zeeguu_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E0CA9B220CAAD7E0CFC5869 /* Pods-Zeeguu Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.debug.xcconfig"; sourceTree = "<group>"; };
 		9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		9408F0431C1C8461002F9637 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -108,9 +111,6 @@
 		94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SelectionScripts.js; sourceTree = "<group>"; };
 		94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGWebView.swift; sourceTree = "<group>"; };
 		94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGJavaScriptAction.swift; sourceTree = "<group>"; };
-		967E94399204D55C5DC584B1 /* Pods_Zeeguu_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zeeguu_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A27474D14E9A03DE22909E5A /* Pods-Zeeguu Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.release.xcconfig"; sourceTree = "<group>"; };
-		D89D98A602FDEFAA0D83B7FC /* Pods-Zeeguu Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D0D0CCC2AAB1BBF6713F0BF /* Pods_Zeeguu_Reader.framework in Frameworks */,
+				C64224C010805D40DD672A3B /* Pods_Zeeguu_Reader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,15 +139,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2605E032C9B2E413EBEE9EBB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D89D98A602FDEFAA0D83B7FC /* Pods-Zeeguu Reader.debug.xcconfig */,
-				A27474D14E9A03DE22909E5A /* Pods-Zeeguu Reader.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		9440B0281C37F14C00BDD367 /* Feeds */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,11 +154,11 @@
 			isa = PBXGroup;
 			children = (
 				947799D31C17171B00C494ED /* Zeeguu Reader */,
-				94779A1E1C17359000C494ED /* Frameworks */,
 				947799EA1C17171B00C494ED /* Zeeguu ReaderTests */,
 				947799F51C17171B00C494ED /* Zeeguu ReaderUITests */,
 				947799D21C17171B00C494ED /* Products */,
-				2605E032C9B2E413EBEE9EBB /* Pods */,
+				FA0A45C134501D06C425678E /* Pods */,
+				98D46158BD119E1159EE4212 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,14 +221,6 @@
 				94CEECE41C1D7C3200C3D0E3 /* UIViewControllerExtension.swift */,
 			);
 			name = Extensions;
-			sourceTree = "<group>";
-		};
-		94779A1E1C17359000C494ED /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				967E94399204D55C5DC584B1 /* Pods_Zeeguu_Reader.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		94C748261C3921E600F3DCC2 /* History */ = {
@@ -303,6 +286,23 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		98D46158BD119E1159EE4212 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				48CDF19FFC36B1EEB27D5FE2 /* Pods_Zeeguu_Reader.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA0A45C134501D06C425678E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6E0CA9B220CAAD7E0CFC5869 /* Pods-Zeeguu Reader.debug.xcconfig */,
+				44F98B3CC36CEA2DA0CFC6CC /* Pods-Zeeguu Reader.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -310,12 +310,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 947799FB1C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu Reader" */;
 			buildPhases = (
-				0ABC3A99A017C2156CE8F20A /* Check Pods Manifest.lock */,
+				8D6D32950165E5C59D10772C /* 📦 Check Pods Manifest.lock */,
 				947799CD1C17171B00C494ED /* Sources */,
 				947799CE1C17171B00C494ED /* Frameworks */,
 				947799CF1C17171B00C494ED /* Resources */,
-				BB929016D6402C38A1D7FFFB /* Embed Pods Frameworks */,
-				B5BF29860231112C40EE3F3A /* Copy Pods Resources */,
+				69D2FD1B16DAE63418FEA6EE /* 📦 Embed Pods Frameworks */,
+				11D2EE77AC4E217AE87CCCD5 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -437,29 +437,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0ABC3A99A017C2156CE8F20A /* Check Pods Manifest.lock */ = {
+		11D2EE77AC4E217AE87CCCD5 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B5BF29860231112C40EE3F3A /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,19 +452,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BB929016D6402C38A1D7FFFB /* Embed Pods Frameworks */ = {
+		69D2FD1B16DAE63418FEA6EE /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D6D32950165E5C59D10772C /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -657,7 +657,7 @@
 		};
 		947799FC1C17171B00C494ED /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D89D98A602FDEFAA0D83B7FC /* Pods-Zeeguu Reader.debug.xcconfig */;
+			baseConfigurationReference = 6E0CA9B220CAAD7E0CFC5869 /* Pods-Zeeguu Reader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -680,7 +680,7 @@
 		};
 		947799FD1C17171B00C494ED /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A27474D14E9A03DE22909E5A /* Pods-Zeeguu Reader.release.xcconfig */;
+			baseConfigurationReference = 44F98B3CC36CEA2DA0CFC6CC /* Pods-Zeeguu Reader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

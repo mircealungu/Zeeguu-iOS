@@ -44,20 +44,45 @@
 
 import UIKit
 
+/// The `Bookmark` class represents a bookmark. It holds the `date`, `word`, `translation` and more about the bookmark.
 public class Bookmark {
 	
+	// MARK: Properties -
+	
+	/// The date of this bookmark
 	public var date: NSDate
 	
+	/// The word that was translated
 	public var word: String
+	/// The language of `Bookmark.word`
 	public var wordLanguage: String
 	
+	/// The translation(s) of `Bookmark.word`
 	public var translation: [String]
+	/// The language of `Bookmark.translation`
 	public var translationLanguage: String
 	
+	/// The title of the article in which `Bookmark.word` was translated
 	public var title: String
+	/// The context in which `Bookmark.word` was translated
 	public var context: String?
+	/// The url of the article in which `Bookmark.word` was translated
 	public var url: String
 	
+	// MARK: Constructors -
+	
+	/**
+	Construct a new `Bookmark` object.
+	
+	- parameter title: The title of the article in which `word` was translated
+	- parameter context: The context in which `word` was translated
+	- parameter url: The url of the article in which `word` was translated
+	- parameter bookmarkDate: The date of the bookmark
+	- parameter word: The translated word
+	- parameter wordLanguage: The language of `word`
+	- parameter translation: The translation(s)
+	- parameter translationLanguage: The language of `translation`
+	*/
 	public init(title: String, context: String? = nil, url: String, bookmarkDate: String, word: String, wordLanguage: String, translation: [String], translationLanguage: String) {
 		self.title = title
 		self.context = context

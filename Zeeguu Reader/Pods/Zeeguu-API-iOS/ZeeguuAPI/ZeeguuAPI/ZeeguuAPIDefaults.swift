@@ -113,20 +113,29 @@ extension ZeeguuAPI {
 	
 	func sendAsynchronousRequest(request: NSURLRequest, completion: (response: String?, error: NSError?) -> Void) {
 		let session = NSURLSession.sharedSession()
-		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
+		
+		if self.enableDebugOutput {
+			print("Sending request for url \"\(request.URL)\": \(request)\n\n");
+		}
+		
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
-			self.debugPrint("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
+			
+			if self.enableDebugOutput {
+				print("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
+			}
 			
 			if let d = data, r = response as? NSHTTPURLResponse where r.statusCode == 200 {
 				let resp = String(data: d, encoding: NSUTF8StringEncoding)!
-				self.debugPrint("Response from url \"\(request.URL)\": \(resp)\n\n");
+				if self.enableDebugOutput {
+					print("Response from url \"\(request.URL)\": \(resp)\n\n");
+				}
 				completion(response: resp, error: nil)
 			} else {
-				if let r = response {
-					self.debugPrint("Response object for url \"\(request.URL)\": \(r)\n\n");
+				if let r = response where self.enableDebugOutput {
+					print("Response object for url \"\(request.URL)\": \(r)\n\n");
 				}
-				if let e = error {
-					self.debugPrint("Error for url \"\(request.URL)\": \(e)\n\n");
+				if let e = error where self.enableDebugOutput {
+					print("Error for url \"\(request.URL)\": \(e)\n\n");
 				}
 				completion(response: nil, error: error)
 			}
@@ -154,9 +163,9 @@ extension ZeeguuAPI {
 				if (NSFileManager.defaultManager().fileExistsAtPath(path)) {
 					if let textData = text.dataUsingEncoding(NSUTF8StringEncoding),
 						fileHandle = NSFileHandle(forWritingAtPath: path) {
-							fileHandle.seekToEndOfFile()
-							fileHandle.writeData(textData)
-							fileHandle.closeFile()
+						fileHandle.seekToEndOfFile()
+						fileHandle.writeData(textData)
+						fileHandle.closeFile()
 					}
 				} else {
 					try text.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
@@ -170,9 +179,16 @@ extension ZeeguuAPI {
 	
 	func sendAsynchronousRequestWithDataResponse(request: NSURLRequest, completion: (data: NSData?, error: NSError?) -> Void) {
 		let session = NSURLSession.sharedSession()
-		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
+		
+		if self.enableDebugOutput {
+			print("Sending request for url \"\(request.URL)\": \(request)\n\n");
+		}
+		
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
-			self.debugPrint("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
+			
+			if self.enableDebugOutput {
+				print("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
+			}
 			
 			if let d = data, r = response as? NSHTTPURLResponse where r.statusCode == 200 {
 				completion(data: d, error: nil)
@@ -180,11 +196,11 @@ extension ZeeguuAPI {
 				self.write500ErrorToLog(request, data: data, response: response, error: error)
 				completion(data: nil, error: error)
 			} else {
-				if let r = response {
-					self.debugPrint("Response object for url \"\(request.URL)\": \(r)\n\n");
+				if let r = response where self.enableDebugOutput {
+					print("Response object for url \"\(request.URL)\": \(r)\n\n");
 				}
-				if let err = error {
-					self.debugPrint("Error for url \"\(request.URL)\": \(err)\n\n");
+				if let err = error where self.enableDebugOutput {
+					print("Error for url \"\(request.URL)\": \(err)\n\n");
 				}
 				completion(data: nil, error: error)
 			}
@@ -219,7 +235,6 @@ extension ZeeguuAPI {
 	}
 	
 	func checkStringResponse(response: String?, error: NSError?, completion: (string: String?) -> Void) {
-		debugPrint("repsonse: \(response)")
 		if let r = response {
 			completion(string: r)
 		} else {
@@ -245,12 +260,6 @@ extension ZeeguuAPI {
 			UIApplication.sharedApplication().networkActivityIndicatorVisible = false
 		} else {
 			UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-		}
-	}
-	
-	func debugPrint(text: String) {
-		if self.enableDebugOutput {
-			print(text)
 		}
 	}
 }

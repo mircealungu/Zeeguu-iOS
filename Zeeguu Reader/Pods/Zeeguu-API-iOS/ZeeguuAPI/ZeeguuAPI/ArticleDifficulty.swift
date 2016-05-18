@@ -26,16 +26,28 @@
 
 import UIKit
 
+/// The `ArticleDifficulty` is a measure of how easy it is for a user to understand an `Article`. This difficulty is usually calculated based on which words of the foreign language are already known to the user.
 public enum ArticleDifficulty: String, CustomStringConvertible {
+	
+	//MARK: Enum values -
+	
+	/// It is easy for the user to understand the article
 	case Easy = "EASY"
+	/// It is doable for the user to understand the article, but he/she might need some help (by translating words/phrases) to completely understand the article.
 	case Medium = "MEDIUM"
+	/// It is difficult for the user to understand the article and he/she will probably need to translate a lot of words/phrases
 	case Hard = "HARD"
+	/// The difficulty is unknown, because it wasn't calculated or failed to calculate
 	case Unknown = "UNKNOWN"
 	
+	// MARK: Properties -
+	
+	/// The description of this `ArticleDifficulty` object. The value of this property will be used whenever the system tries to print this `ArticleDifficulty` object or when the system tries to convert this `ArticleDifficulty` object to a `String`.
 	public var description: String {
 		return self.rawValue.localized
 	}
 	
+	/// The color associated with the difficulty. Depending the value of this object, it is either green (`ArticleDifficulty.Easy`), orange (`ArticleDifficulty.Medium`), red (`ArticleDifficulty.Hard`) or light gray (`ArticleDifficulty.Unknown`).
 	public var color: UIColor {
 		switch self {
 		case .Easy:
