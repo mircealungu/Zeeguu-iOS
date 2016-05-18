@@ -146,7 +146,7 @@ function handleSelection(tappedNode, tappedNodeID) {
 	zgjq(tappedNode).addClass("zeeguuSelection");
 	if (zeeguuSelectionFirstWord != null) {
 
-		var text = "";
+		var text = zgjq(tappedNode).text();
 
 		var selectionComplete = false;
 		var callback = function (currentElement, directionIsPrevious) {
@@ -176,10 +176,14 @@ function handleSelection(tappedNode, tappedNodeID) {
 			walkElementsStartingWith(second, false, callback); // walk from second to the right to first
 		}
 
+		var context = text;
+		context = getContextNextTo(zeeguuSelectionFirstWord, true) + context;
+		context = context + getContextNextTo(tappedNode, false);
+
 		var rect = second.getBoundingClientRect();
 		console.log("rect: ");
 		console.log(rect);
-		var message = {action: "translate", word: text, context: text, id: tappedNodeID, selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
+		var message = {action: "translate", word: text, context: context, id: tappedNodeID, selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
 
 		window.webkit.messageHandlers.zeeguu.postMessage(message);
 

@@ -78,6 +78,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 	}
 	
+	private var currentJavaScriptAction: ZGJavaScriptAction?
+	
 	init(article: Article? = nil) {
 		self.article = article
 		//		self._articleView = ArticleView(article: self.article)
@@ -171,7 +173,9 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	}
 	
 	func translateSelection(sender: AnyObject?) {
-		
+		if let action = currentJavaScriptAction {
+			translateWithAction(action)
+		}
 	}
 	
 	func translate(action: ZGJavaScriptAction) {
@@ -183,12 +187,18 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 				let topGuide = self.topLayoutGuide
 				let rect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
 				
+				currentJavaScriptAction = action
+				
 				self.becomeFirstResponder()
 				mc.setTargetRect(rect, inView: webview)
 				mc.setMenuVisible(true, animated: true)
 			}
 			return
 		}
+		translateWithAction(action)
+	}
+	
+	func translateWithAction(action: ZGJavaScriptAction) {
 		var action = action
 		if let word = action.getActionInformation()?["word"], context = action.getActionInformation()?["context"], art = article {
 			ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
