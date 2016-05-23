@@ -294,23 +294,31 @@ function getContextOfClickedWord(wordID) {
 function translationClickHandler(event) {
 	var word = event.target.getAttribute("data-zeeguu-translation");
 	var originalWordID = event.target.getAttribute("data-zeeguu-original-word-id");
+	var bookmarkID = event.target.getAttribute("data-zeeguu-bookmark-id");
 	var wordElement = document.getElementById(originalWordID);
 
-	var message = {action: "editTranslation", oldTranslation: word, originalWord: wordElement.innerHTML, id: event.target.getAttribute("id")};
+	var rect = event.target.getBoundingClientRect();
+	var message = {action: "editTranslation", oldTranslation: word, originalWord: wordElement.innerHTML, id: event.target.getAttribute("id"), bookmarkID: bookmarkID, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
 
 	window.webkit.messageHandlers.zeeguu.postMessage(message);
 }
 
-function insertTranslationForID(translation, id) {
+function insertTranslationForID(translation, id, bid) {
 	var wordElement = document.getElementById(id);
 	var translationElement = document.createElement(zeeguuTranslatedWordTagName);
 	translationElement.setAttribute("id", zeeguuuTranslationID + zeeguuIDCounter++);
 	translationElement.setAttribute("style", "color: red;");
 	translationElement.setAttribute("data-zeeguu-translation", translation);
 	translationElement.setAttribute("data-zeeguu-original-word-id", id);
+	translationElement.setAttribute("data-zeeguu-bookmark-id", bid);
 	translationElement.innerHTML = " (" + translation + ")";
 	translationElement.addEventListener("click", translationClickHandler);
 	insertElementAfter(translationElement, wordElement);
+}
+
+function updateTranslationForID(translation, id) {
+	var translationElement = document.getElementById(id);
+	translationElement.innerHTML = " (" + translation + ")";
 }
 
 function zeeguuUpdateLinkState() {

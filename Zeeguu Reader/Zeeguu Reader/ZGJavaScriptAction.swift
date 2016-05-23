@@ -80,6 +80,16 @@ enum ZGJavaScriptAction {
 		}
 	}
 	
+	mutating func setBookmarkID(id: String) {
+		switch self {
+		case var .Translate(dict):
+			dict["bookmarkID"] = id
+			self = .Translate(dict)
+		default:
+			break // do nothing
+		}
+	}
+	
 	func getActionInformation() -> Dictionary<String, String>? {
 		switch self {
 		case let .Translate(dict):
@@ -94,8 +104,8 @@ enum ZGJavaScriptAction {
 	func getJavaScriptExpression() -> String {
 		switch self {
 		case let .Translate(dict):
-			if let word = dict["translation"], id = dict["id"] {
-				return "insertTranslationForID(\"\(word)\", \"\(id)\")"
+			if let word = dict["translation"], id = dict["id"], bid = dict["bookmarkID"] {
+				return "insertTranslationForID(\"\(word)\", \"\(id)\", \"\(bid)\")"
 			}
 			fatalError("The ZGJavaScriptAction.Translate(_) dictionary is in an incorrect state!")
 		case let .EditTranslation(dict):

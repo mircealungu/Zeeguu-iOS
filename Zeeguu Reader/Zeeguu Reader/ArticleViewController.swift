@@ -28,7 +28,7 @@ import UIKit
 import WebKit
 import Zeeguu_API_iOS
 
-class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
+class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UpdateTranslationViewControllerDelegate {
 	
 	var article: Article?
 //	private var _articleView: ArticleView
@@ -158,6 +158,42 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		self.presentViewController(vc, animated: true, completion: nil)
 	}
 	
+	func showUpdateTranslation(sender: ZGJavaScriptAction) {
+		let dict = sender.getActionInformation();
+		if let r = dict, old = r["oldTranslation"], rx = r["left"], ry = r["top"], rw = r["width"], rh = r["height"], x = Float(rx), y = Float(ry), w = Float(rw), h = Float(rh) {
+			let vc = UpdateTranslationViewController(oldTranslation: old)
+			
+			vc.delegate = self;
+			
+			let topGuide = self.topLayoutGuide
+			vc.popoverPresentationController?.sourceRect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
+			vc.popoverPresentationController?.sourceView = webview
+			
+			currentJavaScriptAction = sender
+			self.presentViewController(vc, animated: true, completion: nil)
+		}
+	}
+	
+	func updateTranslationViewControllerDidChangeTranslationTo(translation: String) {
+		print("new translation: \(translation)")
+		if var act = currentJavaScriptAction, d = act.getActionInformation(), let bid = d["bookmarkID"], let old = d["oldTranslation"] {
+			
+			ZeeguuAPI.sharedAPI().addNewTranslationToBookmarkWithID(bid, translation: translation, completion: { (success) in
+				if (success) {
+					ZeeguuAPI.sharedAPI().deleteTranslationFromBookmarkWithID(bid, translation: old, completion: { (success) in})
+				}
+			})
+			
+			
+			act.setTranslation(translation)
+			self.webview.evaluateJavaScript(act.getJavaScriptExpression(), completionHandler: { (result, error) in
+				print("result: \(result)")
+				print("error: \(error)")
+			})
+			currentJavaScriptAction = nil
+		}
+	}
+	
 //	func doJS(sender: UIBarButtonItem) {
 //		let jsFilePath = NSBundle.mainBundle().pathForResource("SelectionScripts", ofType: "js")
 //		if let jsf = jsFilePath, jsFile = try? String(contentsOfFile: jsf) {
@@ -175,6 +211,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	func translateSelection(sender: AnyObject?) {
 		if let action = currentJavaScriptAction {
 			translateWithAction(action)
+			currentJavaScriptAction = nil
 		}
 	}
 	
@@ -183,7 +220,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			let mc = UIMenuController.sharedMenuController()
 			let dict = action.getActionInformation();
 			
-			if let r = dict, rx = r["left"], ry = r["top"], rw = r["width"], rh = r["height"], x = Double(rx), y = Double(ry), w = Double(rw), h = Double(rh) {
+			if let r = dict, rx = r["left"], ry = r["top"], rw = r["width"], rh = r["height"], x = Float(rx), y = Float(ry), w = Float(rw), h = Float(rh) {
 				let topGuide = self.topLayoutGuide
 				let rect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
 				
@@ -202,9 +239,11 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		var action = action
 		if let word = action.getActionInformation()?["word"], context = action.getActionInformation()?["context"], art = article {
 			ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
-				if let t = translation?["translation"].string {
+				print("translation: \(translation)")
+				if let t = translation?["translation"].string, b = translation?["bookmark_id"].string {
 					print("\"\(word)\" translated to \"\(t)\"")
 					action.setTranslation(t)
+					action.setBookmarkID(b)
 					self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
 						print("result: \(result)")
 						print("error: \(error)")
@@ -229,6 +268,10 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			switch action {
 			case .Translate(_):
 				self.translate(action)
+				break
+			case .EditTranslation(_):
+				self.showUpdateTranslation(action)
+				break
 			default:
 				break
 			}

@@ -39,6 +39,7 @@
 		94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */; };
 		94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */; };
 		94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */; };
+		94E7CF221CF345F7001F119B /* UpdateTranslationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */; };
 		94F208861C58C6F30005EB2F /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */; };
 		94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208891C58D4870005EB2F /* HistoryItemViewController.swift */; };
 		94F7AFF31CD89F7B00BBF12F /* SelectionScripts.js in Resources */ = {isa = PBXBuildFile; fileRef = 94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */; };
@@ -106,6 +107,7 @@
 		94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterTableViewController.swift; sourceTree = "<group>"; };
 		94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRegisterTableViewController.swift; sourceTree = "<group>"; };
 		94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagesTableViewController.swift; sourceTree = "<group>"; };
+		94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateTranslationViewController.swift; sourceTree = "<group>"; };
 		94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 		94F208891C58D4870005EB2F /* HistoryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
 		94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SelectionScripts.js; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				947799D81C17171B00C494ED /* ArticleViewController.swift */,
 				94779A111C17348B00C494ED /* ArticleView.swift */,
 				944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */,
+				94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */,
 			);
 			name = Articles;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
 				94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */,
 				94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */,
+				94E7CF221CF345F7001F119B /* UpdateTranslationViewController.swift in Sources */,
 				9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */,
 				94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */,
 				9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */,
