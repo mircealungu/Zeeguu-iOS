@@ -154,7 +154,11 @@ function handleSelection(tappedNode, tappedNodeID) {
 				return "continue";
 			}
 
-			text = zgjq(currentElement).text() + text;
+			if (directionIsPrevious) {
+				text = zgjq(currentElement).text() + text;
+			} else {
+				text = text + zgjq(currentElement).text();
+			}
 
 			zgjq(currentElement).addClass("zeeguuSelection");
 
@@ -169,11 +173,23 @@ function handleSelection(tappedNode, tappedNodeID) {
 		var second = tappedNode;
 		var comparison = first.compareDocumentPosition(second);
 
+		var rectElement;
+
 		if (comparison & Node.DOCUMENT_POSITION_FOLLOWING) { // second is following first
 			walkElementsStartingWith(second, true, callback); // walk from second to the left to first
+			rectElement = second;
+			if (second.nextSibling && second.nextSibling.nodeType != 3 && second.nextSibling.tagName.toLowerCase() === zeeguuPeriodTagName.toLowerCase()) {
+				text = text + ".";
+				rectElement = second.nextSibling;
+			}
 		} else { // assume first is following second, as this is only done for zeeguuWord elements.
 			// zeeguuWord elements should not be contained by other zeeguuWord elements
 			walkElementsStartingWith(second, false, callback); // walk from second to the right to first
+			rectElement = first;
+			if (first.nextSibling && second.nextSibling.nodeType != 3 && first.nextSibling.tagName.toLowerCase() === zeeguuPeriodTagName.toLowerCase()) {
+				text = text + ".";
+				rectElement = first.nextSibling;
+			}
 		}
 
 		var context = text;
@@ -220,15 +236,15 @@ function enterParagraphOutSideCurrent(el, directionIsPrevious) {
 		parentSibling = el.parentNode[siblingProperty];
 	}
 
-	if (parentSibling == null) {
+	if (parentSibling == null || parentSibling == undefined) {
 		return null;
 	}
 
-	if (el == el.parentNode[firstLastChildOfParagraph] && zeeguuInlineTextElementsToWalkThrough.indexOf(parentSibling.tagName.toLowerCase()) != -1) { // There is a link (or bold, etc.) next to the parent
+	if (el == el.parentNode[firstLastChildOfParagraph] && parentSibling.nodeType != 3 /* is not a text node */ && zeeguuInlineTextElementsToWalkThrough.indexOf(parentSibling.tagName.toLowerCase()) != -1) { // There is a link (or bold, etc.) next to the parent
 		// Assume that each 'a' element has a zeeguu paragraph as first child
 		var zeeguuParagraph = el.parentNode[siblingProperty].firstChild;
 		return zeeguuParagraph[firstLastChildOfLink];
-	} else if (isInside && el == el.parentNode[firstLastChildOfParagraph] && parentSibling.tagName.toLowerCase() == zeeguuParagraphTagName.toLowerCase()) { // We are in a link (or bold, etc.) and want to continue in the adjoining zeeguuParagraph
+	} else if (isInside && el == el.parentNode[firstLastChildOfParagraph] && parentSibling.nodeType != 3 /* is not a text node */ && parentSibling.tagName.toLowerCase() == zeeguuParagraphTagName.toLowerCase()) { // We are in a link (or bold, etc.) and want to continue in the adjoining zeeguuParagraph
 		return parentSibling[firstLastChildOfLink];
 	}
 	return null;
