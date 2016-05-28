@@ -330,6 +330,11 @@ function insertTranslationForID(translation, id, bid) {
 	translationElement.innerHTML = " (" + translation + ")";
 	translationElement.addEventListener("click", translationClickHandler);
 	insertElementAfter(translationElement, wordElement);
+	removeSelectionHighlights();
+}
+
+function removeSelectionHighlights() {
+	zgjq(".zeeguuSelection").removeClass("zeeguuSelection");
 }
 
 function updateTranslationForID(translation, id) {

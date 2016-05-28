@@ -50,6 +50,8 @@ enum ZGJavaScriptAction {
 	case ChangeTranslationMode(Bool)
 	/// The enable/disable links action. The value indicates whether links should be disabled or not.
 	case DisableLinks(Bool)
+	/// The remove selection highlights action. This action will remove selections of word groups that were selected for translation.
+	case RemoveSelectionHighlights()
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
@@ -119,6 +121,8 @@ enum ZGJavaScriptAction {
 			return "zeeguuTranslatesImmediately = \(immediately ? "true" : "false");"
 		case let .DisableLinks(disable):
 			return "zeeguuLinksAreDisabled = \(disable ? "true" : "false"); zeeguuUpdateLinkState();"
+		case .RemoveSelectionHighlights():
+			return "removeSelectionHighlights();"
 		default:
 			return ""
 		}
