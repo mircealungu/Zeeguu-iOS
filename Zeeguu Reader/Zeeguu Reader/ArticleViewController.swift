@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import AVFoundation
 import WebKit
 import Zeeguu_API_iOS
 
@@ -77,6 +78,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			}
 		}
 	}
+	
+	var pronounceTranslatedWord = true
 	
 	private var currentJavaScriptAction: ZGJavaScriptAction?
 	
@@ -244,6 +247,17 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 					print("\"\(word)\" translated to \"\(t)\"")
 					action.setTranslation(t)
 					action.setBookmarkID(b)
+					
+					if (self.pronounceTranslatedWord) {
+						let synthesizer = AVSpeechSynthesizer()
+						
+						let utterance = AVSpeechUtterance(string: word)
+						utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
+						
+						synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+						synthesizer.speakUtterance(utterance)
+					}
+					
 					self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
 						print("result: \(result)")
 						print("error: \(error)")

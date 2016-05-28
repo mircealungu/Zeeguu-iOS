@@ -60,6 +60,7 @@
 "OPTIONS" = "Options";
 "PASSWORD" = "Password";
 "PROFILE" = "Profile";
+"PRONOUNCE_TRANSLATED_WORD" = "Pronounce translated word";
 "REGISTER" = "Register";
 "TRANSLATE" = "Translate";
 "TRANSLATED_TO_%@%@" = "'%@' translated to '%@'";
