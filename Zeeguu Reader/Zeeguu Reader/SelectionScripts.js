@@ -148,8 +148,9 @@ function wordClickHandler(event) {
 
 function handleSelection(tappedNode, tappedNodeID) {
 	zgjq(tappedNode).addClass("zeeguuSelection");
-	if (zeeguuSelectionFirstWord != null) {
-
+	if (zeeguuSelectionFirstWord == null) {
+		zeeguuSelectionFirstWord = event.target;
+	} else {
 		var text = zgjq(tappedNode).text();
 
 		var selectionComplete = false;
@@ -222,8 +223,6 @@ function handleSelection(tappedNode, tappedNodeID) {
 		window.webkit.messageHandlers.zeeguu.postMessage(message);
 
 		zeeguuSelectionFirstWord = null;
-	} else {
-		zeeguuSelectionFirstWord = event.target;
 	}
 }
 
