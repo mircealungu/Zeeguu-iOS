@@ -56,7 +56,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 		set(mode) {
 			_translationMode = mode
-			let action = ZGJavaScriptAction.ChangeTranslationMode(_translationMode == .Instant)
+			let action = ZGJavaScriptAction.ChangeTranslationMode(_translationMode)
 			webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
 				print("result: \(result)")
 				print("error: \(error)")
@@ -219,7 +219,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	}
 	
 	func translate(action: ZGJavaScriptAction) {
-		if translationMode == .Ask {
+		if translationMode != .Instant {
 			let mc = UIMenuController.sharedMenuController()
 			let dict = action.getActionInformation();
 			

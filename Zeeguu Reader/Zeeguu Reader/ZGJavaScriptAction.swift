@@ -46,8 +46,8 @@ enum ZGJavaScriptAction {
 	case EditTranslation(Dictionary<String, String>)
 	/// The change font size action. The value indicates the factor of change (1 = +10%, -1 = -10%, ...)
 	case ChangeFontSize(Int)
-	/// The change translate mode action. The value indicates the translation mode (true = immediately, false = ask)
-	case ChangeTranslationMode(Bool)
+	/// The change translate mode action. The value indicates the translation mode.
+	case ChangeTranslationMode(ArticleViewTranslationMode)
 	/// The enable/disable links action. The value indicates whether links should be disabled or not.
 	case DisableLinks(Bool)
 	/// The remove selection highlights action. This action will remove selections of word groups that were selected for translation.
@@ -121,8 +121,8 @@ enum ZGJavaScriptAction {
 			fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
 		case let .ChangeFontSize(factor):
 			return "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(100 + factor * 10)%'"
-		case let .ChangeTranslationMode(immediately):
-			return "zeeguuTranslatesImmediately = \(immediately ? "true" : "false");"
+		case let .ChangeTranslationMode(mode):
+			return "zeeguuTranslationMode = \(mode.rawValue);"
 		case let .DisableLinks(disable):
 			return "zeeguuLinksAreDisabled = \(disable ? "true" : "false"); zeeguuUpdateLinkState();"
 		case .RemoveSelectionHighlights():

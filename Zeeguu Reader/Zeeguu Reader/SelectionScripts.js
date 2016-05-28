@@ -26,6 +26,10 @@
 
 zgjq = jQuery.noConflict(true);
 
+const ZeeguuTranslateImmediately = 0;
+const ZeeguuTranslateWordPair = 1;
+const ZeeguuTranslateSentence = 2;
+
 var zeeguuIDCounter = 0;
 var zeeguuPeriodCounter = 0;
 
@@ -39,7 +43,7 @@ var zeeguuPeriodID = "zeeguuPeriod";
 var zeeguuuTranslatedWordID = "zeeguuTranslatedWord";
 var zeeguuuTranslationID = "zeeguuTranslation";
 
-var zeeguuTranslatesImmediately = true;
+var zeeguuTranslationMode = ZeeguuTranslateImmediately;
 var zeeguuLinksAreDisabled = false;
 
 var zeeguuInlineTextElementsToWalkThrough = ["a", "b", "i", "u"];
@@ -122,7 +126,7 @@ function addClickListeners() {
 var zeeguuSelectionFirstWord = null;
 
 function wordClickHandler(event) {
-	if (zeeguuTranslatesImmediately && event.target.hasAttribute("id")) {
+	if (zeeguuTranslationMode == ZeeguuTranslateImmediately && event.target.hasAttribute("id")) {
 		return; // Already translated
 	}
 	var word = event.target.innerText;
@@ -131,7 +135,7 @@ function wordClickHandler(event) {
 	event.target.setAttribute("id", id);
 
 	var message = undefined;
-	if (zeeguuTranslatesImmediately) {
+	if (zeeguuTranslationMode == ZeeguuTranslateImmediately) {
 		var context = getContextOfClickedWord(id);
 
 		message = {action: "translate", word: word, context: context, id: id};
@@ -160,7 +164,9 @@ function handleSelection(tappedNode, tappedNodeID) {
 				text = text + zgjq(currentElement).text();
 			}
 
-			zgjq(currentElement).addClass("zeeguuSelection");
+			if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
+				zgjq(currentElement).addClass("zeeguuSelection");
+			}
 
 			if (currentElement == zeeguuSelectionFirstWord) {
 				selectionComplete = true;
@@ -196,19 +202,26 @@ function handleSelection(tappedNode, tappedNodeID) {
 		context = getContextNextTo(zeeguuSelectionFirstWord, true) + context;
 		context = context + getContextNextTo(tappedNode, false);
 
-		var rect = second.getBoundingClientRect();
-		console.log("rect: ");
-		console.log(rect);
-		var message = {action: "translate", word: text, context: context, id: tappedNodeID, selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
+		if (zeeguuTranslationMode == ZeeguuTranslateWordPair) {
+			if (comparison & Node.DOCUMENT_POSITION_FOLLOWING) { // second is following first
+				text = zgjq(zeeguuSelectionFirstWord).text() + ' ' + zgjq(tappedNode).text();
+			} else { // assume first is following second, as this is only done for zeeguuWord elements.
+				// zeeguuWord elements should not be contained by other zeeguuWord elements
+				text = zgjq(tappedNode).text() + ' ' + zgjq(zeeguuSelectionFirstWord).text();
+			}
+		}
+
+		var rect;
+		if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
+			rect = rectElement.getBoundingClientRect();
+		} else {
+			rect = tappedNode.getBoundingClientRect();
+		}
+		var message = {action: "translate", word: text, context: context, id: rectElement.getAttribute("id"), selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
 
 		window.webkit.messageHandlers.zeeguu.postMessage(message);
 
-		console.log(message);
-
-
-		//zeeguuSelectionFirstWord.removeAttr("style");
 		zeeguuSelectionFirstWord = null;
-
 	} else {
 		zeeguuSelectionFirstWord = event.target;
 	}

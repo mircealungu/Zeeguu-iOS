@@ -33,8 +33,7 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	
 	init(parent: ArticleViewController) {
 		let s1 = ["FONTSIZE".localized]
-		let s2 = ["INSTANT_TRANSLATION".localized, "ASK_BEFORE_TRANSLATION".localized]
-		let s3 = ["DISABLE_LINKS".localized]
+		let s2 = ["INSTANT_TRANSLATION".localized, "TRANSLATE_WORD_PAIR".localized, "TRANSLATE_SENTENCE".localized]
 		let s3 = ["DISABLE_LINKS".localized, "PRONOUNCE_TRANSLATED_WORD".localized]
 		
 		data = [s1, s2, s3]
@@ -96,7 +95,7 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 			stepper.addTarget(self, action: #selector(ArticleViewOptionsTableViewController.changeFontSize(_:)), forControlEvents: .ValueChanged)
 			cell?.accessoryView = stepper
 		} else if sec == 1 {
-			if (row == 0 && parent.translationMode == .Instant) || (row == 1 && parent.translationMode == .Ask) {
+			if (row == 0 && parent.translationMode == .Instant) || (row == 1 && parent.translationMode == .WordPair) || (row == 2 && parent.translationMode == .Sentence) {
 				cell?.accessoryType = .Checkmark
 			}
 		} else if sec == 2 {
@@ -123,7 +122,9 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 			if row == 0 {
 				parent.translationMode = .Instant
 			} else if row == 1 {
-				parent.translationMode = .Ask
+				parent.translationMode = .WordPair
+			} else if row == 2 {
+				parent.translationMode = .Sentence
 			}
 		}
 		self.tableView.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(1, 1)), withRowAnimation: .Automatic)
