@@ -107,12 +107,16 @@ enum ZGJavaScriptAction {
 		switch self {
 		case let .Translate(dict):
 			if let word = dict["translation"], id = dict["id"], bid = dict["bookmarkID"] {
-				return "insertTranslationForID(\"\(word)\", \"\(id)\", \"\(bid)\")"
+				var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+				w = word.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+				return "insertTranslationForID(\"\(w)\", \"\(id)\", \"\(bid)\")"
 			}
 			fatalError("The ZGJavaScriptAction.Translate(_) dictionary is in an incorrect state!")
 		case let .EditTranslation(dict):
 			if let word = dict["newTranslation"], id = dict["id"] {
-				return "updateTranslationForID(\"\(word)\", \"\(id)\")"
+				var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+				w = word.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+				return "updateTranslationForID(\"\(w)\", \"\(id)\")"
 			}
 			fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
 		case let .ChangeFontSize(factor):
