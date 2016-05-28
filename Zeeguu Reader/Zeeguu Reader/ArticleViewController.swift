@@ -134,6 +134,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		if article == nil {
 			optionsBut.enabled = false;
 		}
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ArticleViewController.didHideUIMenuController(_:)), name: UIMenuControllerDidHideMenuNotification, object: nil)
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -216,6 +218,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			translateWithAction(action)
 			currentJavaScriptAction = nil
 		}
+		self.webview.userInteractionEnabled = true
 	}
 	
 	func translate(action: ZGJavaScriptAction) {
@@ -228,6 +231,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 				let rect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
 				
 				currentJavaScriptAction = action
+				
+				self.webview.userInteractionEnabled = false
 				
 				self.becomeFirstResponder()
 				mc.setTargetRect(rect, inView: webview)
@@ -291,6 +296,14 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			}
 			
 		}
+	}
+	
+	func didHideUIMenuController(sender: NSNotification) {
+		self.webview.evaluateJavaScript(ZGJavaScriptAction.RemoveSelectionHighlights().getJavaScriptExpression(), completionHandler: { (result, error) in
+			print("result: \(result)")
+			print("error: \(error)")
+		})
+		self.webview.userInteractionEnabled = true
 	}
 
 }
