@@ -13,6 +13,8 @@
 		9415E5221CCF7E980091954A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9415E5241CCF7E980091954A /* Localizable.strings */; };
 		9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */; };
 		942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942667A11C60CA1600CF00FA /* HistoryItemView.swift */; };
+		943FB7451CFC3A700007C522 /* ZeeguuPagePreparation.js in Resources */ = {isa = PBXBuildFile; fileRef = 943FB7441CFC3A700007C522 /* ZeeguuPagePreparation.js */; };
+		943FB7471CFC3B980007C522 /* ZeeguuVars.js in Resources */ = {isa = PBXBuildFile; fileRef = 943FB7461CFC3B980007C522 /* ZeeguuVars.js */; };
 		9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */; };
 		9440B02C1C380CBC00BDD367 /* ZGTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */; };
 		944FCB311CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */; };
@@ -42,7 +44,7 @@
 		94E7CF221CF345F7001F119B /* UpdateTranslationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */; };
 		94F208861C58C6F30005EB2F /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */; };
 		94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208891C58D4870005EB2F /* HistoryItemViewController.swift */; };
-		94F7AFF31CD89F7B00BBF12F /* SelectionScripts.js in Resources */ = {isa = PBXBuildFile; fileRef = 94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */; };
+		94F7AFF31CD89F7B00BBF12F /* ZeeguuPageInteraction.js in Resources */ = {isa = PBXBuildFile; fileRef = 94F7AFF11CD89D6300BBF12F /* ZeeguuPageInteraction.js */; };
 		94F7AFF51CD8A79F00BBF12F /* ZGWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */; };
 		94FC8D021CDB874F0032E72A /* ZGJavaScriptAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */; };
 		C64224C010805D40DD672A3B /* Pods_Zeeguu_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48CDF19FFC36B1EEB27D5FE2 /* Pods_Zeeguu_Reader.framework */; };
@@ -75,6 +77,8 @@
 		9415E5231CCF7E980091954A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		942667A11C60CA1600CF00FA /* HistoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemView.swift; sourceTree = "<group>"; };
+		943FB7441CFC3A700007C522 /* ZeeguuPagePreparation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuPagePreparation.js; sourceTree = "<group>"; };
+		943FB7461CFC3B980007C522 /* ZeeguuVars.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuVars.js; sourceTree = "<group>"; };
 		9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedOverviewTableViewController.swift; sourceTree = "<group>"; };
 		9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTableViewController.swift; sourceTree = "<group>"; };
 		944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewOptionsTableViewController.swift; sourceTree = "<group>"; };
@@ -110,7 +114,7 @@
 		94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateTranslationViewController.swift; sourceTree = "<group>"; };
 		94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 		94F208891C58D4870005EB2F /* HistoryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
-		94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SelectionScripts.js; sourceTree = "<group>"; };
+		94F7AFF11CD89D6300BBF12F /* ZeeguuPageInteraction.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuPageInteraction.js; sourceTree = "<group>"; };
 		94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGWebView.swift; sourceTree = "<group>"; };
 		94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGJavaScriptAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -283,8 +287,10 @@
 			isa = PBXGroup;
 			children = (
 				949FC8441CDA337A003BFA44 /* jquery-2.2.3.min.js */,
-				94F7AFF11CD89D6300BBF12F /* SelectionScripts.js */,
+				94F7AFF11CD89D6300BBF12F /* ZeeguuPageInteraction.js */,
 				946317461CEB4EA800B67532 /* zeeguu.css */,
+				943FB7441CFC3A700007C522 /* ZeeguuPagePreparation.js */,
+				943FB7461CFC3B980007C522 /* ZeeguuVars.js */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -415,10 +421,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				949FC8451CDA337A003BFA44 /* jquery-2.2.3.min.js in Resources */,
+				943FB7471CFC3B980007C522 /* ZeeguuVars.js in Resources */,
 				947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */,
-				94F7AFF31CD89F7B00BBF12F /* SelectionScripts.js in Resources */,
+				94F7AFF31CD89F7B00BBF12F /* ZeeguuPageInteraction.js in Resources */,
 				9415E5221CCF7E980091954A /* Localizable.strings in Resources */,
 				946317471CEB4EA900B67532 /* zeeguu.css in Resources */,
+				943FB7451CFC3A700007C522 /* ZeeguuPagePreparation.js in Resources */,
 				947799DE1C17171B00C494ED /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

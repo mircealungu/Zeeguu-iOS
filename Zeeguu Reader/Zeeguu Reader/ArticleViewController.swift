@@ -92,7 +92,9 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		controller.addScriptMessageHandler(self, name: "zeeguu")
 		
 		Utils.addUserScriptToUserContentController(controller, jsFileName: "jquery-2.2.3.min")
-		Utils.addUserScriptToUserContentController(controller, jsFileName: "SelectionScripts")
+		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuVars")
+		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuPageInteraction")
+		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuPagePreparation")
 		Utils.addStyleSheetToUserContentController(controller, cssFileName: "zeeguu")
 		
 		let config = WKWebViewConfiguration()

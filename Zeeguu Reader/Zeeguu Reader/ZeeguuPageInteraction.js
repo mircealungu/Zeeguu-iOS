@@ -1,5 +1,5 @@
 //
-//  SetViewPort.js
+//  ZeeguuPageInteraction.js
 //  Zeeguu Reader
 //
 //  Created by Jorrit Oosterhof on 03-05-16.
@@ -23,107 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
-zgjq = jQuery.noConflict(true);
-
-const ZeeguuTranslateImmediately = 0;
-const ZeeguuTranslateWordPair = 1;
-const ZeeguuTranslateSentence = 2;
-
-var zeeguuIDCounter = 0;
-var zeeguuPeriodCounter = 0;
-
-var zeeguuParagraphTagName = "zeeguuParagraph";
-var zeeguuWordTagName = "zeeguuWord";
-var zeeguuTranslatedWordTagName = "zeeguuTranslatedWord";
-
-var zeeguuPeriodTagName = "zeeguuPeriod";
-var zeeguuPeriodID = "zeeguuPeriod";
-
-var zeeguuuTranslatedWordID = "zeeguuTranslatedWord";
-var zeeguuuTranslationID = "zeeguuTranslation";
-
-var zeeguuTranslationMode = ZeeguuTranslateImmediately;
-var zeeguuLinksAreDisabled = false;
-
-var zeeguuInlineTextElementsToWalkThrough = ["a", "b", "i", "u"];
-
-function setupZeeguuJS() {
-	var myCustomViewport = 'width=device-width';
-	var viewportElement = document.querySelector('meta[name=viewport]');
-	if (viewportElement) {
-		viewportElement.content = myCustomViewport;
-	} else {
-		viewportElement = document.createElement('meta');
-		viewportElement.name = 'viewport';
-		viewportElement.content = myCustomViewport;
-		document.getElementsByTagName('head')[0].appendChild(viewportElement);
-	}
-
-	encloseAllText();
-	encloseAllWords();
-	addClickListeners()
-}
-
-function textNodesUnder(el){
-	var n, a=[], walk=document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-	while(n=walk.nextNode()) a.push(n);
-	return a;
-}
-
-function wrapNode(textNode, tagName) {
-	var wrapper = document.createElement(tagName);
-	textNode.parentNode.insertBefore(wrapper, textNode);
-	wrapper.appendChild(textNode);
-	return wrapper;
-}
-
-function encloseAllText() {
-	var bodyElements = Array.prototype.slice.call(document.querySelectorAll("body"));
-	var noEnter = ["script", "style", "iframe", "canvas"];
-	bodyElements.forEach(function (el) {
-		var textNodes = textNodesUnder(el);
-
-		textNodes.forEach(function (node) {
-			if (node.nodeValue.trim().length == 0) {
-				return;
-			}
-			if (noEnter.indexOf(node.parentNode.nodeName.toLowerCase()) > -1) {
-				return;
-			}
-			wrapNode(node, zeeguuParagraphTagName);
-		});
-
-	});
-}
-
-
-
-function encloseAllWords() {
-	var elements = Array.prototype.slice.call(document.querySelectorAll(zeeguuParagraphTagName));
-	elements.forEach(function (el) {
-		var word = /([a-zA-Z0-9À-ÖØ-öø-ÿĀ-ſƀ-ɏ_-]+)/g;
-		// Used https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_script to create above regex
-
-		var dot = /\./g;
-
-		var newText = zgjq(el).text().replace(word, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">");
-		newText = newText.replace(dot, function (x) {
-			return "<" + zeeguuPeriodTagName + " id=\"" + zeeguuPeriodID + zeeguuPeriodCounter++ + "\">" + x + "</" + zeeguuPeriodTagName + ">";
-		});
-		zgjq(el).html(newText);
-		//zgjq(el).html(zgjq(el).text().replace(/(\S+)/g, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">"));
-	});
-}
-
-function addClickListeners() {
-	var words = Array.prototype.slice.call(document.querySelectorAll(zeeguuWordTagName));
-	words.forEach(function (el) {
-		el.addEventListener("click", wordClickHandler);
-	})
-}
-
-var zeeguuSelectionFirstWord = null;
 
 function wordClickHandler(event) {
 	if (zeeguuTranslationMode == ZeeguuTranslateImmediately && event.target.hasAttribute("id")) {
@@ -234,56 +133,6 @@ function elementIsTranslation(el) {
 	return el.tagName && el.tagName.toLowerCase() == zeeguuTranslatedWordTagName.toLowerCase();
 }
 
-function enterParagraphOutSideCurrent(el, directionIsPrevious) {
-	var siblingProperty = directionIsPrevious ? "previousSibling" : "nextSibling";
-	var firstLastChildOfParagraph = directionIsPrevious ? "firstChild" : "lastChild";
-	var firstLastChildOfLink = directionIsPrevious ? "lastChild" : "firstChild";
-
-	var parentSibling = null;
-	var isInside = false;
-	if (zeeguuInlineTextElementsToWalkThrough.indexOf(el.parentNode.parentNode.tagName.toLowerCase()) != -1) { // The parent of el (zeeguuParagraph) has a parent that is in the walkthrough list (such as 'a')
-		isInside = true;
-		parentSibling = el.parentNode.parentNode[siblingProperty];
-	} else {
-		parentSibling = el.parentNode[siblingProperty];
-	}
-
-	if (parentSibling == null || parentSibling == undefined) {
-		return null;
-	}
-
-	if (el == el.parentNode[firstLastChildOfParagraph] && parentSibling.nodeType != 3 /* is not a text node */ && zeeguuInlineTextElementsToWalkThrough.indexOf(parentSibling.tagName.toLowerCase()) != -1) { // There is a link (or bold, etc.) next to the parent
-		// Assume that each 'a' element has a zeeguu paragraph as first child
-		var zeeguuParagraph = el.parentNode[siblingProperty].firstChild;
-		return zeeguuParagraph[firstLastChildOfLink];
-	} else if (isInside && el == el.parentNode[firstLastChildOfParagraph] && parentSibling.nodeType != 3 /* is not a text node */ && parentSibling.tagName.toLowerCase() == zeeguuParagraphTagName.toLowerCase()) { // We are in a link (or bold, etc.) and want to continue in the adjoining zeeguuParagraph
-		return parentSibling[firstLastChildOfLink];
-	}
-	return null;
-}
-
-function walkElementsStartingWith(element, directionIsPrevious, callback) {
-	var siblingProperty = directionIsPrevious ? "previousSibling" : "nextSibling";
-
-	var text = "";
-	var siblingElement = element[siblingProperty];
-	while (siblingElement != null) {
-		var currentElement = siblingElement;
-		siblingElement = siblingElement[siblingProperty];
-
-		if (callback != undefined && callback != null) {
-			var str = callback(currentElement, directionIsPrevious);
-			if (str === "continue") continue;
-			if (str === "break") break;
-		}
-
-		if (siblingElement == null) {
-			siblingElement = enterParagraphOutSideCurrent(currentElement, directionIsPrevious);
-		}
-	}
-	return text;
-}
-
 function getContextNextTo(element, directionIsPrevious) {
 	var text = "";
 
@@ -366,24 +215,16 @@ function zeeguuUpdateLinkState() {
 	zgjq("a").each(func);
 }
 
-function insertElementAfter(newElement, afterElement) {
-	afterElement.parentNode.insertBefore(newElement, afterElement.nextSibling);
-}
-
-document.body.style.webkitTouchCallout='none';
-document.body.style.KhtmlUserSelect='none';
-
-setupZeeguuJS();
-/************************************************* Get Nodes under selection... *************************************************/
-function getSelectionHtml() {
-	var range = window.getSelection().getRangeAt(0);
-	var content = range.cloneContents();
-//    $('body').append('<span id="selection_html_placeholder"></span>');
-//    var placeholder = document.getElementById('selection_html_placeholder');
-//    placeholder.appendChild(content);
-	var htmlContent = range.commonAncestorContainer;
-//    var htmlContent = placeholder.innerHTML;
-//    $('#selection_html_placeholder').remove();
-	return htmlContent;
-}
-/*********************************************************************************************************************************/
+///************************************************* Get Nodes under selection... *************************************************/
+//function getSelectionHtml() {
+//	var range = window.getSelection().getRangeAt(0);
+//	var content = range.cloneContents();
+////    $('body').append('<span id="selection_html_placeholder"></span>');
+////    var placeholder = document.getElementById('selection_html_placeholder');
+////    placeholder.appendChild(content);
+//	var htmlContent = range.commonAncestorContainer;
+////    var htmlContent = placeholder.innerHTML;
+////    $('#selection_html_placeholder').remove();
+//	return htmlContent;
+//}
+///*********************************************************************************************************************************/
