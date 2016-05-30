@@ -286,34 +286,6 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Retrieves the translation of the given word from the user's learned language to the user's native language.
-	///
-	/// - parameter word: The word to translate.
-	/// - parameter context: The context in which the word appeared.
-	/// - parameter url: The url of the article in which the word was translated.
-	/// - parameter completion: A block that will receive a string containing the translation of `word`.
-	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(translation: nil)
-		}
-		
-		self.getLearnedAndNativeLanguage { (dict) -> Void in
-			if (dict != nil) {
-				if let learned = dict!["learned"].string, native = dict!["native"].string {
-					let request = self.requestWithEndPoint(.TranslateAndBookmark, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
-					self.sendAsynchronousRequest(request) { (response, error) -> Void in
-						self.checkJSONResponse(response, error: error, completion: completion)
-					}
-				} else  {
-					completion(translation: nil)
-				}
-			} else {
-				completion(translation: nil)
-			}
-			
-		}
-	}
-	
 	/// Adds the translation of the given word to the user's bookmarks and Retrieves its ID.
 	///
 	/// - parameter word: The word to bookmark.
@@ -513,6 +485,65 @@ public class ZeeguuAPI {
 		let request = self.requestWithEndPoint(.GetProbablyKnownWords, pathComponents: [langCode], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	// MARK: Translation
+	
+	/// Retrieves the translation of the given word from the user's learned language to the user's native language.
+	///
+	/// - parameter word: The word to translate.
+	/// - parameter title: The title of the article in which the word was translated.
+	/// - parameter context: The context in which the word appeared.
+	/// - parameter url: The url of the article in which the word was translated.
+	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
+	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(translation: nil)
+		}
+		
+		self.getLearnedAndNativeLanguage { (dict) -> Void in
+			if (dict != nil) {
+				if let learned = dict!["learned"].string, native = dict!["native"].string {
+					let request = self.requestWithEndPoint(.TranslateAndBookmark, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
+					self.sendAsynchronousRequest(request) { (response, error) -> Void in
+						self.checkJSONResponse(response, error: error, completion: completion)
+					}
+				} else  {
+					completion(translation: nil)
+				}
+			} else {
+				completion(translation: nil)
+			}
+			
+		}
+	}
+	
+	/// Retrieves multiple possible translations of the given word from the user's learned language to the user's native language.
+	///
+	/// - parameter word: The word to translate.
+	/// - parameter context: The context in which the word appeared.
+	/// - parameter url: The url of the article in which the word was translated.
+	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
+	public func getTranslationsForWord(word: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(translation: nil)
+		}
+		
+		self.getLearnedAndNativeLanguage { (dict) -> Void in
+			if (dict != nil) {
+				if let learned = dict!["learned"].string, native = dict!["native"].string {
+					let request = self.requestWithEndPoint(.GetPossibleTranslations, pathComponents: [learned, native], method: .POST, parameters: ["context": context, "word": word, "url": url])
+					self.sendAsynchronousRequest(request) { (response, error) -> Void in
+						self.checkJSONResponse(response, error: error, completion: completion)
+					}
+				} else  {
+					completion(translation: nil)
+				}
+			} else {
+				completion(translation: nil)
+			}
+			
 		}
 	}
 	
