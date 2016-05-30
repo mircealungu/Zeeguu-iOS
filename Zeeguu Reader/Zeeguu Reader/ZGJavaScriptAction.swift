@@ -82,6 +82,16 @@ enum ZGJavaScriptAction {
 		}
 	}
 	
+	mutating func setOtherTranslations(ot: String) {
+		switch self {
+		case var .EditTranslation(dict):
+			dict["otherTranslations"] = ot
+			self = .EditTranslation(dict)
+		default:
+			break // do nothing
+		}
+	}
+	
 	mutating func setBookmarkID(id: String) {
 		switch self {
 		case var .Translate(dict):
@@ -106,17 +116,28 @@ enum ZGJavaScriptAction {
 	func getJavaScriptExpression() -> String {
 		switch self {
 		case let .Translate(dict):
-			if let word = dict["translation"], id = dict["id"], bid = dict["bookmarkID"] {
+			if let word = dict["translation"], context = dict["context"], id = dict["id"], bid = dict["bookmarkID"] {
 				var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-				w = word.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-				return "insertTranslationForID(\"\(w)\", \"\(id)\", \"\(bid)\")"
+				w = w.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+				
+				var c = context.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+				c = c.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+				
+				return "insertTranslationForID(\"\(w)\", \"\(c)\", \"\(id)\", \"\(bid)\")"
 			}
 			fatalError("The ZGJavaScriptAction.Translate(_) dictionary is in an incorrect state!")
 		case let .EditTranslation(dict):
 			if let word = dict["newTranslation"], id = dict["id"] {
 				var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
 				w = word.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-				return "updateTranslationForID(\"\(w)\", \"\(id)\")"
+				if let ot = dict["otherTranslations"] {
+					var str = ot.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+					str = str.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+					
+					return "updateTranslationForID(\"\(w)\", \"\(id)\", \"\(str)\")"
+				} else {
+					return "updateTranslationForID(\"\(w)\", \"\(id)\", null)"
+				}
 			}
 			fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
 		case let .ChangeFontSize(factor):

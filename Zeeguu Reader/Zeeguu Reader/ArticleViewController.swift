@@ -169,7 +169,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	func showUpdateTranslation(sender: ZGJavaScriptAction) {
 		let dict = sender.getActionInformation();
 		if let r = dict, old = r["oldTranslation"], rx = r["left"], ry = r["top"], rw = r["width"], rh = r["height"], x = Float(rx), y = Float(ry), w = Float(rw), h = Float(rh) {
-			let vc = UpdateTranslationViewController(oldTranslation: old)
+			let vc = UpdateTranslationViewController(oldTranslation: old, action: sender)
 			
 			vc.delegate = self;
 			
@@ -182,9 +182,13 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 	}
 	
-	func updateTranslationViewControllerDidChangeTranslationTo(translation: String) {
+	func updateTranslationViewControllerDidChangeTranslationTo(translation: String, otherTranslations: [String : String]?) {
 		print("new translation: \(translation)")
 		if var act = currentJavaScriptAction, d = act.getActionInformation(), let bid = d["bookmarkID"], let old = d["oldTranslation"] {
+			
+			if let ot = otherTranslations, jsonData = try? NSJSONSerialization.dataWithJSONObject(ot, options: NSJSONWritingOptions(rawValue: 0)), str = String(data: jsonData, encoding: NSUTF8StringEncoding) {
+				act.setOtherTranslations(str)
+			}
 			
 			ZeeguuAPI.sharedAPI().addNewTranslationToBookmarkWithID(bid, translation: translation, completion: { (success) in
 				if (success) {
@@ -280,7 +284,10 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		if let body = message.body as? Dictionary<String, AnyObject> {
 			var dict = Dictionary<String, String>()
 			
-			for (key, value) in body {
+			for (key, var value) in body {
+				if let val = value as? NSObject where val == NSNull() {
+					value = ""
+				}
 				dict[key] = String(value)
 			}
 			

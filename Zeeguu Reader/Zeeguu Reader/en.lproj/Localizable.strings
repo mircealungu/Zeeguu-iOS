@@ -50,7 +50,7 @@
 "LOGIN_FAILED_MESSAGE" = "Login failed. Verify that your entered the correct email address and password.";
 "LOGOUT" = "Logout";
 "NAME" = "Name";
-"NEW_TRANSLATION:" = "New translation:";
+"NEW_TRANSLATION" = "New translation";
 "NO_CONTEXT" = "No context given.";
 "NO_LANGUAGE" = "No language";
 "NO_LANGUAGES_TO_SHOW" = "There are no languages yet. Please wait for them to load.";

@@ -108,20 +108,26 @@ function translationClickHandler(event) {
 	var originalWordID = event.target.getAttribute("data-zeeguu-original-word-id");
 	var bookmarkID = event.target.getAttribute("data-zeeguu-bookmark-id");
 	var wordElement = document.getElementById(originalWordID);
+	var otherTranslations = null;
+	if (event.target.hasAttribute("data-zeeguu-other-translations")) {
+		otherTranslations = event.target.getAttribute("data-zeeguu-other-translations");
+	}
+	var originalContext = event.target.getAttribute("data-zeeguu-original-context");
 
 	var rect = event.target.getBoundingClientRect();
-	var message = {action: "editTranslation", oldTranslation: word, originalWord: wordElement.innerHTML, id: event.target.getAttribute("id"), bookmarkID: bookmarkID, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
+	var message = {action: "editTranslation", oldTranslation: word, originalWord: wordElement.innerHTML, originalContext: originalContext, id: event.target.getAttribute("id"), bookmarkID: bookmarkID, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height, otherTranslations: otherTranslations};
 
 	zeeguuPostMessage(message);
 }
 
-function insertTranslationForID(translation, id, bid) {
+function insertTranslationForID(translation, originalContext, id, bid) {
 	var wordElement = document.getElementById(id);
 	var translationElement = document.createElement(zeeguuTranslatedWordTagName);
 	translationElement.setAttribute("id", zeeguuuTranslationID + zeeguuIDCounter++);
 	translationElement.setAttribute("style", "color: red;");
 	translationElement.setAttribute("data-zeeguu-translation", translation);
 	translationElement.setAttribute("data-zeeguu-original-word-id", id);
+	translationElement.setAttribute("data-zeeguu-original-context", originalContext);
 	translationElement.setAttribute("data-zeeguu-bookmark-id", bid);
 	translationElement.innerHTML = " (" + translation + ")";
 	translationElement.addEventListener("click", translationClickHandler);
@@ -133,9 +139,10 @@ function removeSelectionHighlights() {
 	zgjq(".zeeguuSelection").removeClass("zeeguuSelection");
 }
 
-function updateTranslationForID(translation, id) {
+function updateTranslationForID(translation, id, otherTranslations) {
 	var translationElement = document.getElementById(id);
 	translationElement.innerHTML = " (" + translation + ")";
+	translationElement.setAttribute("data-zeeguu-other-translations", otherTranslations);
 }
 
 function zeeguuUpdateLinkState() {
