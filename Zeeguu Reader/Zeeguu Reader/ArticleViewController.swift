@@ -93,6 +93,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		
 		Utils.addUserScriptToUserContentController(controller, jsFileName: "jquery-2.2.3.min")
 		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuVars")
+		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuHelperFunctions")
 		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuPageInteraction")
 		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuPagePreparation")
 		Utils.addStyleSheetToUserContentController(controller, cssFileName: "zeeguu")

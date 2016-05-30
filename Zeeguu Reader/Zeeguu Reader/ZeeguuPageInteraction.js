@@ -24,6 +24,10 @@
 //  THE SOFTWARE.
 //
 
+function zeeguuPostMessage(message) {
+	window.webkit.messageHandlers.zeeguu.postMessage(message);
+}
+
 function wordClickHandler(event) {
 	if (zeeguuTranslationMode == ZeeguuTranslateImmediately && event.target.hasAttribute("id")) {
 		return; // Already translated
@@ -33,23 +37,22 @@ function wordClickHandler(event) {
 
 	event.target.setAttribute("id", id);
 
-	var message = undefined;
 	if (zeeguuTranslationMode == ZeeguuTranslateImmediately) {
 		var context = getContextOfClickedWord(id);
-
-		message = {action: "translate", word: word, context: context, id: id};
-
-		window.webkit.messageHandlers.zeeguu.postMessage(message);
+		var message = {action: "translate", word: word, context: context, id: id};
+		zeeguuPostMessage(message);
 	} else {
-		handleSelection(event.target, id);
+		handleSelection(event.target);
 	}
 }
 
-function handleSelection(tappedNode, tappedNodeID) {
+function handleSelection(tappedNode) {
 	zgjq(tappedNode).addClass("zeeguuSelection");
 	if (zeeguuSelectionFirstWord == null) {
 		zeeguuSelectionFirstWord = event.target;
 	} else {
+		var first = zeeguuSelectionFirstWord;
+		var second = tappedNode;
 		var text = zgjq(tappedNode).text();
 
 		var selectionComplete = false;
@@ -68,104 +71,36 @@ function handleSelection(tappedNode, tappedNodeID) {
 				zgjq(currentElement).addClass("zeeguuSelection");
 			}
 
-			if (currentElement == zeeguuSelectionFirstWord) {
+			if (currentElement == first) {
 				selectionComplete = true;
 				return "break";
 			}
 		};
 
-
-		var first = zeeguuSelectionFirstWord;
-		var second = tappedNode;
 		var comparison = first.compareDocumentPosition(second);
+		// second is following first
+		// If this is false, assume first is following second, as this check is only done for zeeguuWord elements
+		// and zeeguuWord elements should not be contained by other zeeguuWord elements.
+		var secondFollowsFirst = comparison & Node.DOCUMENT_POSITION_FOLLOWING ? true : false;
 
-		var rectElement;
+		// if secondFollowsFirst is true, walk from second to the left to first
+		// else, walk from second to the right to first
+		walkElementsStartingWith(second, secondFollowsFirst, callback);
 
-		if (comparison & Node.DOCUMENT_POSITION_FOLLOWING) { // second is following first
-			walkElementsStartingWith(second, true, callback); // walk from second to the left to first
-			rectElement = second;
-			if (second.nextSibling && second.nextSibling.nodeType != 3 && second.nextSibling.tagName.toLowerCase() === zeeguuPeriodTagName.toLowerCase()) {
-				text = text + ".";
-				rectElement = second.nextSibling;
-			}
-		} else { // assume first is following second, as this is only done for zeeguuWord elements.
-			// zeeguuWord elements should not be contained by other zeeguuWord elements
-			walkElementsStartingWith(second, false, callback); // walk from second to the right to first
-			rectElement = first;
-			if (first.nextSibling && second.nextSibling.nodeType != 3 && first.nextSibling.tagName.toLowerCase() === zeeguuPeriodTagName.toLowerCase()) {
-				text = text + ".";
-				rectElement = first.nextSibling;
-			}
-		}
-
-		var context = text;
-		context = getContextNextTo(zeeguuSelectionFirstWord, true) + context;
-		context = context + getContextNextTo(tappedNode, false);
+		var lastElement = getPeriodAfterElement(secondFollowsFirst ? second : first, function () { text += "."; });
+		var context = getContextOfSelection(first, second, secondFollowsFirst, text);
 
 		if (zeeguuTranslationMode == ZeeguuTranslateWordPair) {
-			if (comparison & Node.DOCUMENT_POSITION_FOLLOWING) { // second is following first
-				text = zgjq(zeeguuSelectionFirstWord).text() + ' ' + zgjq(tappedNode).text();
-			} else { // assume first is following second, as this is only done for zeeguuWord elements.
-				// zeeguuWord elements should not be contained by other zeeguuWord elements
-				text = zgjq(tappedNode).text() + ' ' + zgjq(zeeguuSelectionFirstWord).text();
-			}
+			text = fuseWordPair(first, second, secondFollowsFirst);
 		}
 
-		var rect;
-		if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
-			rect = rectElement.getBoundingClientRect();
-		} else {
-			rect = tappedNode.getBoundingClientRect();
-		}
-		var message = {action: "translate", word: text, context: context, id: rectElement.getAttribute("id"), selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
+		var rect = tappedNode.getBoundingClientRect();
+		var message = {action: "translate", word: text, context: context, id: lastElement.getAttribute("id"), selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
 
-		window.webkit.messageHandlers.zeeguu.postMessage(message);
+		zeeguuPostMessage(message);
 
 		zeeguuSelectionFirstWord = null;
 	}
-}
-
-function elementIsPeriod(el) {
-	return el.tagName && el.tagName.toLowerCase() == zeeguuPeriodTagName.toLowerCase();
-}
-
-function elementIsTranslation(el) {
-	return el.tagName && el.tagName.toLowerCase() == zeeguuTranslatedWordTagName.toLowerCase();
-}
-
-function getContextNextTo(element, directionIsPrevious) {
-	var text = "";
-
-	walkElementsStartingWith(element, directionIsPrevious, function (currentElement, directionIsPrevious) {
-		if (elementIsTranslation(currentElement)) {
-			return "continue";
-		}
-
-		if (!directionIsPrevious) {
-			text = text + zgjq(currentElement).text();
-		}
-
-		if (elementIsPeriod(currentElement)) {
-			return "break";
-		}
-
-		if (directionIsPrevious) {
-			text = zgjq(currentElement).text() + text;
-		}
-	});
-
-	return text;
-}
-
-function getContextOfClickedWord(wordID) {
-	var el = document.getElementById(wordID);
-
-	var text = zgjq(el).text();
-
-	text = getContextNextTo(el, true) + text;
-	text = text + getContextNextTo(el, false);
-
-	return text.trim();
 }
 
 function translationClickHandler(event) {
@@ -177,7 +112,7 @@ function translationClickHandler(event) {
 	var rect = event.target.getBoundingClientRect();
 	var message = {action: "editTranslation", oldTranslation: word, originalWord: wordElement.innerHTML, id: event.target.getAttribute("id"), bookmarkID: bookmarkID, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
 
-	window.webkit.messageHandlers.zeeguu.postMessage(message);
+	zeeguuPostMessage(message);
 }
 
 function insertTranslationForID(translation, id, bid) {

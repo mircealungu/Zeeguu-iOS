@@ -105,7 +105,7 @@ function walkElementsStartingWith(element, directionIsPrevious, callback) {
 		var currentElement = siblingElement;
 		siblingElement = siblingElement[siblingProperty];
 
-		if (callback != undefined && callback != null) {
+		if (callback != null) {
 			var str = callback(currentElement, directionIsPrevious);
 			if (str === "continue") continue;
 			if (str === "break") break;
@@ -132,7 +132,7 @@ function enterParagraphOutSideCurrent(el, directionIsPrevious) {
 		parentSibling = el.parentNode[siblingProperty];
 	}
 
-	if (parentSibling == null || parentSibling == undefined) {
+	if (parentSibling == null) {
 		return null;
 	}
 
