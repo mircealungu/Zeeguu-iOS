@@ -55,15 +55,16 @@ enum ZGJavaScriptAction {
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
-		if let action = dict.removeValueForKey("action"), _ = dict["id"] {
-			if action == "translate" {
-				if let _ = dict["word"] {
-					return .Translate(dict)
-				}
-			} else if action == "editTranslation" {
-				if let _ = dict["oldTranslation"], _ = dict["originalWord"] {
-					return .EditTranslation(dict)
-				}
+		guard let action = dict.removeValueForKey("action"), _ = dict["id"]  else {
+			return .None
+		}
+		if action == "translate" {
+			if let _ = dict["word"] {
+				return .Translate(dict)
+			}
+		} else if action == "editTranslation" {
+			if let _ = dict["oldTranslation"], _ = dict["originalWord"] {
+				return .EditTranslation(dict)
 			}
 		}
 		return .None
@@ -116,30 +117,30 @@ enum ZGJavaScriptAction {
 	func getJavaScriptExpression() -> String {
 		switch self {
 		case let .Translate(dict):
-			if let word = dict["translation"], context = dict["context"], id = dict["id"], bid = dict["bookmarkID"] {
-				var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-				w = w.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-				
-				var c = context.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-				c = c.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-				
-				return "insertTranslationForID(\"\(w)\", \"\(c)\", \"\(id)\", \"\(bid)\")"
+			guard let word = dict["translation"], context = dict["context"], id = dict["id"], bid = dict["bookmarkID"] else {
+				fatalError("The ZGJavaScriptAction.Translate(_) dictionary is in an incorrect state!")
 			}
-			fatalError("The ZGJavaScriptAction.Translate(_) dictionary is in an incorrect state!")
+			var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+			w = w.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+			
+			var c = context.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+			c = c.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+			
+			return "insertTranslationForID(\"\(w)\", \"\(c)\", \"\(id)\", \"\(bid)\")"
 		case let .EditTranslation(dict):
-			if let word = dict["newTranslation"], id = dict["id"] {
-				var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-				w = word.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-				if let ot = dict["otherTranslations"] {
-					var str = ot.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-					str = str.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-					
-					return "updateTranslationForID(\"\(w)\", \"\(id)\", \"\(str)\")"
-				} else {
-					return "updateTranslationForID(\"\(w)\", \"\(id)\", null)"
-				}
+			guard let word = dict["newTranslation"], id = dict["id"] else {
+				fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
 			}
-			fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
+			var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+			w = w.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+			if let ot = dict["otherTranslations"] {
+				var str = ot.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+				str = str.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+				
+				return "updateTranslationForID(\"\(w)\", \"\(id)\", \"\(str)\")"
+			} else {
+				return "updateTranslationForID(\"\(w)\", \"\(id)\", null)"
+			}
 		case let .ChangeFontSize(factor):
 			return "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(100 + factor * 10)%'"
 		case let .ChangeTranslationMode(mode):

@@ -32,12 +32,6 @@ import Zeeguu_API_iOS
 class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UpdateTranslationViewControllerDelegate {
 	
 	var article: Article?
-//	private var _articleView: ArticleView
-//	var articleView: ArticleView {
-//		get {
-//			return _articleView
-//		}
-//	}
 	
 	private var _webview: ZGWebView?
 	private(set) var webview: ZGWebView { // _webview will never be nil when the initializer is finished
@@ -104,25 +98,20 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		
 		self.webview.navigationDelegate = self
 	}
-
+	
 	required init?(coder aDecoder: NSCoder) {
-	    fatalError("init(coder:) has not been implemented")
+		fatalError("init(coder:) has not been implemented")
 	}
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		self.view.backgroundColor = UIColor.whiteColor()
-//		let views: [String: AnyObject] = ["v": _articleView]
 		let views: [String: AnyObject] = ["v": webview]
 		
-//		self.view.addSubview(_articleView)
 		self.view.addSubview(webview)
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		
-//		let jsBut = UIBarButtonItem(title: "Execute JS".localized, style: .Plain, target: self, action: #selector(ArticleViewController.doJS(_:)))
-//		self.navigationItem.leftBarButtonItem = jsBut
 		
 		let optionsBut = UIBarButtonItem(title: "OPTIONS".localized, style: .Plain, target: self, action: #selector(ArticleViewController.showOptions(_:)))
 		self.navigationItem.rightBarButtonItem = optionsBut
@@ -130,17 +119,17 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		if let str = article?.url, url = NSURL(string: "http://www.readability.com/m?url=\(str)") {
 			webview.loadRequest(NSURLRequest(URL: url))
 		}
-//		if let str = article?.url, url = NSURL(string: str) {
-//			webview.loadRequest(NSURLRequest(URL: url))
-//		}
-
+		//		if let str = article?.url, url = NSURL(string: str) {
+		//			webview.loadRequest(NSURLRequest(URL: url))
+		//		}
+		
 		if article == nil {
 			optionsBut.enabled = false;
 		}
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ArticleViewController.didHideUIMenuController(_:)), name: UIMenuControllerDidHideMenuNotification, object: nil)
 	}
-
+	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
@@ -168,53 +157,44 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func showUpdateTranslation(sender: ZGJavaScriptAction) {
 		let dict = sender.getActionInformation();
-		if let r = dict, old = r["oldTranslation"], rx = r["left"], ry = r["top"], rw = r["width"], rh = r["height"], x = Float(rx), y = Float(ry), w = Float(rw), h = Float(rh) {
-			let vc = UpdateTranslationViewController(oldTranslation: old, action: sender)
-			
-			vc.delegate = self;
-			
-			let topGuide = self.topLayoutGuide
-			vc.popoverPresentationController?.sourceRect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
-			vc.popoverPresentationController?.sourceView = webview
-			
-			currentJavaScriptAction = sender
-			self.presentViewController(vc, animated: true, completion: nil)
+		guard let r = dict, old = r["oldTranslation"], rx = r["left"], ry = r["top"], rw = r["width"], rh = r["height"], x = Float(rx), y = Float(ry), w = Float(rw), h = Float(rh) else {
+			return
 		}
+		let vc = UpdateTranslationViewController(oldTranslation: old, action: sender)
+		
+		vc.delegate = self;
+		
+		let topGuide = self.topLayoutGuide
+		vc.popoverPresentationController?.sourceRect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
+		vc.popoverPresentationController?.sourceView = webview
+		
+		currentJavaScriptAction = sender
+		self.presentViewController(vc, animated: true, completion: nil)
 	}
 	
 	func updateTranslationViewControllerDidChangeTranslationTo(translation: String, otherTranslations: [String : String]?) {
 		print("new translation: \(translation)")
-		if var act = currentJavaScriptAction, d = act.getActionInformation(), let bid = d["bookmarkID"], let old = d["oldTranslation"] {
-			
-			if let ot = otherTranslations, jsonData = try? NSJSONSerialization.dataWithJSONObject(ot, options: NSJSONWritingOptions(rawValue: 0)), str = String(data: jsonData, encoding: NSUTF8StringEncoding) {
-				act.setOtherTranslations(str)
-			}
-			
-			ZeeguuAPI.sharedAPI().addNewTranslationToBookmarkWithID(bid, translation: translation, completion: { (success) in
-				if (success) {
-					ZeeguuAPI.sharedAPI().deleteTranslationFromBookmarkWithID(bid, translation: old, completion: { (success) in})
-				}
-			})
-			
-			
-			act.setTranslation(translation)
-			self.webview.evaluateJavaScript(act.getJavaScriptExpression(), completionHandler: { (result, error) in
-				print("result: \(result)")
-				print("error: \(error)")
-			})
-			currentJavaScriptAction = nil
+		guard var act = currentJavaScriptAction, d = act.getActionInformation(), let bid = d["bookmarkID"], let old = d["oldTranslation"] else {
+			return
 		}
+		if let ot = otherTranslations, jsonData = try? NSJSONSerialization.dataWithJSONObject(ot, options: NSJSONWritingOptions(rawValue: 0)), str = String(data: jsonData, encoding: NSUTF8StringEncoding) {
+			act.setOtherTranslations(str)
+		}
+		
+		ZeeguuAPI.sharedAPI().addNewTranslationToBookmarkWithID(bid, translation: translation, completion: { (success) in
+			if (success) {
+				ZeeguuAPI.sharedAPI().deleteTranslationFromBookmarkWithID(bid, translation: old, completion: { (success) in})
+			}
+		})
+		
+		
+		act.setTranslation(translation)
+		self.webview.evaluateJavaScript(act.getJavaScriptExpression(), completionHandler: { (result, error) in
+			print("result: \(result)")
+			print("error: \(error)")
+		})
+		currentJavaScriptAction = nil
 	}
-	
-//	func doJS(sender: UIBarButtonItem) {
-//		let jsFilePath = NSBundle.mainBundle().pathForResource("SelectionScripts", ofType: "js")
-//		if let jsf = jsFilePath, jsFile = try? String(contentsOfFile: jsf) {
-//			webview.evaluateJavaScript(jsFile, completionHandler: { (data, error) in
-//				print("data: \(data)")
-//				print("error: \(error)")
-//			})
-//		}
-//	}
 	
 	override func canBecomeFirstResponder() -> Bool {
 		return true
@@ -252,59 +232,61 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func translateWithAction(action: ZGJavaScriptAction) {
 		var action = action
-		if let word = action.getActionInformation()?["word"], context = action.getActionInformation()?["context"], art = article {
-			ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
-				print("translation: \(translation)")
-				if let t = translation?["translation"].string, b = translation?["bookmark_id"].string {
-					print("\"\(word)\" translated to \"\(t)\"")
-					action.setTranslation(t)
-					action.setBookmarkID(b)
-					
-					if (self.pronounceTranslatedWord) {
-						let synthesizer = AVSpeechSynthesizer()
-						
-						let utterance = AVSpeechUtterance(string: word)
-						utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
-						
-						synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-						synthesizer.speakUtterance(utterance)
-					}
-					
-					self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
-						print("result: \(result)")
-						print("error: \(error)")
-					})
-				}
-			})
+		guard let word = action.getActionInformation()?["word"], context = action.getActionInformation()?["context"], art = article else {
+			return
 		}
+		ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
+			print("translation: \(translation)")
+			guard let t = translation?["translation"].string, b = translation?["bookmark_id"].string else {
+				return
+			}
+			print("\"\(word)\" translated to \"\(t)\"")
+			action.setTranslation(t)
+			action.setBookmarkID(b)
+			
+			if (self.pronounceTranslatedWord) {
+				let synthesizer = AVSpeechSynthesizer()
+				
+				let utterance = AVSpeechUtterance(string: word)
+				utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
+				
+				synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+				synthesizer.speakUtterance(utterance)
+			}
+			
+			self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
+				print("result: \(result)")
+				print("error: \(error)")
+			})
+		})
 	}
 	
 	func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
 		print("Received message: \(message.body)")
-		if let body = message.body as? Dictionary<String, AnyObject> {
-			var dict = Dictionary<String, String>()
-			
-			for (key, var value) in body {
-				if let val = value as? NSObject where val == NSNull() {
-					value = ""
-				}
-				dict[key] = String(value)
+		guard let body = message.body as? Dictionary<String, AnyObject> else {
+			return
+		}
+		var dict = Dictionary<String, String>()
+		
+		for (key, var value) in body {
+			if let val = value as? NSObject where val == NSNull() {
+				value = ""
 			}
-			
-			
-			let action = ZGJavaScriptAction.parseMessage(dict)
-			
-			switch action {
-			case .Translate(_):
-				self.translate(action)
-				break
-			case .EditTranslation(_):
-				self.showUpdateTranslation(action)
-				break
-			default:
-				break
-			}
-			
+			dict[key] = String(value)
+		}
+		
+		
+		let action = ZGJavaScriptAction.parseMessage(dict)
+		
+		switch action {
+		case .Translate(_):
+			self.translate(action)
+			break
+		case .EditTranslation(_):
+			self.showUpdateTranslation(action)
+			break
+		default:
+			break
 		}
 	}
 	
@@ -315,6 +297,6 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		})
 		self.webview.userInteractionEnabled = true
 	}
-
+	
 }
 

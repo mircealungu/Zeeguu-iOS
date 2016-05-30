@@ -28,7 +28,7 @@ import UIKit
 import Zeeguu_API_iOS
 
 class ArticleListViewController: ZGTableViewController {
-
+	
 	var feeds = [Feed]()
 	var articles = [Article]()
 	var loadedAllContents = false
@@ -41,7 +41,7 @@ class ArticleListViewController: ZGTableViewController {
 		self.init()
 		self.feeds = feeds
 	}
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -93,24 +93,24 @@ class ArticleListViewController: ZGTableViewController {
 	
 	func getDifficulties() {
 		Article.getDifficultiesForArticles(self.articles) { (success) in
-			dispatch_async(dispatch_get_main_queue(), { 
+			dispatch_async(dispatch_get_main_queue(), {
 				self.tableView.reloadData()
 			})
 		}
 	}
 	
-
+	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-
+	
 	// MARK: - Table View
-
+	
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		return 1
 	}
-
+	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return articles.count
 	}
@@ -126,51 +126,52 @@ class ArticleListViewController: ZGTableViewController {
 		} else {
 			cell = ArticleTableViewCell(article: article, reuseIdentifier: "Cell")
 		}
-
+		
 		// TODO: Disabled this for now as not all images seem to correspond to the main image
-//		if self.loadedAllContents {
-//			article.getImage({ (image) in
-//				if let i = image {
-//					dispatch_async(dispatch_get_main_queue(), {
-//						cell.setArticleImage(i)
-//					})
-//				}
-//			})
-//		}
-	
+		//		if self.loadedAllContents {
+		//			article.getImage({ (image) in
+		//				if let i = image {
+		//					dispatch_async(dispatch_get_main_queue(), {
+		//						cell.setArticleImage(i)
+		//					})
+		//				}
+		//			})
+		//		}
+		
 		cell.accessoryType = .DisclosureIndicator
 		return cell
 	}
-
+	
 	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
 		// Return false if you do not want the specified item to be editable.
 		return true
 	}
-
+	
 	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		if editingStyle == .Delete {
-		    articles.removeAtIndex(indexPath.row)
-		    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+			articles.removeAtIndex(indexPath.row)
+			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
 		} else if editingStyle == .Insert {
-		    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+			// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
 		}
 	}
-
+	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		guard let split = self.splitViewController else {
+			return
+		}
 		let article = articles[indexPath.row]
 		let vc = ArticleViewController(article: article)
 		
-		if let split = self.splitViewController {
-			var controllers = split.viewControllers
-			controllers.removeLast()
-			
-			let nav = UINavigationController(rootViewController: vc)
-			
-			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-			vc.navigationItem.leftItemsSupplementBackButton = true
-			split.showDetailViewController(nav, sender: self)
-			UIApplication.sharedApplication().sendAction(split.displayModeButtonItem().action, to: split.displayModeButtonItem().target, from: nil, forEvent: nil)
-		}
+		var controllers = split.viewControllers
+		controllers.removeLast()
+		
+		let nav = UINavigationController(rootViewController: vc)
+		
+		vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+		vc.navigationItem.leftItemsSupplementBackButton = true
+		split.showDetailViewController(nav, sender: self)
+		UIApplication.sharedApplication().sendAction(split.displayModeButtonItem().action, to: split.displayModeButtonItem().target, from: nil, forEvent: nil)
 	}
 }
 
