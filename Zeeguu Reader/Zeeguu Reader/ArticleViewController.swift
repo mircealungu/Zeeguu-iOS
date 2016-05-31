@@ -173,10 +173,24 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	}
 	
 	func updateTranslationViewControllerDidChangeTranslationTo(translation: String, otherTranslations: [String : String]?) {
+		var otherTranslations = otherTranslations
 		print("new translation: \(translation)")
 		guard var act = currentJavaScriptAction, d = act.getActionInformation(), let bid = d["bookmarkID"], let old = d["oldTranslation"] else {
 			return
 		}
+		if var ot = otherTranslations {
+			var add = true
+			for (_, value) in ot {
+				if value == translation {
+					add = false
+				}
+			}
+			if add {
+				ot[translation] = translation
+				otherTranslations = ot
+			}
+		}
+		
 		if let ot = otherTranslations, jsonData = try? NSJSONSerialization.dataWithJSONObject(ot, options: NSJSONWritingOptions(rawValue: 0)), str = String(data: jsonData, encoding: NSUTF8StringEncoding) {
 			act.setOtherTranslations(str)
 		}

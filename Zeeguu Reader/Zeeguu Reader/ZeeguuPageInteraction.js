@@ -142,6 +142,7 @@ function removeSelectionHighlights() {
 function updateTranslationForID(translation, id, otherTranslations) {
 	var translationElement = document.getElementById(id);
 	translationElement.innerHTML = " (" + translation + ")";
+	translationElement.setAttribute("data-zeeguu-translation", translation);
 	translationElement.setAttribute("data-zeeguu-other-translations", otherTranslations);
 }
 

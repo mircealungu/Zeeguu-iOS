@@ -137,9 +137,14 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		cell?.accessoryView = nil
 		
 		if sec == 0 {
-			// put checkmark where needed
+			if data[sec][row] == oldTranslation {
+				cell?.accessoryType = .Checkmark
+			} else {
+				cell?.accessoryType = .None
+			}
 		} else if sec == 1 {
 			if row == 0 {
+				cell?.selectionStyle = .None
 				cell?.textLabel?.text = nil
 				if let subs = cell?.contentView.subviews {
 					for v in subs {
@@ -169,8 +174,13 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//		let sec = indexPath.section
-//		let row = indexPath.row
+		let sec = indexPath.section
+		let row = indexPath.row
+		let text = data[sec][row]
+		if let del = delegate where text != oldTranslation {
+			del.updateTranslationViewControllerDidChangeTranslationTo(text, otherTranslations: otherTranslations)
+		}
+		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
