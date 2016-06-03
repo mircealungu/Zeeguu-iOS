@@ -24,7 +24,7 @@
 		947799D51C17171B00C494ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D41C17171B00C494ED /* AppDelegate.swift */; };
 		947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D61C17171B00C494ED /* ArticleListViewController.swift */; };
 		947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D81C17171B00C494ED /* ArticleViewController.swift */; };
-		947799DE1C17171B00C494ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947799DD1C17171B00C494ED /* Assets.xcassets */; };
+		947799DE1C17171B00C494ED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947799DD1C17171B00C494ED /* Images.xcassets */; };
 		947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947799DF1C17171B00C494ED /* LaunchScreen.storyboard */; };
 		947799EC1C17171B00C494ED /* Zeeguu_ReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799EB1C17171B00C494ED /* Zeeguu_ReaderTests.swift */; };
 		947799F71C17171B00C494ED /* Zeeguu_ReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */; };
@@ -90,7 +90,7 @@
 		947799D41C17171B00C494ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		947799D61C17171B00C494ED /* ArticleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
 		947799D81C17171B00C494ED /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
-		947799DD1C17171B00C494ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		947799DD1C17171B00C494ED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		947799E01C17171B00C494ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		947799E21C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		947799E71C17171B00C494ED /* Zeeguu ReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zeeguu ReaderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,7 +194,7 @@
 				945658181C42B804000CDF3F /* AppIcon.swift */,
 				949D59B21C7DD32D007C4A0C /* AppColor.swift */,
 				9415E5241CCF7E980091954A /* Localizable.strings */,
-				947799DD1C17171B00C494ED /* Assets.xcassets */,
+				947799DD1C17171B00C494ED /* Images.xcassets */,
 				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
 				94F7AFEE1CD89D1C00BBF12F /* Resources */,
 				947799E21C17171B00C494ED /* Info.plist */,
@@ -431,7 +431,7 @@
 				9415E5221CCF7E980091954A /* Localizable.strings in Resources */,
 				946317471CEB4EA900B67532 /* zeeguu.css in Resources */,
 				943FB7451CFC3A700007C522 /* ZeeguuPagePreparation.js in Resources */,
-				947799DE1C17171B00C494ED /* Assets.xcassets in Resources */,
+				947799DE1C17171B00C494ED /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,7 +675,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E0CA9B220CAAD7E0CFC5869 /* Pods-Zeeguu Reader.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = zeeguuLogo;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -698,7 +698,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 44F98B3CC36CEA2DA0CFC6CC /* Pods-Zeeguu Reader.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = zeeguuLogo;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
