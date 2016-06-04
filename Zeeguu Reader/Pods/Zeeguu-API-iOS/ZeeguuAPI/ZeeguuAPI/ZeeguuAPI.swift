@@ -28,8 +28,12 @@ import UIKit
 
 /// This class is a gateway to the Zeeguu API. You can use the instance of this class obtained by `ZeeguuAPI.sharedAPI()` to communicate with the Zeeguu API.
 public class ZeeguuAPI {
+	
+	// MARK: Properties -
+	
 	private static let instance = ZeeguuAPI()
 	
+	/// Whether to enable debug output. Set this to `true` to see debug output and find out why an endpoint is not returning what you expect.
 	public var enableDebugOutput = false
 	
 	var currentSessionID: Int {
@@ -48,6 +52,8 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	// MARK: Static methods -
+	
 	/// Get the `ZeeguuAPI` instance. This method is the only way to get an instance of the ZeeguuAPI class.
 	///
 	/// - returns: The shared `ZeeguuAPI` instance.
@@ -62,6 +68,10 @@ public class ZeeguuAPI {
 			self.currentSessionID = def.objectForKey(ZeeguuAPI.sessionIDKey)!.integerValue
 		}
 	}
+	
+	// MARK: Methods -
+	
+	// MARK: User operations
 	
 	/// Registers a user.
 	///
@@ -208,6 +218,8 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	// MARK: Zeeguu API Languages
+	
 	/// Retrieves the language codes of all available languages that the Zeeguu API supports as a learning language.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
@@ -228,18 +240,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Retrieves the words that the user is currently studying.
-	///
-	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of words.
-	public func getStudyingWords(completion: (array: JSON?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(array: nil)
-		}
-		let request = self.requestWithEndPoint(.UserWords, method: .GET)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
-		}
-	}
+	// MARK: Bookmark operations
 	
 	/// Retrieves the bookmarks of the user, organized by date.
 	///
@@ -261,31 +262,27 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Retrieves the translation of the given word from the user's learned language to the user's native language.
+	/// Retrieves the bookmarks of the user, organized by date.
 	///
-	/// - parameter word: The word to translate.
-	/// - parameter context: The context in which the word appeared.
-	/// - parameter url: The url of the article in which the word was translated.
-	/// - parameter completion: A block that will receive a string containing the translation of `word`.
-	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
+	/// - parameter withContext: If `withContext` is `true`, the text where a bookmark was found is also returned. If `false`, only the bookmark (without context) is returned.
+	/// - parameter afterDate: the date after which to start retrieving the bookmarks. if no date is specified, all the bookmarks are returned.
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of bookmarks.
+	public func getBookmarksByDayWithContext(withContext: Bool, afterDate: NSDate, completion: (dict: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
-			return completion(translation: nil)
+			return completion(dict: nil)
 		}
 		
-		self.getLearnedAndNativeLanguage { (dict) -> Void in
-			if (dict != nil) {
-				if let learned = dict!["learned"].string, native = dict!["native"].string {
-					let request = self.requestWithEndPoint(.TranslateAndBookmark, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
-					self.sendAsynchronousRequest(request) { (response, error) -> Void in
-						self.checkJSONResponse(response, error: error, completion: completion)
-					}
-				} else  {
-					completion(translation: nil)
-				}
-			} else {
-				completion(translation: nil)
-			}
-			
+		var paramsPOST = Dictionary<String, String>()
+		paramsPOST["with_context"] = String(withContext)
+		
+		let formatter = NSDateFormatter()
+		formatter.timeZone = NSTimeZone(name: "GMT")
+		formatter.dateFormat = "y-MM-dd'T'HH:mm:ss"
+		paramsPOST["after_date"] = formatter.stringFromDate(afterDate)
+		
+		let request = self.requestWithEndPoint(.BookmarksByDay, method: .POST, parameters: paramsPOST)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
 	
@@ -392,6 +389,49 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	/// Retrieves all learned bookmarks for the current user.
+	///
+	/// - parameter langCode: The language code for which to retrieve the bookmarks.
+	/// - parameter completion: A block that will receive a dictionary with the bookmarks.
+	public func getLearnedBookmarksWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetLearnedBookmarks, pathComponents: [langCode], method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	// MARK: Words operations
+	
+	/// Retrieves the words that the user is currently studying.
+	///
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of words.
+	public func getStudyingWords(completion: (array: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(array: nil)
+		}
+		let request = self.requestWithEndPoint(.UserWords, method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	/// Retrieves all not looked up words for the current user.
+	///
+	/// - parameter langCode: The language code for which to retrieve the words.
+	/// - parameter completion: A block that will receive a dictionary with the words.
+	public func getNotLookedUpWordsWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetNotLookedUpWords, pathComponents: [langCode], method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
 	/// Retrieves all words that have not been encountered yet by the current user.
 	///
 	/// - parameter langCode: The language code for which to retrieve the words.
@@ -447,6 +487,67 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	// MARK: Translation
+	
+	/// Retrieves the translation of the given word from the user's learned language to the user's native language.
+	///
+	/// - parameter word: The word to translate.
+	/// - parameter title: The title of the article in which the word was translated.
+	/// - parameter context: The context in which the word appeared.
+	/// - parameter url: The url of the article in which the word was translated.
+	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
+	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(translation: nil)
+		}
+		
+		self.getLearnedAndNativeLanguage { (dict) -> Void in
+			if (dict != nil) {
+				if let learned = dict!["learned"].string, native = dict!["native"].string {
+					let request = self.requestWithEndPoint(.TranslateAndBookmark, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
+					self.sendAsynchronousRequest(request) { (response, error) -> Void in
+						self.checkJSONResponse(response, error: error, completion: completion)
+					}
+				} else  {
+					completion(translation: nil)
+				}
+			} else {
+				completion(translation: nil)
+			}
+			
+		}
+	}
+	
+	/// Retrieves multiple possible translations of the given word from the user's learned language to the user's native language.
+	///
+	/// - parameter word: The word to translate.
+	/// - parameter context: The context in which the word appeared.
+	/// - parameter url: The url of the article in which the word was translated.
+	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
+	public func getTranslationsForWord(word: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(translation: nil)
+		}
+		
+		self.getLearnedAndNativeLanguage { (dict) -> Void in
+			if (dict != nil) {
+				if let learned = dict!["learned"].string, native = dict!["native"].string {
+					let request = self.requestWithEndPoint(.GetPossibleTranslations, pathComponents: [learned, native], method: .POST, parameters: ["context": context, "word": word, "url": url])
+					self.sendAsynchronousRequest(request) { (response, error) -> Void in
+						self.checkJSONResponse(response, error: error, completion: completion)
+					}
+				} else  {
+					completion(translation: nil)
+				}
+			} else {
+				completion(translation: nil)
+			}
+			
+		}
+	}
+	
+	// MARK: Statistics
 	
 	/// Retrieves the lower bound percentage of basic vocabulary.
 	///
@@ -513,33 +614,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Retrieves all learned bookmarks for the current user.
-	///
-	/// - parameter langCode: The language code for which to retrieve the bookmarks.
-	/// - parameter completion: A block that will receive a dictionary with the bookmarks.
-	public func getLearnedBookmarksWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(dict: nil)
-		}
-		let request = self.requestWithEndPoint(.GetLearnedBookmarks, pathComponents: [langCode], method: .GET)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
-		}
-	}
-	
-	/// Retrieves all not looked up words for the current user.
-	///
-	/// - parameter langCode: The language code for which to retrieve the words.
-	/// - parameter completion: A block that will receive a dictionary with the words.
-	public func getNotLookedUpWordsWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(dict: nil)
-		}
-		let request = self.requestWithEndPoint(.GetNotLookedUpWords, pathComponents: [langCode], method: .GET)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
-		}
-	}
+	// MARK: Content operations
 	
 	/// Retrieves the difficulties for the texts supplied.
 	///
@@ -548,9 +623,9 @@ public class ZeeguuAPI {
 	/// - parameter personalized: Calculate difficulty score specific for the current user.
 	/// - parameter rankBoundary: Upper boundary for word frequency rank (1-10000)
 	/// - parameter completion: A block that will receive an array with the difficulties.
-	public func getDifficultyForTexts(texts: Array<String>, langCode: String, personalized: Bool = true, rankBoundary: Float = 10000, completion: (dict: JSON?) -> Void) {
+	public func getDifficultyForTexts(texts: Array<String>, langCode: String, difficultyComputer: String = "default", completion: (difficulties: [ArticleDifficulty]?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
-			return completion(dict: nil)
+			return completion(difficulties: nil)
 		}
 		var newTexts: [Dictionary<String, String>] = []
 		var counter = 0
@@ -559,11 +634,39 @@ public class ZeeguuAPI {
 			newTexts.append(["content": text, "id": String(counter)])
 		}
 		
-		let jsonDict = ["texts": newTexts, "personalized": String(personalized), "rank_boundary": String(rankBoundary)]
+		let jsonDict = ["texts": newTexts, "difficulty_computer": difficultyComputer]
 		
 		let request = self.requestWithEndPoint(.GetDifficultyForText, pathComponents: [langCode], method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
+			self.checkJSONResponse(response, error: error, completion: { (dict) in
+				if var array = dict?["difficulties"].array {
+					array.sortInPlace({ (lhs, rhs) -> Bool in
+						if let l = lhs["id"].string, r = rhs["id"].string {
+							return Int(l) < Int(r)
+						}
+						return false
+					})
+					
+					// The following piece of code loops over texts and tries to find the corresponding
+					// difficulty in array. As array is sorted, if we don't find it, our current index (i) is
+					// still lower than 'id' of the first difficulty in array. if we don't find difficulty, we insert
+					// .Unknown string in the difficulties array
+					var difficulties = [ArticleDifficulty]()
+					var arrayIndex = 0
+					for i in 0 ..< texts.count {
+						let textIndex = i + 1
+						if let idxStr = (arrayIndex < array.count ? array[arrayIndex]["id"].string : nil), idx = Int(idxStr), diff = array[i]["estimated_difficulty"].string, difficulty = ArticleDifficulty(rawValue: diff) where idx == textIndex {
+							difficulties.append(difficulty)
+							arrayIndex += 1
+						} else {
+							difficulties.append(.Unknown)
+						}
+					}
+					completion(difficulties: difficulties)
+				} else {
+					completion(difficulties: nil)
+				}
+			})
 		}
 	}
 	
@@ -594,9 +697,10 @@ public class ZeeguuAPI {
 	/// Retrieves the content and an image from the given urls.
 	///
 	/// - parameter urls: The urls to get the content from.
+	/// - parameter langCode: If not `nil`, the difficulty is calculated for all the contents.
 	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
-	/// - parameter completion: A block that will receive an array with the contents of the urls.
-	public func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (dict: JSON?) -> Void) {
+	/// - parameter completion: A block that will receive an array with the pairs (contents, image) of the urls.
+	public func getContentFromURLs(urls: Array<String>, langCode: String? = nil, maxTimeout: Int = 10, completion: (contents: [(String, String, ArticleDifficulty)]?) -> Void) {
 		var newURLs: [Dictionary<String, String>] = []
 		var counter = 0
 		for url in urls {
@@ -604,14 +708,51 @@ public class ZeeguuAPI {
 			newURLs.append(["url": url, "id": String(counter)])
 		}
 		
-		let jsonDict = ["urls": newURLs, "timeout": String(maxTimeout)]
+		var jsonDict: Dictionary<String, AnyObject> = ["urls": newURLs, "timeout": String(maxTimeout)]
+		if let lc = langCode {
+			jsonDict["lang_code"] = lc
+		}
 		
 		let request = self.requestWithEndPoint(.GetContentFromURL, method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
+			self.checkJSONResponse(response, error: error, completion: { (dict) in
+				if var array = dict?["contents"].array {
+					array.sortInPlace({ (lhs, rhs) -> Bool in
+						if let l = lhs["id"].string, r = rhs["id"].string {
+							return Int(l) < Int(r)
+						}
+						return false
+					})
+					
+					// The following piece of code loops over newURLs and tries to find the corresponding
+					// content in array. As array is sorted, if we don't find it, our current index (i) is
+					// still lower than 'id' of the first content in array. if we don't find content, we insert
+					// an empty string in the contents array
+					var contents = [(String, String, ArticleDifficulty)]()
+					var arrayIndex = 0
+					for i in 0 ..< newURLs.count {
+						let urlIndex = i + 1
+						
+						if let idxStr = (arrayIndex < array.count ? array[arrayIndex]["id"].string : nil), idx = Int(idxStr), content = array[arrayIndex]["content"].string, image = array[arrayIndex]["image"].string where idx == urlIndex {
+							if let difficulty = array[arrayIndex]["difficulty"]["estimated_difficulty"].string, diff = ArticleDifficulty(rawValue: difficulty) {
+								contents.append((content, image, diff))
+							} else {
+								contents.append((content, image, .Unknown))
+							}
+							arrayIndex += 1
+						} else {
+							contents.append(("", "", .Unknown))
+						}
+					}
+					completion(contents: contents)
+				} else {
+					completion(contents: nil)
+				}
+			})
 		}
 	}
 	
+	// MARK: Feed operations
 	
 	/// Retrieves all feeds that were found at the given url.
 	///

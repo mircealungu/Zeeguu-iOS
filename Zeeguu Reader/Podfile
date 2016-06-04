@@ -4,6 +4,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'Zeeguu Reader' do
+	pod 'SwiftyJSON', :git => "https://github.com/SwiftyJSON/SwiftyJSON.git"
 	pod 'Zeeguu-API-iOS', :git => 'https://github.com/mircealungu/Zeeguu-API-iOS'
 end
 

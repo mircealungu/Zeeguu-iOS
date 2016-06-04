@@ -7,28 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7D0D0CCC2AAB1BBF6713F0BF /* Pods_Zeeguu_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967E94399204D55C5DC584B1 /* Pods_Zeeguu_Reader.framework */; };
 		9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */; };
-		9408F0421C1C818F002F9637 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9408F0411C1C818F002F9637 /* Localizable.strings */; };
 		9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0431C1C8461002F9637 /* StringExtension.swift */; };
 		9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */; };
+		9415E5221CCF7E980091954A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9415E5241CCF7E980091954A /* Localizable.strings */; };
 		9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */; };
 		942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942667A11C60CA1600CF00FA /* HistoryItemView.swift */; };
+		943FB7451CFC3A700007C522 /* ZeeguuPagePreparation.js in Resources */ = {isa = PBXBuildFile; fileRef = 943FB7441CFC3A700007C522 /* ZeeguuPagePreparation.js */; };
+		943FB7471CFC3B980007C522 /* ZeeguuVars.js in Resources */ = {isa = PBXBuildFile; fileRef = 943FB7461CFC3B980007C522 /* ZeeguuVars.js */; };
+		943FB7491CFC4AF90007C522 /* ZeeguuHelperFunctions.js in Resources */ = {isa = PBXBuildFile; fileRef = 943FB7481CFC4AF90007C522 /* ZeeguuHelperFunctions.js */; };
 		9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */; };
 		9440B02C1C380CBC00BDD367 /* ZGTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */; };
+		944FCB311CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */; };
 		945658191C42B804000CDF3F /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945658181C42B804000CDF3F /* AppIcon.swift */; };
+		946317471CEB4EA900B67532 /* zeeguu.css in Resources */ = {isa = PBXBuildFile; fileRef = 946317461CEB4EA800B67532 /* zeeguu.css */; };
 		947799D51C17171B00C494ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D41C17171B00C494ED /* AppDelegate.swift */; };
 		947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D61C17171B00C494ED /* ArticleListViewController.swift */; };
 		947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D81C17171B00C494ED /* ArticleViewController.swift */; };
-		947799DE1C17171B00C494ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947799DD1C17171B00C494ED /* Assets.xcassets */; };
+		947799DE1C17171B00C494ED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947799DD1C17171B00C494ED /* Images.xcassets */; };
 		947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947799DF1C17171B00C494ED /* LaunchScreen.storyboard */; };
 		947799EC1C17171B00C494ED /* Zeeguu_ReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799EB1C17171B00C494ED /* Zeeguu_ReaderTests.swift */; };
 		947799F71C17171B00C494ED /* Zeeguu_ReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */; };
 		94779A0E1C1722E500C494ED /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A0D1C1722E500C494ED /* UIViewExtension.swift */; };
-		94779A121C17348B00C494ED /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A111C17348B00C494ED /* ArticleView.swift */; };
+		94779A121C17348B00C494ED /* ArticleViewTranslationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A111C17348B00C494ED /* ArticleViewTranslationMode.swift */; };
 		94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94779A291C17452800C494ED /* ZGTextView.swift */; };
 		949B6C431C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B6C421C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift */; };
 		949D59B31C7DD32D007C4A0C /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949D59B21C7DD32D007C4A0C /* AppColor.swift */; };
+		949FC8451CDA337A003BFA44 /* jquery-2.2.3.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 949FC8441CDA337A003BFA44 /* jquery-2.2.3.min.js */; };
 		94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B758311C36B797001B4294 /* AddFeedTableViewController.swift */; };
 		94C748281C39220400F3DCC2 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */; };
 		94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */; };
@@ -37,8 +42,13 @@
 		94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */; };
 		94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */; };
 		94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */; };
+		94E7CF221CF345F7001F119B /* UpdateTranslationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */; };
 		94F208861C58C6F30005EB2F /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */; };
 		94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F208891C58D4870005EB2F /* HistoryItemViewController.swift */; };
+		94F7AFF31CD89F7B00BBF12F /* ZeeguuPageInteraction.js in Resources */ = {isa = PBXBuildFile; fileRef = 94F7AFF11CD89D6300BBF12F /* ZeeguuPageInteraction.js */; };
+		94F7AFF51CD8A79F00BBF12F /* ZGWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */; };
+		94FC8D021CDB874F0032E72A /* ZGJavaScriptAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */; };
+		C64224C010805D40DD672A3B /* Pods_Zeeguu_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48CDF19FFC36B1EEB27D5FE2 /* Pods_Zeeguu_Reader.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,20 +69,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		44F98B3CC36CEA2DA0CFC6CC /* Pods-Zeeguu Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.release.xcconfig"; sourceTree = "<group>"; };
+		48CDF19FFC36B1EEB27D5FE2 /* Pods_Zeeguu_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zeeguu_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E0CA9B220CAAD7E0CFC5869 /* Pods-Zeeguu Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.debug.xcconfig"; sourceTree = "<group>"; };
 		9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
-		9408F0411C1C818F002F9637 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		9408F0431C1C8461002F9637 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		9415E5231CCF7E980091954A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		942667A11C60CA1600CF00FA /* HistoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemView.swift; sourceTree = "<group>"; };
+		943FB7441CFC3A700007C522 /* ZeeguuPagePreparation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuPagePreparation.js; sourceTree = "<group>"; };
+		943FB7461CFC3B980007C522 /* ZeeguuVars.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuVars.js; sourceTree = "<group>"; };
+		943FB7481CFC4AF90007C522 /* ZeeguuHelperFunctions.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuHelperFunctions.js; sourceTree = "<group>"; };
 		9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedOverviewTableViewController.swift; sourceTree = "<group>"; };
 		9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTableViewController.swift; sourceTree = "<group>"; };
+		944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewOptionsTableViewController.swift; sourceTree = "<group>"; };
 		945658181C42B804000CDF3F /* AppIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
+		946317461CEB4EA800B67532 /* zeeguu.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zeeguu.css; sourceTree = "<group>"; };
 		947799D11C17171B00C494ED /* Zeeguu Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zeeguu Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799D41C17171B00C494ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		947799D61C17171B00C494ED /* ArticleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
 		947799D81C17171B00C494ED /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
-		947799DD1C17171B00C494ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		947799DD1C17171B00C494ED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		947799E01C17171B00C494ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		947799E21C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		947799E71C17171B00C494ED /* Zeeguu ReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zeeguu ReaderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,10 +100,11 @@
 		947799F61C17171B00C494ED /* Zeeguu_ReaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zeeguu_ReaderUITests.swift; sourceTree = "<group>"; };
 		947799F81C17171B00C494ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94779A0D1C1722E500C494ED /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		94779A111C17348B00C494ED /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
+		94779A111C17348B00C494ED /* ArticleViewTranslationMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewTranslationMode.swift; sourceTree = "<group>"; };
 		94779A291C17452800C494ED /* ZGTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextView.swift; sourceTree = "<group>"; };
 		949B6C421C4D4DDC00CF9BB0 /* SelectFeedsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFeedsTableViewController.swift; sourceTree = "<group>"; };
 		949D59B21C7DD32D007C4A0C /* AppColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		949FC8441CDA337A003BFA44 /* jquery-2.2.3.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-2.2.3.min.js"; sourceTree = "<group>"; };
 		94B758311C36B797001B4294 /* AddFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFeedTableViewController.swift; sourceTree = "<group>"; };
 		94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
@@ -94,11 +113,12 @@
 		94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterTableViewController.swift; sourceTree = "<group>"; };
 		94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRegisterTableViewController.swift; sourceTree = "<group>"; };
 		94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagesTableViewController.swift; sourceTree = "<group>"; };
+		94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateTranslationViewController.swift; sourceTree = "<group>"; };
 		94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 		94F208891C58D4870005EB2F /* HistoryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
-		967E94399204D55C5DC584B1 /* Pods_Zeeguu_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zeeguu_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A27474D14E9A03DE22909E5A /* Pods-Zeeguu Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.release.xcconfig"; sourceTree = "<group>"; };
-		D89D98A602FDEFAA0D83B7FC /* Pods-Zeeguu Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.debug.xcconfig"; sourceTree = "<group>"; };
+		94F7AFF11CD89D6300BBF12F /* ZeeguuPageInteraction.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuPageInteraction.js; sourceTree = "<group>"; };
+		94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGWebView.swift; sourceTree = "<group>"; };
+		94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGJavaScriptAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D0D0CCC2AAB1BBF6713F0BF /* Pods_Zeeguu_Reader.framework in Frameworks */,
+				C64224C010805D40DD672A3B /* Pods_Zeeguu_Reader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,15 +147,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2605E032C9B2E413EBEE9EBB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D89D98A602FDEFAA0D83B7FC /* Pods-Zeeguu Reader.debug.xcconfig */,
-				A27474D14E9A03DE22909E5A /* Pods-Zeeguu Reader.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		9440B0281C37F14C00BDD367 /* Feeds */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,11 +162,11 @@
 			isa = PBXGroup;
 			children = (
 				947799D31C17171B00C494ED /* Zeeguu Reader */,
-				94779A1E1C17359000C494ED /* Frameworks */,
 				947799EA1C17171B00C494ED /* Zeeguu ReaderTests */,
 				947799F51C17171B00C494ED /* Zeeguu ReaderUITests */,
 				947799D21C17171B00C494ED /* Products */,
-				2605E032C9B2E413EBEE9EBB /* Pods */,
+				FA0A45C134501D06C425678E /* Pods */,
+				98D46158BD119E1159EE4212 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,9 +193,10 @@
 				94CEECE21C1D792E00C3D0E3 /* Utils.swift */,
 				945658181C42B804000CDF3F /* AppIcon.swift */,
 				949D59B21C7DD32D007C4A0C /* AppColor.swift */,
-				9408F0411C1C818F002F9637 /* Localizable.strings */,
-				947799DD1C17171B00C494ED /* Assets.xcassets */,
+				9415E5241CCF7E980091954A /* Localizable.strings */,
+				947799DD1C17171B00C494ED /* Images.xcassets */,
 				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
+				94F7AFEE1CD89D1C00BBF12F /* Resources */,
 				947799E21C17171B00C494ED /* Info.plist */,
 				94779A0C1C1722C300C494ED /* Extensions */,
 			);
@@ -219,14 +231,6 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		94779A1E1C17359000C494ED /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				967E94399204D55C5DC584B1 /* Pods_Zeeguu_Reader.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		94C748261C3921E600F3DCC2 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,7 +247,9 @@
 				947799D61C17171B00C494ED /* ArticleListViewController.swift */,
 				94F208851C58C6F30005EB2F /* ArticleTableViewCell.swift */,
 				947799D81C17171B00C494ED /* ArticleViewController.swift */,
-				94779A111C17348B00C494ED /* ArticleView.swift */,
+				94779A111C17348B00C494ED /* ArticleViewTranslationMode.swift */,
+				944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */,
+				94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */,
 			);
 			name = Articles;
 			sourceTree = "<group>";
@@ -254,6 +260,8 @@
 				94779A291C17452800C494ED /* ZGTextView.swift */,
 				9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */,
 				9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */,
+				94F7AFF41CD8A79F00BBF12F /* ZGWebView.swift */,
+				94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -277,6 +285,36 @@
 			name = Login/Register;
 			sourceTree = "<group>";
 		};
+		94F7AFEE1CD89D1C00BBF12F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				949FC8441CDA337A003BFA44 /* jquery-2.2.3.min.js */,
+				94F7AFF11CD89D6300BBF12F /* ZeeguuPageInteraction.js */,
+				946317461CEB4EA800B67532 /* zeeguu.css */,
+				943FB7481CFC4AF90007C522 /* ZeeguuHelperFunctions.js */,
+				943FB7441CFC3A700007C522 /* ZeeguuPagePreparation.js */,
+				943FB7461CFC3B980007C522 /* ZeeguuVars.js */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		98D46158BD119E1159EE4212 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				48CDF19FFC36B1EEB27D5FE2 /* Pods_Zeeguu_Reader.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA0A45C134501D06C425678E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6E0CA9B220CAAD7E0CFC5869 /* Pods-Zeeguu Reader.debug.xcconfig */,
+				44F98B3CC36CEA2DA0CFC6CC /* Pods-Zeeguu Reader.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -284,12 +322,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 947799FB1C17171B00C494ED /* Build configuration list for PBXNativeTarget "Zeeguu Reader" */;
 			buildPhases = (
-				0ABC3A99A017C2156CE8F20A /* Check Pods Manifest.lock */,
+				8D6D32950165E5C59D10772C /* 📦 Check Pods Manifest.lock */,
 				947799CD1C17171B00C494ED /* Sources */,
 				947799CE1C17171B00C494ED /* Frameworks */,
 				947799CF1C17171B00C494ED /* Resources */,
-				BB929016D6402C38A1D7FFFB /* Embed Pods Frameworks */,
-				B5BF29860231112C40EE3F3A /* Copy Pods Resources */,
+				69D2FD1B16DAE63418FEA6EE /* 📦 Embed Pods Frameworks */,
+				11D2EE77AC4E217AE87CCCD5 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -348,7 +386,7 @@
 				TargetAttributes = {
 					947799D01C17171B00C494ED = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = W6A96B7Y55;
+						DevelopmentTeam = 3MWE9S4CWT;
 					};
 					947799E61C17171B00C494ED = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -385,9 +423,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				943FB7491CFC4AF90007C522 /* ZeeguuHelperFunctions.js in Resources */,
+				949FC8451CDA337A003BFA44 /* jquery-2.2.3.min.js in Resources */,
+				943FB7471CFC3B980007C522 /* ZeeguuVars.js in Resources */,
 				947799E11C17171B00C494ED /* LaunchScreen.storyboard in Resources */,
-				9408F0421C1C818F002F9637 /* Localizable.strings in Resources */,
-				947799DE1C17171B00C494ED /* Assets.xcassets in Resources */,
+				94F7AFF31CD89F7B00BBF12F /* ZeeguuPageInteraction.js in Resources */,
+				9415E5221CCF7E980091954A /* Localizable.strings in Resources */,
+				946317471CEB4EA900B67532 /* zeeguu.css in Resources */,
+				943FB7451CFC3A700007C522 /* ZeeguuPagePreparation.js in Resources */,
+				947799DE1C17171B00C494ED /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,29 +452,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0ABC3A99A017C2156CE8F20A /* Check Pods Manifest.lock */ = {
+		11D2EE77AC4E217AE87CCCD5 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B5BF29860231112C40EE3F3A /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,19 +467,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BB929016D6402C38A1D7FFFB /* Embed Pods Frameworks */ = {
+		69D2FD1B16DAE63418FEA6EE /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D6D32950165E5C59D10772C /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -468,19 +512,23 @@
 				94CEECE91C1DA27A00C3D0E3 /* RegisterTableViewController.swift in Sources */,
 				94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */,
 				942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */,
+				94FC8D021CDB874F0032E72A /* ZGJavaScriptAction.swift in Sources */,
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
 				94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */,
 				94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */,
+				94E7CF221CF345F7001F119B /* UpdateTranslationViewController.swift in Sources */,
 				9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */,
 				94CEECED1C1DA54000C3D0E3 /* LanguagesTableViewController.swift in Sources */,
 				9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */,
 				947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */,
+				94F7AFF51CD8A79F00BBF12F /* ZGWebView.swift in Sources */,
 				94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */,
 				947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */,
 				94CEECE51C1D7C3200C3D0E3 /* UIViewControllerExtension.swift in Sources */,
 				945658191C42B804000CDF3F /* AppIcon.swift in Sources */,
-				94779A121C17348B00C494ED /* ArticleView.swift in Sources */,
+				944FCB311CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift in Sources */,
+				94779A121C17348B00C494ED /* ArticleViewTranslationMode.swift in Sources */,
 				947799D51C17171B00C494ED /* AppDelegate.swift in Sources */,
 				94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */,
 				949D59B31C7DD32D007C4A0C /* AppColor.swift in Sources */,
@@ -521,6 +569,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9415E5241CCF7E980091954A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9415E5231CCF7E980091954A /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		947799DF1C17171B00C494ED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -617,9 +673,9 @@
 		};
 		947799FC1C17171B00C494ED /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D89D98A602FDEFAA0D83B7FC /* Pods-Zeeguu Reader.debug.xcconfig */;
+			baseConfigurationReference = 6E0CA9B220CAAD7E0CFC5869 /* Pods-Zeeguu Reader.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = zeeguuLogo;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -629,7 +685,7 @@
 				);
 				INFOPLIST_FILE = "Zeeguu Reader/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-Reader";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-Reader-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -640,9 +696,9 @@
 		};
 		947799FD1C17171B00C494ED /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A27474D14E9A03DE22909E5A /* Pods-Zeeguu Reader.release.xcconfig */;
+			baseConfigurationReference = 44F98B3CC36CEA2DA0CFC6CC /* Pods-Zeeguu Reader.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = zeeguuLogo;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -652,7 +708,7 @@
 				);
 				INFOPLIST_FILE = "Zeeguu Reader/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-Reader";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.unibe.zeeguu.Zeeguu-Reader-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;

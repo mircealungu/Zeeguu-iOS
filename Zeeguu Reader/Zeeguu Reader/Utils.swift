@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import WebKit
 
 class Utils {
 	
@@ -85,6 +86,26 @@ class Utils {
 		}
 		
 		return String(contextStr)
+	}
+	
+	static func addUserScriptToUserContentController(controller: WKUserContentController, jsFileName: String) {
+		let jsFilePath = NSBundle.mainBundle().pathForResource(jsFileName, ofType: "js")
+		if let jsf = jsFilePath, jsFile = try? String(contentsOfFile: jsf) {
+			let script = WKUserScript(source: jsFile, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
+			controller.addUserScript(script)
+		}
+	}
+	
+	static func addStyleSheetToUserContentController(controller: WKUserContentController, cssFileName: String) {
+		let cssFilePath = NSBundle.mainBundle().pathForResource(cssFileName, ofType: "css")
+		if let cssf = cssFilePath, cssFile = try? String(contentsOfFile: cssf) {
+			let js = ["var style = document.createElement(\"style\");\n",
+			"style.innerHTML = \"\(cssFile.stringByReplacingOccurrencesOfString("\n", withString: "\\n"))\";\n",
+			"document.getElementsByTagName(\"head\")[0].appendChild(style);"].reduce("", combine: +);
+			
+			let script = WKUserScript(source: js, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
+			controller.addUserScript(script)
+		}
 	}
 	
 }

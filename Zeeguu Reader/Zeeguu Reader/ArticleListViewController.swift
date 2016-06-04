@@ -28,9 +28,10 @@ import UIKit
 import Zeeguu_API_iOS
 
 class ArticleListViewController: ZGTableViewController {
-
+	
 	var feeds = [Feed]()
 	var articles = [Article]()
+	var loadedAllContents = false
 	
 	convenience init(feed: Feed) {
 		self.init(feeds: [feed])
@@ -40,17 +41,14 @@ class ArticleListViewController: ZGTableViewController {
 		self.init()
 		self.feeds = feeds
 	}
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.tableView.estimatedRowHeight = 80
+		self.tableView.estimatedRowHeight = 100
 		
 		self.title = "APP_TITLE".localized
 		self.navigationItem.title = "APP_TITLE".localized
-		
-//		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-//		self.navigationItem.rightBarButtonItem = addButton
 		
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			self.clearsSelectionOnViewWillAppear = true
@@ -63,17 +61,19 @@ class ArticleListViewController: ZGTableViewController {
 	}
 	
 	func getArticles() {
-		var j = 0;
 		for i in 0 ..< feeds.count {
 			ZeeguuAPI.sharedAPI().getFeedItemsForFeed(feeds[i], completion: { (articles) -> Void in
 				if let arts = articles {
-					self.articles.appendContentsOf(arts)
+					for art in arts {
+						if !self.articles.contains({ $0 == art }) {
+							self.articles.append(art);
+						}
+					}
 					self.articles.sortInPlace({ (lhs, rhs) -> Bool in
 						return lhs.date > rhs.date
 					})
 				}
-				j += 1;
-				if (j == self.feeds.count) {
+				if (i == self.feeds.count - 1) {
 					dispatch_async(dispatch_get_main_queue(), { () -> Void in
 						// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
 						// This enables us to attach a completion block to the animation, reloading data before
@@ -81,6 +81,7 @@ class ArticleListViewController: ZGTableViewController {
 						CATransaction.begin()
 						CATransaction.setCompletionBlock({ () -> Void in
 							self.tableView.reloadData()
+							self.getDifficulties()
 						})
 						self.refreshControl?.endRefreshing()
 						CATransaction.commit()
@@ -89,18 +90,27 @@ class ArticleListViewController: ZGTableViewController {
 			})
 		}
 	}
-
+	
+	func getDifficulties() {
+		Article.getDifficultiesForArticles(self.articles) { (success) in
+			dispatch_async(dispatch_get_main_queue(), {
+				self.tableView.reloadData()
+			})
+		}
+	}
+	
+	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-
+	
 	// MARK: - Table View
-
+	
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		return 1
 	}
-
+	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return articles.count
 	}
@@ -116,44 +126,52 @@ class ArticleListViewController: ZGTableViewController {
 		} else {
 			cell = ArticleTableViewCell(article: article, reuseIdentifier: "Cell")
 		}
+		
+		// TODO: Disabled this for now as not all images seem to correspond to the main image
+		//		if self.loadedAllContents {
+		//			article.getImage({ (image) in
+		//				if let i = image {
+		//					dispatch_async(dispatch_get_main_queue(), {
+		//						cell.setArticleImage(i)
+		//					})
+		//				}
+		//			})
+		//		}
+		
 		cell.accessoryType = .DisclosureIndicator
 		return cell
 	}
-
+	
 	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
 		// Return false if you do not want the specified item to be editable.
 		return true
 	}
-
+	
 	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		if editingStyle == .Delete {
-		    articles.removeAtIndex(indexPath.row)
-		    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+			articles.removeAtIndex(indexPath.row)
+			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
 		} else if editingStyle == .Insert {
-		    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+			// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
 		}
 	}
-
+	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		guard let split = self.splitViewController else {
+			return
+		}
 		let article = articles[indexPath.row]
 		let vc = ArticleViewController(article: article)
 		
-		if let split = self.splitViewController {
-			var controllers = split.viewControllers
-			controllers.removeLast()
-			
-			let nav = UINavigationController(rootViewController: vc)
-			
-			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-			vc.navigationItem.leftItemsSupplementBackButton = true
-			split.showDetailViewController(nav, sender: self)
-			if let sv = self.splitViewController {
-				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
-			}
-		} else {
-			vc.hidesBottomBarWhenPushed = true
-			self.navigationController?.pushViewController(vc, animated: true)
-		}
+		var controllers = split.viewControllers
+		controllers.removeLast()
+		
+		let nav = UINavigationController(rootViewController: vc)
+		
+		vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+		vc.navigationItem.leftItemsSupplementBackButton = true
+		split.showDetailViewController(nav, sender: self)
+		UIApplication.sharedApplication().sendAction(split.displayModeButtonItem().action, to: split.displayModeButtonItem().target, from: nil, forEvent: nil)
 	}
 }
 

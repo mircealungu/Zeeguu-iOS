@@ -27,7 +27,7 @@
 import UIKit
 
 extension NSURLRequest {
-	public func extendedDescription() -> String {
+	func extendedDescription() -> String {
 		
 		var result = "<\(NSStringFromClass(self.dynamicType)): " + String(format: "%p", self)
 		result += "; HTTPMethod=" + (HTTPMethod ?? "nil") + "; URL=\(URL); timeoutInterval=" + String(format: "%.1fs", timeoutInterval) + "> {"
@@ -48,11 +48,13 @@ extension NSURLRequest {
 		return result + "\n}"
 	}
 	
-	public override var debugDescription: String {
+	/// The debug description of this `NSURLRequest` object. The value of this property will be used whenever the system tries to print this `NSURLRequest` object or when the system tries to convert this `NSURLRequest` object to a `String`. This method is overridden to add a custom description to the default `UIKit` class `NSURLRequest`.
+	override public var debugDescription: String {
 		return extendedDescription()
 	}
 	
-	public override var description: String {
+	/// The description of this `NSURLRequest` object. The value of this property will be used whenever the system tries to print this `NSURLRequest` object or when the system tries to convert this `NSURLRequest` object to a `String`. This method is overridden to add a custom description to the default `UIKit` class `NSURLRequest`.
+	override public var description: String {
 		return extendedDescription()
 	}
 }

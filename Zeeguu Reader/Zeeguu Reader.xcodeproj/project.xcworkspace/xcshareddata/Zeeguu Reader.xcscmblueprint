@@ -9,18 +9,12 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "07BD69C5-774E-4916-96AE-DC0FB0476854",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "84B4301FA49338DE717EBFF07D9C805FF426BC54" : "Zeeguu-API-iOS\/",
     "F4415876F01DB7351AA3392A9AA57939EB6FD492" : "Zeeguu-Reader-iOS\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Zeeguu Reader",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Zeeguu Reader\/Zeeguu Reader.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
-    {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JorritO\/Zeeguu-API-iOS.git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "84B4301FA49338DE717EBFF07D9C805FF426BC54"
-    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JorritO\/Zeeguu-Reader-iOS.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
