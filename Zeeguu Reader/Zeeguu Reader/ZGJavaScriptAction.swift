@@ -117,22 +117,29 @@ enum ZGJavaScriptAction {
 	func getJavaScriptExpression() -> String {
 		switch self {
 		case let .Translate(dict):
-			guard let word = dict["translation"], context = dict["context"], id = dict["id"], bid = dict["bookmarkID"] else {
+			guard let translation = dict["translation"], word = dict["word"], context = dict["context"], id = dict["id"], bid = dict["bookmarkID"] else {
 				fatalError("The ZGJavaScriptAction.Translate(_) dictionary is in an incorrect state!")
 			}
-			var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-			w = w.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+			var t = translation.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+			t = t.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+			t = t.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 			
 			var c = context.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
 			c = c.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+			c = c.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 			
-			return "insertTranslationForID(\"\(w)\", \"\(c)\", \"\(id)\", \"\(bid)\")"
+			var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+			w = w.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+			w = w.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+			
+			return "insertTranslationForID(\"\(t)\", \"\(w)\", \"\(c)\", \"\(id)\", \"\(bid)\")"
 		case let .EditTranslation(dict):
 			guard let word = dict["newTranslation"], id = dict["id"] else {
 				fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
 			}
 			var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
 			w = w.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+			w = w.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 			if let ot = dict["otherTranslations"] {
 				var str = ot.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
 				str = str.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
@@ -144,7 +151,7 @@ enum ZGJavaScriptAction {
 		case let .ChangeFontSize(factor):
 			return "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(100 + factor * 10)%'"
 		case let .ChangeTranslationMode(mode):
-			return "zeeguuTranslationMode = \(mode.rawValue);"
+			return "setTranslationMode(\(mode.rawValue));"
 		case let .DisableLinks(disable):
 			return "zeeguuLinksAreDisabled = \(disable ? "true" : "false"); zeeguuUpdateLinkState();"
 		case .RemoveSelectionHighlights():
