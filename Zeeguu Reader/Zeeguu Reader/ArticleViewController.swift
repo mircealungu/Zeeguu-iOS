@@ -310,6 +310,14 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			print("error: \(error)")
 		})
 		self.webview.userInteractionEnabled = true
+		currentJavaScriptAction = nil
+	}
+	
+	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+		if action == #selector(ArticleViewController.translateSelection(_:)) && currentJavaScriptAction == nil {
+			return false
+		}
+		return super.canPerformAction(action, withSender: sender)
 	}
 	
 }
