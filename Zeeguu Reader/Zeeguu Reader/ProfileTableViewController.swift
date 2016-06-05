@@ -41,6 +41,9 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileTableViewController.userDidLogin(_:)), name: UserLoggedInNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileTableViewController.userDidLogout(_:)), name: UserLoggedOutNotification, object: nil)
+		
 		self.tableView.estimatedRowHeight = 80
 		
 		let logoutButton = UIBarButtonItem(title: "LOGOUT".localized, style: .Done, target: self, action: #selector(ProfileTableViewController.logout(_:)))
@@ -156,8 +159,21 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 	
 	func logout(sender: AnyObject) {
 		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
+			NSNotificationCenter.defaultCenter().postNotificationName(UserLoggedOutNotification, object: self)
 			(UIApplication.sharedApplication().delegate as? AppDelegate)?.presentLogin()
 		}
+	}
+	
+	func userDidLogin(notification: NSNotification) {
+		self.refreshControl?.beginRefreshing()
+		getUserData()
+	}
+	
+	func userDidLogout(notification: NSNotification) {
+		self.refreshControl?.beginRefreshing()
+		getUserData()
+//		self.data = [[(String, String)]]()
+//		self.tableView.reloadData()
 	}
 	
 }

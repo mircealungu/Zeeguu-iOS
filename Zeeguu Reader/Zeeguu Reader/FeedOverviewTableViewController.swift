@@ -44,6 +44,8 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FeedOverviewTableViewController.userDidLogin(_:)), name: UserLoggedInNotification, object: nil)
+		
 		self.tableView.estimatedRowHeight = 80
 		
 //		let def = NSUserDefaults.standardUserDefaults()
@@ -121,6 +123,7 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 //	}
 	
 	func addFeedDidAddFeeds(feeds: [Feed]) {
+		self.refreshControl?.beginRefreshing()
 		getFeeds()
 	}
 	
@@ -200,6 +203,11 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 		if let vc = vc {
 			self.navigationController?.pushViewController(vc, animated: true)
 		}
+	}
+	
+	func userDidLogin(notification: NSNotification) {
+		self.refreshControl?.beginRefreshing()
+		getFeeds()
 	}
 
 }

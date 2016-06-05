@@ -21,6 +21,7 @@
 		944FCB311CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */; };
 		945658191C42B804000CDF3F /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945658181C42B804000CDF3F /* AppIcon.swift */; };
 		946317471CEB4EA900B67532 /* zeeguu.css in Resources */ = {isa = PBXBuildFile; fileRef = 946317461CEB4EA800B67532 /* zeeguu.css */; };
+		9467CEDA1D04259B00D07DFE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9467CED91D04259B00D07DFE /* Constants.swift */; };
 		947799D51C17171B00C494ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D41C17171B00C494ED /* AppDelegate.swift */; };
 		947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D61C17171B00C494ED /* ArticleListViewController.swift */; };
 		947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D81C17171B00C494ED /* ArticleViewController.swift */; };
@@ -86,6 +87,7 @@
 		944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewOptionsTableViewController.swift; sourceTree = "<group>"; };
 		945658181C42B804000CDF3F /* AppIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		946317461CEB4EA800B67532 /* zeeguu.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zeeguu.css; sourceTree = "<group>"; };
+		9467CED91D04259B00D07DFE /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		947799D11C17171B00C494ED /* Zeeguu Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zeeguu Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799D41C17171B00C494ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		947799D61C17171B00C494ED /* ArticleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				94CEECE21C1D792E00C3D0E3 /* Utils.swift */,
 				945658181C42B804000CDF3F /* AppIcon.swift */,
 				949D59B21C7DD32D007C4A0C /* AppColor.swift */,
+				9467CED91D04259B00D07DFE /* Constants.swift */,
 				9415E5241CCF7E980091954A /* Localizable.strings */,
 				947799DD1C17171B00C494ED /* Images.xcassets */,
 				947799DF1C17171B00C494ED /* LaunchScreen.storyboard */,
@@ -513,6 +516,7 @@
 				94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */,
 				942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */,
 				94FC8D021CDB874F0032E72A /* ZGJavaScriptAction.swift in Sources */,
+				9467CEDA1D04259B00D07DFE /* Constants.swift in Sources */,
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
 				94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */,

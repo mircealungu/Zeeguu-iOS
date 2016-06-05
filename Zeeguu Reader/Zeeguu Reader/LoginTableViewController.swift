@@ -89,11 +89,15 @@ class LoginTableViewController: ZGTableViewController {
 		
 		if let em = email, pw = password {
 			ZeeguuAPI.sharedAPI().loginWithEmail(em, password: pw) { (success) -> Void in
-				if (success) {
-					self.dismissViewControllerAnimated(true, completion: nil)
-				} else {
-					Utils.showOKAlertWithTitle("LOGIN_FAILED".localized, message: "LOGIN_FAILED_MESSAGE".localized, okAction: nil)
-				}
+				dispatch_async(dispatch_get_main_queue(), {
+					if (success) {
+						self.dismissViewControllerAnimated(true, completion: {
+							NSNotificationCenter.defaultCenter().postNotificationName(UserLoggedInNotification, object: self)
+						})
+					} else {
+						Utils.showOKAlertWithTitle("LOGIN_FAILED".localized, message: "LOGIN_FAILED_MESSAGE".localized, okAction: nil)
+					}
+				})
 			}
 		} else {
 			Utils.showOKAlertWithTitle("NO_LOGIN".localized, message: "NO_LOGIN_MESSAGE".localized, okAction: nil)

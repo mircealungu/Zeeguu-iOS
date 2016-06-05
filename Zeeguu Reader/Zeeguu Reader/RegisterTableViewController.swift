@@ -120,14 +120,18 @@ class RegisterTableViewController: ZGTableViewController, LanguagesTableViewCont
 		
 		if let na = name,  em = email, pw = password, base = baseLanguage, learn = learnLanguage {
 			ZeeguuAPI.sharedAPI().registerUserWithUsername(na, email: em, password: pw, completion: { (success) -> Void in
-				if (success) {
-					ZeeguuAPI.sharedAPI().setLearnedLanguage(learn, completion: { (success) -> Void in })
-					ZeeguuAPI.sharedAPI().setNativeLanguage(base, completion: { (success) -> Void in })
-					self.dismissViewControllerAnimated(true, completion: nil)
-				} else {
-					// TODO: pretty error message
-					print("register error")
-				}
+				dispatch_async(dispatch_get_main_queue(), {
+					if (success) {
+						ZeeguuAPI.sharedAPI().setLearnedLanguage(learn, completion: { (success) -> Void in })
+						ZeeguuAPI.sharedAPI().setNativeLanguage(base, completion: { (success) -> Void in })
+						self.dismissViewControllerAnimated(true, completion: {
+							NSNotificationCenter.defaultCenter().postNotificationName(UserLoggedInNotification, object: self)
+						})
+					} else {
+						// TODO: pretty error message
+						print("register error")
+					}
+				})
 			})
 		} else {
 			Utils.showOKAlertWithTitle("NO_LOGIN".localized, message: "NO_LOGIN_MESSAGE".localized, okAction: nil)
