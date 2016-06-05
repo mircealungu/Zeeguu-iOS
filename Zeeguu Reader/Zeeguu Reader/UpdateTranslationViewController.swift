@@ -4,17 +4,17 @@
 //
 //  Created by Jorrit Oosterhof on 23-05-16.
 //  Copyright © 2015 Jorrit Oosterhof.
-// 
+//
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
 //  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 //  copies of the Software, and to permit persons to whom the Software is
 //  furnished to do so, subject to the following conditions:
-//  
+//
 //  The above copyright notice and this permission notice shall be included in
 //  all copies or substantial portions of the Software.
-//  
+//
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
@@ -59,6 +59,17 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		if let dict = action.getActionInformation() {
 			if let ot = dict["otherTranslations"] where !ot.isEmpty {
 				self.otherTranslations = JSON.parse(ot).dictionaryObject as? [String: String]
+				
+				if let ot = otherTranslations where ot.count > 0 {
+					s1.removeAll()
+					for (_, value) in ot {
+						s1.append(value)
+					}
+				}
+				
+				s1.sortInPlace({ $0.0.lowercaseString < $0.1.lowercaseString })
+				
+				data = [s1, s2, s3]
 			} else if let word = dict["originalWord"] {
 				ZeeguuAPI.sharedAPI().getTranslationsForWord(word, context: "Test context", url: "Test url", completion: { (translation) in
 					if let ts = translation?["translations"].array {
@@ -70,13 +81,14 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 						}
 						self.otherTranslations = d
 						
-						
 						if let ot = self.otherTranslations where ot.count > 0 {
 							s1.removeAll()
 							for (_, value) in ot {
 								s1.append(value)
 							}
 						}
+						
+						s1.sortInPlace({ $0.0.lowercaseString < $0.1.lowercaseString })
 						
 						self.data = [s1, s2, s3]
 						dispatch_sync(dispatch_get_main_queue(), {
@@ -86,14 +98,6 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 				})
 			}
 		}
-		if let ot = otherTranslations where ot.count > 0 {
-			s1.removeAll()
-			for (_, value) in ot {
-				s1.append(value)
-			}
-		}
-		
-		data = [s1, s2, s3]
 		
 	}
 	
@@ -159,7 +163,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 				tf.textColor = UIColor(red:56.0/255.0, green:84.0/255.0, blue:135.0/255.0, alpha:1.0);
 				tf.addTarget(self, action: #selector(UpdateTranslationViewController.updateTranslation(_:)), forControlEvents: .PrimaryActionTriggered)
 				tf.autocapitalizationType = .None
-//				tf.becomeFirstResponder()
+				//				tf.becomeFirstResponder()
 				
 				cell?.contentView.addSubview(tf)
 				
@@ -167,7 +171,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 				
 				cell?.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[tf]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 				cell?.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[tf]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-
+				
 				
 			}
 		} else if sec == 2 {
