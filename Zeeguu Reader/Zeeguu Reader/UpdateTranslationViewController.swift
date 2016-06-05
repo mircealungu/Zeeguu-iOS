@@ -29,7 +29,8 @@ import Zeeguu_API_iOS
 
 protocol UpdateTranslationViewControllerDelegate {
 	
-	func updateTranslationViewControllerDidChangeTranslationTo(translation: String, otherTranslations: [String: String]?)
+	func updateTranslationViewControllerDidChangeTranslation(utvc: UpdateTranslationViewController, newTranslation: String, otherTranslations: [String: String]?)
+	func updateTranslationViewControllerDidDeleteTranslation(utvc: UpdateTranslationViewController)
 	
 }
 
@@ -46,8 +47,9 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		
 		var s1 = ["Translation 1", "Translation x", "Translation n-1"]
 		let s2 = ["UPDATE_TRANSLATION".localized]
+		let s3 = ["DELETE_TRANSLATION".localized]
 		
-		data = [s1, s2]
+		data = [s1, s2, s3]
 		super.init(style: .Grouped)
 		self.modalPresentationStyle = .Popover
 		self.popoverPresentationController?.delegate = self
@@ -76,7 +78,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 							}
 						}
 						
-						self.data = [s1, s2]
+						self.data = [s1, s2, s3]
 						dispatch_sync(dispatch_get_main_queue(), {
 							self.tableView.reloadData()
 						})
@@ -91,7 +93,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 			}
 		}
 		
-		data = [s1, s2]
+		data = [s1, s2, s3]
 		
 	}
 	
@@ -168,6 +170,10 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 
 				
 			}
+		} else if sec == 2 {
+			if row == 0 {
+				cell?.textLabel?.textColor = UIColor.redColor()
+			}
 		}
 		
 		return cell!
@@ -176,9 +182,11 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let sec = indexPath.section
 		let row = indexPath.row
-		let text = data[sec][row]
-		if let del = delegate where text != oldTranslation {
-			del.updateTranslationViewControllerDidChangeTranslationTo(text, otherTranslations: otherTranslations)
+		if sec == 0 {
+			let text = data[sec][row]
+			updateTranslationWith(text)
+		} else if sec == 2 {
+			deleteTranslation()
 		}
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
@@ -190,9 +198,12 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		return nil
 	}
 	
-//	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-//		
-//	}
+	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+		if section == 2 {
+			return "DELETE_TRANSLATION_FOOTER".localized
+		}
+		return nil
+	}
 	
 	func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
 		return .None
@@ -200,10 +211,22 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	
 	func updateTranslation(sender: UITextField) {
 		sender.resignFirstResponder()
-		if let text = sender.text, del = delegate where text != oldTranslation {
-			del.updateTranslationViewControllerDidChangeTranslationTo(text, otherTranslations: otherTranslations)
+		if let text = sender.text {
+			updateTranslationWith(text)
 		}
 		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	func updateTranslationWith(text: String) {
+		if let del = delegate where text != oldTranslation {
+			del.updateTranslationViewControllerDidChangeTranslation(self, newTranslation: text, otherTranslations: otherTranslations)
+		}
+	}
+	
+	func deleteTranslation() {
+		if let del = delegate {
+			del.updateTranslationViewControllerDidDeleteTranslation(self)
+		}
 	}
 	
 }

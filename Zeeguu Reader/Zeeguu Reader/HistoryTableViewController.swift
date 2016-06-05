@@ -54,8 +54,9 @@ class HistoryTableViewController: ZGTableViewController {
 	
 	func getBookmarks() {
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
+			var items = [[Bookmark]]()
+			var filled = false
 			if let d = dict?.array {
-				var items = [[Bookmark]]()
 				var counter = 0
 				
 				for arr in d {
@@ -77,7 +78,8 @@ class HistoryTableViewController: ZGTableViewController {
 					self.dates.append(date)
 					counter += 1
 				}
-				self.bookmarks = items
+//				self.bookmarks = items
+				filled = true
 			}
 			dispatch_async(dispatch_get_main_queue(), { () -> Void in
 				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
@@ -85,6 +87,9 @@ class HistoryTableViewController: ZGTableViewController {
 				// animation is complete causes glitching.
 				CATransaction.begin()
 				CATransaction.setCompletionBlock({ () -> Void in
+					if filled {
+						self.bookmarks = items
+					}
 					self.tableView.reloadData()
 				})
 				self.refreshControl?.endRefreshing()

@@ -44,6 +44,8 @@ enum ZGJavaScriptAction {
 	///
 	/// **Important**: Before using `ZGJavaScriptAction.getJavaScriptExpression`, use `ZGJavaScriptAction.setTranslation` to set a new translation, to make sure the JavaScript expression can be created!
 	case EditTranslation(Dictionary<String, String>)
+	/// The delete translation action. The value is the JavaScript element id of the HTML element that displays the translation.
+	case DeleteTranslation(String)
 	/// The change font size action. The value indicates the factor of change (1 = +10%, -1 = -10%, ...)
 	case ChangeFontSize(Int)
 	/// The change translate mode action. The value indicates the translation mode.
@@ -148,6 +150,8 @@ enum ZGJavaScriptAction {
 			} else {
 				return "updateTranslationForID(\"\(w)\", \"\(id)\", null)"
 			}
+		case let .DeleteTranslation(id):
+			return "deleteTranslationWithID(\"\(id)\")"
 		case let .ChangeFontSize(factor):
 			return "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(100 + factor * 10)%'"
 		case let .ChangeTranslationMode(mode):
@@ -160,4 +164,9 @@ enum ZGJavaScriptAction {
 			return ""
 		}
 	}
+	
+//	self.webview.evaluateJavaScript(newAct.getJavaScriptExpression(), completionHandler: { (result, error) in
+//	print("result: \(result)")
+//	print("error: \(error)")
+//	})
 }

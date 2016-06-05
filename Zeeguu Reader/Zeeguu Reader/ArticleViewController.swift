@@ -172,21 +172,22 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		self.presentViewController(vc, animated: true, completion: nil)
 	}
 	
-	func updateTranslationViewControllerDidChangeTranslationTo(translation: String, otherTranslations: [String : String]?) {
+	func updateTranslationViewControllerDidChangeTranslation(utvc: UpdateTranslationViewController, newTranslation: String, otherTranslations: [String : String]?) {
 		var otherTranslations = otherTranslations
-		print("new translation: \(translation)")
+		print("new translation: \(newTranslation)")
 		guard var act = currentJavaScriptAction, d = act.getActionInformation(), let bid = d["bookmarkID"], let old = d["oldTranslation"] else {
+			currentJavaScriptAction = nil
 			return
 		}
 		if var ot = otherTranslations {
 			var add = true
 			for (_, value) in ot {
-				if value == translation {
+				if value == newTranslation {
 					add = false
 				}
 			}
 			if add {
-				ot[translation] = translation
+				ot[newTranslation] = newTranslation
 				otherTranslations = ot
 			}
 		}
@@ -195,19 +196,32 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			act.setOtherTranslations(str)
 		}
 		
-		ZeeguuAPI.sharedAPI().addNewTranslationToBookmarkWithID(bid, translation: translation, completion: { (success) in
+		ZeeguuAPI.sharedAPI().addNewTranslationToBookmarkWithID(bid, translation: newTranslation, completion: { (success) in
 			if (success) {
 				ZeeguuAPI.sharedAPI().deleteTranslationFromBookmarkWithID(bid, translation: old, completion: { (success) in})
 			}
 		})
 		
 		
-		act.setTranslation(translation)
+		act.setTranslation(newTranslation)
 		self.webview.evaluateJavaScript(act.getJavaScriptExpression(), completionHandler: { (result, error) in
 			print("result: \(result)")
 			print("error: \(error)")
 		})
 		currentJavaScriptAction = nil
+	}
+	
+	func updateTranslationViewControllerDidDeleteTranslation(utvc: UpdateTranslationViewController) {
+		guard let act = currentJavaScriptAction, d = act.getActionInformation(), id = d["id"], bid = d["bookmarkID"] else {
+			currentJavaScriptAction = nil
+			return
+		}
+		let newAct = ZGJavaScriptAction.DeleteTranslation(id)
+		ZeeguuAPI.sharedAPI().deleteBookmarkWithID(bid) { (success) in }
+		self.webview.evaluateJavaScript(newAct.getJavaScriptExpression(), completionHandler: { (result, error) in
+			print("result: \(result)")
+			print("error: \(error)")
+		})
 	}
 	
 	override func canBecomeFirstResponder() -> Bool {

@@ -155,6 +155,11 @@ function updateTranslationForID(translation, id, otherTranslations) {
 	translationElement.setAttribute("data-zeeguu-other-translations", otherTranslations);
 }
 
+function deleteTranslationWithID(id) {
+	var translationElement = document.getElementById(id);
+	translationElement.parentNode.removeChild(translationElement);
+}
+
 function zeeguuUpdateLinkState() {
 	var func = function (idx, el) {
 		var attrToAdd = zeeguuLinksAreDisabled ? "data-zeeguu-href" : "href";

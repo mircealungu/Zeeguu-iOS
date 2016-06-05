@@ -37,6 +37,8 @@
 "CHOOSE_FEEDS_TO_ADD" = "Select the news feeds you want to follow.";
 "CONTEXT" = "Context";
 "CONTEXT_OF_%@" = "Context of %@";
+"DELETE_TRANSLATION" = "Delete translation";
+"DELETE_TRANSLATION_FOOTER" = "Delete translation. This will remove this translation from the web page and will also remove it from your translation history.";
 "DISABLE_LINKS" = "Disable links";
 "EMAIL" = "Email";
 "FINDING_FEEDS" = "Finding feeds...";
