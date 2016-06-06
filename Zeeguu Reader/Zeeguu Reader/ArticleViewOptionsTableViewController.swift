@@ -33,7 +33,7 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	
 	init(parent: ArticleViewController) {
 		let s1 = ["FONTSIZE".localized]
-		let s2 = ["INSTANT_TRANSLATION".localized, "TRANSLATE_WORD_PAIR".localized, "TRANSLATE_SENTENCE".localized]
+		let s2 = [ArticleViewTranslationMode.Instant.getTitle(), ArticleViewTranslationMode.WordPair.getTitle(), ArticleViewTranslationMode.Sentence.getTitle()]
 		let s3 = ["DISABLE_LINKS".localized, "PRONOUNCE_TRANSLATED_WORD".localized]
 		
 		data = [s1, s2, s3]

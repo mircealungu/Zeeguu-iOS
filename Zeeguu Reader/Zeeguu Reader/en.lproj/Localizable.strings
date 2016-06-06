@@ -45,6 +45,7 @@
 "FONTSIZE" = "Fontsize";
 "HISTORY" = "History";
 "INSTANT_TRANSLATION" = "Instant translation";
+"INSTANT_TRANSLATION_DESCRIPTION" = "To translate words, simply tap a word and its translation appears right next to it.";
 "LEARN_LANGUAGE" = "Learn";
 "LOGIN" = "Login";
 "LOGIN_OR_REGISTER" = "Login or register";
@@ -66,7 +67,9 @@
 "REGISTER" = "Register";
 "TRANSLATE" = "Translate";
 "TRANSLATE_WORD_PAIR" = "Translate pair of words";
+"TRANSLATE_WORD_PAIR_DESCRIPTION" = "To translate a pair of words, just tap the first word and the second word. They will be translated as if they were right next to each other.";
 "TRANSLATE_SENTENCE" = "Translate larger piece of text";
+"TRANSLATE_SENTENCE_DESCRIPTION" = "To translate a sentence, just tap the first word and the last word of the sentence. The tapped words and everything in between will be translated. This functionality is limited to sentences within the same paragraph.";
 "TRANSLATED_TO_%@%@" = "'%@' translated to '%@'";
 "TRANSLATION_MODE" = "Translate mode";
 "TRANSLATION_MODE_DESCRIPTION" = "You can have your translations in two ways: either instantly after selecting or after selecting and pressing a translate button. With the latter method, you can select a longer piece of text to translate.";

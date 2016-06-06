@@ -22,6 +22,7 @@
 		945658191C42B804000CDF3F /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945658181C42B804000CDF3F /* AppIcon.swift */; };
 		946317471CEB4EA900B67532 /* zeeguu.css in Resources */ = {isa = PBXBuildFile; fileRef = 946317461CEB4EA800B67532 /* zeeguu.css */; };
 		9467CEDA1D04259B00D07DFE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9467CED91D04259B00D07DFE /* Constants.swift */; };
+		94771E1D1D0597DD00D0F171 /* ArticleInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94771E1C1D0597DD00D0F171 /* ArticleInfoView.swift */; };
 		947799D51C17171B00C494ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D41C17171B00C494ED /* AppDelegate.swift */; };
 		947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D61C17171B00C494ED /* ArticleListViewController.swift */; };
 		947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947799D81C17171B00C494ED /* ArticleViewController.swift */; };
@@ -88,6 +89,7 @@
 		945658181C42B804000CDF3F /* AppIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		946317461CEB4EA800B67532 /* zeeguu.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zeeguu.css; sourceTree = "<group>"; };
 		9467CED91D04259B00D07DFE /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		94771E1C1D0597DD00D0F171 /* ArticleInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleInfoView.swift; sourceTree = "<group>"; };
 		947799D11C17171B00C494ED /* Zeeguu Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zeeguu Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947799D41C17171B00C494ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		947799D61C17171B00C494ED /* ArticleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				94779A111C17348B00C494ED /* ArticleViewTranslationMode.swift */,
 				944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */,
 				94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */,
+				94771E1C1D0597DD00D0F171 /* ArticleInfoView.swift */,
 			);
 			name = Articles;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				944FCB311CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift in Sources */,
 				94779A121C17348B00C494ED /* ArticleViewTranslationMode.swift in Sources */,
 				947799D51C17171B00C494ED /* AppDelegate.swift in Sources */,
+				94771E1D1D0597DD00D0F171 /* ArticleInfoView.swift in Sources */,
 				94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */,
 				949D59B31C7DD32D007C4A0C /* AppColor.swift in Sources */,
 				94CEECE31C1D792E00C3D0E3 /* Utils.swift in Sources */,

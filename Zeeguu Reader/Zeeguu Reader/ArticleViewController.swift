@@ -29,7 +29,7 @@ import AVFoundation
 import WebKit
 import Zeeguu_API_iOS
 
-class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UpdateTranslationViewControllerDelegate {
+class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UpdateTranslationViewControllerDelegate, UIPopoverPresentationControllerDelegate {
 	
 	var article: Article?
 	
@@ -43,6 +43,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 	}
 	
+	private var oldTranslationMode: ArticleViewTranslationMode?
 	private var _translationMode = ArticleViewTranslationMode.Instant
 	var translationMode: ArticleViewTranslationMode {
 		get {
@@ -73,11 +74,16 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 	}
 	
+	private var infoViewShown: Bool = false
+	private var infoView: ArticleInfoView
+	private var infoViewBottomConstraint: NSLayoutConstraint!
+	
 	var pronounceTranslatedWord = true
 	
 	private var currentJavaScriptAction: ZGJavaScriptAction?
 	
 	init(article: Article? = nil) {
+		self.infoView = ArticleInfoView()
 		self.article = article
 		//		self._articleView = ArticleView(article: self.article)
 		super.init(nibName: nil, bundle: nil)
@@ -107,11 +113,19 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		self.view.backgroundColor = UIColor.whiteColor()
-		let views: [String: AnyObject] = ["v": webview]
+		let views: [String: AnyObject] = ["v": webview, "iv": infoView]
 		
 		self.view.addSubview(webview)
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		
+		self.view.addSubview(infoView)
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[iv]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		if infoViewBottomConstraint == nil {
+			self.infoViewBottomConstraint = NSLayoutConstraint(item: self.view, attribute: .Bottom, relatedBy: .Equal, toItem: infoView, attribute: .Bottom, multiplier: 1, constant: -100)
+		}
+		self.view.addConstraint(infoViewBottomConstraint)
+		
 		
 		let optionsBut = UIBarButtonItem(title: "OPTIONS".localized, style: .Plain, target: self, action: #selector(ArticleViewController.showOptions(_:)))
 		self.navigationItem.rightBarButtonItem = optionsBut
@@ -143,6 +157,13 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		mc.menuItems = [bookmarkItem]
 	}
 	
+	func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+		if article != nil && !infoViewShown {
+			showInfoView()
+			infoViewShown = true
+		}
+	}
+	
 	override func viewDidDisappear(animated: Bool) {
 		let mc = UIMenuController.sharedMenuController()
 		
@@ -152,6 +173,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	func showOptions(sender: UIBarButtonItem) {
 		let vc = ArticleViewOptionsTableViewController(parent: self)
 		vc.popoverPresentationController?.barButtonItem = sender
+		vc.popoverPresentationController?.delegate = self
+		oldTranslationMode = translationMode
 		self.presentViewController(vc, animated: true, completion: nil)
 	}
 	
@@ -334,5 +357,29 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		return super.canPerformAction(action, withSender: sender)
 	}
 	
+	func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+		if let old = oldTranslationMode where old != translationMode {
+			showInfoView()
+			oldTranslationMode = nil
+		}
+	}
+	
+	func showInfoView() {
+		self.infoViewBottomConstraint.constant = 20
+		UIView.animateWithDuration(1.0, animations: {
+			self.infoView.text = self.translationMode.getDescription()
+			self.view.layoutIfNeeded()
+		}) { (finished) in
+			let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
+			dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+				self.infoViewBottomConstraint.constant = -100
+				UIView.animateWithDuration(1.0, animations: {
+					self.view.layoutIfNeeded()
+				}) { (finished) in
+					self.infoView.text = ""
+				}
+			}
+		}
+	}
 }
 

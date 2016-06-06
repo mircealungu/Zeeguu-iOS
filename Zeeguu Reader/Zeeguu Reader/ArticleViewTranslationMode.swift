@@ -30,4 +30,26 @@ enum ArticleViewTranslationMode: Int {
 	case Instant
 	case WordPair
 	case Sentence
+	
+	func getTitle() -> String {
+		switch self {
+		case .Instant:
+			return "INSTANT_TRANSLATION".localized
+		case .WordPair:
+			return "TRANSLATE_WORD_PAIR".localized
+		case .Sentence:
+			return "TRANSLATE_SENTENCE".localized
+		}
+	}
+	
+	func getDescription() -> String {
+		switch self {
+		case .Instant:
+			return "INSTANT_TRANSLATION_DESCRIPTION".localized
+		case .WordPair:
+			return "TRANSLATE_WORD_PAIR_DESCRIPTION".localized
+		case .Sentence:
+			return "TRANSLATE_SENTENCE_DESCRIPTION".localized
+		}
+	}
 }
