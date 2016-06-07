@@ -75,6 +75,7 @@
 "TRANSLATED_TO_%@%@" = "'%@' translated to '%@'";
 "TRANSLATION_MODE" = "Translate mode";
 "TRANSLATION_MODE_DESCRIPTION" = "You can have your translations in two ways: either instantly after selecting or after selecting and pressing a translate button. With the latter method, you can select a longer piece of text to translate.";
+"UPDATE_TRANSLATION" = "Update translation";
 "URL" = "Url";
 "USERNAME" = "Username";
 "WORD_IS_LANGUAGE_%@%@" = "%@ is a %@ word";

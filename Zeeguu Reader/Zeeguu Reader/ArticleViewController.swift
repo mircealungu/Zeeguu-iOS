@@ -29,7 +29,7 @@ import AVFoundation
 import WebKit
 import Zeeguu_API_iOS
 
-class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UpdateTranslationViewControllerDelegate, UIPopoverPresentationControllerDelegate {
+class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UpdateTranslationViewControllerDelegate, UIPopoverPresentationControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
 	
 	var article: Article?
 	
@@ -81,6 +81,11 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	var pronounceTranslatedWord = true
 	
 	private var currentJavaScriptAction: ZGJavaScriptAction?
+	
+	private var isPresentingUpdateTranslation: Bool = false
+	private var presentUpdateTranslationDuration: NSTimeInterval = 0.5
+	private var presentUpdateTranslationDimView: UIView = UIView()
+	private var presentUpdateTranslationViewController: UIViewController?
 	
 	init(article: Article? = nil) {
 		self.infoView = ArticleInfoView()
@@ -180,19 +185,89 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func showUpdateTranslation(sender: ZGJavaScriptAction) {
 		let dict = sender.getActionInformation();
-		guard let r = dict, old = r["oldTranslation"], rx = r["left"], ry = r["top"], rw = r["width"], rh = r["height"], x = Float(rx), y = Float(ry), w = Float(rw), h = Float(rh) else {
+		guard let r = dict, old = r["oldTranslation"] else {
 			return
 		}
 		let vc = UpdateTranslationViewController(oldTranslation: old, action: sender)
 		
 		vc.delegate = self;
 		
-		let topGuide = self.topLayoutGuide
-		vc.popoverPresentationController?.sourceRect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
-		vc.popoverPresentationController?.sourceView = webview
+		let nav = UINavigationController(rootViewController: vc)
+		nav.transitioningDelegate = self;
+		nav.modalPresentationStyle = .Custom
+		
+//		let topGuide = self.topLayoutGuide
+//		vc.popoverPresentationController?.sourceRect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
+//		vc.popoverPresentationController?.sourceView = webview
 		
 		currentJavaScriptAction = sender
-		self.presentViewController(vc, animated: true, completion: nil)
+		presentUpdateTranslationViewController = nav
+		self.presentViewController(nav, animated: true, completion: nil)
+		
+//		let transition = CATransition()
+//		transition.duration = 0.4
+//		transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+//		transition.type = kCATransitionPush
+//		transition.subtype = kCATransitionFromRight
+//		self.view.window?.layer.addAnimation(transition, forKey: nil)
+//		self.presentViewController(vc, animated: false, completion: nil)
+	}
+	
+	func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		isPresentingUpdateTranslation = true
+		return self
+	}
+	
+	func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		isPresentingUpdateTranslation = false;
+		return self
+	}
+	
+	func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+		return presentUpdateTranslationDuration
+	}
+	
+	func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+		let containerView = transitionContext.containerView();
+		let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+		let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+		
+		if(self.isPresentingUpdateTranslation == true) {
+			self.presentUpdateTranslationDimView = UIView(frame: CGRectMake(0, 0, 1024, 1024))
+			self.presentUpdateTranslationDimView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+			self.presentUpdateTranslationDimView.alpha = 0
+			
+			containerView!.addSubview(self.presentUpdateTranslationDimView)
+			containerView!.addSubview(toViewController!.view)
+			toViewController!.view.frame = CGRectMake(fromViewController!.view.frame.size.width, 0, 320, 1024)
+			UIView.animateWithDuration(presentUpdateTranslationDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () in
+				self.presentUpdateTranslationDimView.alpha = 1
+				toViewController!.view.frame = CGRectMake(fromViewController!.view.frame.size.width - 320, 0, 320, 1024)
+				}, completion: { (completed) in
+					transitionContext.completeTransition(completed)
+			})
+			
+		} else {
+			UIView.animateWithDuration(presentUpdateTranslationDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () in
+				fromViewController!.view.frame = CGRectMake(toViewController!.view.frame.size.width, 0, 320, 1024)
+				self.presentUpdateTranslationDimView.alpha = 0
+				}, completion: { (completed) in
+					fromViewController?.view.removeFromSuperview()
+					self.presentUpdateTranslationDimView.removeFromSuperview()
+					transitionContext.completeTransition(completed)
+			})
+		}
+	}
+	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+		coordinator.animateAlongsideTransition(nil, completion: { (context) in
+			if var f = self.presentUpdateTranslationViewController?.view.frame, let windowRect = self.view.window?.frame where self.isPresentingUpdateTranslation {
+				let windowWidth = windowRect.size.width
+				
+				f.origin.x = windowWidth - 320
+				f.size.width = 320
+				self.presentUpdateTranslationViewController?.view.frame = f
+			}
+		})
 	}
 	
 	func updateTranslationViewControllerDidChangeTranslation(utvc: UpdateTranslationViewController, newTranslation: String, otherTranslations: [String : String]?) {
