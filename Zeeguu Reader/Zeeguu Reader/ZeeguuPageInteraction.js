@@ -88,6 +88,14 @@ function handleSelection(tappedNode) {
 		// else, walk from second to the right to first
 		walkElementsStartingWith(second, secondFollowsFirst, callback);
 
+		if (!selectionComplete) {
+			var message = {action: "selectionIncomplete"};
+			removeSelectionHighlights();
+			zgjq(zeeguuSelectionFirstWord).addClass("zeeguuSelection");
+			zeeguuPostMessage(message);
+			return;
+		}
+
 		var lastElement = getPeriodAfterElement(secondFollowsFirst ? second : first, function () { text += "."; });
 		var context = getContextOfSelection(first, second, secondFollowsFirst, text);
 

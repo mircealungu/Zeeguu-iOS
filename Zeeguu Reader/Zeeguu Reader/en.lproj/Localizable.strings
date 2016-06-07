@@ -65,6 +65,8 @@
 "PROFILE" = "Profile";
 "PRONOUNCE_TRANSLATED_WORD" = "Pronounce translated word";
 "REGISTER" = "Register";
+"SELECTION_INVALID" = "Invalid selection";
+"SELECTION_INVALID_DESCRIPTION" = "A selection over multiple paragraphs is not yet supported. Please tap a second word within the same paragraph as the first one.";
 "TRANSLATE" = "Translate";
 "TRANSLATE_WORD_PAIR" = "Translate pair of words";
 "TRANSLATE_WORD_PAIR_DESCRIPTION" = "To translate a pair of words, just tap the first word and the second word. They will be translated as if they were right next to each other.";

@@ -53,11 +53,13 @@ enum ZGJavaScriptAction {
 	/// The enable/disable links action. The value indicates whether links should be disabled or not.
 	case DisableLinks(Bool)
 	/// The remove selection highlights action. This action will remove selections of word groups that were selected for translation.
-	case RemoveSelectionHighlights()
+	case RemoveSelectionHighlights
+	/// The selection incomplete action. If this action was parsed, it means a selection between two words is incomplete and that the user tapped a second word outside the paragraph of the first word. This is not supported yet.
+	case SelectionIncomplete
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
-		guard let action = dict.removeValueForKey("action"), _ = dict["id"]  else {
+		guard let action = dict.removeValueForKey("action")  else {
 			return .None
 		}
 		if action == "translate" {
@@ -68,6 +70,8 @@ enum ZGJavaScriptAction {
 			if let _ = dict["oldTranslation"], _ = dict["originalWord"] {
 				return .EditTranslation(dict)
 			}
+		} else if action == "selectionIncomplete" {
+			return .SelectionIncomplete
 		}
 		return .None
 	}

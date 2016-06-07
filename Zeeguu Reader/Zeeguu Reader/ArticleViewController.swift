@@ -336,13 +336,19 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		case .EditTranslation(_):
 			self.showUpdateTranslation(action)
 			break
+		case .SelectionIncomplete:
+			let controller = UIAlertController(title: "SELECTION_INVALID".localized, message: "SELECTION_INVALID_DESCRIPTION".localized, preferredStyle: .Alert)
+			let okAction = UIAlertAction(title: "OK".localized, style: .Default, handler: nil)
+			controller.addAction(okAction)
+			self.presentViewController(controller, animated: true, completion: nil)
+			break
 		default:
 			break
 		}
 	}
 	
 	func didHideUIMenuController(sender: NSNotification) {
-		self.webview.evaluateJavaScript(ZGJavaScriptAction.RemoveSelectionHighlights().getJavaScriptExpression(), completionHandler: { (result, error) in
+		self.webview.evaluateJavaScript(ZGJavaScriptAction.RemoveSelectionHighlights.getJavaScriptExpression(), completionHandler: { (result, error) in
 			print("result: \(result)")
 			print("error: \(error)")
 		})
