@@ -1,4 +1,16 @@
 
 .zeeguuSelection {
-	background-color: yellow;
+	background-color: #ab1136;
+	padding: 0 5px;
+	border-radius: 10px;
+	display: inline-block;
+}
+
+zeeguuWord, zeeguuSentence {
+	-webkit-transition: 1s;
+	transition: 1s;
+}
+
+zeeguuTranslatedWord {
+	color: lightgray;
 }

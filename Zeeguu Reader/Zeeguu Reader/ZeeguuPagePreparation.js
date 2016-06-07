@@ -89,6 +89,28 @@ function encloseAllWords() {
 	});
 }
 
+function encloseElementsInSentence(elements) {
+	if (elements.length > 0) {
+		var sentence = document.createElement(zeeguuSentenceTagName);
+		var first = elements[0];
+		first.parentNode.insertBefore(sentence, first);
+
+		elements.forEach(function (el) {
+			sentence.appendChild(el);
+		});
+		return sentence;
+	}
+	return null;
+}
+
+function removeElementsFromSentence(sentence) {
+	var children = Array.prototype.slice.call(sentence.childNodes);
+	children.forEach(function (el) {
+		sentence.parentNode.insertBefore(el, sentence);
+	});
+	sentence.parentNode.removeChild(sentence);
+}
+
 function addClickListeners() {
 	var words = Array.prototype.slice.call(document.querySelectorAll(zeeguuWordTagName));
 	words.forEach(function (el) {

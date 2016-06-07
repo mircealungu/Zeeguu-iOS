@@ -40,6 +40,7 @@ var zeeguuSelectionFirstWord = null;
 var zeeguuParagraphTagName = "zeeguuParagraph";
 var zeeguuWordTagName = "zeeguuWord";
 var zeeguuTranslatedWordTagName = "zeeguuTranslatedWord";
+var zeeguuSentenceTagName = "zeeguuSentence";
 
 var zeeguuPeriodTagName = "zeeguuPeriod";
 var zeeguuPeriodID = "zeeguuPeriod";

@@ -48,7 +48,7 @@ function wordClickHandler(event) {
 }
 
 function handleSelection(tappedNode) {
-	zgjq(tappedNode).addClass("zeeguuSelection");
+	zgjq(tappedNode).addClass("zeeguuSelection", 400);
 	if (zeeguuSelectionFirstWord == null) {
 		zeeguuSelectionFirstWord = event.target;
 	} else {
@@ -57,20 +57,26 @@ function handleSelection(tappedNode) {
 		var text = zgjq(tappedNode).text();
 
 		var selectionComplete = false;
+		var elements = [second];
 		var callback = function (currentElement, directionIsPrevious) {
+			var modeSentence = zeeguuTranslationMode == ZeeguuTranslateSentence;
+			if (directionIsPrevious && modeSentence) {
+				elements.unshift(currentElement);
+			} else if (modeSentence) {
+				elements.push(currentElement);
+			}
 			if (elementIsTranslation(currentElement)) {
 				return "continue";
 			}
-
 			if (directionIsPrevious) {
 				text = zgjq(currentElement).text() + text;
 			} else {
 				text = text + zgjq(currentElement).text();
 			}
 
-			if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
-				zgjq(currentElement).addClass("zeeguuSelection");
-			}
+			//if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
+			//	zgjq(currentElement).addClass("zeeguuSelection");
+			//}
 
 			if (currentElement == first) {
 				selectionComplete = true;
@@ -103,7 +109,16 @@ function handleSelection(tappedNode) {
 			text = fuseWordPair(first, second, secondFollowsFirst);
 		}
 
-		var rect = tappedNode.getBoundingClientRect();
+		//var rect = tappedNode.getBoundingClientRect();
+
+		var sentence = encloseElementsInSentence(elements);
+		sentence.appendChild(lastElement);
+		if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
+			removeSelectionHighlights();
+			zgjq(sentence).addClass("zeeguuSelection", 400);
+		}
+		var rect = sentence.getBoundingClientRect();
+
 		var message = {action: "translate", word: text, context: context, id: lastElement.getAttribute("id"), selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
 
 		zeeguuPostMessage(message);
@@ -134,7 +149,6 @@ function insertTranslationForID(translation, originalWord, originalContext, id, 
 	var wordElement = document.getElementById(id);
 	var translationElement = document.createElement(zeeguuTranslatedWordTagName);
 	translationElement.setAttribute("id", zeeguuuTranslationID + zeeguuIDCounter++);
-	translationElement.setAttribute("style", "color: red;");
 	translationElement.setAttribute("data-zeeguu-translation", translation);
 	translationElement.setAttribute("data-zeeguu-original-word-id", id);
 	translationElement.setAttribute("data-zeeguu-original-word", originalWord);
@@ -142,6 +156,12 @@ function insertTranslationForID(translation, originalWord, originalContext, id, 
 	translationElement.setAttribute("data-zeeguu-bookmark-id", bid);
 	translationElement.innerHTML = " (" + translation + ")";
 	translationElement.addEventListener("click", translationClickHandler);
+
+	var sentences = Array.prototype.slice.call(document.getElementsByTagName(zeeguuSentenceTagName));
+	sentences.forEach(function (el) {
+		removeElementsFromSentence(el);
+	});
+
 	insertElementAfter(translationElement, wordElement);
 	removeSelectionHighlights();
 }
@@ -153,7 +173,7 @@ function setTranslationMode(mode) {
 }
 
 function removeSelectionHighlights() {
-	zgjq(".zeeguuSelection").removeClass("zeeguuSelection");
+	zgjq(".zeeguuSelection").removeClass("zeeguuSelection", 400);
 }
 
 function updateTranslationForID(translation, id, otherTranslations) {
