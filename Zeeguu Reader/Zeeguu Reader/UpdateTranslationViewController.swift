@@ -60,7 +60,6 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		
 		self.title = "UPDATE_TRANSLATION".localized
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(UpdateTranslationViewController.dismiss(_:)))
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(UpdateTranslationViewController.dismiss(_:)))
 		
 		if let dict = action.getActionInformation() {
 			if let ot = dict["otherTranslations"] where !ot.isEmpty {
@@ -69,11 +68,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 				if let ot = otherTranslations where ot.count > 0 {
 					s1.removeAll()
 					for (_, value) in ot {
-						if value == oldTranslation {
-							s1.append("√-\(value)")
-						} else {
-							s1.append("\(value)")
-						}
+						s1.append("\(value)")
 					}
 				}
 				
@@ -94,11 +89,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 						if let ot = self.otherTranslations where ot.count > 0 {
 							s1.removeAll()
 							for (_, value) in ot {
-								if value == self.oldTranslation {
-									s1.append("√-\(value)")
-								} else {
-									s1.append("\(value)")
-								}
+								s1.append("\(value)")
 							}
 						}
 						
@@ -158,8 +149,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		
 		if sec == 0 {
 			let text = data[sec][row]
-			if text.hasPrefix("√-") {
-				cell?.textLabel?.text = text.substringFromIndex(text.startIndex.advancedBy(2))
+			if text == oldTranslation {
 				cell?.accessoryType = .Checkmark
 			} else {
 				cell?.accessoryType = .None
@@ -204,13 +194,8 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		let row = indexPath.row
 		if sec == 0 {
 			let text = data[sec][row]
-			if text.hasPrefix("√-") {
-				data[sec][row] = text.substringFromIndex(text.startIndex.advancedBy(2))
-			} else {
-				data[sec][row] = "√-\(text)"
-			}
-			self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
-//			updateTranslationWith(text)
+			updateTranslationWith(text)
+			self.dismissViewControllerAnimated(true, completion: nil)
 		} else if sec == 2 {
 			deleteTranslation()
 			self.dismissViewControllerAnimated(true, completion: nil)
