@@ -121,6 +121,8 @@ enum ZGJavaScriptAction {
 			return dict
 		case let .EditTranslation(dict):
 			return dict
+		case let .Pronounce(dict):
+			return dict
 		default:
 			return nil
 		}
