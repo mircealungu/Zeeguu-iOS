@@ -31,6 +31,8 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 	
 	var data = [[(String, String)]]()
 	
+	private let estimatedRowHeight: CGFloat = 80
+	
 	convenience init() {
 		self.init(style: .Grouped)
 		
@@ -46,7 +48,7 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: didLoginSelector, name: UserLoggedInNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: didLogoutSelector, name: UserLoggedOutNotification, object: nil)
 		
-		self.tableView.estimatedRowHeight = 80
+		self.tableView.estimatedRowHeight = estimatedRowHeight
 		
 		let logoutButton = UIBarButtonItem(title: "LOGOUT".localized, style: .Done, target: self, action: #selector(ProfileTableViewController.logout(_:)))
 		self.navigationItem.leftBarButtonItem = logoutButton
