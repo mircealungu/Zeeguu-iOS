@@ -172,8 +172,6 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 	func userDidLogout(notification: NSNotification) {
 		self.refreshControl?.beginRefreshing()
 		getUserData()
-//		self.data = [[(String, String)]]()
-//		self.tableView.reloadData()
 	}
 	
 }
