@@ -126,29 +126,18 @@ enum ZGJavaScriptAction {
 			guard let translation = dict["translation"], word = dict["word"], context = dict["context"], id = dict["id"], bid = dict["bookmarkID"] else {
 				fatalError("The ZGJavaScriptAction.Translate(_) dictionary is in an incorrect state!")
 			}
-			var t = translation.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-			t = t.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-			t = t.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-			
-			var c = context.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-			c = c.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-			c = c.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-			
-			var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-			w = w.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-			w = w.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+			let t = translation.stringByJSEscaping()
+			let c = context.stringByJSEscaping()
+			let w = word.stringByJSEscaping()
 			
 			return "insertTranslationForID(\"\(t)\", \"\(w)\", \"\(c)\", \"\(id)\", \"\(bid)\")"
 		case let .EditTranslation(dict):
 			guard let word = dict["newTranslation"], id = dict["id"] else {
 				fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
 			}
-			var w = word.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-			w = w.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-			w = w.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+			let w = word.stringByJSEscaping()
 			if let ot = dict["otherTranslations"] {
-				var str = ot.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
-				str = str.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+				let str = ot.stringByJSEscaping()
 				
 				return "updateTranslationForID(\"\(w)\", \"\(id)\", \"\(str)\")"
 			} else {
