@@ -51,6 +51,16 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 		set(mode) {
 			_translationMode = mode
+			
+			switch mode {
+			case .Instant:
+				Utils.sendMonitoringStatusToServer("userSwitchesToInstantTranslation", value: "1")
+			case .WordPair:
+				Utils.sendMonitoringStatusToServer("userSwitchesToWordPairTranslation", value: "1")
+			case .Sentence:
+				Utils.sendMonitoringStatusToServer("userSwitchesToSentenceTranslation", value: "1")
+			}
+			
 			let action = ZGJavaScriptAction.ChangeTranslationMode(_translationMode)
 			webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
 				print("result: \(result)")
@@ -67,6 +77,13 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		set(disable) {
 			_disableLinks = disable
 			let action = ZGJavaScriptAction.DisableLinks(disable)
+			
+			if disable {
+				Utils.sendMonitoringStatusToServer("userDisablesLinks", value: "1")
+			} else {
+				Utils.sendMonitoringStatusToServer("userEnablesLinks", value: "1")
+			}
+			
 			webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
 				print("result: \(result)")
 				print("error: \(error)")
