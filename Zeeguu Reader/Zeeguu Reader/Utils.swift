@@ -38,6 +38,16 @@ class Utils {
 		}
 	}
 	
+	static func showBinaryAlertWithTitle(title: String, message: String, yesAction: ((UIAlertAction) -> Void)?, noAction: ((UIAlertAction) -> Void)? = nil) {
+		dispatch_async(dispatch_get_main_queue()) { () -> Void in
+			let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+			alert.addAction(UIAlertAction(title: "YES".localized, style: .Default, handler: yesAction))
+			alert.addAction(UIAlertAction(title: "NO".localized, style: .Cancel, handler: noAction))
+			
+			UIViewController.currentViewController()?.presentViewController(alert, animated: true, completion: nil)
+		}
+	}
+	
 	/// Returns the context (sentence) in which the selected text (indicated with the selected range) exists.
 	///
 	/// - parameter text: The text in which some substring was selected.

@@ -43,6 +43,8 @@
 "EMAIL" = "Email";
 "FINDING_FEEDS" = "Finding feeds...";
 "FONTSIZE" = "Fontsize";
+"GENERATE_PASSWORD" = "Generate password?";
+"GENERATE_PASSWORD_DESCRIPTION_%@" = "Do you want to use a generated password? Your generated password:\n\n%@";
 "HISTORY" = "History";
 "INSERT_TRANSLATION_IN_TEXT" = "Insert translation in text";
 "INSTANT_TRANSLATION" = "Instant translation";
@@ -55,16 +57,21 @@
 "LOGOUT" = "Logout";
 "NAME" = "Name";
 "NEW_TRANSLATION" = "New translation";
+"NO" = "No";
 "NO_CONTEXT" = "No context given.";
+"NO_EQUAL_PASSWORDS" = "The passwords you typed do not match.";
 "NO_LANGUAGE" = "No language";
 "NO_LANGUAGES_TO_SHOW" = "There are no languages yet. Please wait for them to load.";
 "NO_LOGIN" = "No login credentials";
 "NO_LOGIN_MESSAGE" = "Please enter your login credentials.";
+"NO_REGISTER" = "No registration";
+"NO_REGISTER_MESSAGE" = "Please fill all fields.";
 "OK" = "OK";
 "OPTIONS" = "Options";
 "PASSWORD" = "Password";
 "PROFILE" = "Profile";
 "REGISTER" = "Register";
+"RETYPE_PASSWORD" = "Retype password";
 "SELECTION_INVALID" = "Invalid selection";
 "SELECTION_INVALID_DESCRIPTION" = "A selection over multiple paragraphs is not yet supported. Please tap a second word within the same paragraph as the first one.";
 "TRANSLATE" = "Translate";
@@ -79,3 +86,4 @@
 "URL" = "Url";
 "USERNAME" = "Username";
 "WORD_IS_LANGUAGE_%@%@" = "%@ is a %@ word";
+"YES" = "Yes";

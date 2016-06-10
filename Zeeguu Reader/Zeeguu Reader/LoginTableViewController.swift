@@ -44,6 +44,15 @@ class LoginTableViewController: ZGTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupTextFields()
+		
+		ZGSharedPasswordManager.retrieveSharedCredentials { (email, password) in
+			guard let email = email, password = password else {
+				return
+			}
+			self.emailField.text = email
+			self.passwordField.text = password
+			self.login(nil)
+		}
     }
 
     // MARK: - Table view data source
@@ -53,7 +62,7 @@ class LoginTableViewController: ZGTableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rows.count
+		return rows.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -83,7 +92,7 @@ class LoginTableViewController: ZGTableViewController {
 		passwordField.secureTextEntry = true
 	}
 	
-	func login(sender: UIBarButtonItem) {
+	func login(sender: UIBarButtonItem?) {
 		let email = emailField.text
 		let password = passwordField.text
 		
@@ -91,6 +100,7 @@ class LoginTableViewController: ZGTableViewController {
 			ZeeguuAPI.sharedAPI().loginWithEmail(em, password: pw) { (success) -> Void in
 				dispatch_async(dispatch_get_main_queue(), {
 					if (success) {
+						ZGSharedPasswordManager.updateSharedCredentials(em, password: pw)
 						self.dismissViewControllerAnimated(true, completion: {
 							NSNotificationCenter.defaultCenter().postNotificationName(UserLoggedInNotification, object: self)
 						})

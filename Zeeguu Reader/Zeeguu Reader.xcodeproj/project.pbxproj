@@ -14,6 +14,7 @@
 		9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */; };
 		942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942667A11C60CA1600CF00FA /* HistoryItemView.swift */; };
 		9438B3501D0AB71300764176 /* ZGSlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438B34F1D0AB71300764176 /* ZGSlideInPresentationController.swift */; };
+		9438B3531D0B02E000764176 /* ZGSharedPasswordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438B3521D0B02E000764176 /* ZGSharedPasswordManager.swift */; };
 		943FB7451CFC3A700007C522 /* ZeeguuPagePreparation.js in Resources */ = {isa = PBXBuildFile; fileRef = 943FB7441CFC3A700007C522 /* ZeeguuPagePreparation.js */; };
 		943FB7471CFC3B980007C522 /* ZeeguuVars.js in Resources */ = {isa = PBXBuildFile; fileRef = 943FB7461CFC3B980007C522 /* ZeeguuVars.js */; };
 		943FB7491CFC4AF90007C522 /* ZeeguuHelperFunctions.js in Resources */ = {isa = PBXBuildFile; fileRef = 943FB7481CFC4AF90007C522 /* ZeeguuHelperFunctions.js */; };
@@ -82,6 +83,8 @@
 		9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		942667A11C60CA1600CF00FA /* HistoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemView.swift; sourceTree = "<group>"; };
 		9438B34F1D0AB71300764176 /* ZGSlideInPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGSlideInPresentationController.swift; sourceTree = "<group>"; };
+		9438B3511D0B026C00764176 /* Zeeguu Reader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Zeeguu Reader.entitlements"; sourceTree = "<group>"; };
+		9438B3521D0B02E000764176 /* ZGSharedPasswordManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGSharedPasswordManager.swift; sourceTree = "<group>"; };
 		943FB7441CFC3A700007C522 /* ZeeguuPagePreparation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuPagePreparation.js; sourceTree = "<group>"; };
 		943FB7461CFC3B980007C522 /* ZeeguuVars.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuVars.js; sourceTree = "<group>"; };
 		943FB7481CFC4AF90007C522 /* ZeeguuHelperFunctions.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuHelperFunctions.js; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 		947799D31C17171B00C494ED /* Zeeguu Reader */ = {
 			isa = PBXGroup;
 			children = (
+				9438B3511D0B026C00764176 /* Zeeguu Reader.entitlements */,
 				947799D41C17171B00C494ED /* AppDelegate.swift */,
 				9440B0281C37F14C00BDD367 /* Feeds */,
 				94C748261C3921E600F3DCC2 /* History */,
@@ -290,6 +294,7 @@
 				94CEECE81C1DA27A00C3D0E3 /* RegisterTableViewController.swift */,
 				94CEECEA1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift */,
 				94CEECEC1C1DA54000C3D0E3 /* LanguagesTableViewController.swift */,
+				9438B3521D0B02E000764176 /* ZGSharedPasswordManager.swift */,
 			);
 			name = Login/Register;
 			sourceTree = "<group>";
@@ -396,6 +401,11 @@
 					947799D01C17171B00C494ED = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = 3MWE9S4CWT;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					947799E61C17171B00C494ED = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -525,6 +535,7 @@
 				9467CEDA1D04259B00D07DFE /* Constants.swift in Sources */,
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
+				9438B3531D0B02E000764176 /* ZGSharedPasswordManager.swift in Sources */,
 				94CEECEB1C1DA41300C3D0E3 /* LoginRegisterTableViewController.swift in Sources */,
 				94F2088A1C58D4870005EB2F /* HistoryItemViewController.swift in Sources */,
 				94E7CF221CF345F7001F119B /* UpdateTranslationViewController.swift in Sources */,
@@ -689,6 +700,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = zeeguuLogo;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Zeeguu Reader/Zeeguu Reader.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -712,6 +724,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = zeeguuLogo;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Zeeguu Reader/Zeeguu Reader.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
