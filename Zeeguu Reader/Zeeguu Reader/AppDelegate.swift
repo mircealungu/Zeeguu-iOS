@@ -36,6 +36,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
+		
+		let def = NSUserDefaults.standardUserDefaults()
+		if def.objectForKey(InsertTranslationInTextDefaultsKey) == nil {
+			def.setBool(true, forKey: InsertTranslationInTextDefaultsKey)
+			def.synchronize()
+		}
+		
 		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		self.window?.backgroundColor = UIColor.whiteColor()
 		self.setupArticleRootViewController()

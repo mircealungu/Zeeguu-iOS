@@ -44,6 +44,7 @@
 "FINDING_FEEDS" = "Finding feeds...";
 "FONTSIZE" = "Fontsize";
 "HISTORY" = "History";
+"INSERT_TRANSLATION_IN_TEXT" = "Insert translation in text";
 "INSTANT_TRANSLATION" = "Instant translation";
 "INSTANT_TRANSLATION_DESCRIPTION" = "To translate words, simply tap a word and its translation appears right next to it.";
 "LEARN_LANGUAGE" = "Learn";
@@ -63,7 +64,6 @@
 "OPTIONS" = "Options";
 "PASSWORD" = "Password";
 "PROFILE" = "Profile";
-"PRONOUNCE_TRANSLATED_WORD" = "Pronounce translated word";
 "REGISTER" = "Register";
 "SELECTION_INVALID" = "Invalid selection";
 "SELECTION_INVALID_DESCRIPTION" = "A selection over multiple paragraphs is not yet supported. Please tap a second word within the same paragraph as the first one.";

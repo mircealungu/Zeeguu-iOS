@@ -94,6 +94,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	private var infoViewShown: Bool = false
 	private var infoView: ArticleInfoView
 	private var infoViewBottomConstraint: NSLayoutConstraint!
+	private var isPresentingInfoView: Bool = false
+	private var shouldHideInfoViewAlready: Bool = true
 	
 	private var currentJavaScriptAction: ZGJavaScriptAction?
 	
@@ -350,10 +352,17 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			action.setTranslation(t)
 			action.setBookmarkID(b)
 			
-			self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
-				print("result: \(result)")
-				print("error: \(error)")
-			})
+			let def = NSUserDefaults.standardUserDefaults()
+			if def.boolForKey(InsertTranslationInTextDefaultsKey) {
+				self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
+					print("result: \(result)")
+					print("error: \(error)")
+				})
+			} else {
+				dispatch_sync(dispatch_get_main_queue(), {
+					self.showInfoView(t)
+				})
+			}
 			
 			guard let trans = translation, actionInfo = action.getActionInformation() else {
 				return
@@ -437,14 +446,23 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 	}
 	
-	func showInfoView() {
+	func showInfoView(text: String! = nil) {
 		self.infoViewBottomConstraint.constant = 20
+		if self.isPresentingInfoView {
+			self.shouldHideInfoViewAlready = false
+		}
+		self.isPresentingInfoView = true
 		UIView.animateWithDuration(1.0, animations: {
-			self.infoView.text = self.translationMode.getDescription()
+			self.infoView.text = text == nil ? self.translationMode.getDescription() : text
 			self.view.layoutIfNeeded()
 		}) { (finished) in
 			let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
 			dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+				if self.shouldHideInfoViewAlready == false {
+					self.shouldHideInfoViewAlready = true
+					return
+				}
+				self.isPresentingInfoView = false
 				self.infoViewBottomConstraint.constant = -100
 				UIView.animateWithDuration(1.0, animations: {
 					self.view.layoutIfNeeded()
