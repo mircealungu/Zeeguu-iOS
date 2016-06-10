@@ -50,7 +50,7 @@ extension String {
 	/// This method will escape slashes and double quotes. This enables you to insert this string into
 	/// a JavaScript function as a JavaScript string.
 	func stringByJSEscaping() -> String {
-		let s = self.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+		var s = self.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
 		s = s.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
 		s = s.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		return s
