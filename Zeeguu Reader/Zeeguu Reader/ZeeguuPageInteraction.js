@@ -48,7 +48,7 @@ function wordClickHandler(event) {
 }
 
 function handleSelection(tappedNode) {
-	zgjq(tappedNode).addClass("zeeguuSelection", 400);
+	zgjq(tappedNode).addClass("zeeguuSelection", 300);
 	if (zeeguuSelectionFirstWord == null) {
 		zeeguuSelectionFirstWord = event.target;
 	} else {
@@ -109,7 +109,7 @@ function handleSelection(tappedNode) {
 		sentence.appendChild(lastElement);
 		if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
 			removeSelectionHighlights();
-			zgjq(sentence).addClass("zeeguuSelection", 400);
+			zgjq(sentence).addClass("zeeguuSelection", 300);
 		}
 		var rect = sentence.getBoundingClientRect();
 
@@ -165,7 +165,7 @@ function setTranslationMode(mode) {
 }
 
 function removeSelectionHighlights() {
-	zgjq(".zeeguuSelection").removeClass("zeeguuSelection", 400);
+	zgjq(".zeeguuSelection").removeClass("zeeguuSelection", 300);
 }
 
 function updateTranslationForID(translation, id, otherTranslations) {
