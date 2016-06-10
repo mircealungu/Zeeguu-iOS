@@ -355,21 +355,9 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			controller.addAction(okAction)
 			self.presentViewController(controller, animated: true, completion: nil)
 			break
-		case let .Pronounce(dict):
-			if let word = dict["word"] {
-				_ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-				_ = try? AVAudioSession.sharedInstance().setActive(true)
-				
-				let synthesizer = AVSpeechSynthesizer()
-				
-				let utterance = AVSpeechUtterance(string: word)
-				utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
-				
-				synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-				synthesizer.speakUtterance(utterance)
-				
-				_ = try? AVAudioSession.sharedInstance().setActive(false)
-			}
+		case .Pronounce(_):
+			self.pronounceWord(action)
+			break
 		default:
 			break
 		}
@@ -417,6 +405,25 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 					self.infoView.text = ""
 				}
 			}
+		}
+	}
+	
+	func pronounceWord(action: ZGJavaScriptAction) {
+		if let word = action.getActionInformation()?["word"] {
+			_ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+			_ = try? AVAudioSession.sharedInstance().setActive(true)
+			
+			let synthesizer = AVSpeechSynthesizer()
+			
+			let utterance = AVSpeechUtterance(string: word)
+			utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
+			
+			synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+			synthesizer.speakUtterance(utterance)
+			
+			_ = try? AVAudioSession.sharedInstance().setActive(false)
+			
+			Utils.sendMonitoringStatusToServer("userPronouncesWord", value: "1")
 		}
 	}
 }
