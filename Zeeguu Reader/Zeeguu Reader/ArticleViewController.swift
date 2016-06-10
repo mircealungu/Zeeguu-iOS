@@ -90,6 +90,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		//		self._articleView = ArticleView(article: self.article)
 		super.init(nibName: nil, bundle: nil)
 		
+		self.hidesBottomBarWhenPushed = true
+		
 		let controller = WKUserContentController()
 		controller.addScriptMessageHandler(self, name: "zeeguu")
 		
