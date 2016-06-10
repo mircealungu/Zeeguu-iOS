@@ -59,6 +59,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 //		self.popoverPresentationController?.delegate = self
 		
 		self.title = "UPDATE_TRANSLATION".localized
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(UpdateTranslationViewController.dismiss(_:)))
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(UpdateTranslationViewController.dismiss(_:)))
 		
 		if let dict = action.getActionInformation() {
