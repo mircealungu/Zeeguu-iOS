@@ -74,10 +74,6 @@ function handleSelection(tappedNode) {
 				text = text + zgjq(currentElement).text();
 			}
 
-			//if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
-			//	zgjq(currentElement).addClass("zeeguuSelection");
-			//}
-
 			if (currentElement == first) {
 				selectionComplete = true;
 				return "break";
@@ -109,8 +105,6 @@ function handleSelection(tappedNode) {
 			text = fuseWordPair(first, second, secondFollowsFirst);
 		}
 
-		//var rect = tappedNode.getBoundingClientRect();
-
 		var sentence = encloseElementsInSentence(elements);
 		sentence.appendChild(lastElement);
 		if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
@@ -129,10 +123,8 @@ function handleSelection(tappedNode) {
 
 function translationClickHandler(event) {
 	var word = event.target.getAttribute("data-zeeguu-translation");
-	//var originalWordID = event.target.getAttribute("data-zeeguu-original-word-id");
 	var originalWord = event.target.getAttribute("data-zeeguu-original-word");
 	var bookmarkID = event.target.getAttribute("data-zeeguu-bookmark-id");
-	//var wordElement = document.getElementById(originalWordID);
 	var otherTranslations = null;
 	if (event.target.hasAttribute("data-zeeguu-other-translations")) {
 		otherTranslations = event.target.getAttribute("data-zeeguu-other-translations");
