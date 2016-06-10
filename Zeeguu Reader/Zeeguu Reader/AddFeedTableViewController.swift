@@ -51,7 +51,8 @@ class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 		let cancelButton = UIBarButtonItem(title: "CANCEL".localized, style: .Plain, target: self, action: #selector(AddFeedTableViewController.cancel(_:)))
 		self.navigationItem.leftBarButtonItem = cancelButton
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddFeedTableViewController.textFieldChanged(_:)), name: UITextFieldTextDidChangeNotification, object: urlField)
+		let textFieldChangedSelector = #selector(AddFeedTableViewController.textFieldChanged(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: textFieldChangedSelector, name: UITextFieldTextDidChangeNotification, object: urlField)
 	}
 	
 	override func viewWillAppear(animated: Bool) {

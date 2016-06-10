@@ -41,8 +41,10 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileTableViewController.userDidLogin(_:)), name: UserLoggedInNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileTableViewController.userDidLogout(_:)), name: UserLoggedOutNotification, object: nil)
+		let didLoginSelector = #selector(ProfileTableViewController.userDidLogin(_:))
+		let didLogoutSelector = #selector(ProfileTableViewController.userDidLogout(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: didLoginSelector, name: UserLoggedInNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: didLogoutSelector, name: UserLoggedOutNotification, object: nil)
 		
 		self.tableView.estimatedRowHeight = 80
 		

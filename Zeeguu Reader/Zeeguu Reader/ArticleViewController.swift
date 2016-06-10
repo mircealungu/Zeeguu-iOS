@@ -145,7 +145,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			optionsBut.enabled = false;
 		}
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ArticleViewController.didHideUIMenuController(_:)), name: UIMenuControllerDidHideMenuNotification, object: nil)
+		let didHideSelector = #selector(ArticleViewController.didHideUIMenuController(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: didHideSelector, name: UIMenuControllerDidHideMenuNotification, object: nil)
 	}
 	
 	override func didReceiveMemoryWarning() {

@@ -44,7 +44,8 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FeedOverviewTableViewController.userDidLogin(_:)), name: UserLoggedInNotification, object: nil)
+		let didLoginSelector = #selector(FeedOverviewTableViewController.userDidLogin(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: didLoginSelector, name: UserLoggedInNotification, object: nil)
 		
 		self.tableView.estimatedRowHeight = 80
 		
