@@ -40,7 +40,6 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 		self.parent = parent
 		super.init(style: .Grouped)
 		self.modalPresentationStyle = .Popover
-		self.popoverPresentationController?.delegate = self
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -142,10 +141,6 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 			return "TRANSLATION_MODE_DESCRIPTION".localized
 		}
 		return nil
-	}
-	
-	func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-		return .None
 	}
 	
 	func letterImageWithFontSize(fontSize: CGFloat) -> UIImage {

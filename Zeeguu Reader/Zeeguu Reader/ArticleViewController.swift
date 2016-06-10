@@ -385,6 +385,10 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		return super.canPerformAction(action, withSender: sender)
 	}
 	
+	func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+		return .None
+	}
+	
 	func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
 		if let old = oldTranslationMode where old != translationMode {
 			showInfoView()
