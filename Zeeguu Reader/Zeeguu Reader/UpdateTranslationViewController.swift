@@ -212,8 +212,8 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 //			updateTranslationWith(text)
 		} else if sec == 2 {
 			deleteTranslation()
+			self.dismissViewControllerAnimated(true, completion: nil)
 		}
-//		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

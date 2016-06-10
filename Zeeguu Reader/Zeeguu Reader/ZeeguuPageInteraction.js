@@ -185,7 +185,9 @@ function updateTranslationForID(translation, id, otherTranslations) {
 
 function deleteTranslationWithID(id) {
 	var translationElement = document.getElementById(id);
+	var originalWordID = translationElement.getAttribute("data-zeeguu-original-word-id");
 	translationElement.parentNode.removeChild(translationElement);
+	document.getElementById(originalWordID).removeAttribute("data-zeeguu-translated");
 }
 
 function zeeguuUpdateLinkState() {
