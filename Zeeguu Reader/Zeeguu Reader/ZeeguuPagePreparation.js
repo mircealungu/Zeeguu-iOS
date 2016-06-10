@@ -25,17 +25,6 @@
 //
 
 function setupZeeguuJS() {
-	var myCustomViewport = 'width=device-width';
-	var viewportElement = document.querySelector('meta[name=viewport]');
-	if (viewportElement) {
-		viewportElement.content = myCustomViewport;
-	} else {
-		viewportElement = document.createElement('meta');
-		viewportElement.name = 'viewport';
-		viewportElement.content = myCustomViewport;
-		document.getElementsByTagName('head')[0].appendChild(viewportElement);
-	}
-
 	encloseAllText();
 	encloseAllWords();
 	addClickListeners()
