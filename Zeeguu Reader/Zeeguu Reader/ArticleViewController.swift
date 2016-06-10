@@ -320,6 +320,9 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			action.setBookmarkID(b)
 			
 			if (self.pronounceTranslatedWord) {
+				let _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+				let _ = try? AVAudioSession.sharedInstance().setActive(true)
+				
 				let synthesizer = AVSpeechSynthesizer()
 				
 				let utterance = AVSpeechUtterance(string: word)
@@ -327,6 +330,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 				
 				synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
 				synthesizer.speakUtterance(utterance)
+				
+				let _ = try? AVAudioSession.sharedInstance().setActive(false)
 			}
 			
 			self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
