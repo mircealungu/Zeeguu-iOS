@@ -163,6 +163,8 @@ class HistoryTableViewController: ZGTableViewController {
 		
 		self.navigationController?.pushViewController(vc, animated: true)
 		
+		Utils.sendMonitoringStatusToServer("userOpensHistoryItem", value: "1")
+		
 //		let vc = ArticleListViewController()
 //		
 //		if let split = self.splitViewController {

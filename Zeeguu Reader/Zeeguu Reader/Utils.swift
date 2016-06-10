@@ -108,7 +108,7 @@ class Utils {
 		}
 	}
 	
-	static func sendMonitoringStatusToServer(key: String, value: String) {
+	static func sendMonitoringStatusToServer(key: String, value: String, data: [String: String]? = nil) {
 		// Call ZeeguuAPI endpoint that accepts arbitrary statistics 
 		print("Send statistics to server: {\(key): \(value)}")
 	}

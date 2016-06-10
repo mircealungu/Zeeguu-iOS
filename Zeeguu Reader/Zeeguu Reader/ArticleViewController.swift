@@ -271,6 +271,15 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			print("result: \(result)")
 			print("error: \(error)")
 		})
+		
+		
+		
+		guard let actionInfo = currentJavaScriptAction?.getActionInformation() else {
+			return
+		}
+		let data = ["actionInfo": String(actionInfo)]
+		Utils.sendMonitoringStatusToServer("userEditedTranslation", value: "1", data: data)
+		
 		currentJavaScriptAction = nil
 	}
 	
@@ -285,6 +294,12 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			print("result: \(result)")
 			print("error: \(error)")
 		})
+		
+		guard let actionInfo = currentJavaScriptAction?.getActionInformation() else {
+			return
+		}
+		let data = ["actionInfo": String(actionInfo)]
+		Utils.sendMonitoringStatusToServer("userDeletedTranslation", value: "1", data: data)
 	}
 	
 	override func canBecomeFirstResponder() -> Bool {
@@ -339,6 +354,21 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 				print("result: \(result)")
 				print("error: \(error)")
 			})
+			
+			guard let trans = translation, actionInfo = action.getActionInformation() else {
+				return
+			}
+			let data = ["translationResponse": String(trans), "actionInfo": String(actionInfo)]
+			switch self.translationMode {
+			case .Instant:
+				Utils.sendMonitoringStatusToServer("userTranslatedUsingInstantTranslation", value: "1", data: data)
+			case .WordPair:
+				Utils.sendMonitoringStatusToServer("userTranslatedUsingWordPairTranslation", value: "1", data: data)
+			case .Sentence:
+				Utils.sendMonitoringStatusToServer("userTranslatedUsingSentenceTranslation", value: "1", data: data)
+			}
+			
+			
 		})
 	}
 	
