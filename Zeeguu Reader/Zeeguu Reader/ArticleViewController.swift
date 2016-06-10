@@ -78,8 +78,6 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	private var infoView: ArticleInfoView
 	private var infoViewBottomConstraint: NSLayoutConstraint!
 	
-	var pronounceTranslatedWord = true
-	
 	private var currentJavaScriptAction: ZGJavaScriptAction?
 	
 	private var slideInPresentationController: ZGSlideInPresentationController?
@@ -320,21 +318,6 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			action.setTranslation(t)
 			action.setBookmarkID(b)
 			
-			if (self.pronounceTranslatedWord) {
-				_ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-				_ = try? AVAudioSession.sharedInstance().setActive(true)
-				
-				let synthesizer = AVSpeechSynthesizer()
-				
-				let utterance = AVSpeechUtterance(string: word)
-				utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
-				
-				synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-				synthesizer.speakUtterance(utterance)
-				
-				_ = try? AVAudioSession.sharedInstance().setActive(false)
-			}
-			
 			self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
 				print("result: \(result)")
 				print("error: \(error)")
@@ -372,6 +355,21 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			controller.addAction(okAction)
 			self.presentViewController(controller, animated: true, completion: nil)
 			break
+		case let .Pronounce(dict):
+			if let word = dict["word"] {
+				_ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+				_ = try? AVAudioSession.sharedInstance().setActive(true)
+				
+				let synthesizer = AVSpeechSynthesizer()
+				
+				let utterance = AVSpeechUtterance(string: word)
+				utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
+				
+				synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+				synthesizer.speakUtterance(utterance)
+				
+				_ = try? AVAudioSession.sharedInstance().setActive(false)
+			}
 		default:
 			break
 		}

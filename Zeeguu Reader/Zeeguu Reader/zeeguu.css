@@ -11,3 +11,10 @@ zeeguuWord, zeeguuSentence {
 zeeguuTranslatedWord {
 	color: lightgray;
 }
+
+.zeeguu-pronounce-icon {
+	width: 20px;
+	height: 20px;
+	display: inline !important;
+	margin: 0 !important;
+}

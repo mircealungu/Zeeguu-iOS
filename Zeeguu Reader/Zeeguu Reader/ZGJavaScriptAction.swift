@@ -56,6 +56,8 @@ enum ZGJavaScriptAction {
 	case RemoveSelectionHighlights
 	/// The selection incomplete action. If this action was parsed, it means a selection between two words is incomplete and that the user tapped a second word outside the paragraph of the first word. This is not supported yet.
 	case SelectionIncomplete
+	/// The pronounce action. If this action was parsed, the given word is pronounced by iOS. The string is the word/phrase to pronounce.
+	case Pronounce(Dictionary<String, String>)
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
@@ -72,6 +74,10 @@ enum ZGJavaScriptAction {
 			}
 		} else if action == "selectionIncomplete" {
 			return .SelectionIncomplete
+		} else if action == "pronounce" {
+			if let _ = dict["word"] {
+				return .Pronounce(dict)
+			}
 		}
 		return .None
 	}

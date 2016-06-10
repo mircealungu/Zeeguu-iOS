@@ -42,6 +42,9 @@ var zeeguuWordTagName = "zeeguuWord";
 var zeeguuTranslatedWordTagName = "zeeguuTranslatedWord";
 var zeeguuSentenceTagName = "zeeguuSentence";
 
+var zeeguuPronounceTagName = "zeeguuPronounce";
+var zeeguuPronounceID = "zeeguuPronounce";
+
 var zeeguuPeriodTagName = "zeeguuPeriod";
 var zeeguuPeriodID = "zeeguuPeriod";
 
