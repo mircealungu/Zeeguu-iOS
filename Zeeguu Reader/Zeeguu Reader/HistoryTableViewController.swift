@@ -64,6 +64,7 @@ class HistoryTableViewController: ZGTableViewController {
 					let date: String = arr["date"].stringValue
 					if let bms = arr["bookmarks"].array {
 						for bm in bms {
+							let id = bm["id"].stringValue
 							let from = bm["from"].stringValue
 							let fromLang = bm["from_lang"].stringValue
 							let title = bm["title"].stringValue
@@ -72,13 +73,12 @@ class HistoryTableViewController: ZGTableViewController {
 							let to = bm["to"].arrayObject
 							let url = bm["url"].stringValue
 							
-							items[counter].append(Bookmark(title: title, context: context, url: url, bookmarkDate: date, word: from, wordLanguage: fromLang, translation: to as! [String], translationLanguage: toLang))
+							items[counter].append(Bookmark(id: id, title: title, context: context, url: url, bookmarkDate: date, word: from, wordLanguage: fromLang, translation: to as! [String], translationLanguage: toLang))
 						}
 					}
 					self.dates.append(date)
 					counter += 1
 				}
-//				self.bookmarks = items
 				filled = true
 			}
 			dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -130,10 +130,10 @@ class HistoryTableViewController: ZGTableViewController {
 		return cell
 	}
 	
-//	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//		// Return false if you do not want the specified item to be editable.
-//		return true
-//	}
+	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		// Return false if you do not want the specified item to be editable.
+		return true
+	}
 	
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		let formatter = NSDateFormatter()
@@ -143,18 +143,21 @@ class HistoryTableViewController: ZGTableViewController {
 		return formatter.stringFromDate(self.bookmarks[section][0].date)
 	}
 	
-//	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//		if editingStyle == .Delete {
-//			self.newsFeeds.removeAtIndex(indexPath.row)
-//			let def = NSUserDefaults.standardUserDefaults()
-//			
-//			var feeds = self.newsFeeds
-//			feeds.removeFirst()
-//			def.setObject(feeds, forKey: feedsKey)
-//			
-//			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//		}
-//	}
+	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		if editingStyle == .Delete {
+			let sec = indexPath.section
+			let row = indexPath.row
+			let bm = self.bookmarks[sec][row]
+			bm.delete() { (success) in
+				if (success) {
+					dispatch_async(dispatch_get_main_queue(), { 
+						self.bookmarks[sec].removeAtIndex(row)
+						tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+					})
+				}
+			}
+		}
+	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let bookmark = self.bookmarks[indexPath.section][indexPath.row]
@@ -164,25 +167,6 @@ class HistoryTableViewController: ZGTableViewController {
 		self.navigationController?.pushViewController(vc, animated: true)
 		
 		Utils.sendMonitoringStatusToServer("userOpensHistoryItem", value: "1")
-		
-//		let vc = ArticleListViewController()
-//		
-//		if let split = self.splitViewController {
-//			var controllers = split.viewControllers
-//			controllers.removeLast()
-//			
-//			let nav = UINavigationController(rootViewController: vc)
-//			
-//			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-//			vc.navigationItem.leftItemsSupplementBackButton = true
-//			split.showDetailViewController(nav, sender: self)
-//			if let sv = self.splitViewController {
-//				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
-//			}
-//		} else {
-//			vc.hidesBottomBarWhenPushed = true
-//			self.navigationController?.pushViewController(vc, animated: true)
-//		}
 	}
 
 }
