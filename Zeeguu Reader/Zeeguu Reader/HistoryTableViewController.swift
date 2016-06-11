@@ -32,6 +32,8 @@ class HistoryTableViewController: ZGTableViewController {
 	var bookmarks = [[Bookmark]]()
 	var dates = [String]()
 	
+	private let estimatedRowHeight: CGFloat = 80
+	
 	convenience init() {
 		self.init(style: .Plain)
 		
@@ -42,7 +44,7 @@ class HistoryTableViewController: ZGTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.tableView.estimatedRowHeight = 80
+		self.tableView.estimatedRowHeight = estimatedRowHeight
 		
 		self.clearsSelectionOnViewWillAppear = true
 		
