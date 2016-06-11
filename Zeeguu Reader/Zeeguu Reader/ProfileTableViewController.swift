@@ -26,6 +26,7 @@
 
 import UIKit
 import Zeeguu_API_iOS
+import SafariServices
 
 class ProfileTableViewController: ZGTableViewController, LanguagesTableViewControllerDelegate {
 	
@@ -67,12 +68,15 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 			if let d = dict {
 				self.data.append([(String, String)]())
 				self.data.append([(String, String)]())
+				self.data.append([(String, String)]())
 				
 				self.data[0].append(("NAME".localized, d["name"].stringValue))
 				self.data[0].append(("EMAIL".localized, d["email"].stringValue))
 				
 				self.data[1].append(("LEARN_LANGUAGE".localized, d["learned_language"].stringValue))
 				self.data[1].append(("BASE_LANGUAGE".localized, d["native_language"].stringValue))
+				
+				self.data[2].append(("EXERCISES".localized, ""))
 			}
 			dispatch_async(dispatch_get_main_queue(), { () -> Void in
 				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
@@ -120,7 +124,7 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 			cell.detailTextLabel?.text = LanguagesTableViewController.getNameForLanguageCode(d.1)
 		}
 		
-		if (indexPath.section == 1) {
+		if indexPath.section == 1 || indexPath.section == 2 {
 			cell.accessoryType = .DisclosureIndicator
 		}
 		return cell
@@ -135,6 +139,17 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 				let vc = LanguagesTableViewController(chooseType: .BaseLanguage, preselectedLanguage: self.data[indexPath.section][indexPath.row].1, delegate: self)
 				self.navigationController?.pushViewController(vc, animated: true)
 			}
+		} else if indexPath.section == 2 {
+			if indexPath.row == 0 {
+				if let url = NSURL(string: "https://www.zeeguu.unibe.ch/recognize") {
+					let vc = SFSafariViewController(URL: url)
+					vc.modalPresentationStyle = .OverFullScreen
+					
+					self.presentViewController(vc, animated: true, completion: nil)
+					Utils.sendMonitoringStatusToServer("userOpensExercises", value: "1")
+				}
+			}
+			tableView.deselectRowAtIndexPath(indexPath, animated: true)
 		}
 	}
 	
