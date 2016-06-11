@@ -98,7 +98,11 @@ function handleSelection(tappedNode) {
 			return;
 		}
 
-		var lastElement = getPeriodAfterElement(secondFollowsFirst ? second : first, function () { text += "."; });
+		var hasPeriodAtEnd = false;
+		var lastElement = getPeriodAfterElement(secondFollowsFirst ? second : first, function () { hasPeriodAtEnd = true; });
+		if (hasPeriodAtEnd) {
+			text += zgjq(lastElement).text();
+		}
 		var context = getContextOfSelection(first, second, secondFollowsFirst, text);
 
 		if (zeeguuTranslationMode == ZeeguuTranslateWordPair) {

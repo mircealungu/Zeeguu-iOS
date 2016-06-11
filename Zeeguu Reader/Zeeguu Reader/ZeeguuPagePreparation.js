@@ -68,7 +68,7 @@ function encloseAllWords() {
 		var word = /([a-zA-Z0-9À-ÖØ-öø-ÿĀ-ſƀ-ɏ_-]+)/g;
 		// Used https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_script to create above regex
 
-		var dot = /\./g;
+		var dot = /[\.\?!]/g;
 
 		var newText = zgjq(el).text().replace(word, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">");
 		newText = newText.replace(dot, function (x) {
