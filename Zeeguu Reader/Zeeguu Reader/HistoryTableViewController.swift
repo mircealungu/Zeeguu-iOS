@@ -50,11 +50,15 @@ class HistoryTableViewController: ZGTableViewController {
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl?.addTarget(self, action: #selector(HistoryTableViewController.getBookmarks), forControlEvents: .ValueChanged)
-		self.refreshControl?.beginRefreshing()
 		getBookmarks()
+		
+		let selector = #selector(HistoryTableViewController.getBookmarks(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name: UserTranslatedWordNotification, object: nil)
 	}
 	
-	func getBookmarks() {
+	func getBookmarks(notification: NSNotification? = nil) {
+		self.refreshControl?.beginRefreshing()
+		
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
 			var items = [[Bookmark]]()
 			var filled = false
@@ -116,18 +120,18 @@ class HistoryTableViewController: ZGTableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let sec = indexPath.section
+		let row = indexPath.row
 		let queueCell = tableView.dequeueReusableCellWithIdentifier("Cell")
-		var cell: UITableViewCell
-		if let c = queueCell {
-			cell = c
-		} else {
-			cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
-		}
+		var cell: HistoryTableViewCell
 		
-		let feed = bookmarks[indexPath.section][indexPath.row]
-		cell.textLabel?.text = feed.word
-		cell.detailTextLabel?.text = feed.translation[0]
-		cell.accessoryType = .DisclosureIndicator
+		let bookmark = bookmarks[sec][row]
+		if let c = queueCell as? HistoryTableViewCell {
+			cell = c
+			cell.bookmark = bookmark
+		} else {
+			cell = HistoryTableViewCell(bookmark: bookmark, reuseIdentifier: "Cell")
+		}
 		
 		return cell
 	}

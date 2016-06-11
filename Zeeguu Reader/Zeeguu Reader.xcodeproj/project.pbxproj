@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		940458731D0C85F900E6C5C1 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940458721D0C85F900E6C5C1 /* HistoryTableViewCell.swift */; };
 		9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */; };
 		9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0431C1C8461002F9637 /* StringExtension.swift */; };
 		9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */; };
@@ -76,6 +77,7 @@
 		44F98B3CC36CEA2DA0CFC6CC /* Pods-Zeeguu Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.release.xcconfig"; sourceTree = "<group>"; };
 		48CDF19FFC36B1EEB27D5FE2 /* Pods_Zeeguu_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zeeguu_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E0CA9B220CAAD7E0CFC5869 /* Pods-Zeeguu Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zeeguu Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zeeguu Reader/Pods-Zeeguu Reader.debug.xcconfig"; sourceTree = "<group>"; };
+		940458721D0C85F900E6C5C1 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		9408F03F1C1C8160002F9637 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		9408F0431C1C8461002F9637 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				94C748271C39220400F3DCC2 /* HistoryTableViewController.swift */,
+				940458721D0C85F900E6C5C1 /* HistoryTableViewCell.swift */,
 				94F208891C58D4870005EB2F /* HistoryItemViewController.swift */,
 				942667A11C60CA1600CF00FA /* HistoryItemView.swift */,
 			);
@@ -532,6 +535,7 @@
 				94B758321C36B797001B4294 /* AddFeedTableViewController.swift in Sources */,
 				942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */,
 				94FC8D021CDB874F0032E72A /* ZGJavaScriptAction.swift in Sources */,
+				940458731D0C85F900E6C5C1 /* HistoryTableViewCell.swift in Sources */,
 				9467CEDA1D04259B00D07DFE /* Constants.swift in Sources */,
 				9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */,
 				9408F0401C1C8160002F9637 /* LoginTableViewController.swift in Sources */,
