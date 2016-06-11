@@ -364,6 +364,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 				})
 			}
 			
+			NSNotificationCenter.defaultCenter().postNotificationName(UserTranslatedWordNotification, object: nil)
+			
 			guard let trans = translation, actionInfo = action.getActionInformation() else {
 				return
 			}

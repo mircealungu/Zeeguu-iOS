@@ -50,15 +50,20 @@ class HistoryTableViewController: ZGTableViewController {
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl?.addTarget(self, action: #selector(HistoryTableViewController.getBookmarks), forControlEvents: .ValueChanged)
+		self.refreshControl?.beginRefreshing()
 		getBookmarks()
 		
-		let selector = #selector(HistoryTableViewController.getBookmarks(_:))
+		let selector = #selector(HistoryTableViewController.getBookmarksForNotification(_:))
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name: UserTranslatedWordNotification, object: nil)
 	}
 	
-	func getBookmarks(notification: NSNotification? = nil) {
+	func getBookmarksForNotification(notification: NSNotification) {
 		self.refreshControl?.beginRefreshing()
-		
+		self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
+		getBookmarks()
+	}
+	
+	func getBookmarks() {
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
 			var items = [[Bookmark]]()
 			var filled = false
