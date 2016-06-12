@@ -66,6 +66,7 @@ class ZGSlideInPresentationController: NSObject, UIViewControllerTransitioningDe
 			toViewController!.view.frame = CGRectMake(fromViewController!.view.frame.size.width, 0, 320, 1024)
 			UIView.animateWithDuration(presentDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () in
 				self.presentDimView.alpha = 1
+				fromViewController?.view.tintAdjustmentMode = .Dimmed
 				toViewController!.view.frame = CGRectMake(fromViewController!.view.frame.size.width - 320, 0, 320, 1024)
 				}, completion: { (completed) in
 					transitionContext.completeTransition(completed)
@@ -75,6 +76,7 @@ class ZGSlideInPresentationController: NSObject, UIViewControllerTransitioningDe
 			UIView.animateWithDuration(presentDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () in
 				fromViewController!.view.frame = CGRectMake(toViewController!.view.frame.size.width, 0, 320, 1024)
 				self.presentDimView.alpha = 0
+				toViewController?.view.tintAdjustmentMode = .Automatic
 				}, completion: { (completed) in
 					fromViewController?.view.removeFromSuperview()
 					self.presentDimView.removeFromSuperview()
