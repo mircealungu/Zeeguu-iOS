@@ -134,6 +134,10 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 			} else if row == 2 {
 				parent.translationMode = .Sentence
 			}
+			if let pop = self.popoverPresentationController {
+				pop.delegate?.popoverPresentationControllerDidDismissPopover?(pop)
+			}
+			self.dismissViewControllerAnimated(true, completion: nil)
 		}
 		self.tableView.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(1, 1)), withRowAnimation: .Automatic)
 	}

@@ -26,6 +26,20 @@
 
 import UIKit
 
+@objc protocol ZGSlideInPresentationControllerDelegate {
+	
+	@objc func dismissViewController(sender: UITapGestureRecognizer)
+	
+}
+
+class ZGSlideInNavigationController: UINavigationController, ZGSlideInPresentationControllerDelegate {
+	
+	func dismissViewController(sender: UITapGestureRecognizer) {
+		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+}
+
 class ZGSlideInPresentationController: NSObject, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
 
 	private var isPresenting: Bool = false
@@ -60,6 +74,12 @@ class ZGSlideInPresentationController: NSObject, UIViewControllerTransitioningDe
 			self.presentDimView = UIView(frame: CGRectMake(0, 0, 1024, 1024))
 			self.presentDimView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
 			self.presentDimView.alpha = 0
+			
+			if let vc = toViewController as? ZGSlideInPresentationControllerDelegate {
+				let selector = #selector(ZGSlideInPresentationControllerDelegate.dismissViewController(_:))
+				let recog = UITapGestureRecognizer(target: vc, action: selector)
+				self.presentDimView.addGestureRecognizer(recog)
+			}
 			
 			containerView!.addSubview(self.presentDimView)
 			containerView!.addSubview(toViewController!.view)

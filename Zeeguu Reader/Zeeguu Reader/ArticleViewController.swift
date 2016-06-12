@@ -206,7 +206,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		
 		vc.delegate = self;
 		
-		let nav = UINavigationController(rootViewController: vc)
+		let nav = ZGSlideInNavigationController(rootViewController: vc)
 		slideInPresentationController = ZGSlideInPresentationController(presentedViewController: nav)
 		
 		nav.transitioningDelegate = slideInPresentationController!;
