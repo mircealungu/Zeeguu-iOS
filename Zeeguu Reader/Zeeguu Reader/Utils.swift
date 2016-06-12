@@ -26,6 +26,7 @@
 
 import UIKit
 import WebKit
+import AVFoundation
 
 class Utils {
 	
@@ -126,5 +127,22 @@ class Utils {
 	static func sendMonitoringStatusToServer(key: String, value: String, data: [String: String]? = nil) {
 		// Call ZeeguuAPI endpoint that accepts arbitrary statistics 
 		print("Send statistics to server: {\(key): \(value)}")
+	}
+	
+	static func pronounce(word word: String, inLanguage language: String?) {
+		_ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+		_ = try? AVAudioSession.sharedInstance().setActive(true)
+		
+		let synthesizer = AVSpeechSynthesizer()
+		
+		let utterance = AVSpeechUtterance(string: word)
+		utterance.voice = AVSpeechSynthesisVoice(language: language)
+		
+		synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+		synthesizer.speakUtterance(utterance)
+		
+		_ = try? AVAudioSession.sharedInstance().setActive(false)
+		
+		Utils.sendMonitoringStatusToServer("userPronouncesWord", value: "1")
 	}
 }

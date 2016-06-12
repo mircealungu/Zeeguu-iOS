@@ -34,7 +34,7 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	init(parent: ArticleViewController) {
 		let s1 = ["FONTSIZE".localized]
 		let s2 = [ArticleViewTranslationMode.Instant.getTitle(), ArticleViewTranslationMode.WordPair.getTitle(), ArticleViewTranslationMode.Sentence.getTitle()]
-		let s3 = ["DISABLE_LINKS".localized, "INSERT_TRANSLATION_IN_TEXT".localized]
+		let s3 = ["DISABLE_LINKS".localized, "PRONOUNCE_TRANSLATED_WORD".localized, "INSERT_TRANSLATION_IN_TEXT".localized]
 		
 		data = [s1, s2, s3]
 		self.parent = parent
@@ -105,11 +105,17 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 				sw.on = self.parent.disableLinks
 			} else if row == 1 {
 				let sw = UISwitch()
+				sw.addTarget(self, action: #selector(ArticleViewOptionsTableViewController.setPronounceTranslatedWord(_:)), forControlEvents: .ValueChanged)
+				cell?.accessoryView = sw
+				
+				let def = NSUserDefaults.standardUserDefaults()
+				sw.on = def.boolForKey(PronounceTranslatedWordKey)
+			} else if row == 2 {
+				let sw = UISwitch()
 				sw.addTarget(self, action: #selector(ArticleViewOptionsTableViewController.setInsertTranslationInText(_:)), forControlEvents: .ValueChanged)
 				cell?.accessoryView = sw
 				
 				let def = NSUserDefaults.standardUserDefaults()
-				
 				sw.on = def.boolForKey(InsertTranslationInTextDefaultsKey)
 			}
 		}
@@ -164,6 +170,12 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	func setLinkState(sender: UISwitch) {
 		self.parent.disableLinks = sender.on
 	}
+ 
+ 	func setPronounceTranslatedWord(sender: UISwitch) {
+		let def = NSUserDefaults.standardUserDefaults()
+		def.setBool(sender.on, forKey: PronounceTranslatedWordKey)
+		def.synchronize()
+ 	}
 	
 	func setInsertTranslationInText(sender: UISwitch) {
 		let def = NSUserDefaults.standardUserDefaults()

@@ -72,6 +72,7 @@
 "OPTIONS" = "Options";
 "PASSWORD" = "Password";
 "PROFILE" = "Profile";
+"PRONOUNCE_TRANSLATED_WORD" = "Pronounce translated word";
 "REGISTER" = "Register";
 "RETYPE_PASSWORD" = "Retype password";
 "SELECTION_INVALID" = "Invalid selection";

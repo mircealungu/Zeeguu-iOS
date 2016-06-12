@@ -25,7 +25,6 @@
 //
 
 import UIKit
-import AVFoundation
 import WebKit
 import Zeeguu_API_iOS
 
@@ -333,6 +332,11 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			action.setBookmarkID(b)
 			
 			let def = NSUserDefaults.standardUserDefaults()
+			let pronounce = def.boolForKey(PronounceTranslatedWordKey)
+			if pronounce {
+				Utils.pronounce(word: word, inLanguage: self.article?.feed.language)
+			}
+			
 			if def.boolForKey(InsertTranslationInTextDefaultsKey) {
 				self.webview.executeJavaScriptAction(action)
 			} else {
@@ -451,20 +455,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func pronounceWord(action: ZGJavaScriptAction) {
 		if let word = action.getActionInformation()?["word"] {
-			_ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-			_ = try? AVAudioSession.sharedInstance().setActive(true)
-			
-			let synthesizer = AVSpeechSynthesizer()
-			
-			let utterance = AVSpeechUtterance(string: word)
-			utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
-			
-			synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-			synthesizer.speakUtterance(utterance)
-			
-			_ = try? AVAudioSession.sharedInstance().setActive(false)
-			
-			Utils.sendMonitoringStatusToServer("userPronouncesWord", value: "1")
+			Utils.pronounce(word: word, inLanguage: self.article?.feed.language)
 		}
 	}
 }
