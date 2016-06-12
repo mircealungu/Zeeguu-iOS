@@ -25,11 +25,17 @@
 //
 
 function getPeriodAfterElement(el, hasPeriodFunction) {
+	var els = [];
+	while (el.nextSibling && (elementIsTranslation(el.nextSibling) || elementIsPronounceIcon(el.nextSibling))) {
+		el = el.nextSibling;
+		els.push(el);
+	}
 	if (el.nextSibling && el.nextSibling.nodeType != 3 && el.nextSibling.tagName.toLowerCase() === zeeguuPeriodTagName.toLowerCase()) {
 		if (hasPeriodFunction != null) {
 			hasPeriodFunction();
 		}
-		return el.nextSibling;
+		els.push(el.nextSibling);
+		return els;
 	}
 	return el;
 }
@@ -49,11 +55,15 @@ function elementIsTranslation(el) {
 	return el.tagName && el.tagName.toLowerCase() == zeeguuTranslatedWordTagName.toLowerCase();
 }
 
+function elementIsPronounceIcon(el) {
+	return el.tagName && el.tagName.toLowerCase() == zeeguuPronounceTagName.toLowerCase();
+}
+
 function getContextNextTo(element, directionIsPrevious) {
 	var text = "";
 
 	walkElementsStartingWith(element, directionIsPrevious, function (currentElement, directionIsPrevious) {
-		if (elementIsTranslation(currentElement)) {
+		if (elementIsTranslation(currentElement) || elementIsPronounceIcon(currentElement)) {
 			return "continue";
 		}
 

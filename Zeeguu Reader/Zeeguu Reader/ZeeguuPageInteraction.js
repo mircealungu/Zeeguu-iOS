@@ -67,7 +67,7 @@ function handleSelection(tappedNode) {
 			} else if (modeSentence) {
 				elements.push(currentElement);
 			}
-			if (elementIsTranslation(currentElement)) {
+			if (elementIsTranslation(currentElement) || elementIsPronounceIcon(currentElement)) {
 				return "continue";
 			}
 			if (directionIsPrevious) {
@@ -101,9 +101,9 @@ function handleSelection(tappedNode) {
 		}
 
 		var hasPeriodAtEnd = false;
-		var lastElement = getPeriodAfterElement(secondFollowsFirst ? second : first, function () { hasPeriodAtEnd = true; });
+		var lastElements = getPeriodAfterElement(secondFollowsFirst ? second : first, function () { hasPeriodAtEnd = true; });
 		if (hasPeriodAtEnd) {
-			text += zgjq(lastElement).text();
+			text += zgjq(lastElements[lastElements.length - 1]).text();
 		}
 		var context = getContextOfSelection(first, second, secondFollowsFirst, text);
 
@@ -112,14 +112,16 @@ function handleSelection(tappedNode) {
 		}
 
 		var sentence = encloseElementsInSentence(elements);
-		sentence.appendChild(lastElement);
+		for (var i = 0; i != lastElements.length; ++i) {
+			sentence.appendChild(lastElements[i]);
+		}
 		if (zeeguuTranslationMode == ZeeguuTranslateSentence) {
 			removeSelectionHighlights();
 			zgjq(sentence).addClass("zeeguuSelection", 300);
 		}
 		var rect = sentence.getBoundingClientRect();
 
-		var message = {action: "translate", word: text, context: context, id: lastElement.getAttribute("id"), selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
+		var message = {action: "translate", word: text, context: context, id: lastElements[lastElements.length - 1].getAttribute("id"), selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height};
 
 		zeeguuPostMessage(message);
 
