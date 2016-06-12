@@ -58,10 +58,12 @@ class ArticleInfoView: UIView {
 		self.translatesAutoresizingMaskIntoConstraints = false
 		
 		label.numberOfLines = 0
+		label.textColor = UIColor.whiteColor()
 		
-		let effect = UIBlurEffect(style: .ExtraLight)
+		let effect = UIBlurEffect(style: .Dark)
 		let ev = UIVisualEffectView(effect: effect)
 		ev.translatesAutoresizingMaskIntoConstraints = false
+		
 		
 		let views = ["l": label, "ev": ev]
 		
