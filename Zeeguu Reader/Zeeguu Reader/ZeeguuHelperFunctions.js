@@ -37,7 +37,7 @@ function getPeriodAfterElement(el, hasPeriodFunction) {
 		els.push(el.nextSibling);
 		return els;
 	}
-	return el;
+	return [el];
 }
 
 function fuseWordPair(first, second, secondFollowsFirst) {
