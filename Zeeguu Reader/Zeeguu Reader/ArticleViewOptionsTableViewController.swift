@@ -160,10 +160,7 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	
 	func changeFontSize(sender: UIStepper) {
 		let action = ZGJavaScriptAction.ChangeFontSize(Int(sender.value))
-		parent.webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
-			print("result: \(result)")
-			print("error: \(error)")
-		}
+		parent.webview.executeJavaScriptAction(action)
 	}
 	
 	func setLinkState(sender: UISwitch) {

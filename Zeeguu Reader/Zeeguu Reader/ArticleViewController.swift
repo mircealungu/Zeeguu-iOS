@@ -62,10 +62,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			}
 			
 			let action = ZGJavaScriptAction.ChangeTranslationMode(_translationMode)
-			webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
-				print("result: \(result)")
-				print("error: \(error)")
-			}
+			webview.executeJavaScriptAction(action)
 		}
 	}
 	
@@ -84,10 +81,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 				Utils.sendMonitoringStatusToServer("userEnablesLinks", value: "1")
 			}
 			
-			webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
-				print("result: \(result)")
-				print("error: \(error)")
-			}
+			webview.executeJavaScriptAction(action)
 		}
 	}
 	
@@ -121,7 +115,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		
 		let config = WKWebViewConfiguration()
 		config.userContentController = controller
-		self.webview = ZGWebView(article: self.article, webViewConfiguration: config)
+		self.webview = ZGWebView(webViewConfiguration: config)
 		
 		self.webview.navigationDelegate = self
 	}
@@ -215,20 +209,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		nav.transitioningDelegate = slideInPresentationController!;
 		nav.modalPresentationStyle = .Custom
 		
-//		let topGuide = self.topLayoutGuide
-//		vc.popoverPresentationController?.sourceRect = CGRectMake(CGFloat(x), CGFloat(y) + topGuide.length, CGFloat(w), CGFloat(h))
-//		vc.popoverPresentationController?.sourceView = webview
-		
 		currentJavaScriptAction = sender
 		self.presentViewController(nav, animated: true, completion: nil)
-		
-//		let transition = CATransition()
-//		transition.duration = 0.4
-//		transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-//		transition.type = kCATransitionPush
-//		transition.subtype = kCATransitionFromRight
-//		self.view.window?.layer.addAnimation(transition, forKey: nil)
-//		self.presentViewController(vc, animated: false, completion: nil)
 	}
 	
 	
@@ -269,10 +251,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		
 		
 		act.setTranslation(newTranslation)
-		self.webview.evaluateJavaScript(act.getJavaScriptExpression(), completionHandler: { (result, error) in
-			print("result: \(result)")
-			print("error: \(error)")
-		})
+		webview.executeJavaScriptAction(act)
 		
 		
 		
@@ -292,10 +271,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 		let newAct = ZGJavaScriptAction.DeleteTranslation(id)
 		ZeeguuAPI.sharedAPI().deleteBookmarkWithID(bid) { (success) in }
-		self.webview.evaluateJavaScript(newAct.getJavaScriptExpression(), completionHandler: { (result, error) in
-			print("result: \(result)")
-			print("error: \(error)")
-		})
+		self.webview.executeJavaScriptAction(newAct)
 		
 		guard let actionInfo = currentJavaScriptAction?.getActionInformation() else {
 			return
@@ -354,10 +330,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			
 			let def = NSUserDefaults.standardUserDefaults()
 			if def.boolForKey(InsertTranslationInTextDefaultsKey) {
-				self.webview.evaluateJavaScript(action.getJavaScriptExpression(), completionHandler: { (result, error) in
-					print("result: \(result)")
-					print("error: \(error)")
-				})
+				self.webview.executeJavaScriptAction(action)
 			} else {
 				dispatch_sync(dispatch_get_main_queue(), {
 					self.showInfoView(t)
@@ -422,10 +395,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	}
 	
 	func didHideUIMenuController(sender: NSNotification) {
-		self.webview.evaluateJavaScript(ZGJavaScriptAction.RemoveSelectionHighlights.getJavaScriptExpression(), completionHandler: { (result, error) in
-			print("result: \(result)")
-			print("error: \(error)")
-		})
+		self.webview.executeJavaScriptAction(ZGJavaScriptAction.RemoveSelectionHighlights)
 		self.webview.userInteractionEnabled = true
 		currentJavaScriptAction = nil
 	}

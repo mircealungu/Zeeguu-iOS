@@ -165,9 +165,4 @@ enum ZGJavaScriptAction {
 			return ""
 		}
 	}
-	
-//	self.webview.evaluateJavaScript(newAct.getJavaScriptExpression(), completionHandler: { (result, error) in
-//	print("result: \(result)")
-//	print("error: \(error)")
-//	})
 }
