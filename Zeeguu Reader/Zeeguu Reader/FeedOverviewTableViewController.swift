@@ -37,8 +37,8 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	convenience init() {
 		self.init(style: .Grouped)
 		
-		self.tabBarItem = UITabBarItem(title: "APP_TITLE".localized, image: AppIcon.newsIcon(), selectedImage: AppIcon.newsIcon(true))
-		self.title = "APP_TITLE".localized
+		self.tabBarItem = UITabBarItem(title: "NEWS".localized, image: AppIcon.newsIcon(), selectedImage: AppIcon.newsIcon(true))
+		self.title = "NEWS".localized
 	}
 	
 	override func viewDidLoad() {

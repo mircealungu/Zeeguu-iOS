@@ -29,3 +29,5 @@ import UIKit
 let UserLoggedInNotification = "UserLoggedInNotification"
 let UserLoggedOutNotification = "UserLoggedOutNotification"
 let UserTranslatedWordNotification = "UserTranslatedWordNotification"
+
+let DidShowWelcomeScreenKey = "DidShowWelcomeScreen"

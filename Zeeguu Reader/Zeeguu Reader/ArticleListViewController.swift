@@ -47,8 +47,7 @@ class ArticleListViewController: ZGTableViewController {
 		
 		self.tableView.estimatedRowHeight = 100
 		
-		self.title = "APP_TITLE".localized
-		self.navigationItem.title = "APP_TITLE".localized
+		self.title = "NEWS".localized
 		
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			self.clearsSelectionOnViewWillAppear = true

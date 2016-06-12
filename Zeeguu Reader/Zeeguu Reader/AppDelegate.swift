@@ -37,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		
+		let selector = #selector(AppDelegate.userLoggedIn(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name: UserLoggedInNotification, object: nil)
+		
 		let def = NSUserDefaults.standardUserDefaults()
 		if def.objectForKey(InsertTranslationInTextDefaultsKey) == nil {
 			def.setBool(true, forKey: InsertTranslationInTextDefaultsKey)
@@ -79,6 +82,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		let vc = UINavigationController(rootViewController: LoginRegisterTableViewController())
 		vc.modalPresentationStyle = .FormSheet
 		self.window?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+	}
+	
+	func userLoggedIn(notification: NSNotification) {
+		let def = NSUserDefaults.standardUserDefaults()
+		if def.boolForKey(DidShowWelcomeScreenKey) == false {
+			def.setBool(true, forKey: DidShowWelcomeScreenKey)
+			def.synchronize()
+			
+			let vc = UINavigationController(rootViewController: WelcomeViewController())
+			vc.modalPresentationStyle = .FormSheet
+			self.window?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+		}
 	}
 	
 	func applicationWillResignActive(application: UIApplication) {

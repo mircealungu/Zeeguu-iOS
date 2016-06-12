@@ -58,6 +58,7 @@
 "LOGOUT" = "Logout";
 "NAME" = "Name";
 "NEW_TRANSLATION" = "New translation";
+"NEWS" = "News";
 "NO" = "No";
 "NO_CONTEXT" = "No context given.";
 "NO_EQUAL_PASSWORDS" = "The passwords you typed do not match.";
@@ -82,7 +83,7 @@
 "TRANSLATE_SENTENCE_DESCRIPTION" = "To translate a sentence, just tap the first word and the last word of the sentence. The tapped words and everything in between will be translated. This functionality is limited to sentences within the same paragraph.";
 "TRANSLATED_TO_%@%@" = "'%@' translated to '%@'";
 "TRANSLATION_MODE" = "Translate mode";
-"TRANSLATION_MODE_DESCRIPTION" = "You can have your translations in two ways: either instantly after selecting or after selecting and pressing a translate button. With the latter method, you can select a longer piece of text to translate.";
+"TRANSLATION_MODE_DESCRIPTION" = "You can have your translations in three ways: instantly after selecting, selecting two words to translate together or you can select a longer piece of text to translate.";
 "UPDATE_TRANSLATION" = "Update translation";
 "URL" = "Url";
 "USERNAME" = "Username";
