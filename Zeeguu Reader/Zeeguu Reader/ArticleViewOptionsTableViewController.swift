@@ -26,8 +26,6 @@
 
 import UIKit
 
-let InsertTranslationInTextDefaultsKey = "insertTranslationInText"
-
 class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 	
 	private let parent: ArticleViewController

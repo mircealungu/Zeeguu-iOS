@@ -31,3 +31,5 @@ let UserLoggedOutNotification = "UserLoggedOutNotification"
 let UserTranslatedWordNotification = "UserTranslatedWordNotification"
 
 let DidShowWelcomeScreenKey = "DidShowWelcomeScreen"
+let InsertTranslationInTextDefaultsKey = "insertTranslationInText"
+let feedsKey = "newsFeeds"

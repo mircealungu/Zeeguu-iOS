@@ -28,8 +28,6 @@ import UIKit
 
 import Zeeguu_API_iOS
 
-let feedsKey = "newsFeeds"
-
 class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewControllerDelegate {
 
 	var newsFeeds = [AnyObject]()
