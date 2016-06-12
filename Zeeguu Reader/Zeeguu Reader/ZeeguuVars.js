@@ -35,6 +35,7 @@ const ZeeguuTranslateSentence = 2;
 var zeeguuTranslationMode = ZeeguuTranslateImmediately;
 var zeeguuLinksAreDisabled = false;
 var zeeguuSelectionFirstWord = null;
+var zeeguuTranslationIsInserted = true;
 
 /// HTML vars
 var zeeguuParagraphTagName = "zeeguuParagraph";

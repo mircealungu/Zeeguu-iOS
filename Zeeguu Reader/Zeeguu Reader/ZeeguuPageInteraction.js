@@ -41,7 +41,9 @@ function wordClickHandler(event) {
 		var context = getContextOfClickedWord(id);
 		var message = {action: "translate", word: word, context: context, id: id};
 		zeeguuPostMessage(message);
-		event.target.setAttribute("data-zeeguu-translated", "translated");
+		if (zeeguuTranslationIsInserted) {
+			event.target.setAttribute("data-zeeguu-translated", "translated");
+		}
 	} else {
 		handleSelection(event.target);
 	}
@@ -192,6 +194,11 @@ function setTranslationMode(mode) {
 	removeSelectionHighlights();
 	zeeguuSelectionFirstWord = null;
 }
+
+function setInsertsTranslation(inserts) {
+	zeeguuTranslationIsInserted = inserts;
+}
+
 
 function removeSelectionHighlights() {
 	zgjq(".zeeguuSelection").removeClass("zeeguuSelection", 300);

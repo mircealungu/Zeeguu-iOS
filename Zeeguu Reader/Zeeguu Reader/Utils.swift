@@ -98,6 +98,11 @@ class Utils {
 		return String(contextStr)
 	}
 	
+	static func addUserScriptToUserContentController(controller: WKUserContentController, js: String) {
+		let script = WKUserScript(source: js, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
+		controller.addUserScript(script)
+	}
+	
 	static func addUserScriptToUserContentController(controller: WKUserContentController, jsFileName: String) {
 		let jsFilePath = NSBundle.mainBundle().pathForResource(jsFileName, ofType: "js")
 		if let jsf = jsFilePath, jsFile = try? String(contentsOfFile: jsf) {

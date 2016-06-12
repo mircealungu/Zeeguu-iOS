@@ -58,6 +58,8 @@ enum ZGJavaScriptAction {
 	case SelectionIncomplete
 	/// The pronounce action. If this action was parsed, the given word is pronounced by iOS. The string is the word/phrase to pronounce.
 	case Pronounce(Dictionary<String, String>)
+	/// The set inserts translation action. Sets whether the translation will be inserted or not. If the translation is not inserted, it is possible to translate a word multiple times.
+	case SetInsertsTranslation(Bool)
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
@@ -161,6 +163,8 @@ enum ZGJavaScriptAction {
 			return "zeeguuLinksAreDisabled = \(disable ? "true" : "false"); zeeguuUpdateLinkState();"
 		case .RemoveSelectionHighlights():
 			return "removeSelectionHighlights();"
+		case let .SetInsertsTranslation(inserts):
+			return "setInsertsTranslation(\(inserts ? "true" : "false"));"
 		default:
 			return ""
 		}

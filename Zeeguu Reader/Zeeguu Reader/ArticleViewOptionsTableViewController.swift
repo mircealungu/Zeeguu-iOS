@@ -169,5 +169,7 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 		let def = NSUserDefaults.standardUserDefaults()
 		def.setBool(sender.on, forKey: InsertTranslationInTextDefaultsKey)
 		def.synchronize()
+		
+		parent.webview.executeJavaScriptAction(ZGJavaScriptAction.SetInsertsTranslation(sender.on))
 	}
 }

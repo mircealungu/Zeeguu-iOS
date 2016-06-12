@@ -113,6 +113,10 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuPagePreparation")
 		Utils.addStyleSheetToUserContentController(controller, cssFileName: "zeeguu")
 		
+		let def = NSUserDefaults.standardUserDefaults()
+		let inserts = def.boolForKey(InsertTranslationInTextDefaultsKey)
+		Utils.addUserScriptToUserContentController(controller, js: ZGJavaScriptAction.SetInsertsTranslation(inserts).getJavaScriptExpression())
+		
 		let config = WKWebViewConfiguration()
 		config.userContentController = controller
 		self.webview = ZGWebView(webViewConfiguration: config)
