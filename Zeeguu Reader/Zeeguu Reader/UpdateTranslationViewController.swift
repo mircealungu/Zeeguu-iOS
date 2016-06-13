@@ -40,7 +40,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	var otherTranslations: [String: String]?
 	var delegate: UpdateTranslationViewControllerDelegate?
 	
-	private var data: [[String]]
+	private var data: [[(String, String)]]
 	private var action: ZGJavaScriptAction
 	
 	private var deleteIndex: Int
@@ -53,8 +53,8 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		self.oldTranslation = oldTranslation
 		self.action = action
 		self.deleteIndex = 1
-		let s2 = ["UPDATE_TRANSLATION".localized]
-		let s3 = ["DELETE_TRANSLATION".localized]
+		let s2 = [("", "UPDATE_TRANSLATION".localized)]
+		let s3 = [("", "DELETE_TRANSLATION".localized)]
 		
 		data = [s2, s3]
 		super.init(style: .Grouped)
@@ -89,7 +89,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 					if let ts = translation?["translations"].array {
 						var d = [String: String]()
 						for t in ts {
-							if let key = t["translation_id"].int, value = t["translation"].string {
+							if let key = t["likelihood"].float, value = t["translation"].string {
 								d[String(key)] = value
 							}
 						}
@@ -109,14 +109,19 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	}
 	
 	func prepareTranslationList() {
-		var s1 = [String]()
+		var s1 = [(String, String)]()
 		if let ot = otherTranslations where ot.count > 0 {
-			for (_, value) in ot {
-				s1.append("\(value)")
+			for (key, value) in ot {
+				s1.append((key, value))
 			}
 		}
 		
-		s1.sortInPlace({ $0.0.lowercaseString < $0.1.lowercaseString })
+		// $0 is a pair with the left operand and right operand
+		// $0.0 is the left operand and is a pair of 2 strings
+		// $0.1 is the right operand and is a pair of 2 strings
+		// $0.0.0 is the left string of that pair and is the likelihood of the left operand
+		// $0.1.0 is the left string of that pair and is the likelihood of the right operand
+		s1.sortInPlace({ $0.0.0.lowercaseString > $0.1.0.lowercaseString })
 		deleteIndex += 1
 		data.insert(s1, atIndex: 1)
 		dispatch_async(dispatch_get_main_queue()) {
@@ -170,7 +175,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		
 		let sec = indexPath.section
 		let row = indexPath.row
-		cell.textLabel?.text = data[sec][row]
+		cell.textLabel?.text = data[sec][row].1
 		cell.accessoryType = .None
 		cell.accessoryView = nil
 		
@@ -199,7 +204,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 				cell.textLabel?.textColor = UIColor.redColor()
 			}
 		} else if sec == 1 { // delete index may also be 1, so then this case is not treated. As long as there are no translations yet, this is intended. When the translations arrive, the deleteIndex is increased.
-			let text = data[sec][row]
+			let text = data[sec][row].1
 			cell.textLabel?.textColor = UIColor.blackColor()
 			if text == oldTranslation {
 				cell.accessoryType = .Checkmark
@@ -215,7 +220,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		let sec = indexPath.section
 		let row = indexPath.row
 		if sec == 0 {
-			let text = data[sec][row]
+			let text = data[sec][row].1
 			updateTranslationWith(text)
 			self.dismissViewControllerAnimated(true, completion: nil)
 		} else if sec == 2 {
