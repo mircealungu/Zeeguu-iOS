@@ -38,14 +38,18 @@ function wordClickHandler(event) {
 	event.target.setAttribute("id", id);
 
 	if (zeeguuTranslationMode == ZeeguuTranslateImmediately) {
-		var context = getContextOfClickedWord(id);
-		var message = {action: "translate", word: word, context: context, id: id};
-		zeeguuPostMessage(message);
-		if (zeeguuTranslationIsInserted) {
-			event.target.setAttribute("data-zeeguu-translated", "translated");
-		}
+		translateSingleWord(word, id);
 	} else {
 		handleSelection(event.target);
+	}
+}
+
+function translateSingleWord(word, id) {
+	var context = getContextOfClickedWord(id);
+	var message = {action: "translate", word: word, context: context, id: id};
+	zeeguuPostMessage(message);
+	if (zeeguuTranslationIsInserted) {
+		event.target.setAttribute("data-zeeguu-translated", "translated");
 	}
 }
 
@@ -57,6 +61,11 @@ function handleSelection(tappedNode) {
 		var first = zeeguuSelectionFirstWord;
 		var second = tappedNode;
 		var text = zgjq(tappedNode).text();
+
+		if (first == second) {
+			translateSingleWord(text, zeeguuSelectionFirstWord.getAttribute("id"));
+			return;
+		}
 
 		var selectionComplete = false;
 		var elements = [second];

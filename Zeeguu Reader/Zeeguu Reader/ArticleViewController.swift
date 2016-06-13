@@ -311,8 +311,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 				self.becomeFirstResponder()
 				mc.setTargetRect(rect, inView: webview)
 				mc.setMenuVisible(true, animated: true)
+				return
 			}
-			return
 		}
 		translateWithAction(action)
 	}
