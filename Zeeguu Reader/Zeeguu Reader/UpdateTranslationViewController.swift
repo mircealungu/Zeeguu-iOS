@@ -122,10 +122,15 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		// $0.0.0 is the left string of that pair and is the likelihood of the left operand
 		// $0.1.0 is the left string of that pair and is the likelihood of the right operand
 		s1.sortInPlace({ $0.0.0.lowercaseString > $0.1.0.lowercaseString })
-		deleteIndex += 1
-		data.insert(s1, atIndex: 1)
 		dispatch_async(dispatch_get_main_queue()) {
-			self.tableView.insertSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+			self.deleteIndex += 1
+			if self.data.count == 3 {
+				self.data[1] = s1
+				self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
+			} else {
+				self.data.insert(s1, atIndex: 1)
+				self.tableView.insertSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
+			}
 			self.endRefreshing()
 		}
 	}
@@ -219,12 +224,12 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let sec = indexPath.section
 		let row = indexPath.row
-		if sec == 0 {
+		if sec == deleteIndex {
+			deleteTranslation()
+			self.dismissViewControllerAnimated(true, completion: nil)
+		} else if sec == 1 {
 			let text = data[sec][row].1
 			updateTranslationWith(text)
-			self.dismissViewControllerAnimated(true, completion: nil)
-		} else if sec == 2 {
-			deleteTranslation()
 			self.dismissViewControllerAnimated(true, completion: nil)
 		}
 	}
