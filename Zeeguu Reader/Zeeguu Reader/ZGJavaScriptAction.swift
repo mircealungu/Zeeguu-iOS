@@ -60,6 +60,8 @@ enum ZGJavaScriptAction {
 	case Pronounce(Dictionary<String, String>)
 	/// The set inserts translation action. Sets whether the translation will be inserted or not. If the translation is not inserted, it is possible to translate a word multiple times.
 	case SetInsertsTranslation(Bool)
+	/// The insert loading icon action. The string contains the id of the element after which to put the loading icon.
+	case InsertLoadingIcon(String)
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
@@ -117,6 +119,16 @@ enum ZGJavaScriptAction {
 		}
 	}
 	
+	mutating func setPronounceID(id: String) {
+		switch self {
+		case var .Translate(dict):
+			dict["pronounceID"] = id
+			self = .Translate(dict)
+		default:
+			break // do nothing
+		}
+	}
+	
 	func getActionInformation() -> Dictionary<String, String>? {
 		switch self {
 		case let .Translate(dict):
@@ -133,14 +145,14 @@ enum ZGJavaScriptAction {
 	func getJavaScriptExpression() -> String {
 		switch self {
 		case let .Translate(dict):
-			guard let translation = dict["translation"], word = dict["word"], context = dict["context"], id = dict["id"], bid = dict["bookmarkID"] else {
+			guard let translation = dict["translation"], word = dict["word"], context = dict["context"], id = dict["id"], bid = dict["bookmarkID"], pid = dict["pronounceID"] else {
 				fatalError("The ZGJavaScriptAction.Translate(_) dictionary is in an incorrect state!")
 			}
 			let t = translation.stringByJSEscaping()
 			let c = context.stringByJSEscaping()
 			let w = word.stringByJSEscaping()
 			
-			return "insertTranslationForID(\"\(t)\", \"\(w)\", \"\(c)\", \"\(id)\", \"\(bid)\")"
+			return "insertTranslationForID(\"\(t)\", \"\(w)\", \"\(c)\", \"\(id)\", \"\(bid)\", \"\(pid)\")"
 		case let .EditTranslation(dict):
 			guard let word = dict["newTranslation"], id = dict["id"] else {
 				fatalError("The ZGJavaScriptAction.EditTranslation(_) dictionary is in an incorrect state!")
@@ -165,6 +177,8 @@ enum ZGJavaScriptAction {
 			return "removeSelectionHighlights();"
 		case let .SetInsertsTranslation(inserts):
 			return "setInsertsTranslation(\(inserts ? "true" : "false"));"
+		case let .InsertLoadingIcon(id):
+			return "insertIconAfterID(\"\(id)\");"
 		default:
 			return ""
 		}

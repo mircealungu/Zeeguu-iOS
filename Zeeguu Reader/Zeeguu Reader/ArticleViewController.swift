@@ -324,10 +324,30 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			return
 		}
 		let def = NSUserDefaults.standardUserDefaults()
+		let insertTranslation = def.boolForKey(InsertTranslationInTextDefaultsKey)
 		let pronounce = def.boolForKey(PronounceTranslatedWordKey)
 		if pronounce {
 			Utils.pronounce(word: word, inLanguage: self.article?.feed.language)
 		}
+		
+		if let pid = action.getActionInformation()?["pronounceID"], wid = action.getActionInformation()?["id"] where insertTranslation && Int(pid) == -1 {
+			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+				let act = ZGJavaScriptAction.InsertLoadingIcon(wid)
+				let cond = NSCondition()
+				cond.lock()
+				dispatch_async(dispatch_get_main_queue(), {
+					self.webview.executeJavaScriptAction(act, resultHandler: { (result) in
+						if let res = result as? String {
+							action.setPronounceID(res)
+						}
+						cond.signal()
+					})
+				})
+				cond.wait()
+				cond.unlock()
+			})
+		}
+		
 		ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
 			print("translation: \(translation)")
 			guard let t = translation?["translation"].string, b = translation?["bookmark_id"].string else {
@@ -337,7 +357,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			action.setTranslation(t)
 			action.setBookmarkID(b)
 			
-			if def.boolForKey(InsertTranslationInTextDefaultsKey) {
+			if insertTranslation {
 				self.webview.executeJavaScriptAction(action)
 			} else {
 				dispatch_sync(dispatch_get_main_queue(), {

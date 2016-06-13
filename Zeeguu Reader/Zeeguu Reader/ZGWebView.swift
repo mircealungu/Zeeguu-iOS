@@ -39,9 +39,10 @@ class ZGWebView: WKWebView {
 		self.translatesAutoresizingMaskIntoConstraints = false
 	}
 	
-	func executeJavaScriptAction(action: ZGJavaScriptAction) {
+	func executeJavaScriptAction(action: ZGJavaScriptAction, resultHandler: ((AnyObject?) -> Void)? = nil) {
 		let js = action.getJavaScriptExpression()
 		self.evaluateJavaScript(js, completionHandler: { (result, error) in
+			resultHandler?(result)
 			print("Executed JavaScript: \(js)")
 			print("result: \(result)")
 			print("error: \(error)")
