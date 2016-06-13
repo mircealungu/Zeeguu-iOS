@@ -323,6 +323,11 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		guard let word = action.getActionInformation()?["word"], context = action.getActionInformation()?["context"], art = article else {
 			return
 		}
+		let def = NSUserDefaults.standardUserDefaults()
+		let pronounce = def.boolForKey(PronounceTranslatedWordKey)
+		if pronounce {
+			Utils.pronounce(word: word, inLanguage: self.article?.feed.language)
+		}
 		ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
 			print("translation: \(translation)")
 			guard let t = translation?["translation"].string, b = translation?["bookmark_id"].string else {
@@ -331,12 +336,6 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			print("\"\(word)\" translated to \"\(t)\"")
 			action.setTranslation(t)
 			action.setBookmarkID(b)
-			
-			let def = NSUserDefaults.standardUserDefaults()
-			let pronounce = def.boolForKey(PronounceTranslatedWordKey)
-			if pronounce {
-				Utils.pronounce(word: word, inLanguage: self.article?.feed.language)
-			}
 			
 			if def.boolForKey(InsertTranslationInTextDefaultsKey) {
 				self.webview.executeJavaScriptAction(action)
