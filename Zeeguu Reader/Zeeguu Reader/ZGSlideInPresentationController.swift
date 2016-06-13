@@ -83,18 +83,18 @@ class ZGSlideInPresentationController: NSObject, UIViewControllerTransitioningDe
 			
 			containerView!.addSubview(self.presentDimView)
 			containerView!.addSubview(toViewController!.view)
-			toViewController!.view.frame = CGRectMake(fromViewController!.view.frame.size.width, 0, 320, 1024)
+			toViewController!.view.frame = CGRectMake(fromViewController!.view.frame.size.width, 0, 320, UIScreen.mainScreen().bounds.size.height)
 			UIView.animateWithDuration(presentDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () in
 				self.presentDimView.alpha = 1
 				fromViewController?.view.tintAdjustmentMode = .Dimmed
-				toViewController!.view.frame = CGRectMake(fromViewController!.view.frame.size.width - 320, 0, 320, 1024)
+				toViewController!.view.frame = CGRectMake(fromViewController!.view.frame.size.width - 320, 0, 320, UIScreen.mainScreen().bounds.size.height)
 				}, completion: { (completed) in
 					transitionContext.completeTransition(completed)
 			})
 			
 		} else {
 			UIView.animateWithDuration(presentDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () in
-				fromViewController!.view.frame = CGRectMake(toViewController!.view.frame.size.width, 0, 320, 1024)
+				fromViewController!.view.frame = CGRectMake(toViewController!.view.frame.size.width, 0, 320, UIScreen.mainScreen().bounds.size.height)
 				self.presentDimView.alpha = 0
 				toViewController?.view.tintAdjustmentMode = .Automatic
 				}, completion: { (completed) in

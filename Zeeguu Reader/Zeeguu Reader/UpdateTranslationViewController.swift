@@ -41,6 +41,9 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	var delegate: UpdateTranslationViewControllerDelegate?
 	
 	private var data: [[String]]
+	private var action: ZGJavaScriptAction
+	
+	private var deleteIndex: Int
 	
 	func dismiss(sender: UIBarButtonItem) {
 		self.dismissViewControllerAnimated(true, completion: nil)
@@ -48,33 +51,39 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	
 	init(oldTranslation: String, action: ZGJavaScriptAction) {
 		self.oldTranslation = oldTranslation
-		
-		var s1 = ["Translation 1", "Translation x", "Translation n-1"]
+		self.action = action
+		self.deleteIndex = 1
 		let s2 = ["UPDATE_TRANSLATION".localized]
 		let s3 = ["DELETE_TRANSLATION".localized]
 		
-		data = [s1, s2, s3]
+		data = [s2, s3]
 		super.init(style: .Grouped)
+		
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		self.clearsSelectionOnViewWillAppear = false
+		self.refreshControl = UIRefreshControl()
+		self.refreshControl?.beginRefreshing()
+		
 		self.modalPresentationStyle = .FormSheet
-//		self.popoverPresentationController?.delegate = self
 		
 		self.title = "UPDATE_TRANSLATION".localized
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(UpdateTranslationViewController.dismiss(_:)))
 		
+		loadTranslations()
+	}
+	
+	func loadTranslations() {
 		if let dict = action.getActionInformation() {
 			if let ot = dict["otherTranslations"] where !ot.isEmpty {
 				self.otherTranslations = JSON.parse(ot).dictionaryObject as? [String: String]
-				
-				if let ot = otherTranslations where ot.count > 0 {
-					s1.removeAll()
-					for (_, value) in ot {
-						s1.append("\(value)")
-					}
-				}
-				
-				s1.sortInPlace({ $0.0.lowercaseString < $0.1.lowercaseString })
-				
-				data = [s1, s2, s3]
+				self.prepareTranslationList()
 			} else if let word = dict["originalWord"] {
 				ZeeguuAPI.sharedAPI().getTranslationsForWord(word, context: "Test context", url: "Test url", completion: { (translation) in
 					if let ts = translation?["translations"].array {
@@ -86,33 +95,46 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 						}
 						self.otherTranslations = d
 						
-						if let ot = self.otherTranslations where ot.count > 0 {
-							s1.removeAll()
-							for (_, value) in ot {
-								s1.append("\(value)")
-							}
-						}
-						
-						s1.sortInPlace({ $0.0.lowercaseString < $0.1.lowercaseString })
-						
-						self.data = [s1, s2, s3]
-						dispatch_sync(dispatch_get_main_queue(), {
-							self.tableView.reloadData()
-						})
+						self.prepareTranslationList()
+					} else {
+						self.endRefreshing()
 					}
 				})
+			} else {
+				self.endRefreshing()
+			}
+		} else {
+			self.endRefreshing()
+		}
+	}
+	
+	func prepareTranslationList() {
+		var s1 = [String]()
+		if let ot = otherTranslations where ot.count > 0 {
+			for (_, value) in ot {
+				s1.append("\(value)")
 			}
 		}
 		
+		s1.sortInPlace({ $0.0.lowercaseString < $0.1.lowercaseString })
+		deleteIndex += 1
+		data.insert(s1, atIndex: 1)
+		dispatch_async(dispatch_get_main_queue()) {
+			self.tableView.insertSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+			self.endRefreshing()
+		}
 	}
 	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		self.clearsSelectionOnViewWillAppear = false
+	func endRefreshing() {
+		// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+		// This enables us to attach a completion block to the animation, deleting it before the
+		// animation is complete causes glitching.
+		CATransaction.begin()
+		CATransaction.setCompletionBlock({ () -> Void in
+			self.refreshControl = nil
+		})
+		self.refreshControl?.endRefreshing()
+		CATransaction.commit()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -136,57 +158,57 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		var cell = tableView.dequeueReusableCellWithIdentifier("cell")
+		var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("cell")
 		if cell == nil {
 			cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
 		}
 		
+		let subs = cell.contentView.subviews
+		for v in subs {
+			v.removeFromSuperview()
+		}
+		
 		let sec = indexPath.section
 		let row = indexPath.row
-		cell?.textLabel?.text = data[sec][row]
-		cell?.accessoryType = .None
-		cell?.accessoryView = nil
+		cell.textLabel?.text = data[sec][row]
+		cell.accessoryType = .None
+		cell.accessoryView = nil
 		
 		if sec == 0 {
-			let text = data[sec][row]
-			if text == oldTranslation {
-				cell?.accessoryType = .Checkmark
-			} else {
-				cell?.accessoryType = .None
-			}
-		} else if sec == 1 {
 			if row == 0 {
-				cell?.selectionStyle = .None
-				cell?.textLabel?.text = nil
-				if let subs = cell?.contentView.subviews {
-					for v in subs {
-						v.removeFromSuperview()
-					}
-				}
+				cell.selectionStyle = .None
+				cell.textLabel?.text = nil
 				
 				let tf = UITextField.autoLayoutCapable()
 				tf.text = oldTranslation
 				tf.textColor = UIColor(red:56.0/255.0, green:84.0/255.0, blue:135.0/255.0, alpha:1.0);
 				tf.addTarget(self, action: #selector(UpdateTranslationViewController.updateTranslation(_:)), forControlEvents: .PrimaryActionTriggered)
 				tf.autocapitalizationType = .None
-				//				tf.becomeFirstResponder()
 				
-				cell?.contentView.addSubview(tf)
+				cell.contentView.addSubview(tf)
 				
 				let views = ["tf": tf]
 				
-				cell?.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[tf]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-				cell?.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[tf]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+				cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[tf]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+				cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[tf]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 				
 				
 			}
-		} else if sec == 2 {
+		} else if sec == deleteIndex {
 			if row == 0 {
-				cell?.textLabel?.textColor = UIColor.redColor()
+				cell.textLabel?.textColor = UIColor.redColor()
+			}
+		} else if sec == 1 { // delete index may also be 1, so then this case is not treated. As long as there are no translations yet, this is intended. When the translations arrive, the deleteIndex is increased.
+			let text = data[sec][row]
+			cell.textLabel?.textColor = UIColor.blackColor()
+			if text == oldTranslation {
+				cell.accessoryType = .Checkmark
+			} else {
+				cell.accessoryType = .None
 			}
 		}
 		
-		return cell!
+		return cell
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -203,14 +225,18 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 	}
 	
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		if section == 1 {
-			return "NEW_TRANSLATION".localized
+		if section == 0 {
+			return "EDIT_TRANSLATION".localized
+		} else if section == deleteIndex {
+			return "DELETE_TRANSLATION".localized
+		} else if section == 1 {
+			return "ALTERNATIVE_TRANSLATIONS".localized
 		}
 		return nil
 	}
 	
 	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		if section == 2 {
+		if section == deleteIndex {
 			return "DELETE_TRANSLATION_FOOTER".localized
 		}
 		return nil

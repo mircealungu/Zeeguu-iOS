@@ -27,6 +27,7 @@
 "ADD" = "Add";
 "ADD_FEED" = "Add feed";
 "ALL_FEEDS" = "All feeds";
+"ALTERNATIVE_TRANSLATIONS" = "Alternative translations";
 "APP_TITLE" = "Zeeguu Reader";
 "ASK_BEFORE_TRANSLATION" = "Ask before translation";
 "BASE_LANGUAGE" = "Base language";
@@ -41,8 +42,9 @@
 "DELETE_TRANSLATION_FOOTER" = "Delete translation. This will remove this translation from the web page and will also remove it from your translation history.";
 "DISABLE_LINKS" = "Disable links";
 "DONT_SHOW_AGAIN" = "Don't show again";
-"EXERCISES" = "Exercises";
+"EDIT_TRANSLATION" = "Edit translation";
 "EMAIL" = "Email";
+"EXERCISES" = "Exercises";
 "FINDING_FEEDS" = "Finding feeds...";
 "FONTSIZE" = "Fontsize";
 "GENERATE_PASSWORD" = "Generate password?";
@@ -58,7 +60,6 @@
 "LOGIN_FAILED_MESSAGE" = "Login failed. Verify that your entered the correct email address and password.";
 "LOGOUT" = "Logout";
 "NAME" = "Name";
-"NEW_TRANSLATION" = "New translation";
 "NEWS" = "News";
 "NO" = "No";
 "NO_CONTEXT" = "No context given.";
