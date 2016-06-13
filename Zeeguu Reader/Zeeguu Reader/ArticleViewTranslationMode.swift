@@ -52,4 +52,15 @@ enum ArticleViewTranslationMode: Int {
 			return "TRANSLATE_SENTENCE_DESCRIPTION".localized
 		}
 	}
+	
+	func getShownInfoKey() -> String {
+		switch self {
+		case .Instant:
+			return ShownImediateTranslationInfoKey
+		case .WordPair:
+			return ShownWordPairTranslationInfoKey
+		case .Sentence:
+			return ShownSentenceTranslationInfoKey
+		}
+	}
 }

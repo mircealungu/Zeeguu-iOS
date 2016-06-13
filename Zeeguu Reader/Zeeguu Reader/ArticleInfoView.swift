@@ -26,9 +26,20 @@
 
 import UIKit
 
+protocol ArticleInfoViewDelegate {
+	
+	func articleInfoViewDidTapDontShowAgain(articleInfoView: ArticleInfoView)
+	
+}
+
 class ArticleInfoView: UIView {
 
-	let label: UILabel
+	private let label: UILabel
+	private let effectView: UIVisualEffectView
+	private let dontShowAgainButton: UIButton
+	
+	var delegate: ArticleInfoViewDelegate?
+	
 	var text: String {
 		get {
 			guard let t = label.text else {
@@ -52,35 +63,69 @@ class ArticleInfoView: UIView {
 		}
 	}
 	
+	private var _showDontShowAgain: Bool = false
+	var showDontShowAgain: Bool {
+		get {
+			return _showDontShowAgain
+		}
+		set {
+			_showDontShowAgain = newValue
+			self.removeConstraints(self.constraints)
+			self.setupConstraints()
+		}
+	}
+	
 	init() {
+		let effect = UIBlurEffect(style: .Dark)
+		effectView = UIVisualEffectView(effect: effect)
 		label = UILabel.autoLayoutCapable()
+		dontShowAgainButton = UIButton(type: .System)
 		super.init(frame: CGRectZero)
 		self.translatesAutoresizingMaskIntoConstraints = false
 		
 		label.numberOfLines = 0
 		label.textColor = UIColor.whiteColor()
 		
-		let effect = UIBlurEffect(style: .Dark)
-		let ev = UIVisualEffectView(effect: effect)
-		ev.translatesAutoresizingMaskIntoConstraints = false
+		effectView.translatesAutoresizingMaskIntoConstraints = false
 		
-		
-		let views = ["l": label, "ev": ev]
-		
-		self.addSubview(ev)
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[ev]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[ev]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		
-		self.addSubview(label)
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[l]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[l]-15-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		dontShowAgainButton.setTitle("DONT_SHOW_AGAIN".localized, forState: .Normal)
+		dontShowAgainButton.translatesAutoresizingMaskIntoConstraints = false
+		dontShowAgainButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+		dontShowAgainButton.addTarget(self, action: #selector(ArticleInfoView.dontShowAgain(_:)), forControlEvents: .TouchUpInside)
 		
 		self.layer.cornerRadius = 10
 		self.clipsToBounds = true
+		
+		self.addSubview(effectView)
+		self.addSubview(label)
+		self.addSubview(dontShowAgainButton)
+		
+		self.setupConstraints()
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	private func setupConstraints() {
+		let views = ["l": label, "ev": effectView, "d": dontShowAgainButton]
+		
+		
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[ev]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[ev]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		
+		if (_showDontShowAgain) {
+			self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[l]-[d]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+			self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[d]-15-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		} else {
+			self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[l]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		}
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[l]-15-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		
+	}
+	
+	@objc private func dontShowAgain(sender: UIButton) {
+		delegate?.articleInfoViewDidTapDontShowAgain(self)
 	}
 
 }

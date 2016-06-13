@@ -28,7 +28,7 @@ import UIKit
 import WebKit
 import Zeeguu_API_iOS
 
-class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UpdateTranslationViewControllerDelegate, UIPopoverPresentationControllerDelegate {
+class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UpdateTranslationViewControllerDelegate, UIPopoverPresentationControllerDelegate, ArticleInfoViewDelegate {
 	
 	var article: Article?
 	
@@ -121,6 +121,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		self.webview = ZGWebView(webViewConfiguration: config)
 		
 		self.webview.navigationDelegate = self
+		self.infoView.delegate = self
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -427,6 +428,12 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	}
 	
 	func showInfoView(text: String! = nil) {
+		let def = NSUserDefaults.standardUserDefaults()
+		if text == nil && def.boolForKey(self.translationMode.getShownInfoKey()) {
+			return
+		}
+		infoView.showDontShowAgain = text == nil
+		
 		self.infoViewBottomConstraint.constant = 20
 		if self.isPresentingInfoView {
 			self.shouldHideInfoViewAlready = false
@@ -442,15 +449,25 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 					self.shouldHideInfoViewAlready = true
 					return
 				}
-				self.isPresentingInfoView = false
-				self.infoViewBottomConstraint.constant = -100
-				UIView.animateWithDuration(1.0, animations: {
-					self.view.layoutIfNeeded()
-				}) { (finished) in
-					self.infoView.text = ""
-				}
+				self.hideInfoView()
 			}
 		}
+	}
+	
+	func hideInfoView() {
+		self.isPresentingInfoView = false
+		self.infoViewBottomConstraint.constant = -100
+		UIView.animateWithDuration(1.0, animations: {
+			self.view.layoutIfNeeded()
+		}) { (finished) in
+			self.infoView.text = ""
+		}
+	}
+	
+	func articleInfoViewDidTapDontShowAgain(articleInfoView: ArticleInfoView) {
+		let def = NSUserDefaults.standardUserDefaults()
+		def.setBool(true, forKey: self.translationMode.getShownInfoKey())
+		self.hideInfoView()
 	}
 	
 	func pronounceWord(action: ZGJavaScriptAction) {

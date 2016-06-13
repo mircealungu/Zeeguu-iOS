@@ -34,3 +34,7 @@ let DidShowWelcomeScreenKey = "didShowWelcomeScreen"
 let PronounceTranslatedWordKey = "pronounceTranslatedWord"
 let InsertTranslationInTextDefaultsKey = "insertTranslationInText"
 let feedsKey = "newsFeeds"
+
+let ShownImediateTranslationInfoKey = "shownImediateTranslationInfo"
+let ShownWordPairTranslationInfoKey = "shownWordPairTranslationInfo"
+let ShownSentenceTranslationInfoKey = "shownSentenceTranslationInfo"
