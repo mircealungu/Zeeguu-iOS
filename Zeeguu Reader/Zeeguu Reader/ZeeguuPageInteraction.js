@@ -46,8 +46,14 @@ function wordClickHandler(event) {
 
 function translateSingleWord(word, id) {
 	var context = getContextOfClickedWord(id);
-	var pronounceID = insertIconAfterID(id);
-	var message = {action: "translate", word: word, context: context, id: id, pronounceID: pronounceID};
+	var message;
+	if (zeeguuTranslationIsInserted) {
+		var pronounceID = insertIconAfterID(id);
+		message = {action: "translate", word: word, context: context, id: id, pronounceID: pronounceID};
+	} else {
+		message = {action: "translate", word: word, context: context, id: id};
+	}
+
 	zeeguuPostMessage(message);
 	if (zeeguuTranslationIsInserted) {
 		event.target.setAttribute("data-zeeguu-translated", "translated");
@@ -132,7 +138,37 @@ function handleSelection(tappedNode) {
 		var rect = sentence.getBoundingClientRect();
 
 		var lastElID = lastElements[lastElements.length - 1].getAttribute("id");
-		var message = {action: "translate", word: text, context: context, id: lastElID, selectionComplete: selectionComplete, top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right, width: rect.width, height: rect.height, pronounceID: -1};
+		var message;
+		if (zeeguuTranslationIsInserted) {
+			message = {
+				action: "translate",
+				word: text,
+				context: context,
+				id: lastElID,
+				selectionComplete: selectionComplete,
+				top: rect.top,
+				bottom: rect.bottom,
+				left: rect.left,
+				right: rect.right,
+				width: rect.width,
+				height: rect.height,
+				pronounceID: -1
+			};
+		} else {
+			message = {
+				action: "translate",
+				word: text,
+				context: context,
+				id: lastElID,
+				selectionComplete: selectionComplete,
+				top: rect.top,
+				bottom: rect.bottom,
+				left: rect.left,
+				right: rect.right,
+				width: rect.width,
+				height: rect.height
+			};
+		}
 
 		zeeguuPostMessage(message);
 
