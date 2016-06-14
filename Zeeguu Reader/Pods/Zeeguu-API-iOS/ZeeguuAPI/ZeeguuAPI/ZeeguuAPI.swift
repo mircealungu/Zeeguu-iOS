@@ -861,13 +861,12 @@ public class ZeeguuAPI {
 	public func getInterestingFeeds(language: String, completion: (feeds: [Feed]?) -> Void) {
 			let request = self.requestWithEndPoint(.GetInterestingFeeds, pathComponents: [language], method: .GET)
 			self.sendAsynchronousRequest(request) { (response, error) -> Void in
-				if let res = response {
-					let json = JSON.parse(res)
+				if let res = response, json = JSON.parse(res).array {
 					var feeds = [Feed]()
 					
-					for (_, value):(String, JSON) in json {
-						if let title = value["feed_title"].string, url = value["feed_url"].string, id = value["feed_id"].string {
-							feeds.append(Feed(id: id, title: title, url: url, description: "", language: language, imageURL: ""))
+					for value in json {
+						if let title = value["title"].string, url = value["url"].string, id = value["id"].int, desc = value["description"].string, imURL = value["image_url"].string {
+							feeds.append(Feed(id: String(id), title: title, url: url, description: desc, language: language, imageURL: imURL))
 						}
 					}
 					completion(feeds: feeds)
