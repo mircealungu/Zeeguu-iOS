@@ -40,7 +40,7 @@ class FeedTableViewCell: UITableViewCell {
 		}
 		set {
 			titleField.text = newValue.title
-			descriptionField.text = newValue.description
+			descriptionField.text = newValue.feedDescription
 			newValue.getImage { (image) in
 				dispatch_async(dispatch_get_main_queue(), { () -> Void in
 					self.feedImageView.image = image
@@ -56,6 +56,7 @@ class FeedTableViewCell: UITableViewCell {
 		_feed = feed
 		super.init(style: .Default, reuseIdentifier: reuseIdentifier)
 		setupLayout()
+		self.feed = _feed // Make sure labels and image are set
 	}
 
 	required init?(coder aDecoder: NSCoder) {
