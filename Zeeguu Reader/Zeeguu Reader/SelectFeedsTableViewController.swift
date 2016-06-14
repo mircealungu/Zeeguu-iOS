@@ -133,7 +133,9 @@ class SelectFeedsTableViewController: ZGTableViewController {
 				urls.append(feed.url)
 			}
 		}
+		ZeeguuAPI.sharedAPI().enableDebugOutput = true
 		ZeeguuAPI.sharedAPI().startFollowingFeeds(urls) { (success) -> Void in
+			ZeeguuAPI.sharedAPI().enableDebugOutput = false
 			dispatch_async(dispatch_get_main_queue(), { () -> Void in
 				self.dismissViewControllerAnimated(true, completion: { () -> Void in
 					self.delegate?.addFeedDidAddFeeds(self.selectedFeeds as [AnyObject] as! [Feed])

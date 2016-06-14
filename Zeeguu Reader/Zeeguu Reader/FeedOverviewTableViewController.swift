@@ -45,8 +45,6 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 		let didLoginSelector = #selector(FeedOverviewTableViewController.userDidLogin(_:))
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: didLoginSelector, name: UserLoggedInNotification, object: nil)
 		
-		self.tableView.estimatedRowHeight = 80
-		
 //		let def = NSUserDefaults.standardUserDefaults()
 //		if let feeds = def.objectForKey(feedsKey) {
 //			self.newsFeeds = feeds as! [String]
