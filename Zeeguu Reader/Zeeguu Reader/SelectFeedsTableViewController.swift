@@ -94,19 +94,9 @@ class SelectFeedsTableViewController: ZGTableViewController {
 		let cellTitle = feed.title
 		var cell = tableView.dequeueReusableCellWithIdentifier(cellTitle) as? FeedTableViewCell
 		if (cell == nil) {
-//			cell = UITableViewCell(style: .Default, reuseIdentifier: cellTitle)
-//			if (indexPath.row == 0) {
-//				cell = ZGTextFieldTableViewCell(title: cellTitle, textField: urlField, reuseIdentifier: cellTitle)
-//			}
-			cell = FeedTableViewCell(reuseIdentifier: cellTitle)
-		}
-		
-		cell?.title = feed.title
-		cell?.feedDescription = feed.feedDescription
-		feed.getImage { (image) -> Void in
-			dispatch_async(dispatch_get_main_queue(), { () -> Void in
-				cell?.feedImage = image
-			})
+			cell = FeedTableViewCell(feed: feed, reuseIdentifier: cellTitle)
+		} else {
+			cell?.feed = feed
 		}
 		
 		cell?.selectionStyle = .None

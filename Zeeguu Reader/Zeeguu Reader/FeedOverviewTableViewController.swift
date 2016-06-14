@@ -153,17 +153,12 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 			return cell!
 		} else {
 			var cell = tableView.dequeueReusableCellWithIdentifier("feed") as? FeedTableViewCell
-			if cell == nil {
-				cell = FeedTableViewCell(reuseIdentifier: "feed")
-			}
 			if let f = feed as? Feed {
-				cell?.title = f.title
-				cell?.feedDescription = f.feedDescription
-				f.getImage({ (image) -> Void in
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						cell?.feedImage = image
-					})
-				})
+				if cell == nil {
+					cell = FeedTableViewCell(feed: f, reuseIdentifier: "feed")
+				} else {
+					cell?.feed = f
+				}
 			}
 			cell?.accessoryType = .DisclosureIndicator
 			return cell!
