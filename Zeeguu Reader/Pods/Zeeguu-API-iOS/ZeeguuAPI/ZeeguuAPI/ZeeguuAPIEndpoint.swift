@@ -41,6 +41,7 @@ enum ZeeguuAPIEndpoint: String {
 	case GetFeedsAtURL = "get_feeds_at_url"
 	case GetFeedsBeingFollowed = "get_feeds_being_followed"
 	case GetFeedItems = "get_feed_items"
+	case GetInterestingFeeds = "interesting_feeds"
 	case GetKnownBookmarks = "get_known_bookmarks"
 	case GetKnownWords = "get_known_words"
 	case GetLearnabilityForText = "get_learnability_for_text"

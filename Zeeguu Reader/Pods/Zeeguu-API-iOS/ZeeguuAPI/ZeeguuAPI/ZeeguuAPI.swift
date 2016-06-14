@@ -853,4 +853,27 @@ public class ZeeguuAPI {
 			completion(articles: nil)
 		}
 	}
+	
+	/// Retrieves a list of news feed that a user could start following.
+	///
+	/// - parameter language: The ID of the feed for which to retrieve a list of feed items.
+	/// - parameter completion: A block that will receive an array with the feed items.
+	public func getInterestingFeeds(language: String, completion: (feeds: [Feed]?) -> Void) {
+			let request = self.requestWithEndPoint(.GetInterestingFeeds, pathComponents: [language], method: .GET)
+			self.sendAsynchronousRequest(request) { (response, error) -> Void in
+				if let res = response {
+					let json = JSON.parse(res)
+					var feeds = [Feed]()
+					
+					for (_, value):(String, JSON) in json {
+						if let title = value["feed_title"].string, url = value["feed_url"].string, id = value["feed_id"].string {
+							feeds.append(Feed(id: id, title: title, url: url, description: "", language: language, imageURL: ""))
+						}
+					}
+					completion(feeds: feeds)
+				} else {
+					completion(feeds: nil)
+				}
+			}
+	}
 }
