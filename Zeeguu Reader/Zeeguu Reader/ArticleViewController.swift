@@ -94,6 +94,8 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	private var slideInPresentationController: ZGSlideInPresentationController?
 	
+	private var loadingView: UIView?
+	
 	init(article: Article? = nil) {
 		self.infoView = ArticleInfoView()
 		self.article = article
@@ -150,6 +152,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		self.navigationItem.rightBarButtonItem = optionsBut
 		
 		if let str = article?.url, url = NSURL(string: "http://www.readability.com/m?url=\(str)") {
+			self.showLoadingView()
 			webview.loadRequest(NSURLRequest(URL: url))
 		}
 		//		if let str = article?.url, url = NSURL(string: str) {
@@ -169,6 +172,33 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		// Dispose of any resources that can be recreated.
 	}
 	
+	private func showLoadingView() {
+		loadingView = UIView.autoLayoutCapable()
+		let loader = ZGLoadingView.autoLayoutCapable()
+		loadingView?.addSubview(loader)
+		loadingView?.addConstraint(NSLayoutConstraint(item: loader, attribute: .CenterX, relatedBy: .Equal, toItem: loadingView, attribute: .CenterX, multiplier: 1, constant: 0))
+		loadingView?.addConstraint(NSLayoutConstraint(item: loader, attribute: .CenterY, relatedBy: .Equal, toItem: loadingView, attribute: .CenterY, multiplier: 1, constant: 0))
+		
+		loadingView?.alpha = 0
+		
+		let views = ["v": loadingView!]
+		self.view.addSubview(loadingView!)
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		
+		UIView.animateWithDuration(0.3) { 
+			self.loadingView?.alpha = 1
+		}
+	}
+	
+	private func hideLoadingView() {
+		UIView.animateWithDuration(0.3, animations: {
+			self.loadingView?.alpha = 0
+		}) { (finished) in
+			self.loadingView?.removeFromSuperview()
+		}
+	}
+	
 	override func viewDidAppear(animated: Bool) {
 		let mc = UIMenuController.sharedMenuController()
 		
@@ -178,6 +208,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	}
 	
 	func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+		self.hideLoadingView()
 		if article != nil && !infoViewShown {
 			showInfoView()
 			infoViewShown = true
