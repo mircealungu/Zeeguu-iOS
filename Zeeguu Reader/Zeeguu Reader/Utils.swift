@@ -27,6 +27,7 @@
 import UIKit
 import WebKit
 import AVFoundation
+import Zeeguu_API_iOS
 
 class Utils {
 	
@@ -126,7 +127,9 @@ class Utils {
 	
 	static func sendMonitoringStatusToServer(key: String, value: String, data: [String: String]? = nil) {
 		// Call ZeeguuAPI endpoint that accepts arbitrary statistics 
-		print("Send statistics to server: {\(key): \(value)}")
+		ZeeguuAPI.sharedAPI().uploadUserActivityData(key, value: value, extraData: data) { (success) in
+			print("Sent statistics to server: {\(key): \(value), data: \(data)}, success: \(success)")
+		}
 	}
 	
 	static func pronounce(word word: String, inLanguage language: String?) {
