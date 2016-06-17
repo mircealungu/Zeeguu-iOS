@@ -859,20 +859,49 @@ public class ZeeguuAPI {
 	/// - parameter language: The ID of the feed for which to retrieve a list of feed items.
 	/// - parameter completion: A block that will receive an array with the feed items.
 	public func getInterestingFeeds(language: String, completion: (feeds: [Feed]?) -> Void) {
-			let request = self.requestWithEndPoint(.GetInterestingFeeds, pathComponents: [language], method: .GET)
-			self.sendAsynchronousRequest(request) { (response, error) -> Void in
-				if let res = response, json = JSON.parse(res).array {
-					var feeds = [Feed]()
-					
-					for value in json {
-						if let title = value["title"].string, url = value["url"].string, id = value["id"].int, desc = value["description"].string, imURL = value["image_url"].string {
-							feeds.append(Feed(id: String(id), title: title, url: url, description: desc, language: language, imageURL: imURL))
-						}
+		let request = self.requestWithEndPoint(.GetInterestingFeeds, pathComponents: [language], method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if let res = response, json = JSON.parse(res).array {
+				var feeds = [Feed]()
+				
+				for value in json {
+					if let title = value["title"].string, url = value["url"].string, id = value["id"].int, desc = value["description"].string, imURL = value["image_url"].string {
+						feeds.append(Feed(id: String(id), title: title, url: url, description: desc, language: language, imageURL: imURL))
 					}
-					completion(feeds: feeds)
-				} else {
-					completion(feeds: nil)
 				}
+				completion(feeds: feeds)
+			} else {
+				completion(feeds: nil)
 			}
+		}
 	}
+	
+	/// Sends user activity data to the server, where it is stored for further analysis.
+	///
+	/// - parameter language: The ID of the feed for which to retrieve a list of feed items.
+	/// - parameter completion: A block that will receive an array with the feed items.
+	public func uploadUserActivityData(event: String, value: String, extraData: [String: AnyObject]?, completion: (success: Bool) -> Void) {
+		var extraData = extraData
+		var params = ["event": event, "value": value]
+		
+		let formatter = NSDateFormatter()
+		formatter.timeZone = NSTimeZone(name: "GMT")
+		formatter.dateFormat = "y-MM-dd'T'HH:mm:ss"
+		params["time"] = formatter.stringFromDate(NSDate())
+		
+		if extraData == nil {
+			extraData = [:]
+		}
+		
+		if let ed = extraData, json = try? NSJSONSerialization.dataWithJSONObject(ed, options: NSJSONWritingOptions(rawValue: 0)), str = NSString(data: json, encoding: NSUTF8StringEncoding) as? String {
+			params["extra_data"] = str
+		}
+		
+		let request = self.requestWithEndPoint(.UploadUserActivityData, method: .POST, parameters: params)
+		
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkBooleanResponse(response, error: error, completion: completion)
+		}
+	}
+	
 }

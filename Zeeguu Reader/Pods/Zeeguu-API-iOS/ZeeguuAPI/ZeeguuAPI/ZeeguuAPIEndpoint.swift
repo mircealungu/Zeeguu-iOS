@@ -65,6 +65,7 @@ enum ZeeguuAPIEndpoint: String {
 	case StartFollowingFeeds = "start_following_feeds"
 	case StopFollowingFeed = "stop_following_feed"
 	case TranslateAndBookmark = "translate_and_bookmark"
+	case UploadUserActivityData = "upload_user_activity_data"
 	case UserWords = "user_words"
 	case Validate = "validate"
 }
