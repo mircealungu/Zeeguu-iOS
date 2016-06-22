@@ -60,41 +60,114 @@ class ArticleListViewController: ZGTableViewController {
 	}
 	
 	func getArticles() {
+		let def = NSUserDefaults.standardUserDefaults()
+		
+		for i in 0 ..< feeds.count {
+			if let arr = def.objectForKey(articlesForFeedKey + feeds[i].id!) as? [[String: AnyObject]], arts = ZGSerialize.decodeArray(arr) as? [Article] {
+				self.articles = self.mergeArticles(oldArticles:self.articles, newArticles: arts)
+			}
+		}
+		
+		self.reloadTableView()
+		
 		for i in 0 ..< feeds.count {
 			ZeeguuAPI.sharedAPI().getFeedItemsForFeed(feeds[i], completion: { (articles) -> Void in
 				if let arts = articles {
-					for art in arts {
-						if !self.articles.contains({ $0 == art }) {
-							self.articles.append(art);
-						}
+					self.articles = self.mergeArticles(oldArticles:self.articles, newArticles: arts)
+					
+					if let arr = def.objectForKey(articlesForFeedKey + self.feeds[i].id!) as? [[String: AnyObject]], localArts = ZGSerialize.decodeArray(arr) as? [Article] {
+						let newLocal = self.mergeArticles(oldArticles: localArts, newArticles: arts)
+						def.setObject(ZGSerialize.encodeArray(newLocal), forKey: articlesForFeedKey + self.feeds[i].id!)
+					} else {
+						def.setObject(ZGSerialize.encodeArray(arts), forKey: articlesForFeedKey + self.feeds[i].id!)
 					}
-					self.articles.sortInPlace({ (lhs, rhs) -> Bool in
-						return lhs.date > rhs.date
-					})
+					def.synchronize()
 				}
-				if (i == self.feeds.count - 1) {
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
-						// This enables us to attach a completion block to the animation, reloading data before
-						// animation is complete causes glitching.
-						CATransaction.begin()
-						CATransaction.setCompletionBlock({ () -> Void in
-							self.tableView.reloadData()
-							self.getDifficulties()
-						})
-						self.refreshControl?.endRefreshing()
-						CATransaction.commit()
-					})
+				if i == self.feeds.count - 1 {
+					self.reloadTableView()
 				}
 			})
 		}
 	}
 	
+	func mergeArticles(oldArticles oldArticles: [Article], newArticles: [Article], reload: Bool = true) -> [Article] {
+		var oldArticles = oldArticles
+		for art in newArticles {
+			if !oldArticles.contains({ $0 == art }) {
+				oldArticles.append(art);
+			}
+		}
+		oldArticles.sortInPlace({ (lhs, rhs) -> Bool in
+			return lhs.date > rhs.date
+		})
+		return oldArticles
+	}
+	
+	func replaceArticles(oldArticles oldArticles: [Article], newArticles: [Article], reload: Bool = true) -> [Article] {
+		var oldArticles = oldArticles
+		for art in newArticles {
+			if oldArticles.contains({ $0 == art }) {
+				oldArticles[oldArticles.indexOf(art)!] = art
+			}
+		}
+		oldArticles.sortInPlace({ (lhs, rhs) -> Bool in
+			return lhs.date > rhs.date
+		})
+		return oldArticles
+	}
+	
+	func updateLocalArticles(arts: [Article]) {
+		var allArticles = [[Article]]()
+		
+		for _ in feeds {
+			allArticles.append([Article]())
+		}
+		
+		for a in arts {
+			allArticles[feeds.indexOf(a.feed)!].append(a)
+		}
+		let def = NSUserDefaults.standardUserDefaults()
+		
+		
+		for i in 0 ..< feeds.count {
+			if let arr = def.objectForKey(articlesForFeedKey + feeds[i].id!) as? [[String: AnyObject]], localArts = ZGSerialize.decodeArray(arr) as? [Article] {
+				let newLocal = self.replaceArticles(oldArticles: localArts, newArticles: allArticles[i])
+				def.setObject(ZGSerialize.encodeArray(newLocal), forKey: articlesForFeedKey + feeds[i].id!)
+			} else {
+				def.setObject(ZGSerialize.encodeArray(allArticles[i]), forKey: articlesForFeedKey + feeds[i].id!)
+			}
+			def.synchronize()
+		}
+		
+		
+		
+		
+	}
+	
+	func reloadTableView() {
+		dispatch_async(dispatch_get_main_queue(), { () -> Void in
+			// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+			// This enables us to attach a completion block to the animation, reloading data before
+			// animation is complete causes glitching.
+			CATransaction.begin()
+			CATransaction.setCompletionBlock({ () -> Void in
+				self.tableView.reloadData()
+				self.getDifficulties()
+			})
+			self.refreshControl?.endRefreshing()
+			CATransaction.commit()
+		})
+	}
+	
 	func getDifficulties() {
 		Article.getDifficultiesForArticles(self.articles) { (success) in
-			dispatch_async(dispatch_get_main_queue(), {
-				self.tableView.reloadData()
-			})
+			print("get difficulty success: \(success)")
+			if success {
+				dispatch_async(dispatch_get_main_queue(), {
+					self.updateLocalArticles(self.articles)
+					self.tableView.reloadData()
+				})
+			}
 		}
 	}
 	

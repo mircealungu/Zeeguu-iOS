@@ -38,3 +38,5 @@ let feedsKey = "newsFeeds"
 let ShownImediateTranslationInfoKey = "shownImediateTranslationInfo"
 let ShownWordPairTranslationInfoKey = "shownWordPairTranslationInfo"
 let ShownSentenceTranslationInfoKey = "shownSentenceTranslationInfo"
+
+let articlesForFeedKey = "articlesForFeed"
