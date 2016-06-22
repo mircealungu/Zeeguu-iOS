@@ -231,10 +231,10 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func showUpdateTranslation(sender: ZGJavaScriptAction) {
 		let dict = sender.getActionInformation();
-		guard let r = dict, old = r["oldTranslation"] else {
+		guard let r = dict, old = r["oldTranslation"], art = article else {
 			return
 		}
-		let vc = UpdateTranslationViewController(oldTranslation: old, action: sender)
+		let vc = UpdateTranslationViewController(oldTranslation: old, action: sender, article:  art)
 		
 		vc.delegate = self;
 		
@@ -379,7 +379,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			})
 		}
 		
-		ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, completion: { (translation) in
+		ZeeguuAPI.sharedAPI().translateWord(word, title: art.title, context: context, url: art.url /* TODO: Or maybe webview url? */, language: art.feed.language, completion: { (translation) in
 			print("translation: \(translation)")
 			guard let t = translation?["translation"].string, b = translation?["bookmark_id"].string else {
 				return

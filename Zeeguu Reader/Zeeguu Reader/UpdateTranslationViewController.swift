@@ -36,6 +36,7 @@ protocol UpdateTranslationViewControllerDelegate {
 
 class UpdateTranslationViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 	
+	let article: Article
 	let oldTranslation: String
 	var otherTranslations: [String: String]?
 	var delegate: UpdateTranslationViewControllerDelegate?
@@ -49,7 +50,8 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	init(oldTranslation: String, action: ZGJavaScriptAction) {
+	init(oldTranslation: String, action: ZGJavaScriptAction, article: Article) {
+		self.article = article
 		self.oldTranslation = oldTranslation
 		self.action = action
 		self.deleteIndex = 1
@@ -85,7 +87,7 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 				self.otherTranslations = JSON.parse(ot).dictionaryObject as? [String: String]
 				self.prepareTranslationList()
 			} else if let word = dict["originalWord"] {
-				ZeeguuAPI.sharedAPI().getTranslationsForWord(word, context: "Test context", url: "Test url", completion: { (translation) in
+				ZeeguuAPI.sharedAPI().getTranslationsForWord(word, context: "Test context", url: "Test url", language: self.article.feed.language, completion: { (translation) in
 					if let ts = translation?["translations"].array {
 						var d = [String: String]()
 						for t in ts {
