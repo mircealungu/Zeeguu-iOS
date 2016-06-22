@@ -496,15 +496,19 @@ public class ZeeguuAPI {
 	/// - parameter title: The title of the article in which the word was translated.
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was translated.
+	/// - parameter language: The language of the article in which the word was translated. If `language` is nil, the learned language of the user is used.
 	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
-	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
+	public func translateWord(word: String, title: String, context: String, url: String, language: String? = nil, completion: (translation: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
 		
 		self.getLearnedAndNativeLanguage { (dict) -> Void in
 			if (dict != nil) {
-				if let learned = dict!["learned"].string, native = dict!["native"].string {
+				if var learned = dict!["learned"].string, let native = dict!["native"].string {
+					if let lang = language {
+						learned = lang
+					}
 					let request = self.requestWithEndPoint(.TranslateAndBookmark, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
 						self.checkJSONResponse(response, error: error, completion: completion)
@@ -524,15 +528,19 @@ public class ZeeguuAPI {
 	/// - parameter word: The word to translate.
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was translated.
+	/// - parameter language: The language of the article in which the word was translated. If `language` is nil, the learned language of the user is used.
 	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
-	public func getTranslationsForWord(word: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
+	public func getTranslationsForWord(word: String, context: String, url: String, language: String? = nil, completion: (translation: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
 		
 		self.getLearnedAndNativeLanguage { (dict) -> Void in
 			if (dict != nil) {
-				if let learned = dict!["learned"].string, native = dict!["native"].string {
+				if var learned = dict!["learned"].string, let native = dict!["native"].string {
+					if let lang = language {
+						learned = lang
+					}
 					let request = self.requestWithEndPoint(.GetPossibleTranslations, pathComponents: [learned, native], method: .POST, parameters: ["context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
 						self.checkJSONResponse(response, error: error, completion: completion)

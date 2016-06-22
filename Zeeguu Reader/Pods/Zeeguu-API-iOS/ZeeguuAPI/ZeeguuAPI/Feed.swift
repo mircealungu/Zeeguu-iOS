@@ -36,7 +36,7 @@ public func ==(lhs: Feed, rhs: Feed) -> Bool {
 }
 
 /// The `Feed` class represents an RSS feed. It holds the `id`, `title`, `url`, `feedDescription`, `language` and more about the feed.
-public class Feed: CustomStringConvertible, Equatable {
+public class Feed: CustomStringConvertible, Equatable, ZGSerialization {
 	
 	// MARK: Properties -
 	
@@ -80,7 +80,46 @@ public class Feed: CustomStringConvertible, Equatable {
 		self.imageURL = imageURL
 	}
 	
+	/**
+	Construct a new `Feed` object from the data in the dictionary.
+	
+	- parameter dictionary: The dictionary that contains the data from which to construct an `Feed` object.
+	*/
+	@objc public required init?(dictionary dict: [String : AnyObject]) {
+		guard let title = dict["title"] as? String,
+			url = dict["url"] as? String,
+			feedDescription = dict["feedDescription"] as? String,
+			language = dict["language"] as? String,
+			imageURL = dict["imageURL"] as? String else {
+				return nil
+		}
+		self.id = dict["id"] as? String
+		self.title = title
+		self.url = url
+		self.feedDescription = feedDescription
+		self.language = language
+		self.imageURL = imageURL
+		self.image = dict["image"] as? UIImage
+	}
+	
 	// MARK: Methods -
+	
+	/**
+	The dictionary representation of this `Feed` object.
+	
+	- returns: A dictionary that contains all data of this `Feed` object.
+	*/
+	@objc public func dictionaryRepresentation() -> [String: AnyObject] {
+		var dict = [String: AnyObject]()
+		dict["id"] = self.id
+		dict["title"] = self.title
+		dict["url"] = self.url
+		dict["feedDescription"] = self.feedDescription
+		dict["language"] = self.language
+		dict["imageURL"] = self.imageURL
+		dict["image"] = self.image
+		return dict
+	}
 	
 	/**
 	Get the image of this feed. This method will make sure that the image url is cached within this `Feed` object, so calling this method again will not retrieve the image again, but will return the cached version instead.

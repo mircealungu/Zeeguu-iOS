@@ -45,7 +45,7 @@
 import UIKit
 
 /// The `Bookmark` class represents a bookmark. It holds the `date`, `word`, `translation` and more about the bookmark.
-public class Bookmark {
+public class Bookmark: ZGSerialization {
 	
 	// MARK: Properties -
 	
@@ -105,6 +105,54 @@ public class Bookmark {
 
 		let date = formatter.dateFromString(bookmarkDate)
 		self.date = date!
+	}
+	
+	/**
+	Construct a new `Bookmark` object from the data in the dictionary.
+	
+	- parameter dictionary: The dictionary that contains the data from which to construct an `Bookmark` object.
+	*/
+	@objc public required init?(dictionary dict: [String : AnyObject]) {
+		guard let id = dict["id"] as? String,
+			title = dict["title"] as? String,
+			url = dict["url"] as? String,
+			date = dict["date"] as? NSDate,
+			word = dict["word"] as? String,
+			wordLanguage = dict["wordLanguage"] as? String,
+			translation = dict["translation"] as? [String],
+			translationLanguage = dict["translationLanguage"] as? String else {
+				return nil
+		}
+		self.id = id
+		self.title = title
+		self.url = url
+		self.date = date
+		self.word = word
+		self.wordLanguage = wordLanguage
+		self.translation = translation
+		self.translationLanguage = translationLanguage
+		self.context = dict["context"] as? String
+	}
+	
+	// MARK: Methods -
+	
+	/**
+	The dictionary representation of this `Bookmark` object.
+	
+	- returns: A dictionary that contains all data of this `Bookmark` object.
+	*/
+	@objc public func dictionaryRepresentation() -> [String: AnyObject] {
+		var dict = [String: AnyObject]()
+		dict["id"] = self.id
+		dict["title"] = self.title
+		dict["url"] = self.url
+		dict["date"] = self.date
+		dict["word"] = self.word
+		dict["wordLanguage"] = self.wordLanguage
+		dict["translation"] = self.translation
+		dict["translationLanguage"] = self.translationLanguage
+		dict["context"] = self.context
+		return dict
 	}
 	
 	/// Deletes this bookmark.

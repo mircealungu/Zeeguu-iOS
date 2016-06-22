@@ -7,29 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0770E58AEF4C910C0199A5ADD08C67FE /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0593CAAAF41D561F1E8A9D574F4BC3 /* Article.swift */; };
-		0CA5EFA7EE6154889FEA89DA9A6A00BA /* ZeeguuAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C170AF9B3148F0C2E587C1464FCCF87E /* ZeeguuAPIEndpoint.swift */; };
-		11162F30DE65AE67CDEDE9A1C7443853 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F806264737EF5940E99FBED45AE259 /* StringExtension.swift */; };
-		1F572DF736EADFF66CCF9C3AF5E93D9E /* ArticleDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4E4BFC0FFD70BCF659E0536AB8FCE1 /* ArticleDifficulty.swift */; };
+		001237F3EF1B32138107299CE01CA610 /* Zeeguu-API-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1219218A531A337ABD133B66C57E7172 /* Zeeguu-API-iOS-dummy.m */; };
 		3B54275B3E6C3B027C45994E526000F6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31205B28DFB2B7366AF496597F020A02 /* Foundation.framework */; };
-		424F21936BA2F59966B559BAE648D30B /* ZeeguuAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 65796A90E4A963009A64FED4C1586EAF /* ZeeguuAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6A3F37136453C29353B9CD8268BDB5ED /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DF017095DB3278D62ED5540FBDA7A66 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6FA449C5380F7DDA79A54ACAAA5279F5 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB14ABAEB9B49DA62D9B9AE5EC7468 /* HTTPMethod.swift */; };
-		70A93DE661A36FD548AE15F701BC0243 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6776EDA67850AB912F078FE14A35C331 /* SwiftyJSON.swift */; };
+		40008E832309E8A3821F2C9BBA157D49 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602E19A3A188973B25133189CFF08BE0 /* Bookmark.swift */; };
+		424F21936BA2F59966B559BAE648D30B /* ZeeguuAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = BC07865446337A97773E88CC1C9802E3 /* ZeeguuAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		620E09276E0F63AC65AC68EA64325F93 /* ArticleDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9E3DEC3C03C40997E6CA69DF6A20E6 /* ArticleDifficulty.swift */; };
+		68B9F9DA5D2214B76E455CF16C3A33BD /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E46DAF73562510939EE5D3555EFE4A /* Feed.swift */; };
+		6A3F37136453C29353B9CD8268BDB5ED /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 86B9C9F5310233FB6CC36AF8E3F1982F /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		70A93DE661A36FD548AE15F701BC0243 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09FD73C0A9BA559D3C6C6E5C627FEE7 /* SwiftyJSON.swift */; };
 		70E761FEA5EE34D9512022233D2400BC /* Pods-Zeeguu Reader-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C835AEE0DC8A46422C3AB86766B24835 /* Pods-Zeeguu Reader-dummy.m */; };
+		7C58A2580779E4D23CA4A7F4875276A6 /* ZGSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28243749DFD2A5A2A5383F4D4F6F13F7 /* ZGSerialization.swift */; };
+		834685A531E5DF94CE6E654E7980E9BB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A882C9B16ECBA7C69F77BFB822CF81 /* StringExtension.swift */; };
 		99410CD654B56E1B87C6DB5C66B7D9A8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31205B28DFB2B7366AF496597F020A02 /* Foundation.framework */; };
-		A189BC960AE8DEF674E103FB9E15EFC7 /* Zeeguu-API-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 455A7B04969E47B8DF2B0FC200052467 /* Zeeguu-API-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A189BC960AE8DEF674E103FB9E15EFC7 /* Zeeguu-API-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 60B925DE5D057F0F37D4A07516A2BC5E /* Zeeguu-API-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A693640BA9971711057D3BD14C9DF57B /* Pods-Zeeguu Reader-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A8EF60BDF9C94DF9967872FD8463D33A /* Pods-Zeeguu Reader-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A822342DA5022D406897247D34EC3247 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31205B28DFB2B7366AF496597F020A02 /* Foundation.framework */; };
-		AA5651287D8F4E8C980D0F72F2B03625 /* ZeeguuAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5826CE6EC0E323A21868DA7AE828779 /* ZeeguuAPI.swift */; };
-		B6A348481211CEF54BF59A928DCC94D3 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A5594BEEA6BB9A4EFA1A37686BF0C /* Debug.swift */; };
-		D1DBE8F8011C66EAB2BCD28E5B9211CA /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = B252F49E12A52F2790C0F0145F051392 /* Bookmark.swift */; };
-		D81F57A2220DBE4BCCD83DD4BC20886A /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 44A8FA4355998534F3896763F6DF617A /* en.lproj */; };
+		B182958AB0E44C7DA8B6753E3814311B /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501686C9BEFB7BAFE664B21466B451CB /* HTTPMethod.swift */; };
+		C2C13132CBA00A4F6EEDB981AB3BD891 /* ZeeguuAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D26EE347896CEEA03B5904D6E96C42 /* ZeeguuAPIEndpoint.swift */; };
+		D03DFB4992D4B81788108245EC0ECA70 /* ZeeguuAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6A266C78E307B3FA82ED6311FFD570 /* ZeeguuAPI.swift */; };
+		D81F57A2220DBE4BCCD83DD4BC20886A /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = CA7F40EFD9B74D6EC61FE08B1CAF1C26 /* en.lproj */; };
 		D877C7AED99F398D26008B8385F5B70E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05A2DDA9058082E37FAAA448F008219 /* SwiftyJSON.framework */; };
-		D8D505464CD321002AAE99BC1B88E1D1 /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9EAA5D427872E740EA23A599EA9A75 /* SwiftyJSON-dummy.m */; };
-		DE07442FA1224BB5B1C81BF22B72E84B /* ZeeguuAPIDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE9AB4CA96364B21671A86F855D5E3 /* ZeeguuAPIDefaults.swift */; };
-		E12237A24FB81A8ECC15FCB80AF6D9C2 /* Zeeguu-API-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E882A59B029DC3C28C79511E486BAE62 /* Zeeguu-API-iOS-dummy.m */; };
-		F15E1BCDE63242165FEF303F76D51FDA /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524C791FDCF83A8FB4044DBDDBA272C /* Feed.swift */; };
+		D8D505464CD321002AAE99BC1B88E1D1 /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BCF816FE845D9E52AB5D4FFC40CE42 /* SwiftyJSON-dummy.m */; };
+		E6238A7E8244242552838D3B0938E1CB /* ZeeguuAPIDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167907F9FC005DC404289B92D6DB0A59 /* ZeeguuAPIDefaults.swift */; };
+		FB351E39D0FC2E443D4597FC41B9B6EE /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A65F285DAB737D9B1E9C5D68928839 /* Debug.swift */; };
+		FBBD0F602936C42D21F6BD30389F6243 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C873971292E4B37395E95F38D57F6FB /* Article.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,47 +58,48 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06930EA9357016D1440B64B71ECBD4BD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06E46DAF73562510939EE5D3555EFE4A /* Feed.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Feed.swift; path = ZeeguuAPI/ZeeguuAPI/Feed.swift; sourceTree = "<group>"; };
 		0C1805969725FC77D450392ADD34E8F7 /* Pods-Zeeguu Reader-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Zeeguu Reader-acknowledgements.plist"; sourceTree = "<group>"; };
-		0D0593CAAAF41D561F1E8A9D574F4BC3 /* Article.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Article.swift; path = ZeeguuAPI/ZeeguuAPI/Article.swift; sourceTree = "<group>"; };
+		1219218A531A337ABD133B66C57E7172 /* Zeeguu-API-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Zeeguu-API-iOS-dummy.m"; sourceTree = "<group>"; };
+		143DA4ED76E0E6C8127E441B31B39C62 /* Zeeguu-API-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Zeeguu-API-iOS.xcconfig"; sourceTree = "<group>"; };
+		167907F9FC005DC404289B92D6DB0A59 /* ZeeguuAPIDefaults.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeeguuAPIDefaults.swift; path = ZeeguuAPI/ZeeguuAPI/ZeeguuAPIDefaults.swift; sourceTree = "<group>"; };
 		1C4DE44182064BF5B2EF578A2E16A681 /* Pods_Zeeguu_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zeeguu_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CD008DD0477BB76813F206CB807AA58 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1F16ED8BBA96CF3D01E289F56F01CB4D /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
-		1FA86B5FC546309BCC4259E0B5B34997 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20387FEE7153F588E4A4330D8B49811C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21D26EE347896CEEA03B5904D6E96C42 /* ZeeguuAPIEndpoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeeguuAPIEndpoint.swift; path = ZeeguuAPI/ZeeguuAPI/ZeeguuAPIEndpoint.swift; sourceTree = "<group>"; };
 		25B9CB394458416C53582F295CC2FD43 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28243749DFD2A5A2A5383F4D4F6F13F7 /* ZGSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZGSerialization.swift; path = ZeeguuAPI/ZeeguuAPI/ZGSerialization.swift; sourceTree = "<group>"; };
 		2AE3BFFF674A80767508E2638689C217 /* Pods-Zeeguu Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Zeeguu Reader.debug.xcconfig"; sourceTree = "<group>"; };
+		2D8E44AF5593A44A4DCAA467BE0273BA /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
 		31205B28DFB2B7366AF496597F020A02 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		32521E380FD22C5BD1639958FE6DE82A /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
-		44A8FA4355998534F3896763F6DF617A /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = ZeeguuAPI/ZeeguuAPI/en.lproj; sourceTree = "<group>"; };
-		455A7B04969E47B8DF2B0FC200052467 /* Zeeguu-API-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Zeeguu-API-iOS-umbrella.h"; sourceTree = "<group>"; };
 		479F4A0A72C58E522B7956F6673054E3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5524C791FDCF83A8FB4044DBDDBA272C /* Feed.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Feed.swift; path = ZeeguuAPI/ZeeguuAPI/Feed.swift; sourceTree = "<group>"; };
-		65796A90E4A963009A64FED4C1586EAF /* ZeeguuAPI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZeeguuAPI.h; path = ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.h; sourceTree = "<group>"; };
-		6776EDA67850AB912F078FE14A35C331 /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
-		7B9EAA5D427872E740EA23A599EA9A75 /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
-		8DF017095DB3278D62ED5540FBDA7A66 /* SwiftyJSON-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-umbrella.h"; sourceTree = "<group>"; };
+		501686C9BEFB7BAFE664B21466B451CB /* HTTPMethod.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = ZeeguuAPI/ZeeguuAPI/HTTPMethod.swift; sourceTree = "<group>"; };
+		602E19A3A188973B25133189CFF08BE0 /* Bookmark.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bookmark.swift; path = ZeeguuAPI/ZeeguuAPI/Bookmark.swift; sourceTree = "<group>"; };
+		60B925DE5D057F0F37D4A07516A2BC5E /* Zeeguu-API-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Zeeguu-API-iOS-umbrella.h"; sourceTree = "<group>"; };
+		6345F16C3FBC6216D14DF9E33169CD91 /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
+		64E6AF1A6EF3CA275EDD2967E0E99169 /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
+		758E956BC79545815BECBAC2E5C8734F /* Zeeguu-API-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Zeeguu-API-iOS.modulemap"; sourceTree = "<group>"; };
+		7C873971292E4B37395E95F38D57F6FB /* Article.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Article.swift; path = ZeeguuAPI/ZeeguuAPI/Article.swift; sourceTree = "<group>"; };
+		86B9C9F5310233FB6CC36AF8E3F1982F /* SwiftyJSON-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-umbrella.h"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A68D573F0936397E79A8D40F23A0C2A6 /* Pods-Zeeguu Reader-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Zeeguu Reader-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A8EF60BDF9C94DF9967872FD8463D33A /* Pods-Zeeguu Reader-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Zeeguu Reader-umbrella.h"; sourceTree = "<group>"; };
-		AF7DEC9E455222877E83AF5C204827BE /* Zeeguu-API-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Zeeguu-API-iOS.modulemap"; sourceTree = "<group>"; };
-		B252F49E12A52F2790C0F0145F051392 /* Bookmark.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bookmark.swift; path = ZeeguuAPI/ZeeguuAPI/Bookmark.swift; sourceTree = "<group>"; };
-		B9BB14ABAEB9B49DA62D9B9AE5EC7468 /* HTTPMethod.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = ZeeguuAPI/ZeeguuAPI/HTTPMethod.swift; sourceTree = "<group>"; };
-		BA4E4BFC0FFD70BCF659E0536AB8FCE1 /* ArticleDifficulty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ArticleDifficulty.swift; path = ZeeguuAPI/ZeeguuAPI/ArticleDifficulty.swift; sourceTree = "<group>"; };
+		AF6A266C78E307B3FA82ED6311FFD570 /* ZeeguuAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeeguuAPI.swift; path = ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.swift; sourceTree = "<group>"; };
 		BA95E6CBC5E4224570F32156C856A5B3 /* Pods-Zeeguu Reader-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Zeeguu Reader-resources.sh"; sourceTree = "<group>"; };
-		BCEC20584197F2A4F818ADC5E03C9171 /* Zeeguu-API-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Zeeguu-API-iOS-prefix.pch"; sourceTree = "<group>"; };
-		C170AF9B3148F0C2E587C1464FCCF87E /* ZeeguuAPIEndpoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeeguuAPIEndpoint.swift; path = ZeeguuAPI/ZeeguuAPI/ZeeguuAPIEndpoint.swift; sourceTree = "<group>"; };
-		C5826CE6EC0E323A21868DA7AE828779 /* ZeeguuAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeeguuAPI.swift; path = ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.swift; sourceTree = "<group>"; };
+		BC07865446337A97773E88CC1C9802E3 /* ZeeguuAPI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZeeguuAPI.h; path = ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.h; sourceTree = "<group>"; };
 		C835AEE0DC8A46422C3AB86766B24835 /* Pods-Zeeguu Reader-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Zeeguu Reader-dummy.m"; sourceTree = "<group>"; };
-		C8F806264737EF5940E99FBED45AE259 /* StringExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringExtension.swift; path = ZeeguuAPI/ZeeguuAPI/StringExtension.swift; sourceTree = "<group>"; };
-		C9EE9AB4CA96364B21671A86F855D5E3 /* ZeeguuAPIDefaults.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeeguuAPIDefaults.swift; path = ZeeguuAPI/ZeeguuAPI/ZeeguuAPIDefaults.swift; sourceTree = "<group>"; };
+		CA7F40EFD9B74D6EC61FE08B1CAF1C26 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = ZeeguuAPI/ZeeguuAPI/en.lproj; sourceTree = "<group>"; };
 		CC531255506DB8328145C8821365C788 /* Zeeguu_API_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Zeeguu_API_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D53A5594BEEA6BB9A4EFA1A37686BF0C /* Debug.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debug.swift; path = ZeeguuAPI/ZeeguuAPI/Debug.swift; sourceTree = "<group>"; };
-		D83964EFAA3EB5681E09D6F0BBF94807 /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
+		D3A65F285DAB737D9B1E9C5D68928839 /* Debug.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debug.swift; path = ZeeguuAPI/ZeeguuAPI/Debug.swift; sourceTree = "<group>"; };
+		D996B1E70F623C17230E104CFF1BA76F /* Zeeguu-API-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Zeeguu-API-iOS-prefix.pch"; sourceTree = "<group>"; };
+		DC9E3DEC3C03C40997E6CA69DF6A20E6 /* ArticleDifficulty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ArticleDifficulty.swift; path = ZeeguuAPI/ZeeguuAPI/ArticleDifficulty.swift; sourceTree = "<group>"; };
+		E09FD73C0A9BA559D3C6C6E5C627FEE7 /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		E695020645CA519B83566C12F62A1BE5 /* Pods-Zeeguu Reader.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Zeeguu Reader.modulemap"; sourceTree = "<group>"; };
 		E834EDC65BCDB3D1E36B2D9F4242E996 /* Pods-Zeeguu Reader-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Zeeguu Reader-frameworks.sh"; sourceTree = "<group>"; };
-		E882A59B029DC3C28C79511E486BAE62 /* Zeeguu-API-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Zeeguu-API-iOS-dummy.m"; sourceTree = "<group>"; };
+		E9BCF816FE845D9E52AB5D4FFC40CE42 /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
 		EF47129ADE8CB9FAA999548F461BA851 /* Pods-Zeeguu Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Zeeguu Reader.release.xcconfig"; sourceTree = "<group>"; };
-		F02268D7AE96B2E40DE5F4767638864F /* Zeeguu-API-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Zeeguu-API-iOS.xcconfig"; sourceTree = "<group>"; };
 		F05A2DDA9058082E37FAAA448F008219 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0A882C9B16ECBA7C69F77BFB822CF81 /* StringExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringExtension.swift; path = ZeeguuAPI/ZeeguuAPI/StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02D335E37D2A6869D943C81D883FF9FD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6DB06636F522A4E0144C1E79E3AD31DD /* SwiftyJSON */,
+				7425803BFF8223315184AC44CCFD0DBB /* Zeeguu-API-iOS */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		086828E1E7E5446FECEE19D1A8143D0F /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,58 +148,12 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		154B478B76AA745C11ACD417389A1642 /* Support Files */ = {
+		237C9A7085777F3884B05BAE02FC701A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1CD008DD0477BB76813F206CB807AA58 /* Info.plist */,
-				D83964EFAA3EB5681E09D6F0BBF94807 /* SwiftyJSON.modulemap */,
-				1F16ED8BBA96CF3D01E289F56F01CB4D /* SwiftyJSON.xcconfig */,
-				7B9EAA5D427872E740EA23A599EA9A75 /* SwiftyJSON-dummy.m */,
-				32521E380FD22C5BD1639958FE6DE82A /* SwiftyJSON-prefix.pch */,
-				8DF017095DB3278D62ED5540FBDA7A66 /* SwiftyJSON-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SwiftyJSON";
-			sourceTree = "<group>";
-		};
-		1D662A4939C41C8A9B415B893B4D17DA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				44A8FA4355998534F3896763F6DF617A /* en.lproj */,
+				CA7F40EFD9B74D6EC61FE08B1CAF1C26 /* en.lproj */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		1FDCCCB6B93EC22216DCB9D98907976C /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				1FA86B5FC546309BCC4259E0B5B34997 /* Info.plist */,
-				AF7DEC9E455222877E83AF5C204827BE /* Zeeguu-API-iOS.modulemap */,
-				F02268D7AE96B2E40DE5F4767638864F /* Zeeguu-API-iOS.xcconfig */,
-				E882A59B029DC3C28C79511E486BAE62 /* Zeeguu-API-iOS-dummy.m */,
-				BCEC20584197F2A4F818ADC5E03C9171 /* Zeeguu-API-iOS-prefix.pch */,
-				455A7B04969E47B8DF2B0FC200052467 /* Zeeguu-API-iOS-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Zeeguu-API-iOS";
-			sourceTree = "<group>";
-		};
-		318EFB46CF924E94C1ED9FBB57B07C90 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				56A1BA4A10AE007019A61561739891B1 /* SwiftyJSON */,
-				76A0442AA3B2337407672F4B8075DCC3 /* Zeeguu-API-iOS */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		56A1BA4A10AE007019A61561739891B1 /* SwiftyJSON */ = {
-			isa = PBXGroup;
-			children = (
-				6776EDA67850AB912F078FE14A35C331 /* SwiftyJSON.swift */,
-				154B478B76AA745C11ACD417389A1642 /* Support Files */,
-			);
-			path = SwiftyJSON;
 			sourceTree = "<group>";
 		};
 		59C36C43953F96F647B61E964745DC74 /* Pods-Zeeguu Reader */ = {
@@ -218,6 +183,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6DB06636F522A4E0144C1E79E3AD31DD /* SwiftyJSON */ = {
+			isa = PBXGroup;
+			children = (
+				E09FD73C0A9BA559D3C6C6E5C627FEE7 /* SwiftyJSON.swift */,
+				AE73D100D129B8A8EAB483B8CBA8CE7C /* Support Files */,
+			);
+			path = SwiftyJSON;
+			sourceTree = "<group>";
+		};
 		7298C474E54B9E134E6C531C6231F69E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,22 +202,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		76A0442AA3B2337407672F4B8075DCC3 /* Zeeguu-API-iOS */ = {
+		7425803BFF8223315184AC44CCFD0DBB /* Zeeguu-API-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				0D0593CAAAF41D561F1E8A9D574F4BC3 /* Article.swift */,
-				BA4E4BFC0FFD70BCF659E0536AB8FCE1 /* ArticleDifficulty.swift */,
-				B252F49E12A52F2790C0F0145F051392 /* Bookmark.swift */,
-				D53A5594BEEA6BB9A4EFA1A37686BF0C /* Debug.swift */,
-				5524C791FDCF83A8FB4044DBDDBA272C /* Feed.swift */,
-				B9BB14ABAEB9B49DA62D9B9AE5EC7468 /* HTTPMethod.swift */,
-				C8F806264737EF5940E99FBED45AE259 /* StringExtension.swift */,
-				65796A90E4A963009A64FED4C1586EAF /* ZeeguuAPI.h */,
-				C5826CE6EC0E323A21868DA7AE828779 /* ZeeguuAPI.swift */,
-				C9EE9AB4CA96364B21671A86F855D5E3 /* ZeeguuAPIDefaults.swift */,
-				C170AF9B3148F0C2E587C1464FCCF87E /* ZeeguuAPIEndpoint.swift */,
-				1D662A4939C41C8A9B415B893B4D17DA /* Resources */,
-				1FDCCCB6B93EC22216DCB9D98907976C /* Support Files */,
+				7C873971292E4B37395E95F38D57F6FB /* Article.swift */,
+				DC9E3DEC3C03C40997E6CA69DF6A20E6 /* ArticleDifficulty.swift */,
+				602E19A3A188973B25133189CFF08BE0 /* Bookmark.swift */,
+				D3A65F285DAB737D9B1E9C5D68928839 /* Debug.swift */,
+				06E46DAF73562510939EE5D3555EFE4A /* Feed.swift */,
+				501686C9BEFB7BAFE664B21466B451CB /* HTTPMethod.swift */,
+				F0A882C9B16ECBA7C69F77BFB822CF81 /* StringExtension.swift */,
+				BC07865446337A97773E88CC1C9802E3 /* ZeeguuAPI.h */,
+				AF6A266C78E307B3FA82ED6311FFD570 /* ZeeguuAPI.swift */,
+				167907F9FC005DC404289B92D6DB0A59 /* ZeeguuAPIDefaults.swift */,
+				21D26EE347896CEEA03B5904D6E96C42 /* ZeeguuAPIEndpoint.swift */,
+				28243749DFD2A5A2A5383F4D4F6F13F7 /* ZGSerialization.swift */,
+				237C9A7085777F3884B05BAE02FC701A /* Resources */,
+				EFBD9D20109359BB97423694A4B6A2FF /* Support Files */,
 			);
 			path = "Zeeguu-API-iOS";
 			sourceTree = "<group>";
@@ -253,7 +228,7 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				65B35BF8E63AD31F1FDAD1F7E7313A21 /* Frameworks */,
-				318EFB46CF924E94C1ED9FBB57B07C90 /* Pods */,
+				02D335E37D2A6869D943C81D883FF9FD /* Pods */,
 				7298C474E54B9E134E6C531C6231F69E /* Products */,
 				870A949FD1D9C3D75E13BD4A1FFD8389 /* Targets Support Files */,
 			);
@@ -265,6 +240,34 @@
 				59C36C43953F96F647B61E964745DC74 /* Pods-Zeeguu Reader */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		AE73D100D129B8A8EAB483B8CBA8CE7C /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				06930EA9357016D1440B64B71ECBD4BD /* Info.plist */,
+				2D8E44AF5593A44A4DCAA467BE0273BA /* SwiftyJSON.modulemap */,
+				64E6AF1A6EF3CA275EDD2967E0E99169 /* SwiftyJSON.xcconfig */,
+				E9BCF816FE845D9E52AB5D4FFC40CE42 /* SwiftyJSON-dummy.m */,
+				6345F16C3FBC6216D14DF9E33169CD91 /* SwiftyJSON-prefix.pch */,
+				86B9C9F5310233FB6CC36AF8E3F1982F /* SwiftyJSON-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftyJSON";
+			sourceTree = "<group>";
+		};
+		EFBD9D20109359BB97423694A4B6A2FF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				20387FEE7153F588E4A4330D8B49811C /* Info.plist */,
+				758E956BC79545815BECBAC2E5C8734F /* Zeeguu-API-iOS.modulemap */,
+				143DA4ED76E0E6C8127E441B31B39C62 /* Zeeguu-API-iOS.xcconfig */,
+				1219218A531A337ABD133B66C57E7172 /* Zeeguu-API-iOS-dummy.m */,
+				D996B1E70F623C17230E104CFF1BA76F /* Zeeguu-API-iOS-prefix.pch */,
+				60B925DE5D057F0F37D4A07516A2BC5E /* Zeeguu-API-iOS-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Zeeguu-API-iOS";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,7 +305,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 276DABACA9A952FF497848180E111963 /* Build configuration list for PBXNativeTarget "Zeeguu-API-iOS" */;
 			buildPhases = (
-				C37C3E1B53E3590F72FF1175505F5D55 /* Sources */,
+				00BB48697D7BB3CBD34BEA3B02C5DDC8 /* Sources */,
 				05ABD26EE08D6666DCC46AC4493C12B1 /* Frameworks */,
 				39331F74FA307EC3A1237BF7DC88D086 /* Headers */,
 				54611050F638FC00BDFD9BC2239EDA73 /* Resources */,
@@ -393,30 +396,31 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		00BB48697D7BB3CBD34BEA3B02C5DDC8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBBD0F602936C42D21F6BD30389F6243 /* Article.swift in Sources */,
+				620E09276E0F63AC65AC68EA64325F93 /* ArticleDifficulty.swift in Sources */,
+				40008E832309E8A3821F2C9BBA157D49 /* Bookmark.swift in Sources */,
+				FB351E39D0FC2E443D4597FC41B9B6EE /* Debug.swift in Sources */,
+				68B9F9DA5D2214B76E455CF16C3A33BD /* Feed.swift in Sources */,
+				B182958AB0E44C7DA8B6753E3814311B /* HTTPMethod.swift in Sources */,
+				834685A531E5DF94CE6E654E7980E9BB /* StringExtension.swift in Sources */,
+				001237F3EF1B32138107299CE01CA610 /* Zeeguu-API-iOS-dummy.m in Sources */,
+				D03DFB4992D4B81788108245EC0ECA70 /* ZeeguuAPI.swift in Sources */,
+				E6238A7E8244242552838D3B0938E1CB /* ZeeguuAPIDefaults.swift in Sources */,
+				C2C13132CBA00A4F6EEDB981AB3BD891 /* ZeeguuAPIEndpoint.swift in Sources */,
+				7C58A2580779E4D23CA4A7F4875276A6 /* ZGSerialization.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A722FDE5A03BD4545258340A4249693A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D8D505464CD321002AAE99BC1B88E1D1 /* SwiftyJSON-dummy.m in Sources */,
 				70A93DE661A36FD548AE15F701BC0243 /* SwiftyJSON.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C37C3E1B53E3590F72FF1175505F5D55 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0770E58AEF4C910C0199A5ADD08C67FE /* Article.swift in Sources */,
-				1F572DF736EADFF66CCF9C3AF5E93D9E /* ArticleDifficulty.swift in Sources */,
-				D1DBE8F8011C66EAB2BCD28E5B9211CA /* Bookmark.swift in Sources */,
-				B6A348481211CEF54BF59A928DCC94D3 /* Debug.swift in Sources */,
-				F15E1BCDE63242165FEF303F76D51FDA /* Feed.swift in Sources */,
-				6FA449C5380F7DDA79A54ACAAA5279F5 /* HTTPMethod.swift in Sources */,
-				11162F30DE65AE67CDEDE9A1C7443853 /* StringExtension.swift in Sources */,
-				E12237A24FB81A8ECC15FCB80AF6D9C2 /* Zeeguu-API-iOS-dummy.m in Sources */,
-				AA5651287D8F4E8C980D0F72F2B03625 /* ZeeguuAPI.swift in Sources */,
-				DE07442FA1224BB5B1C81BF22B72E84B /* ZeeguuAPIDefaults.swift in Sources */,
-				0CA5EFA7EE6154889FEA89DA9A6A00BA /* ZeeguuAPIEndpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,7 +500,7 @@
 		};
 		14C9654FA049F66598AECECF1B2C0D53 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F16ED8BBA96CF3D01E289F56F01CB4D /* SwiftyJSON.xcconfig */;
+			baseConfigurationReference = 64E6AF1A6EF3CA275EDD2967E0E99169 /* SwiftyJSON.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -559,7 +563,7 @@
 		};
 		B6E0D1954DC4C9994BFE085588938FF8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F02268D7AE96B2E40DE5F4767638864F /* Zeeguu-API-iOS.xcconfig */;
+			baseConfigurationReference = 143DA4ED76E0E6C8127E441B31B39C62 /* Zeeguu-API-iOS.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -622,7 +626,7 @@
 		};
 		BEE8EFF2561CCCCDB14634202CD092ED /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F16ED8BBA96CF3D01E289F56F01CB4D /* SwiftyJSON.xcconfig */;
+			baseConfigurationReference = 64E6AF1A6EF3CA275EDD2967E0E99169 /* SwiftyJSON.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -651,7 +655,7 @@
 		};
 		C17C663638B94B5587C50B1CD2E7B18E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F02268D7AE96B2E40DE5F4767638864F /* Zeeguu-API-iOS.xcconfig */;
+			baseConfigurationReference = 143DA4ED76E0E6C8127E441B31B39C62 /* Zeeguu-API-iOS.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
