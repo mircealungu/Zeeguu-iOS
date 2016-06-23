@@ -124,17 +124,15 @@ class UpdateTranslationViewController: UITableViewController, UIPopoverPresentat
 		// $0.0.0 is the left string of that pair and is the likelihood of the left operand
 		// $0.1.0 is the left string of that pair and is the likelihood of the right operand
 		s1.sortInPlace({ $0.0.0.lowercaseString > $0.1.0.lowercaseString })
-		dispatch_async(dispatch_get_main_queue()) {
-			self.deleteIndex += 1
-			if self.data.count == 3 {
-				self.data[1] = s1
-				self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
-			} else {
-				self.data.insert(s1, atIndex: 1)
-				self.tableView.insertSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
-			}
-			self.endRefreshing()
+		self.deleteIndex += 1
+		if self.data.count == 3 {
+			self.data[1] = s1
+			self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
+		} else {
+			self.data.insert(s1, atIndex: 1)
+			self.tableView.insertSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
 		}
+		self.endRefreshing()
 	}
 	
 	func endRefreshing() {

@@ -79,17 +79,15 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 					self.newsFeeds.insert("ALL_FEEDS".localized, atIndex: 0)
 				}
 			}
-			dispatch_async(dispatch_get_main_queue(), { () -> Void in
-				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
-				// This enables us to attach a completion block to the animation, reloading data before
-				// animation is complete causes glitching.
-				CATransaction.begin()
-				CATransaction.setCompletionBlock({ () -> Void in
-					self.tableView.reloadData()
-				})
-				self.refreshControl?.endRefreshing()
-				CATransaction.commit()
+			// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+			// This enables us to attach a completion block to the animation, reloading data before
+			// animation is complete causes glitching.
+			CATransaction.begin()
+			CATransaction.setCompletionBlock({ () -> Void in
+				self.tableView.reloadData()
 			})
+			self.refreshControl?.endRefreshing()
+			CATransaction.commit()
 		}
 	}
 	
@@ -173,10 +171,8 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 			if let feedID = (self.newsFeeds[indexPath.row] as? Feed)?.id {
 				ZeeguuAPI.sharedAPI().stopFollowingFeed(feedID, completion: { (success) -> Void in
 					if success {
-						dispatch_async(dispatch_get_main_queue(), { () -> Void in
-							self.newsFeeds.removeAtIndex(indexPath.row)
-							tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-						})
+						self.newsFeeds.removeAtIndex(indexPath.row)
+						tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
 					}
 				})
 			}

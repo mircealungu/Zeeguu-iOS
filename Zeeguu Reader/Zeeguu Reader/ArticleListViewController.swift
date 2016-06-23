@@ -137,18 +137,16 @@ class ArticleListViewController: ZGTableViewController {
 	}
 	
 	func reloadTableView() {
-		dispatch_async(dispatch_get_main_queue(), { () -> Void in
-			// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
-			// This enables us to attach a completion block to the animation, reloading data before
-			// animation is complete causes glitching.
-			CATransaction.begin()
-			CATransaction.setCompletionBlock({ () -> Void in
-				self.tableView.reloadData()
-				self.getDifficulties()
-			})
-			self.refreshControl?.endRefreshing()
-			CATransaction.commit()
+		// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+		// This enables us to attach a completion block to the animation, reloading data before
+		// animation is complete causes glitching.
+		CATransaction.begin()
+		CATransaction.setCompletionBlock({ () -> Void in
+			self.tableView.reloadData()
+			self.getDifficulties()
 		})
+		self.refreshControl?.endRefreshing()
+		CATransaction.commit()
 	}
 	
 	func getDifficulties() {

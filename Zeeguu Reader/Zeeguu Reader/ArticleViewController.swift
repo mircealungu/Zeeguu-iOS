@@ -391,9 +391,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			if insertTranslation {
 				self.webview.executeJavaScriptAction(action)
 			} else {
-				dispatch_sync(dispatch_get_main_queue(), {
-					self.showInfoView(t)
-				})
+				self.showInfoView(t)
 			}
 			
 			NSNotificationCenter.defaultCenter().postNotificationName(UserTranslatedWordNotification, object: nil)

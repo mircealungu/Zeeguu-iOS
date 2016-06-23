@@ -62,9 +62,7 @@ class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 				ZeeguuAPI.sharedAPI().getInterestingFeeds(lc) { (feeds) in
 					if let fs = feeds where fs.count > 0 {
 						self.rows.append(fs)
-						dispatch_async(dispatch_get_main_queue(), { 
-							self.tableView.insertSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
-						})
+						self.tableView.insertSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
 					}
 				}
 			}
@@ -129,10 +127,8 @@ class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 				ZeeguuAPI.sharedAPI().enableDebugOutput = true
 				ZeeguuAPI.sharedAPI().startFollowingFeeds([feed.url]) { (success) -> Void in
 					ZeeguuAPI.sharedAPI().enableDebugOutput = false
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						self.delegate?.addFeedDidAddFeeds([feed])
-						self.dismissViewControllerAnimated(true, completion: nil)
-					})
+					self.delegate?.addFeedDidAddFeeds([feed])
+					self.dismissViewControllerAnimated(true, completion: nil)
 				}
 			}
 		}

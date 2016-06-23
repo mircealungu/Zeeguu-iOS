@@ -112,23 +112,21 @@ class ZGTextView: UITextView {
 				if let t = dict?["translation"].string {
 					print("\"\(self.selectedText())\" translated to \"\(t)\"")
 					
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						let range = self.selectedRange
-						self.scrollEnabled = false
-						
-						self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: AppColor.getTranslationTextColor()]))
-						
-						self.resignFirstResponder()
-						self.scrollEnabled = true
-						
-						let synthesizer = AVSpeechSynthesizer()
-						
-						let utterance = AVSpeechUtterance(string: self.selectedText())
-						utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
-						
-						synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-						synthesizer.speakUtterance(utterance)
-					})
+					let range = self.selectedRange
+					self.scrollEnabled = false
+					
+					self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: AppColor.getTranslationTextColor()]))
+					
+					self.resignFirstResponder()
+					self.scrollEnabled = true
+					
+					let synthesizer = AVSpeechSynthesizer()
+					
+					let utterance = AVSpeechUtterance(string: self.selectedText())
+					utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
+					
+					synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+					synthesizer.speakUtterance(utterance)
 				} else {
 					print("translating \"\(self.selectedText())\" went wrong")
 				}
