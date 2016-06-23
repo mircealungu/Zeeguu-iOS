@@ -50,6 +50,10 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 	public var date: String
 	/// The summary of this article
 	public var summary: String
+	/// Wheter this article has been read by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var isRead: Bool
+	/// Wheter this article has been starred by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var isStarred: Bool
 	
 	private var imageURL: String?
 	private var image: UIImage?
@@ -124,6 +128,8 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		self.url = url;
 		self.date = date;
 		self.summary = summary
+		self.isRead = false
+		self.isStarred = false
 	}
 	
 	/**
@@ -144,6 +150,8 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		self.url = url
 		self.date = date
 		self.summary = summary
+		self.isRead = dict["isRead"] as? Bool == true
+		self.isStarred = dict["isStarred"] as? Bool == true
 		self.imageURL = dict["imageURL"] as? String
 		self.image = dict["image"] as? UIImage
 		self.contents = dict["contents"] as? String
@@ -166,6 +174,8 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		dict["url"] = self.url
 		dict["date"] = self.date
 		dict["summary"] = self.summary
+		dict["isRead"] = self.isRead
+		dict["isStarred"] = self.isStarred
 		dict["imageURL"] = self.imageURL
 		dict["image"] = self.image
 		dict["contents"] = self.contents
