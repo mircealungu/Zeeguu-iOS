@@ -36,6 +36,9 @@ public class ZeeguuAPI {
 	/// Whether to enable debug output. Set this to `true` to see debug output and find out why an endpoint is not returning what you expect.
 	public var enableDebugOutput = false
 	
+	/// Wheter completion blocks are executed on the main thread. Set this to true before calling an endpoint to have the completion block of that endpoint executed on the main thread.
+	public var runCompletionOnMainThread: Bool = true
+	
 	var currentSessionID: Int {
 		didSet {
 			let def = NSUserDefaults.standardUserDefaults()
