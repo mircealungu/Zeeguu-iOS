@@ -59,6 +59,10 @@ function elementIsPronounceIcon(el) {
 	return el.tagName && el.tagName.toLowerCase() == zeeguuPronounceTagName.toLowerCase();
 }
 
+function elementIsInLink(el) {
+	return el.parentNode && el.parentNode.parentNode && el.parentNode.parentNode.tagName && el.parentNode.parentNode.tagName.toLowerCase() == "a";
+}
+
 function getContextNextTo(element, directionIsPrevious) {
 	var text = "";
 

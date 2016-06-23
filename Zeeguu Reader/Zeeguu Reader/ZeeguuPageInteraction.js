@@ -32,6 +32,11 @@ function wordClickHandler(event) {
 	if (zeeguuTranslationMode == ZeeguuTranslateImmediately && event.target.hasAttribute("data-zeeguu-translated")) {
 		return; // Already translated
 	}
+
+	if (!zeeguuLinksAreDisabled && elementIsInLink(event.target)) {
+		return;
+	}
+
 	var word = event.target.innerText;
 	var id = zeeguuuTranslatedWordID + zeeguuIDCounter++;
 
