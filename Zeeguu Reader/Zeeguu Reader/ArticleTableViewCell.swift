@@ -34,6 +34,7 @@ class ArticleTableViewCell: UITableViewCell {
 	private var titleField: UILabel
 	private var descriptionField: UILabel
 	private var articleImageView: UIImageView
+	private var unreadView: UIView
 	
 	private var difficultyLabel: UILabel
 	private var difficultyView: UIView
@@ -45,6 +46,7 @@ class ArticleTableViewCell: UITableViewCell {
 		articleImageView = UIImageView.autoLayoutCapable()
 		difficultyLabel = UILabel.autoLayoutCapable()
 		difficultyView = UIView.autoLayoutCapable()
+		unreadView = UIView.autoLayoutCapable()
 		super.init(style: .Default, reuseIdentifier: reuseIdentifier)
 		setupLayout()
 		updateLabels()
@@ -72,29 +74,37 @@ class ArticleTableViewCell: UITableViewCell {
 		difficultyView.clipsToBounds = true
 		difficultyView.backgroundColor = ArticleDifficulty.Unknown.color
 		
+		unreadView.layer.cornerRadius = 5
+		unreadView.clipsToBounds = true
+		unreadView.backgroundColor = article.isRead ? UIColor(red: 0, green: 0, blue: 0, alpha: 0) : UIColor(red: 0.3, green: 0.3, blue: 1.0, alpha: 1)
+		
 		self.contentView.addSubview(titleField)
 		self.contentView.addSubview(descriptionField)
 		self.contentView.addSubview(articleImageView)
 		self.contentView.addSubview(difficultyLabel)
 		self.contentView.addSubview(difficultyView)
+		self.contentView.addSubview(unreadView)
 		
-		let views: [String: UIView] = ["t": titleField, "d": descriptionField, "i": articleImageView, "diff": difficultyLabel, "diff2": difficultyView]
+		let views: [String: UIView] = ["t": titleField, "d": descriptionField, "i": articleImageView, "diff": difficultyLabel, "diff2": difficultyView, "u": unreadView]
 		
-		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[i(60)]-[t]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[u(10)]-[i(60)]-[t]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[i]-[d]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[i]-[diff2(10)]-[diff]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[i(80)]-8-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[t]-1-[diff]-1-[d]-(>=0)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[diff2(10)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[u(10)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
-//		self.contentView.addConstraint(NSLayoutConstraint(item: articleImageView, attribute: .Height, relatedBy: .Equal, toItem: articleImageView, attribute: .Width, multiplier: 1, constant: 0))
 		self.contentView.addConstraint(NSLayoutConstraint(item: difficultyView, attribute: .CenterY, relatedBy: .Equal, toItem: difficultyLabel, attribute: .CenterY, multiplier: 1, constant: 0))
+		self.contentView.addConstraint(NSLayoutConstraint(item: unreadView, attribute: .CenterY, relatedBy: .Equal, toItem: self.contentView, attribute: .CenterY, multiplier: 1, constant: 0))
 	}
 	
 	private func updateLabels() {
 		titleField.text = article.title
 		descriptionField.text = article.summary
+		
+		unreadView.backgroundColor = article.isRead ? UIColor(red: 0, green: 0, blue: 0, alpha: 0) : UIColor(red: 0.3, green: 0.3, blue: 1.0, alpha: 1)
 		
 		if self.article.isDifficultyLoaded {
 			self.article.getDifficulty(completion: { (difficulty) in

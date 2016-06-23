@@ -74,14 +74,7 @@ class ArticleListViewController: ZGTableViewController {
 			ZeeguuAPI.sharedAPI().getFeedItemsForFeed(feeds[i], completion: { (articles) -> Void in
 				if let arts = articles {
 					self.articles = self.mergeArticles(oldArticles:self.articles, newArticles: arts)
-					
-					if let arr = def.objectForKey(articlesForFeedKey + self.feeds[i].id!) as? [[String: AnyObject]], localArts = ZGSerialize.decodeArray(arr) as? [Article] {
-						let newLocal = self.mergeArticles(oldArticles: localArts, newArticles: arts)
-						def.setObject(ZGSerialize.encodeArray(newLocal), forKey: articlesForFeedKey + self.feeds[i].id!)
-					} else {
-						def.setObject(ZGSerialize.encodeArray(arts), forKey: articlesForFeedKey + self.feeds[i].id!)
-					}
-					def.synchronize()
+					self.saveArticles(arts, forKey: articlesForFeedKey + self.feeds[i].id!)
 				}
 				if i == self.feeds.count - 1 {
 					self.reloadTableView()
@@ -116,6 +109,17 @@ class ArticleListViewController: ZGTableViewController {
 		return oldArticles
 	}
 	
+	func saveArticles(articles: [Article], forKey key: String) {
+		let def = NSUserDefaults.standardUserDefaults()
+		if let arr = def.objectForKey(key) as? [[String: AnyObject]], localArts = ZGSerialize.decodeArray(arr) as? [Article] {
+			let newLocal = self.replaceArticles(oldArticles: localArts, newArticles: articles)
+			def.setObject(ZGSerialize.encodeArray(newLocal), forKey: key)
+		} else {
+			def.setObject(ZGSerialize.encodeArray(articles), forKey: key)
+		}
+		def.synchronize()
+	}
+	
 	func updateLocalArticles(arts: [Article]) {
 		var allArticles = [[Article]]()
 		
@@ -126,22 +130,10 @@ class ArticleListViewController: ZGTableViewController {
 		for a in arts {
 			allArticles[feeds.indexOf(a.feed)!].append(a)
 		}
-		let def = NSUserDefaults.standardUserDefaults()
-		
 		
 		for i in 0 ..< feeds.count {
-			if let arr = def.objectForKey(articlesForFeedKey + feeds[i].id!) as? [[String: AnyObject]], localArts = ZGSerialize.decodeArray(arr) as? [Article] {
-				let newLocal = self.replaceArticles(oldArticles: localArts, newArticles: allArticles[i])
-				def.setObject(ZGSerialize.encodeArray(newLocal), forKey: articlesForFeedKey + feeds[i].id!)
-			} else {
-				def.setObject(ZGSerialize.encodeArray(allArticles[i]), forKey: articlesForFeedKey + feeds[i].id!)
-			}
-			def.synchronize()
+			saveArticles(allArticles[i], forKey: articlesForFeedKey + feeds[i].id!)
 		}
-		
-		
-		
-		
 	}
 	
 	func reloadTableView() {
@@ -232,6 +224,9 @@ class ArticleListViewController: ZGTableViewController {
 		guard let split = self.splitViewController else {
 			return
 		}
+		articles[indexPath.row].isRead = true
+		updateLocalArticles(articles)
+		tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
 		let article = articles[indexPath.row]
 		let vc = ArticleViewController(article: article)
 		
