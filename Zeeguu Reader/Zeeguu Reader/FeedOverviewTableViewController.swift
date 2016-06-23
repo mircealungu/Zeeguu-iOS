@@ -153,6 +153,15 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 			}
 			cell?.textLabel?.text = feed as? String
 			cell?.accessoryType = .DisclosureIndicator
+			let count = ArticleManager.sharedManager().countUnReadArticles()
+			if count > 0 {
+				let badge = BadgeView(text: "\(count)")
+				cell?.accessoryView = badge
+				badge.setNeedsLayout()
+				badge.layoutIfNeeded()
+			} else {
+				cell?.accessoryView = nil
+			}
 			return cell!
 		} else {
 			var cell = tableView.dequeueReusableCellWithIdentifier("feed") as? FeedTableViewCell
@@ -162,12 +171,15 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 				} else {
 					cell?.feed = f
 				}
-				let badge = BadgeView(text: "\(ArticleManager.sharedManager().countUnReadArticles(f))")
-//				badge.sizeToFit()
-				//				badge.layoutSubviews()
-				cell?.accessoryView = badge
-				badge.setNeedsLayout()
-				badge.layoutIfNeeded()
+				let count = ArticleManager.sharedManager().countUnReadArticles(f)
+				if count > 0 {
+					let badge = BadgeView(text: "\(count)")
+					cell?.accessoryView = badge
+					badge.setNeedsLayout()
+					badge.layoutIfNeeded()
+				} else {
+					cell?.accessoryView = nil
+				}
 			}
 			cell?.accessoryType = .DisclosureIndicator
 			return cell!
