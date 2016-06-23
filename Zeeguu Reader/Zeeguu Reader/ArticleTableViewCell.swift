@@ -37,7 +37,7 @@ class ArticleTableViewCell: UITableViewCell {
 	private var unreadView: UIView
 	
 	private var difficultyLabel: UILabel
-	private var difficultyView: UIView
+	private var difficultyView: DifficultyView
 	
 	init(article: Article, reuseIdentifier: String?) {
 		self.article = article
@@ -45,7 +45,7 @@ class ArticleTableViewCell: UITableViewCell {
 		descriptionField = UILabel.autoLayoutCapable()
 		articleImageView = UIImageView.autoLayoutCapable()
 		difficultyLabel = UILabel.autoLayoutCapable()
-		difficultyView = UIView.autoLayoutCapable()
+		difficultyView = DifficultyView()
 		unreadView = UIView.autoLayoutCapable()
 		super.init(style: .Default, reuseIdentifier: reuseIdentifier)
 		setupLayout()
@@ -69,10 +69,6 @@ class ArticleTableViewCell: UITableViewCell {
 		
 		difficultyLabel.text = ArticleDifficulty.Unknown.description
 		difficultyLabel.font = UIFont.systemFontOfSize(12)
-		
-		difficultyView.layer.cornerRadius = 5
-		difficultyView.clipsToBounds = true
-		difficultyView.backgroundColor = ArticleDifficulty.Unknown.color
 		
 		unreadView.layer.cornerRadius = 5
 		unreadView.clipsToBounds = true
@@ -109,7 +105,7 @@ class ArticleTableViewCell: UITableViewCell {
 		if self.article.isDifficultyLoaded {
 			self.article.getDifficulty(completion: { (difficulty) in
 				self.difficultyLabel.text = difficulty.description
-				self.difficultyView.backgroundColor = difficulty.color
+				self.difficultyView.bgColor = difficulty.color
 			})
 		}
 		
@@ -127,6 +123,45 @@ class ArticleTableViewCell: UITableViewCell {
 
 	func setArticleImage(image: UIImage) {
 		self.articleImageView.image = image
+	}
+	
+
+	class DifficultyView: UIView {
+		
+		private var _bgColor: UIColor?
+		var bgColor: UIColor? {
+			get {
+				return _bgColor
+			}
+			set {
+				_bgColor = newValue
+				super.backgroundColor = newValue
+			}
+		}
+		
+		// If a UITableViewCell is selected, all subviews are given a transparent background color, to make things look nicely.
+		// The background color property is overridden here, to avoid the difficulty color indication from being temporarily removed.
+		override var backgroundColor: UIColor? {
+			get {
+				return super.backgroundColor
+			}
+			set {
+				super.backgroundColor = self.bgColor
+			}
+		}
+		
+		init() {
+			super.init(frame: CGRectZero)
+			self.translatesAutoresizingMaskIntoConstraints = false
+			
+			self.layer.cornerRadius = 5
+			self.clipsToBounds = true
+			self.bgColor = ArticleDifficulty.Unknown.color
+		}
+		
+		required init?(coder aDecoder: NSCoder) {
+			fatalError("init(coder:) has not been implemented")
+		}
 	}
 	
 }

@@ -70,10 +70,17 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 		getFeeds()
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		self.tableView.reloadData()
+	}
+	
 	func getFeeds() {
 		ZeeguuAPI.sharedAPI().getFeedsBeingFollowed { (feeds) -> Void in
 			if let arr = feeds {
 				self.newsFeeds = arr
+				
+				ArticleManager.sharedManager().setFeeds(arr)
+				ArticleManager.sharedManager().downloadArticles()
 				
 				if (self.newsFeeds.count > 0) {
 					self.newsFeeds.insert("ALL_FEEDS".localized, atIndex: 0)
@@ -155,6 +162,12 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 				} else {
 					cell?.feed = f
 				}
+				let badge = BadgeView(text: "\(ArticleManager.sharedManager().countUnReadArticles(f))")
+//				badge.sizeToFit()
+				//				badge.layoutSubviews()
+				cell?.accessoryView = badge
+				badge.setNeedsLayout()
+				badge.layoutIfNeeded()
 			}
 			cell?.accessoryType = .DisclosureIndicator
 			return cell!
@@ -182,9 +195,7 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		var vc: UIViewController? = nil
 		if let _ = newsFeeds[indexPath.row] as? String {
-			var arr = newsFeeds
-			arr.removeFirst()
-			vc = ArticleListViewController(feeds: arr as! [Feed])
+			vc = ArticleListViewController()
 		} else if let row = newsFeeds[indexPath.row] as? Feed {
 			vc = ArticleListViewController(feed: row)
 		}

@@ -29,17 +29,17 @@ import Zeeguu_API_iOS
 
 class ArticleListViewController: ZGTableViewController {
 	
-	var feeds = [Feed]()
+	var feed: Feed?
 	var articles = [Article]()
 	var loadedAllContents = false
 	
-	convenience init(feed: Feed) {
-		self.init(feeds: [feed])
+	init(feed: Feed? = nil) {
+		self.feed = feed
+		super.init(style: .Plain)
 	}
 	
-	convenience init(feeds: [Feed]) {
-		self.init()
-		self.feeds = feeds
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	override func viewDidLoad() {
@@ -60,79 +60,15 @@ class ArticleListViewController: ZGTableViewController {
 	}
 	
 	func getArticles() {
-		let def = NSUserDefaults.standardUserDefaults()
-		
-		for i in 0 ..< feeds.count {
-			if let arr = def.objectForKey(articlesForFeedKey + feeds[i].id!) as? [[String: AnyObject]], arts = ZGSerialize.decodeArray(arr) as? [Article] {
-				self.articles = self.mergeArticles(oldArticles:self.articles, newArticles: arts)
-			}
-		}
+		self.articles = ArticleManager.sharedManager().getArticles(self.feed)
 		
 		self.reloadTableView()
 		
-		for i in 0 ..< feeds.count {
-			ZeeguuAPI.sharedAPI().getFeedItemsForFeed(feeds[i], completion: { (articles) -> Void in
-				if let arts = articles {
-					self.articles = self.mergeArticles(oldArticles:self.articles, newArticles: arts)
-					self.saveArticles(arts, forKey: articlesForFeedKey + self.feeds[i].id!)
-				}
-				if i == self.feeds.count - 1 {
-					self.reloadTableView()
-				}
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { 
+			self.articles = ArticleManager.sharedManager().downloadArticles(self.feed)
+			dispatch_async(dispatch_get_main_queue(), {
+				self.reloadTableView()
 			})
-		}
-	}
-	
-	func mergeArticles(oldArticles oldArticles: [Article], newArticles: [Article], reload: Bool = true) -> [Article] {
-		var oldArticles = oldArticles
-		for art in newArticles {
-			if !oldArticles.contains({ $0 == art }) {
-				oldArticles.append(art);
-			}
-		}
-		oldArticles.sortInPlace({ (lhs, rhs) -> Bool in
-			return lhs.date > rhs.date
-		})
-		return oldArticles
-	}
-	
-	func replaceArticles(oldArticles oldArticles: [Article], newArticles: [Article], reload: Bool = true) -> [Article] {
-		var oldArticles = oldArticles
-		for art in newArticles {
-			if oldArticles.contains({ $0 == art }) {
-				oldArticles[oldArticles.indexOf(art)!] = art
-			}
-		}
-		oldArticles.sortInPlace({ (lhs, rhs) -> Bool in
-			return lhs.date > rhs.date
-		})
-		return oldArticles
-	}
-	
-	func saveArticles(articles: [Article], forKey key: String) {
-		let def = NSUserDefaults.standardUserDefaults()
-		if let arr = def.objectForKey(key) as? [[String: AnyObject]], localArts = ZGSerialize.decodeArray(arr) as? [Article] {
-			let newLocal = self.replaceArticles(oldArticles: localArts, newArticles: articles)
-			def.setObject(ZGSerialize.encodeArray(newLocal), forKey: key)
-		} else {
-			def.setObject(ZGSerialize.encodeArray(articles), forKey: key)
-		}
-		def.synchronize()
-	}
-	
-	func updateLocalArticles(arts: [Article]) {
-		var allArticles = [[Article]]()
-		
-		for _ in feeds {
-			allArticles.append([Article]())
-		}
-		
-		for a in arts {
-			allArticles[feeds.indexOf(a.feed)!].append(a)
-		}
-		
-		for i in 0 ..< feeds.count {
-			saveArticles(allArticles[i], forKey: articlesForFeedKey + feeds[i].id!)
 		}
 	}
 	
@@ -154,7 +90,7 @@ class ArticleListViewController: ZGTableViewController {
 			print("get difficulty success: \(success)")
 			if success {
 				dispatch_async(dispatch_get_main_queue(), {
-					self.updateLocalArticles(self.articles)
+					ArticleManager.sharedManager().updateLocalArticles(self.articles)
 					self.tableView.reloadData()
 				})
 			}
@@ -223,8 +159,9 @@ class ArticleListViewController: ZGTableViewController {
 			return
 		}
 		articles[indexPath.row].isRead = true
-		updateLocalArticles(articles)
-		tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+		ArticleManager.sharedManager().updateLocalArticles(articles)
+//		tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+		tableView.reloadData()
 		let article = articles[indexPath.row]
 		let vc = ArticleViewController(article: article)
 		

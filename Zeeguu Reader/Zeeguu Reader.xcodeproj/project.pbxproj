@@ -21,6 +21,8 @@
 		943FB7491CFC4AF90007C522 /* ZeeguuHelperFunctions.js in Resources */ = {isa = PBXBuildFile; fileRef = 943FB7481CFC4AF90007C522 /* ZeeguuHelperFunctions.js */; };
 		9440B02A1C380A1900BDD367 /* FeedOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */; };
 		9440B02C1C380CBC00BDD367 /* ZGTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */; };
+		94441A091D1BE7AF002DD4B5 /* ArticleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94441A081D1BE7AF002DD4B5 /* ArticleManager.swift */; };
+		94441A0B1D1C0D59002DD4B5 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94441A0A1D1C0D59002DD4B5 /* BadgeView.swift */; };
 		944FCB311CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */; };
 		945658191C42B804000CDF3F /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945658181C42B804000CDF3F /* AppIcon.swift */; };
 		946317471CEB4EA900B67532 /* zeeguu.css in Resources */ = {isa = PBXBuildFile; fileRef = 946317461CEB4EA800B67532 /* zeeguu.css */; };
@@ -94,6 +96,8 @@
 		943FB7481CFC4AF90007C522 /* ZeeguuHelperFunctions.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZeeguuHelperFunctions.js; sourceTree = "<group>"; };
 		9440B0291C380A1900BDD367 /* FeedOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedOverviewTableViewController.swift; sourceTree = "<group>"; };
 		9440B02B1C380CBC00BDD367 /* ZGTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTableViewController.swift; sourceTree = "<group>"; };
+		94441A081D1BE7AF002DD4B5 /* ArticleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleManager.swift; sourceTree = "<group>"; };
+		94441A0A1D1C0D59002DD4B5 /* BadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewOptionsTableViewController.swift; sourceTree = "<group>"; };
 		945658181C42B804000CDF3F /* AppIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		946317461CEB4EA800B67532 /* zeeguu.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zeeguu.css; sourceTree = "<group>"; };
@@ -270,6 +274,7 @@
 				944FCB301CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift */,
 				94E7CF211CF345F7001F119B /* UpdateTranslationViewController.swift */,
 				94771E1C1D0597DD00D0F171 /* ArticleInfoView.swift */,
+				94441A081D1BE7AF002DD4B5 /* ArticleManager.swift */,
 			);
 			name = Articles;
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 				94FC8D011CDB874F0032E72A /* ZGJavaScriptAction.swift */,
 				9438B34F1D0AB71300764176 /* ZGSlideInPresentationController.swift */,
 				947352711D141B4200D2BEEB /* ZGLoadingView.swift */,
+				94441A0A1D1C0D59002DD4B5 /* BadgeView.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -556,12 +562,14 @@
 				9438B3501D0AB71300764176 /* ZGSlideInPresentationController.swift in Sources */,
 				9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */,
 				947799D91C17171B00C494ED /* ArticleViewController.swift in Sources */,
+				94441A0B1D1C0D59002DD4B5 /* BadgeView.swift in Sources */,
 				94F7AFF51CD8A79F00BBF12F /* ZGWebView.swift in Sources */,
 				94779A2A1C17452800C494ED /* ZGTextView.swift in Sources */,
 				947799D71C17171B00C494ED /* ArticleListViewController.swift in Sources */,
 				94CEECE51C1D7C3200C3D0E3 /* UIViewControllerExtension.swift in Sources */,
 				945658191C42B804000CDF3F /* AppIcon.swift in Sources */,
 				944FCB311CC38138003CF9F6 /* ArticleViewOptionsTableViewController.swift in Sources */,
+				94441A091D1BE7AF002DD4B5 /* ArticleManager.swift in Sources */,
 				94779A121C17348B00C494ED /* ArticleViewTranslationMode.swift in Sources */,
 				947799D51C17171B00C494ED /* AppDelegate.swift in Sources */,
 				94771E1D1D0597DD00D0F171 /* ArticleInfoView.swift in Sources */,
