@@ -62,6 +62,12 @@ enum ZGJavaScriptAction {
 	case SetInsertsTranslation(Bool)
 	/// The insert loading icon action. The string contains the id of the element after which to put the loading icon.
 	case InsertLoadingIcon(String)
+	/// Send a post request with a URL, Method and POST parameters. Use this if you want to load a POST request with parameters using WKWebview. WKWebView ignores the HTTPBody of an NSURLRequest by default.
+	case SendPOSTRequest(String, String, String)
+	/// Get the page as an HTML string
+	case GetPageHTML
+	/// Get the page text as a string
+	case GetPageText
 	
 	static func parseMessage(dict: Dictionary<String, String>) -> ZGJavaScriptAction {
 		var dict = dict
@@ -179,6 +185,46 @@ enum ZGJavaScriptAction {
 			return "setInsertsTranslation(\(inserts ? "true" : "false"));"
 		case let .InsertLoadingIcon(id):
 			return "insertIconAfterID(\"\(id)\");"
+		case let .SendPOSTRequest(url, method, params):
+			
+			var json = "{ "
+			let pairs = params.characters.split(",").map(String.init)
+			for pair in pairs {
+				let kv = pair.characters.split("=").map(String.init)
+				let key = kv[0]
+				let value = kv[1]
+				json += "\"\(key)\": \"\(value)\","
+			}
+			json = String(json.characters.dropLast()) + "}"
+			
+			return ["function post(path, params, method) {\n",
+					"    method = method || \"post\"; // Set method to post by default if not specified.\n",
+			        "    \n",
+			        "    // The rest of this code assumes you are not using a library.\n",
+			        "    // It can be made less wordy if you use one.\n",
+			        "    var form = document.createElement(\"form\");\n",
+			        "    form.setAttribute(\"method\", method);\n",
+			        "    form.setAttribute(\"action\", path);\n",
+			        "    \n",
+			        "    for(var key in params) {\n",
+			        "        if(params.hasOwnProperty(key)) {\n",
+			        "            var hiddenField = document.createElement(\"input\");\n",
+			        "            hiddenField.setAttribute(\"type\", \"hidden\");\n",
+			        "            hiddenField.setAttribute(\"name\", key);\n",
+			        "            hiddenField.setAttribute(\"value\", params[key]);\n",
+			        "            \n",
+			        "            form.appendChild(hiddenField);\n",
+			        "        }\n",
+			        "    }\n",
+			        "    \n",
+			        "    document.body.appendChild(form);\n",
+			        "    form.submit();\n",
+			        "}\n",
+					"post(\"\(url)\", \(json), \"\(method)\");"].reduce("", combine: +)
+		case .GetPageHTML:
+			return "document.documentElement.outerHTML.toString()"
+		case .GetPageText:
+			return "document.documentElement.outerText.toString()"
 		default:
 			return ""
 		}

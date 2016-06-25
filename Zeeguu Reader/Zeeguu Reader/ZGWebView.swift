@@ -34,7 +34,7 @@ class ZGWebView: WKWebView {
 		if let wvc = webViewConfiguration {
 			super.init(frame: CGRectZero, configuration: wvc)
 		} else {
-			super.init()
+			super.init(frame: CGRectZero, configuration: WKWebViewConfiguration())
 		}
 		self.translatesAutoresizingMaskIntoConstraints = false
 	}

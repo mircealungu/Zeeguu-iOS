@@ -145,6 +145,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 				// Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
 				return true
 			}
+		} else if let secondaryAsNavController = secondaryViewController as? UINavigationController, topAsDetailController = secondaryAsNavController.topViewController as? ExercisesViewController {
+			if let tabBarVC = primaryViewController as? UITabBarController, selectedNVC = tabBarVC.selectedViewController as? UINavigationController, _ = selectedNVC.topViewController as? ProfileTableViewController {
+				secondaryAsNavController.setViewControllers([ArticleViewController()], animated: false)
+				secondaryAsNavController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem() // Make sure navigation controller does not become empty
+				
+				selectedNVC.pushViewController(topAsDetailController, animated: true)
+			}
 		}
 	    return false
 	}
@@ -152,6 +159,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 	func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
 		if let tabBarController = primaryViewController as? UITabBarController, selectedNVC = tabBarController.selectedViewController as? UINavigationController, topVC = selectedNVC.topViewController as? ArticleViewController {
 			// There is an article viewController in the sidebar, move it to detailViewController of splitview
+			selectedNVC.popViewControllerAnimated(true)
+			return UINavigationController(rootViewController: topVC)
+		} else if let tabBarVC = primaryViewController as? UITabBarController, selectedNVC = tabBarVC.selectedViewController as? UINavigationController, topVC = selectedNVC.topViewController as? ExercisesViewController {
 			selectedNVC.popViewControllerAnimated(true)
 			return UINavigationController(rootViewController: topVC)
 		}

@@ -26,7 +26,6 @@
 
 import UIKit
 import Zeeguu_API_iOS
-import SafariServices
 
 class ProfileTableViewController: ZGTableViewController, LanguagesTableViewControllerDelegate {
 	
@@ -139,13 +138,20 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 			}
 		} else if indexPath.section == 2 {
 			if indexPath.row == 0 {
-				if let url = NSURL(string: "https://www.zeeguu.unibe.ch/recognize") {
-					let vc = SFSafariViewController(URL: url)
-					vc.modalPresentationStyle = .OverFullScreen
-					
-					self.presentViewController(vc, animated: true, completion: nil)
-					Utils.sendMonitoringStatusToServer("userOpensExercises", value: "1")
+				guard let split = self.splitViewController else {
+					return
 				}
+				let vc = ExercisesViewController()
+				var controllers = split.viewControllers
+				controllers.removeLast()
+				
+				let nav = UINavigationController(rootViewController: vc)
+				
+				vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+				vc.navigationItem.leftItemsSupplementBackButton = true
+				split.showDetailViewController(nav, sender: self)
+				UIApplication.sharedApplication().sendAction(split.displayModeButtonItem().action, to: split.displayModeButtonItem().target, from: nil, forEvent: nil)
+				Utils.sendMonitoringStatusToServer("userOpensExercises", value: "1")
 			}
 			tableView.deselectRowAtIndexPath(indexPath, animated: true)
 		}

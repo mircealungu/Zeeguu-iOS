@@ -12,6 +12,7 @@
 		9408F0441C1C8461002F9637 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0431C1C8461002F9637 /* StringExtension.swift */; };
 		9408F0461C1C855F002F9637 /* ZGTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */; };
 		9415E5221CCF7E980091954A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9415E5241CCF7E980091954A /* Localizable.strings */; };
+		941A79621D1EB070003FF80C /* ExercisesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A79611D1EB070003FF80C /* ExercisesViewController.swift */; };
 		9423A1E11C4E690700D18198 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */; };
 		942667A21C60CA1600CF00FA /* HistoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942667A11C60CA1600CF00FA /* HistoryItemView.swift */; };
 		9438B3501D0AB71300764176 /* ZGSlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438B34F1D0AB71300764176 /* ZGSlideInPresentationController.swift */; };
@@ -86,6 +87,7 @@
 		9408F0431C1C8461002F9637 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		9408F0451C1C855F002F9637 /* ZGTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGTextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		9415E5231CCF7E980091954A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		941A79611D1EB070003FF80C /* ExercisesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExercisesViewController.swift; sourceTree = "<group>"; };
 		9423A1E01C4E690700D18198 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		942667A11C60CA1600CF00FA /* HistoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemView.swift; sourceTree = "<group>"; };
 		9438B34F1D0AB71300764176 /* ZGSlideInPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGSlideInPresentationController.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				94C7482E1C39498200F3DCC2 /* ProfileTableViewController.swift */,
+				941A79611D1EB070003FF80C /* ExercisesViewController.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				94441A091D1BE7AF002DD4B5 /* ArticleManager.swift in Sources */,
 				94779A121C17348B00C494ED /* ArticleViewTranslationMode.swift in Sources */,
 				947799D51C17171B00C494ED /* AppDelegate.swift in Sources */,
+				941A79621D1EB070003FF80C /* ExercisesViewController.swift in Sources */,
 				94771E1D1D0597DD00D0F171 /* ArticleInfoView.swift in Sources */,
 				94C7482F1C39498200F3DCC2 /* ProfileTableViewController.swift in Sources */,
 				949D59B31C7DD32D007C4A0C /* AppColor.swift in Sources */,
