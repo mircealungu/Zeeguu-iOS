@@ -1,6 +1,6 @@
 PODS:
   - SwiftyJSON (2.3.2)
-  - Zeeguu-API-iOS (1.0.19):
+  - Zeeguu-API-iOS (1.0.21):
     - SwiftyJSON
 
 DEPENDENCIES:
@@ -18,12 +18,12 @@ CHECKOUT OPTIONS:
     :commit: 73670b94292b8d8496c398a973f56ac67789ba9f
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
   Zeeguu-API-iOS:
-    :commit: 64202d8e0d1fad54aac6f2d64f21ed76cc9366f2
+    :commit: 19fdd36d009f320e9ca9d7e4809fe4328c7cac65
     :git: https://github.com/mircealungu/Zeeguu-API-iOS
 
 SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
-  Zeeguu-API-iOS: e57c41c7f42ec18d0e96450786745f7fe3a8eec1
+  Zeeguu-API-iOS: 4fd1ef987dff0b91afa5cc22a436812defb113d2
 
 PODFILE CHECKSUM: dfbbb381420554017c5e95e676369548d70dba9e
 

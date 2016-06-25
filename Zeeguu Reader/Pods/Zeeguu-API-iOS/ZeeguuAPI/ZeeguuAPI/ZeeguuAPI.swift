@@ -74,6 +74,16 @@ public class ZeeguuAPI {
 	
 	// MARK: Methods -
 	
+	// MARK: URLs
+ 
+	public static func getLoginWithSessionRequest() -> NSURLRequest {
+		return ZeeguuAPI.sharedAPI().requestWithEndPoint(.LoginWithSession, method: .POST, parameters: ["session_id": String(ZeeguuAPI.sharedAPI().currentSessionID)])
+	}
+ 
+	public static func getMobileExercisesRequest() -> NSURLRequest {
+		return ZeeguuAPI.sharedAPI().requestWithEndPoint(.MRecognize, method: .GET)
+	}
+	
 	// MARK: User operations
 	
 	/// Registers a user.
