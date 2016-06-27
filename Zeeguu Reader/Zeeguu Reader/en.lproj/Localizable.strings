@@ -41,7 +41,9 @@
 "DELETE_TRANSLATION" = "Delete translation";
 "DELETE_TRANSLATION_FOOTER" = "Delete translation. This will remove this translation from the web page and will also remove it from your translation history.";
 "DISABLE_LINKS" = "Disable links";
+"DISLIKE" = "Dislike";
 "DONT_SHOW_AGAIN" = "Don't show again";
+"EASY" = "Easy";
 "EDIT_TRANSLATION" = "Edit translation";
 "EMAIL" = "Email";
 "EXERCISES" = "Exercises";
@@ -49,12 +51,14 @@
 "FONTSIZE" = "Fontsize";
 "GENERATE_PASSWORD" = "Generate password?";
 "GENERATE_PASSWORD_DESCRIPTION_%@" = "Do you want to use a generated password? Your generated password:\n\n%@";
+"HARD" = "Hard";
 "HISTORY" = "History";
 "INSERT_TRANSLATION_IN_TEXT" = "Insert translation in text";
 "INSTANT_TRANSLATION" = "Instant translation";
 "INSTANT_TRANSLATION_DESCRIPTION" = "To translate words, simply tap a word and its translation appears right next to it.";
 "INTERESTING_FEEDS" = "Interesting news sources";
 "LEARN_LANGUAGE" = "Learn";
+"LIKE" = "Like";
 "LOGIN" = "Login";
 "LOGIN_OR_REGISTER" = "Login or register";
 "LOGIN_FAILED" = "Login failed";
@@ -76,6 +80,7 @@
 "PASSWORD" = "Password";
 "PROFILE" = "Profile";
 "PRONOUNCE_TRANSLATED_WORD" = "Pronounce translated word";
+"READ_ALL" = "Read all";
 "REGISTER" = "Register";
 "RETYPE_PASSWORD" = "Retype password";
 "SELECTION_INVALID" = "Invalid selection";

@@ -30,7 +30,7 @@ import Zeeguu_API_iOS
 
 class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UpdateTranslationViewControllerDelegate, UIPopoverPresentationControllerDelegate, ArticleInfoViewDelegate {
 	
-	var article: Article?
+	var article: Article!
 	
 	private var _webview: ZGWebView?
 	private(set) var webview: ZGWebView { // _webview will never be nil when the initializer is finished
@@ -41,6 +41,13 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			_webview = newValue
 		}
 	}
+	
+	private var flexBut: UIBarButtonItem!
+	private var likeBut: UIBarButtonItem!
+	private var dislikeBut: UIBarButtonItem!
+	private var easyBut: UIBarButtonItem!
+	private var hardBut: UIBarButtonItem!
+	private var readAllBut: UIBarButtonItem!
 	
 	private var oldTranslationMode: ArticleViewTranslationMode?
 	private var _translationMode = ArticleViewTranslationMode.Instant
@@ -142,8 +149,9 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		
 		self.view.addSubview(infoView)
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[iv]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		let bottom = self.bottomLayoutGuide
 		if infoViewBottomConstraint == nil {
-			self.infoViewBottomConstraint = NSLayoutConstraint(item: self.view, attribute: .Bottom, relatedBy: .Equal, toItem: infoView, attribute: .Bottom, multiplier: 1, constant: -100)
+			self.infoViewBottomConstraint = NSLayoutConstraint(item: bottom, attribute: .Top, relatedBy: .Equal, toItem: infoView, attribute: .Bottom, multiplier: 1, constant: -500)
 		}
 		self.view.addConstraint(infoViewBottomConstraint)
 		
@@ -165,6 +173,30 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		
 		let didHideSelector = #selector(ArticleViewController.didHideUIMenuController(_:))
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: didHideSelector, name: UIMenuControllerDidHideMenuNotification, object: nil)
+		
+		let likeSel = #selector(ArticleViewController.like(_:))
+		let dislikeSel = #selector(ArticleViewController.dislike(_:))
+		let easySel = #selector(ArticleViewController.easy(_:))
+		let hardSel = #selector(ArticleViewController.hard(_:))
+		let readAllSel = #selector(ArticleViewController.readAll(_:))
+		
+		flexBut = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+		likeBut = UIBarButtonItem(title: "LIKE".localized, style: .Plain, target: self, action: likeSel)
+		dislikeBut = UIBarButtonItem(title: "DISLIKE".localized, style: .Plain, target: self, action: dislikeSel)
+		easyBut = UIBarButtonItem(title: "EASY".localized, style: .Plain, target: self, action: easySel)
+		hardBut = UIBarButtonItem(title: "HARD".localized, style: .Plain, target: self, action: hardSel)
+		readAllBut = UIBarButtonItem(title: "READ_ALL".localized, style: .Plain, target: self, action: readAllSel)
+		
+		if article == nil {
+			optionsBut.enabled = false;
+			likeBut.enabled = false;
+			dislikeBut.enabled = false;
+			easyBut.enabled = false;
+			hardBut.enabled = false;
+			readAllBut.enabled = false;
+		}
+		
+		updateToolbar()
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -205,6 +237,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		let bookmarkItem = UIMenuItem(title: "TRANSLATE".localized, action: #selector(ArticleViewController.translateSelection(_:)))
 		
 		mc.menuItems = [bookmarkItem]
+		super.viewDidAppear(animated)
 	}
 	
 	func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
@@ -215,10 +248,25 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		}
 	}
 	
+	func updateToolbar() {
+		self.setToolbarItems([self.flexBut, self.likeBut, self.flexBut, self.dislikeBut, self.flexBut, self.easyBut, self.flexBut, self.hardBut, self.flexBut, self.readAllBut, self.flexBut], animated: false)
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		self.navigationController?.setToolbarHidden(false, animated: animated)
+		super.viewWillAppear(animated)
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		self.navigationController?.setToolbarHidden(true, animated: animated)
+		super.viewWillDisappear(animated)
+	}
+	
 	override func viewDidDisappear(animated: Bool) {
 		let mc = UIMenuController.sharedMenuController()
 		
 		mc.menuItems = nil
+		super.viewDidDisappear(animated)
 	}
 	
 	func showOptions(sender: UIBarButtonItem) {
@@ -504,7 +552,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func hideInfoView() {
 		self.isPresentingInfoView = false
-		self.infoViewBottomConstraint.constant = -100
+		self.infoViewBottomConstraint.constant = -500
 		UIView.animateWithDuration(1.0, animations: {
 			self.view.layoutIfNeeded()
 		}) { (finished) in
@@ -522,6 +570,26 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		if let word = action.getActionInformation()?["word"] {
 			Utils.pronounce(word: word, inLanguage: self.article?.feed.language)
 		}
+	}
+	
+	func like(sender: UIBarButtonItem) {
+		Utils.sendMonitoringStatusToServer("userLikesArticle", value: "1", data: ["url": self.article.url])
+	}
+	
+	func dislike(sender: UIBarButtonItem) {
+		Utils.sendMonitoringStatusToServer("userLikesArticle", value: "0", data: ["url": self.article.url])
+	}
+	
+	func easy(sender: UIBarButtonItem) {
+		Utils.sendMonitoringStatusToServer("userSaysArticleDifficultyEasy", value: "1", data: ["url": self.article.url])
+	}
+	
+	func hard(sender: UIBarButtonItem) {
+		Utils.sendMonitoringStatusToServer("userSaysArticleDifficultyHard", value: "1", data: ["url": self.article.url])
+	}
+	
+	func readAll(sender: UIBarButtonItem) {
+		Utils.sendMonitoringStatusToServer("userReadArticleCompletely", value: "1", data: ["url": self.article.url])
 	}
 }
 
