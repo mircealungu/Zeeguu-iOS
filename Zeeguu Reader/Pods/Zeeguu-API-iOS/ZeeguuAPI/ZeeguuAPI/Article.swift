@@ -47,7 +47,7 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 	/// The url of this article
 	public var url: String
 	/// The publication date of this article
-	public var date: String
+	public var date: NSDate
 	/// The summary of this article
 	public var summary: String
 	/// Wheter this article has been read by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
@@ -126,7 +126,13 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		self.feed = feed
 		self.title = title;
 		self.url = url;
-		self.date = date;
+		
+		let formatter = NSDateFormatter()
+		formatter.locale = NSLocale(localeIdentifier: "EN-US")
+		formatter.dateFormat = "EEE, dd MMMM y HH:mm:ss Z"
+		
+		let date = formatter.dateFromString(date)
+		self.date = date!
 		self.summary = summary
 		self.isRead = false
 		self.isStarred = false
@@ -138,10 +144,19 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 	- parameter dictionary: The dictionary that contains the data from which to construct an `Article` object.
 	*/
 	@objc public required init?(dictionary dict: [String: AnyObject]) {
+		var savedDate = dict["date"] as? NSDate
+		if let date = dict["date"] as? String {
+			let formatter = NSDateFormatter()
+			formatter.locale = NSLocale(localeIdentifier: "EN-US")
+			formatter.dateFormat = "EEE, dd MMMM y HH:mm:ss Z"
+			
+			let date = formatter.dateFromString(date)
+			savedDate = date
+		}
 		guard let feed = dict["feed"] as? Feed,
 			title = dict["title"] as? String,
 			url = dict["url"] as? String,
-			date = dict["date"] as? String,
+			date = savedDate,
 			summary = dict["summary"] as? String else {
 				return nil
 		}
