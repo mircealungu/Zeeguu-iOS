@@ -396,10 +396,10 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			
 			NSNotificationCenter.defaultCenter().postNotificationName(UserTranslatedWordNotification, object: nil)
 			
-			guard let trans = translation, actionInfo = action.getActionInformation() else {
+			guard let trans = translation?.dictionaryObject, actionInfo = action.getActionInformation() else {
 				return
 			}
-			let data = ["translationResponse": String(trans), "actionInfo": String(actionInfo)]
+			let data = ["translationResponse": trans, "actionInfo": actionInfo]
 			switch self.translationMode {
 			case .Instant:
 				Utils.sendMonitoringStatusToServer("userTranslatedUsingInstantTranslation", value: "1", data: data)

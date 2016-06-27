@@ -125,7 +125,7 @@ class Utils {
 		}
 	}
 	
-	static func sendMonitoringStatusToServer(key: String, value: String, data: [String: String]? = nil) {
+	static func sendMonitoringStatusToServer(key: String, value: String, data: [String: AnyObject]? = nil) {
 		// Call ZeeguuAPI endpoint that accepts arbitrary statistics 
 		ZeeguuAPI.sharedAPI().uploadUserActivityData(key, value: value, extraData: data) { (success) in
 			print("Sent statistics to server: {\(key): \(value), data: \(data)}, success: \(success)")
