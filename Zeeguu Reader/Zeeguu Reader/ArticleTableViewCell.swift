@@ -35,6 +35,7 @@ class ArticleTableViewCell: UITableViewCell {
 	private var descriptionField: UILabel
 	private var articleImageView: UIImageView
 	private var unreadView: UIView
+	private var dateLabel: UILabel
 	
 	private var difficultyLabel: UILabel
 	private var difficultyView: DifficultyView
@@ -47,6 +48,7 @@ class ArticleTableViewCell: UITableViewCell {
 		difficultyLabel = UILabel.autoLayoutCapable()
 		difficultyView = DifficultyView()
 		unreadView = UIView.autoLayoutCapable()
+		dateLabel = UILabel.autoLayoutCapable()
 		super.init(style: .Default, reuseIdentifier: reuseIdentifier)
 		setupLayout()
 		updateLabels()
@@ -70,6 +72,8 @@ class ArticleTableViewCell: UITableViewCell {
 		difficultyLabel.text = ArticleDifficulty.Unknown.description
 		difficultyLabel.font = UIFont.systemFontOfSize(12)
 		
+		dateLabel.font = UIFont.systemFontOfSize(12)
+		
 		unreadView.layer.cornerRadius = 5
 		unreadView.clipsToBounds = true
 		unreadView.backgroundColor = article.isRead ? UIColor(red: 0, green: 0, blue: 0, alpha: 0) : UIColor(red: 0.3, green: 0.3, blue: 1.0, alpha: 1)
@@ -80,15 +84,17 @@ class ArticleTableViewCell: UITableViewCell {
 		self.contentView.addSubview(difficultyLabel)
 		self.contentView.addSubview(difficultyView)
 		self.contentView.addSubview(unreadView)
+		self.contentView.addSubview(dateLabel)
 		
-		let views: [String: UIView] = ["t": titleField, "d": descriptionField, "i": articleImageView, "diff": difficultyLabel, "diff2": difficultyView, "u": unreadView]
+		let views: [String: UIView] = ["t": titleField, "d": descriptionField, "i": articleImageView, "diff": difficultyLabel, "diff2": difficultyView, "u": unreadView, "da": dateLabel]
 		
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[u(10)]-[i(60)]-[t]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[i]-[d]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
-		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[i]-[diff2(10)]-[diff]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[i]-[diff2(10)]-[diff]-[da]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[i(80)]-8-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[t]-1-[diff]-1-[d]-(>=0)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[t]-1-[da]-1-[d]-(>=0)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[diff2(10)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[u(10)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 		
@@ -99,6 +105,17 @@ class ArticleTableViewCell: UITableViewCell {
 	private func updateLabels() {
 		titleField.text = article.title
 		descriptionField.text = article.summary
+		
+		let d = self.article.date
+		
+		let formatter = NSDateFormatter()
+		formatter.dateStyle = .ShortStyle
+		formatter.timeStyle = .ShortStyle
+		formatter.timeZone = NSTimeZone.defaultTimeZone()
+		print("original date: \(d)")
+		let date = formatter.stringFromDate(d)
+		
+		dateLabel.text = date
 		
 		unreadView.backgroundColor = article.isRead ? UIColor(red: 0, green: 0, blue: 0, alpha: 0) : UIColor(red: 0.3, green: 0.3, blue: 1.0, alpha: 1)
 		

@@ -133,8 +133,9 @@ class ArticleManager {
 				oldArticles.append(art);
 			}
 		}
+		
 		oldArticles.sortInPlace({ (lhs, rhs) -> Bool in
-			return lhs.date > rhs.date
+			return lhs.date.compare(rhs.date) == NSComparisonResult.OrderedDescending
 		})
 		return oldArticles
 	}
@@ -147,7 +148,7 @@ class ArticleManager {
 			}
 		}
 		oldArticles.sortInPlace({ (lhs, rhs) -> Bool in
-			return lhs.date > rhs.date
+			return lhs.date.compare(rhs.date) == NSComparisonResult.OrderedDescending
 		})
 		return oldArticles
 	}
