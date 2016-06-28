@@ -29,7 +29,7 @@ import UIKit
 /**
 This protocol dictates some methods for easy converting between object and dictionary representation.
 */
-@objc public protocol ZGSerialization {
+@objc public protocol ZGSerializable {
 	
 	/**
 	Construct a new object from the data in the dictionary.
@@ -59,7 +59,7 @@ public class ZGSerialize {
 	- parameter array: The array of objects to encode.
 	- returns: An array of dictionaries that represent the objects in `array`.
 	*/
-	public static func encodeArray(array: [ZGSerialization]) -> [[String: AnyObject]] {
+	public static func encodeArray(array: [ZGSerializable]) -> [[String: AnyObject]] {
 		var arr = [[String: AnyObject]]()
 		for item in array {
 			arr.append(encodeObject(item))
@@ -73,8 +73,8 @@ public class ZGSerialize {
 	- parameter array: The array of dictionaries to decode.
 	- returns: An array of objects that were constructed from the dictionaries with the given type `T`.
 	*/
-	public static func decodeArray(array: [[String: AnyObject]]) -> [ZGSerialization] {
-		var arr = [ZGSerialization]()
+	public static func decodeArray(array: [[String: AnyObject]]) -> [ZGSerializable] {
+		var arr = [ZGSerializable]()
 		
 		for item in array {
 			if let obj = decodeObject(item) {
@@ -91,11 +91,11 @@ public class ZGSerialize {
 	- parameter array: The array of objects to encode.
 	- returns: An array of dictionaries that represent the objects in `array`.
 	*/
-	public static func encodeObject(object: ZGSerialization) -> [String: AnyObject] {
+	public static func encodeObject(object: ZGSerializable) -> [String: AnyObject] {
 		var dict = object.dictionaryRepresentation()
 		
 		for (key, value) in dict {
-			if let value = value as? ZGSerialization {
+			if let value = value as? ZGSerializable {
 				dict[key] = encodeObject(value)
 			}
 		}
@@ -111,16 +111,16 @@ public class ZGSerialize {
 	- parameter array: The array of dictionaries to decode.
 	- returns: An array of objects that were constructed from the dictionaries with the given type `T`.
 	*/
-	public static func decodeObject(dict: [String: AnyObject]) -> ZGSerialization? {
+	public static func decodeObject(dict: [String: AnyObject]) -> ZGSerializable? {
 		var dict = dict
 		
 		for (key, value2) in dict {
-			if let value = value2 as? [String: AnyObject], clsStr = value["____class"] as? String, cls = NSClassFromString(clsStr) as? ZGSerialization.Type, obj = cls.init(dictionary: value) {
+			if let value = value2 as? [String: AnyObject], clsStr = value["____class"] as? String, cls = NSClassFromString(clsStr) as? ZGSerializable.Type, obj = cls.init(dictionary: value) {
 				dict[key] = obj
 			}
 		}
 		
-		if let clsStr = dict["____class"] as? String, cls = NSClassFromString(clsStr) as? ZGSerialization.Type, obj = cls.init(dictionary: dict) {
+		if let clsStr = dict["____class"] as? String, cls = NSClassFromString(clsStr) as? ZGSerializable.Type, obj = cls.init(dictionary: dict) {
 			return obj
 		}
 		return nil

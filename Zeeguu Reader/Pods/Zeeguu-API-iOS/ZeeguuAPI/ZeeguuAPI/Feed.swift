@@ -36,7 +36,7 @@ public func ==(lhs: Feed, rhs: Feed) -> Bool {
 }
 
 /// The `Feed` class represents an RSS feed. It holds the `id`, `title`, `url`, `feedDescription`, `language` and more about the feed.
-public class Feed: CustomStringConvertible, Equatable, ZGSerialization {
+public class Feed: CustomStringConvertible, Equatable, ZGSerializable {
 	
 	// MARK: Properties -
 	

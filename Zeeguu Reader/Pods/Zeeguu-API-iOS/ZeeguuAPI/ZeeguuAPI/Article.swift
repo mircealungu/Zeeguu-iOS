@@ -36,7 +36,7 @@ public func ==(lhs: Article, rhs: Article) -> Bool {
 }
 
 /// The `Article` class represents an article. It holds the source (`feed`), `title`, `url`, `date`, `summary` and more about the article.
-public class Article: CustomStringConvertible, Equatable, ZGSerialization {
+public class Article: CustomStringConvertible, Equatable, ZGSerializable {
 	
 	// MARK: Properties -
 	
@@ -50,10 +50,16 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 	public var date: NSDate
 	/// The summary of this article
 	public var summary: String
-	/// Wheter this article has been read by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	/// Whether this article has been read by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
 	public var isRead: Bool
-	/// Wheter this article has been starred by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	/// Whether this article has been starred by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
 	public var isStarred: Bool
+	/// Whether this article has been liked by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var isLiked: Bool
+	/// The difficulty that the user has given to this article. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var userDifficulty: ArticleDifficulty
+	/// Whether this article has been read completely by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var hasReadAll: Bool
 	
 	private var imageURL: String?
 	private var image: UIImage?
@@ -137,6 +143,9 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		self.summary = summary
 		self.isRead = false
 		self.isStarred = false
+		self.isLiked = false
+		self.userDifficulty = .Unknown
+		self.hasReadAll = false
 	}
 	
 	/**
@@ -175,6 +184,13 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		if let difficulty = dict["difficulty"] as? String {
 			self.difficulty = ArticleDifficulty(rawValue: difficulty)
 		}
+		self.isLiked = dict["isLiked"] as? Bool == true
+		if let str = dict["userDifficulty"] as? String, userDifficulty = ArticleDifficulty(rawValue: str) {
+			self.userDifficulty = userDifficulty
+		} else {
+			self.userDifficulty = .Unknown
+		}
+		self.hasReadAll = dict["hasReadAll"] as? Bool == true
 	}
 	
 	// MARK: Methods -
@@ -197,6 +213,9 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		dict["image"] = self.image
 		dict["contents"] = self.contents
 		dict["difficulty"] = self.difficulty?.rawValue
+		dict["isLiked"] = self.isLiked
+		dict["userDifficulty"] = self.userDifficulty.rawValue
+		dict["hasReadAll"] = self.hasReadAll
 		return dict
 	}
 	

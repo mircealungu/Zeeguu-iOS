@@ -45,7 +45,7 @@
 import UIKit
 
 /// The `Bookmark` class represents a bookmark. It holds the `date`, `word`, `translation` and more about the bookmark.
-public class Bookmark: ZGSerialization {
+public class Bookmark: ZGSerializable {
 	
 	// MARK: Properties -
 	
