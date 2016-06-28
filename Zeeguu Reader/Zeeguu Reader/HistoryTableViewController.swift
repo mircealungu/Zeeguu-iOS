@@ -175,7 +175,7 @@ class HistoryTableViewController: ZGTableViewController {
 		
 		self.navigationController?.pushViewController(vc, animated: true)
 		
-		Utils.sendMonitoringStatusToServer("userOpensHistoryItem", value: "1")
+		ZeeguuAPI.sendMonitoringStatusToServer("userOpensHistoryItem", value: "1")
 	}
 
 }

@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 			return
 		}
 		let interval = -date.timeIntervalSinceNow
-		Utils.sendMonitoringStatusToServer("userUsedAppInSeconds", value: String(interval))
+		ZeeguuAPI.sendMonitoringStatusToServer("userUsedAppInSeconds", value: String(interval))
 	}
 
 	func applicationDidEnterBackground(application: UIApplication) {

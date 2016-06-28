@@ -151,7 +151,7 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 				vc.navigationItem.leftItemsSupplementBackButton = true
 				split.showDetailViewController(nav, sender: self)
 				UIApplication.sharedApplication().sendAction(split.displayModeButtonItem().action, to: split.displayModeButtonItem().target, from: nil, forEvent: nil)
-				Utils.sendMonitoringStatusToServer("userOpensExercises", value: "1")
+				ZeeguuAPI.sendMonitoringStatusToServer("userOpensExercises", value: "1")
 			}
 			tableView.deselectRowAtIndexPath(indexPath, animated: true)
 		}

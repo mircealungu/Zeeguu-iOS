@@ -60,11 +60,11 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			
 			switch mode {
 			case .Instant:
-				Utils.sendMonitoringStatusToServer("userSwitchesToInstantTranslation", value: "1")
+				ZeeguuAPI.sendMonitoringStatusToServer("userSwitchesToInstantTranslation", value: "1")
 			case .WordPair:
-				Utils.sendMonitoringStatusToServer("userSwitchesToWordPairTranslation", value: "1")
+				ZeeguuAPI.sendMonitoringStatusToServer("userSwitchesToWordPairTranslation", value: "1")
 			case .Sentence:
-				Utils.sendMonitoringStatusToServer("userSwitchesToSentenceTranslation", value: "1")
+				ZeeguuAPI.sendMonitoringStatusToServer("userSwitchesToSentenceTranslation", value: "1")
 			}
 			
 			let action = ZGJavaScriptAction.ChangeTranslationMode(_translationMode)
@@ -82,9 +82,9 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			let action = ZGJavaScriptAction.DisableLinks(disable)
 			
 			if disable {
-				Utils.sendMonitoringStatusToServer("userDisablesLinks", value: "1")
+				ZeeguuAPI.sendMonitoringStatusToServer("userDisablesLinks", value: "1")
 			} else {
-				Utils.sendMonitoringStatusToServer("userEnablesLinks", value: "1")
+				ZeeguuAPI.sendMonitoringStatusToServer("userEnablesLinks", value: "1")
 			}
 			
 			webview.executeJavaScriptAction(action)
@@ -342,7 +342,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			return
 		}
 		let data = ["actionInfo": String(actionInfo)]
-		Utils.sendMonitoringStatusToServer("userEditedTranslation", value: "1", data: data)
+		ZeeguuAPI.sendMonitoringStatusToServer("userEditedTranslation", value: "1", data: data)
 		
 		currentJavaScriptAction = nil
 	}
@@ -360,7 +360,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			return
 		}
 		let data = ["actionInfo": String(actionInfo)]
-		Utils.sendMonitoringStatusToServer("userDeletedTranslation", value: "1", data: data)
+		ZeeguuAPI.sendMonitoringStatusToServer("userDeletedTranslation", value: "1", data: data)
 	}
 	
 	override func canBecomeFirstResponder() -> Bool {
@@ -450,11 +450,11 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			let data = ["translationResponse": trans, "actionInfo": actionInfo]
 			switch self.translationMode {
 			case .Instant:
-				Utils.sendMonitoringStatusToServer("userTranslatedUsingInstantTranslation", value: "1", data: data)
+				ZeeguuAPI.sendMonitoringStatusToServer("userTranslatedUsingInstantTranslation", value: "1", data: data)
 			case .WordPair:
-				Utils.sendMonitoringStatusToServer("userTranslatedUsingWordPairTranslation", value: "1", data: data)
+				ZeeguuAPI.sendMonitoringStatusToServer("userTranslatedUsingWordPairTranslation", value: "1", data: data)
 			case .Sentence:
-				Utils.sendMonitoringStatusToServer("userTranslatedUsingSentenceTranslation", value: "1", data: data)
+				ZeeguuAPI.sendMonitoringStatusToServer("userTranslatedUsingSentenceTranslation", value: "1", data: data)
 			}
 			
 			
@@ -573,23 +573,23 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	}
 	
 	func like(sender: UIBarButtonItem) {
-		Utils.sendMonitoringStatusToServer("userLikesArticle", value: "1", data: ["url": self.article.url])
+		ZeeguuAPI.sendMonitoringStatusToServer("userLikesArticle", value: "1", data: ["url": self.article.url])
 	}
 	
 	func dislike(sender: UIBarButtonItem) {
-		Utils.sendMonitoringStatusToServer("userLikesArticle", value: "0", data: ["url": self.article.url])
+		ZeeguuAPI.sendMonitoringStatusToServer("userLikesArticle", value: "0", data: ["url": self.article.url])
 	}
 	
 	func easy(sender: UIBarButtonItem) {
-		Utils.sendMonitoringStatusToServer("userSaysArticleDifficultyEasy", value: "1", data: ["url": self.article.url])
+		ZeeguuAPI.sendMonitoringStatusToServer("userSaysArticleDifficultyEasy", value: "1", data: ["url": self.article.url])
 	}
 	
 	func hard(sender: UIBarButtonItem) {
-		Utils.sendMonitoringStatusToServer("userSaysArticleDifficultyHard", value: "1", data: ["url": self.article.url])
+		ZeeguuAPI.sendMonitoringStatusToServer("userSaysArticleDifficultyHard", value: "1", data: ["url": self.article.url])
 	}
 	
 	func readAll(sender: UIBarButtonItem) {
-		Utils.sendMonitoringStatusToServer("userReadArticleCompletely", value: "1", data: ["url": self.article.url])
+		ZeeguuAPI.sendMonitoringStatusToServer("userReadArticleCompletely", value: "1", data: ["url": self.article.url])
 	}
 }
 
