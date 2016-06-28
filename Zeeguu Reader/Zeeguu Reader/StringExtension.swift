@@ -25,6 +25,8 @@
 //
 
 import UIKit
+import Zeeguu_API_iOS
+import AVFoundation
 
 extension String {
 	var localized: String {
@@ -54,5 +56,22 @@ extension String {
 		s = s.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
 		s = s.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		return s
+	}
+	
+	func pronounce(inLanguage language: String?) {
+		_ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+		_ = try? AVAudioSession.sharedInstance().setActive(true)
+		
+		let synthesizer = AVSpeechSynthesizer()
+		
+		let utterance = AVSpeechUtterance(string: self)
+		utterance.voice = AVSpeechSynthesisVoice(language: language)
+		
+		synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+		synthesizer.speakUtterance(utterance)
+		
+		_ = try? AVAudioSession.sharedInstance().setActive(false)
+		
+		ZeeguuAPI.sendMonitoringStatusToServer("userPronouncesWord", value: "1")
 	}
 }

@@ -406,7 +406,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		let insertTranslation = def.boolForKey(InsertTranslationInTextDefaultsKey)
 		let pronounce = def.boolForKey(PronounceTranslatedWordKey)
 		if pronounce {
-			Utils.pronounce(word: word, inLanguage: self.article?.feed.language)
+			word.pronounce(inLanguage: self.article?.feed.language)
 		}
 		
 		if let pid = action.getActionInformation()?["pronounceID"], wid = action.getActionInformation()?["id"] where insertTranslation && Int(pid) == -1 {
@@ -568,7 +568,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	func pronounceWord(action: ZGJavaScriptAction) {
 		if let word = action.getActionInformation()?["word"] {
-			Utils.pronounce(word: word, inLanguage: self.article?.feed.language)
+			word.pronounce(inLanguage: self.article?.feed.language)
 		}
 	}
 	
