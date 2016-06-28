@@ -129,7 +129,7 @@ class RegisterTableViewController: ZGTableViewController, LanguagesTableViewCont
 		let password2 = retypePasswordField.text
 		
 		guard let pw = password, pw2 = password2 where pw == pw2 else {
-			Utils.showOKAlertWithTitle("NO_REGISTER".localized, message: "NO_EQUAL_PASSWORDS".localized, okAction: nil)
+			UIAlertController.showOKAlertWithTitle("NO_REGISTER".localized, message: "NO_EQUAL_PASSWORDS".localized, okAction: nil)
 			return
 		}
 		
@@ -148,7 +148,7 @@ class RegisterTableViewController: ZGTableViewController, LanguagesTableViewCont
 				}
 			})
 		} else {
-			Utils.showOKAlertWithTitle("NO_REGISTER".localized, message: "NO_REGISTER_MESSAGE".localized, okAction: nil)
+			UIAlertController.showOKAlertWithTitle("NO_REGISTER".localized, message: "NO_REGISTER_MESSAGE".localized, okAction: nil)
 		}
 	}
 	
@@ -179,7 +179,7 @@ class RegisterTableViewController: ZGTableViewController, LanguagesTableViewCont
 		if textField == passwordField && !askedToGenerate {
 			if let generatedPW: NSString = SecCreateSharedWebCredentialPassword() {
 				let message = NSString(format: "GENERATE_PASSWORD_DESCRIPTION_%@".localized, generatedPW)
-				Utils.showBinaryAlertWithTitle("GENERATE_PASSWORD".localized, message: message as String, yesAction: { (action) in
+				UIAlertController.showBinaryAlertWithTitle("GENERATE_PASSWORD".localized, message: message as String, yesAction: { (action) in
 					self.passwordField.text = generatedPW as String
 					self.retypePasswordField.text = generatedPW as String
 					}, noAction: { (action) in

@@ -105,12 +105,12 @@ class LoginTableViewController: ZGTableViewController {
 							NSNotificationCenter.defaultCenter().postNotificationName(UserLoggedInNotification, object: self)
 						})
 					} else {
-						Utils.showOKAlertWithTitle("LOGIN_FAILED".localized, message: "LOGIN_FAILED_MESSAGE".localized, okAction: nil)
+						UIAlertController.showOKAlertWithTitle("LOGIN_FAILED".localized, message: "LOGIN_FAILED_MESSAGE".localized, okAction: nil)
 					}
 				})
 			}
 		} else {
-			Utils.showOKAlertWithTitle("NO_LOGIN".localized, message: "NO_LOGIN_MESSAGE".localized, okAction: nil)
+			UIAlertController.showOKAlertWithTitle("NO_LOGIN".localized, message: "NO_LOGIN_MESSAGE".localized, okAction: nil)
 		}
 	}
 }
