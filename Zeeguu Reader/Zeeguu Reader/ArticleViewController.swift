@@ -114,16 +114,16 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		let controller = WKUserContentController()
 		controller.addScriptMessageHandler(self, name: "zeeguu")
 		
-		Utils.addUserScriptToUserContentController(controller, jsFileName: "jquery-2.2.3.min")
-		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuVars")
-		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuHelperFunctions")
-		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuPageInteraction")
-		Utils.addUserScriptToUserContentController(controller, jsFileName: "ZeeguuPagePreparation")
-		Utils.addStyleSheetToUserContentController(controller, cssFileName: "zeeguu")
+		controller.addUserJavaScriptFile("jquery-2.2.3.min")
+		controller.addUserJavaScriptFile("ZeeguuVars")
+		controller.addUserJavaScriptFile("ZeeguuHelperFunctions")
+		controller.addUserJavaScriptFile("ZeeguuPageInteraction")
+		controller.addUserJavaScriptFile("ZeeguuPagePreparation")
+		controller.addStyleSheetFile("zeeguu")
 		
 		let def = NSUserDefaults.standardUserDefaults()
 		let inserts = def.boolForKey(InsertTranslationInTextDefaultsKey)
-		Utils.addUserScriptToUserContentController(controller, js: ZGJavaScriptAction.SetInsertsTranslation(inserts).getJavaScriptExpression())
+		controller.addUserJavaScript(ZGJavaScriptAction.SetInsertsTranslation(inserts).getJavaScriptExpression())
 		
 		let config = WKWebViewConfiguration()
 		config.userContentController = controller
