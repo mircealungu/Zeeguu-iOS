@@ -128,8 +128,9 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		self.url = url;
 		
 		let formatter = NSDateFormatter()
-		formatter.locale = NSLocale(localeIdentifier: "EN-US")
-		formatter.dateFormat = "EEE, dd MMMM y HH:mm:ss Z"
+		let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+		formatter.locale = enUSPosixLocale
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
 		
 		let date = formatter.dateFromString(date)
 		self.date = date!
@@ -147,8 +148,9 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		var savedDate = dict["date"] as? NSDate
 		if let date = dict["date"] as? String {
 			let formatter = NSDateFormatter()
-			formatter.locale = NSLocale(localeIdentifier: "EN-US")
-			formatter.dateFormat = "EEE, dd MMMM y HH:mm:ss Z"
+			let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+			formatter.locale = enUSPosixLocale
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
 			
 			let date = formatter.dateFromString(date)
 			savedDate = date
