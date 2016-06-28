@@ -64,6 +64,7 @@
 "LOGIN_FAILED" = "Login failed";
 "LOGIN_FAILED_MESSAGE" = "Login failed. Verify that your entered the correct email address and password.";
 "LOGOUT" = "Logout";
+"MEDIUM" = "Medium";
 "NAME" = "Name";
 "NEWS" = "News";
 "NO" = "No";

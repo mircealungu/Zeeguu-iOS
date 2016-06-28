@@ -169,6 +169,12 @@ class ArticleManager {
 		}
 	}
 	
+	func save() {
+		for i in 0 ..< feeds.count {
+			ArticleManager.saveArticles(articles[i], forKey: articlesForFeedKey + feeds[i].id!)
+		}
+	}
+	
 	static func saveArticles(articles: [Article], forKey key: String, overwriteExisting overwrite: Bool = true) {
 		let def = NSUserDefaults.standardUserDefaults()
 		if let arr = def.objectForKey(key) as? [[String: AnyObject]], localArts = ZGSerialize.decodeArray(arr) as? [Article] {

@@ -44,9 +44,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	
 	private var flexBut: UIBarButtonItem!
 	private var likeBut: UIBarButtonItem!
-	private var dislikeBut: UIBarButtonItem!
-	private var easyBut: UIBarButtonItem!
-	private var hardBut: UIBarButtonItem!
+	private var difficultyBut: UIBarButtonItem!
 	private var readAllBut: UIBarButtonItem!
 	
 	private var oldTranslationMode: ArticleViewTranslationMode?
@@ -163,36 +161,47 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 			self.showLoadingView()
 			webview.loadRequest(NSURLRequest(URL: url))
 		}
-		//		if let str = article?.url, url = NSURL(string: str) {
-		//			webview.loadRequest(NSURLRequest(URL: url))
-		//		}
-		
-		if article == nil {
-			optionsBut.enabled = false;
-		}
 		
 		let didHideSelector = #selector(ArticleViewController.didHideUIMenuController(_:))
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: didHideSelector, name: UIMenuControllerDidHideMenuNotification, object: nil)
 		
 		let likeSel = #selector(ArticleViewController.like(_:))
-		let dislikeSel = #selector(ArticleViewController.dislike(_:))
-		let easySel = #selector(ArticleViewController.easy(_:))
-		let hardSel = #selector(ArticleViewController.hard(_:))
+		let difficultySel = #selector(ArticleViewController.difficultySelected(_:))
 		let readAllSel = #selector(ArticleViewController.readAll(_:))
 		
+		let likeStr = self.article?.isLiked == true ? "DISLIKE".localized : "LIKE".localized
+		
 		flexBut = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-		likeBut = UIBarButtonItem(title: "LIKE".localized, style: .Plain, target: self, action: likeSel)
-		dislikeBut = UIBarButtonItem(title: "DISLIKE".localized, style: .Plain, target: self, action: dislikeSel)
-		easyBut = UIBarButtonItem(title: "EASY".localized, style: .Plain, target: self, action: easySel)
-		hardBut = UIBarButtonItem(title: "HARD".localized, style: .Plain, target: self, action: hardSel)
+		likeBut = UIBarButtonItem(title: likeStr, style: .Plain, target: self, action: likeSel)
+		
+		let segmented = UISegmentedControl(items: ["EASY".localized, "MEDIUM".localized, "HARD".localized])
+		segmented.addTarget(self, action: difficultySel, forControlEvents: .ValueChanged)
+		
+		difficultyBut = UIBarButtonItem(customView: segmented)
 		readAllBut = UIBarButtonItem(title: "READ_ALL".localized, style: .Plain, target: self, action: readAllSel)
+		
+		if let diff = self.article?.userDifficulty {
+			switch diff {
+			case .Easy:
+				segmented.selectedSegmentIndex = 0
+			case .Medium:
+				segmented.selectedSegmentIndex = 1
+			case .Hard:
+				segmented.selectedSegmentIndex = 2
+			default:
+				segmented.selectedSegmentIndex = UISegmentedControlNoSegment
+			}
+		}
+		
+		if self.article?.hasReadAll == true {
+			readAllBut.enabled = false
+		}
 		
 		if article == nil {
 			optionsBut.enabled = false;
 			likeBut.enabled = false;
-			dislikeBut.enabled = false;
-			easyBut.enabled = false;
-			hardBut.enabled = false;
+			segmented.enabled = false;
+			segmented.selectedSegmentIndex = UISegmentedControlNoSegment
 			readAllBut.enabled = false;
 		}
 		
@@ -249,7 +258,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	}
 	
 	func updateToolbar() {
-		self.setToolbarItems([self.flexBut, self.likeBut, self.flexBut, self.dislikeBut, self.flexBut, self.easyBut, self.flexBut, self.hardBut, self.flexBut, self.readAllBut, self.flexBut], animated: false)
+		self.setToolbarItems([self.flexBut, self.likeBut, self.flexBut, self.difficultyBut, self.flexBut, self.readAllBut, self.flexBut], animated: false)
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -573,23 +582,38 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 	}
 	
 	func like(sender: UIBarButtonItem) {
-		ZeeguuAPI.sendMonitoringStatusToServer("userLikesArticle", value: "1", data: ["url": self.article.url])
+		if self.article.isLiked {
+			ZeeguuAPI.sendMonitoringStatusToServer("userLikesArticle", value: "0", data: ["url": self.article.url])
+			self.article.isLiked = false
+		} else {
+			ZeeguuAPI.sendMonitoringStatusToServer("userLikesArticle", value: "1", data: ["url": self.article.url])
+			self.article.isLiked = true
+		}
+		ArticleManager.sharedManager().save()
+		let likeStr = self.article.isLiked == true ? "DISLIKE".localized : "LIKE".localized
+		sender.title = likeStr
 	}
 	
-	func dislike(sender: UIBarButtonItem) {
-		ZeeguuAPI.sendMonitoringStatusToServer("userLikesArticle", value: "0", data: ["url": self.article.url])
-	}
-	
-	func easy(sender: UIBarButtonItem) {
-		ZeeguuAPI.sendMonitoringStatusToServer("userSaysArticleDifficultyEasy", value: "1", data: ["url": self.article.url])
-	}
-	
-	func hard(sender: UIBarButtonItem) {
-		ZeeguuAPI.sendMonitoringStatusToServer("userSaysArticleDifficultyHard", value: "1", data: ["url": self.article.url])
+	func difficultySelected(sender: UISegmentedControl) {
+		let idx = sender.selectedSegmentIndex
+		if idx == 0 {
+			ZeeguuAPI.sendMonitoringStatusToServer("userSaysArticleDifficultyEasy", value: "1", data: ["url": self.article.url])
+			self.article.userDifficulty = .Easy
+		} else if idx == 1 {
+			ZeeguuAPI.sendMonitoringStatusToServer("userSaysArticleDifficultyMedium", value: "1", data: ["url": self.article.url])
+			self.article.userDifficulty = .Medium
+		} else { // idx is 2
+			ZeeguuAPI.sendMonitoringStatusToServer("userSaysArticleDifficultyHard", value: "1", data: ["url": self.article.url])
+			self.article.userDifficulty = .Hard
+		}
+		ArticleManager.sharedManager().save()
 	}
 	
 	func readAll(sender: UIBarButtonItem) {
 		ZeeguuAPI.sendMonitoringStatusToServer("userReadArticleCompletely", value: "1", data: ["url": self.article.url])
+		self.article.hasReadAll = true
+		ArticleManager.sharedManager().save()
+		sender.enabled = false
 	}
 }
 
