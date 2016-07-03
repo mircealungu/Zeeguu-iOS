@@ -66,8 +66,7 @@ class ArticleManager {
 		let lock = NSCondition()
 		lock.lock()
 		
-		let runOnMain = ZeeguuAPI.sharedAPI().runCompletionOnMainThread
-		ZeeguuAPI.sharedAPI().runCompletionOnMainThread = false
+		ZeeguuAPI.sharedAPI().runCompletionOnMainThread = true
 		ZeeguuAPI.sharedAPI().getFeedItemsForFeed(feed, completion: { (articles) -> Void in
 			if let arts = articles {
 				self.articles[i] = ArticleManager.mergeArticles(oldArticles:self.articles[i], newArticles: arts)
@@ -75,17 +74,20 @@ class ArticleManager {
 			}
 			lock.signal()
 		})
-		ZeeguuAPI.sharedAPI().runCompletionOnMainThread = runOnMain
 		lock.wait()
 		lock.unlock()
 	}
 	
 	func downloadArticles(feed: Feed? = nil) -> [Article] {
 		if let feed = feed, i = self.feeds.indexOf(feed) {
-			_downloadArticles(feed, index: i)
+			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { 
+				self._downloadArticles(feed, index: i)
+			})
 		} else {
 			for i in 0 ..< self.feeds.count {
-				_downloadArticles(self.feeds[i], index: i)
+				dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+					self._downloadArticles(self.feeds[i], index: i)
+				})
 			}
 		}
 		return getArticles(feed)
