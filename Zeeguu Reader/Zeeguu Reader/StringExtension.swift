@@ -25,6 +25,8 @@
 //
 
 import UIKit
+import Zeeguu_API_iOS
+import AVFoundation
 
 extension String {
 	var localized: String {
@@ -37,5 +39,39 @@ extension String {
 	
 	func insert(string:String,ind:Int) -> String {
 		return String(self.characters.prefix(ind)) + string + String(self.characters.suffix(self.characters.count - ind))
+	}
+	
+	/// This method will escape slashes and double quotes. This enables you to insert this string into
+	/// a JavaScript function as a JavaScript string.
+	mutating func JSEscape() {
+		self = self.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+		self = self.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+		self = self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+	}
+	
+	/// This method will escape slashes and double quotes. This enables you to insert this string into
+	/// a JavaScript function as a JavaScript string.
+	func stringByJSEscaping() -> String {
+		var s = self.stringByReplacingOccurrencesOfString("\\", withString: "\\\\")
+		s = s.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+		s = s.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+		return s
+	}
+	
+	func pronounce(inLanguage language: String?) {
+		_ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+		_ = try? AVAudioSession.sharedInstance().setActive(true)
+		
+		let synthesizer = AVSpeechSynthesizer()
+		
+		let utterance = AVSpeechUtterance(string: self)
+		utterance.voice = AVSpeechSynthesisVoice(language: language)
+		
+		synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+		synthesizer.speakUtterance(utterance)
+		
+		_ = try? AVAudioSession.sharedInstance().setActive(false)
+		
+		ZeeguuAPI.sendMonitoringStatusToServer("userPronouncesWord", value: "1")
 	}
 }

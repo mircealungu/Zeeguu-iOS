@@ -1,4 +1,21 @@
 
 .zeeguuSelection {
-	background-color: yellow;
+	background-color: #ffff96;
+}
+
+zeeguuWord, zeeguuSentence {
+	-webkit-transition: 1s;
+	transition: 1s;
+}
+
+zeeguuTranslatedWord {
+	color: #444444;
+}
+
+.zeeguu-pronounce-icon {
+	width: 20px;
+	height: 20px;
+	display: inline !important;
+	margin: 0 !important;
+	opacity: 0.6;
 }

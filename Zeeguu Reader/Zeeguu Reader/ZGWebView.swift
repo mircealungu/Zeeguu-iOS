@@ -30,138 +30,23 @@ import Zeeguu_API_iOS
 
 class ZGWebView: WKWebView {
 	
-	var article: Article?
-	var willInstantlyTranslate: Bool
-	let coverView: UIView
-	
-	private var isTranslating = false
-	
-	init(article: Article?, webViewConfiguration: WKWebViewConfiguration? = nil) {
-		self.willInstantlyTranslate = true
-		self.coverView = UIView.autoLayoutCapable()
+	init(webViewConfiguration: WKWebViewConfiguration? = nil) {
 		if let wvc = webViewConfiguration {
 			super.init(frame: CGRectZero, configuration: wvc)
 		} else {
-			super.init()
+			super.init(frame: CGRectZero, configuration: WKWebViewConfiguration())
 		}
-		self.article = article;
 		self.translatesAutoresizingMaskIntoConstraints = false
-		self.coverView.userInteractionEnabled = false
 	}
 	
-//	override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-//		let bool = super.canPerformAction(action, withSender: sender)
-//		print("webview bool: \(bool)")
-//		return bool
-//		
-//		print("webview canPerformAction: \(action)")
-////		if action == #selector(ZGTextView.translate(_:)) {
-////			if (willInstantlyTranslate) {
-////				translate(self)
-////				return false
-////			}
-////			return true
-////		}
-//		return false
-//	}
-	
-	func translate(sender: AnyObject?) {
-		if isTranslating {
-			return
-		}
-		isTranslating = true
-		dispatch_async(dispatch_get_main_queue(), { () -> Void in
-			self.addSubview(self.coverView)
-			self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["v": self.coverView]))
-			self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["v": self.coverView]))
-		})
-		
-		
-		self.evaluateJavaScript("getSelectedText()") { (result, error) in
+	func executeJavaScriptAction(action: ZGJavaScriptAction, resultHandler: ((AnyObject?) -> Void)? = nil) {
+		let js = action.getJavaScriptExpression()
+		self.evaluateJavaScript(js, completionHandler: { (result, error) in
+			resultHandler?(result)
+			print("Executed JavaScript: \(js)")
 			print("result: \(result)")
 			print("error: \(error)")
-			
-			if let result = result as? String, art = self.article {
-				
-				ZeeguuAPI.sharedAPI().translateWord(result, title: art.title, context: "No context yet", url: art.url) { (dict) -> Void in
-					if let t = dict?["translation"].string {
-						print("\"\(result)\" translated to \"\(t)\"")
-						
-						let html = "<span style=\"color: red;\"> \(t)</span>".stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-						print("html: \(html)")
-						let script = "insertHtmlAfterSelection(\"\(html)\");"
-						print("script: \(script)")
-						self.evaluateJavaScript(script, completionHandler: { (result, error) in
-							print("result: \(result)")
-							print("error: \(error)")
-						})
-						
-//						dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//							let range = self.selectedRange
-//							self.scrollEnabled = false
-//							
-//							self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: AppColor.getTranslationTextColor()]))
-//							
-//							self.resignFirstResponder()
-//							self.scrollEnabled = true
-//							
-//							let synthesizer = AVSpeechSynthesizer()
-//							
-//							let utterance = AVSpeechUtterance(string: self.selectedText())
-//							utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
-//							
-//							synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-//							synthesizer.speakUtterance(utterance)
-//						})
-					} else {
-						print("translating \"\(result)\" went wrong")
-					}
-					self.isTranslating = false
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						self.coverView.removeFromSuperview()
-					})
-				}
-				
-				
-			}
-			
-//			print("translate called for \(self.selectedText()) with context: \"\(self.selectedTextContext())\"")
-		}
-		
-		
-		
-//		if isSelectionAlreadyTranslated() {
-//			return
-//		}
-//
-//		if let art = article {
-//			ZeeguuAPI.sharedAPI().translateWord(self.selectedText(), title: art.title, context: self.selectedTextContext(), url: art.url) { (dict) -> Void in
-//				if let t = dict?["translation"].string {
-//					print("\"\(self.selectedText())\" translated to \"\(t)\"")
-//					
-//					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//						let range = self.selectedRange
-//						self.scrollEnabled = false
-//						
-//						self.textStorage.replaceCharactersInRange(NSMakeRange(range.location + range.length, 0), withAttributedString: NSMutableAttributedString(string: " (\(t))", attributes: [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: AppColor.getTranslationTextColor()]))
-//						
-//						self.resignFirstResponder()
-//						self.scrollEnabled = true
-//						
-//						let synthesizer = AVSpeechSynthesizer()
-//						
-//						let utterance = AVSpeechUtterance(string: self.selectedText())
-//						utterance.voice = AVSpeechSynthesisVoice(language: self.article?.feed.language)
-//						
-//						synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-//						synthesizer.speakUtterance(utterance)
-//					})
-//				} else {
-//					print("translating \"\(self.selectedText())\" went wrong")
-//				}
-//				self.isTranslating = false
-//			}
-//		}
+		})
 	}
 	
 }

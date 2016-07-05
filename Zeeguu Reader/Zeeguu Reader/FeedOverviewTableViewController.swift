@@ -28,8 +28,6 @@ import UIKit
 
 import Zeeguu_API_iOS
 
-let feedsKey = "newsFeeds"
-
 class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewControllerDelegate {
 
 	var newsFeeds = [AnyObject]()
@@ -37,14 +35,15 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	convenience init() {
 		self.init(style: .Grouped)
 		
-		self.tabBarItem = UITabBarItem(title: "APP_TITLE".localized, image: AppIcon.newsIcon(), selectedImage: AppIcon.newsIcon(true))
-		self.title = "APP_TITLE".localized
+		self.tabBarItem = UITabBarItem(title: "NEWS".localized, image: AppIcon.newsIcon(), selectedImage: AppIcon.newsIcon(true))
+		self.title = "NEWS".localized
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.tableView.estimatedRowHeight = 80
+		let didLoginSelector = #selector(FeedOverviewTableViewController.userDidLogin(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: didLoginSelector, name: UserLoggedInNotification, object: nil)
 		
 //		let def = NSUserDefaults.standardUserDefaults()
 //		if let feeds = def.objectForKey(feedsKey) {
@@ -71,26 +70,31 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 		getFeeds()
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		self.tableView.reloadData()
+	}
+	
 	func getFeeds() {
 		ZeeguuAPI.sharedAPI().getFeedsBeingFollowed { (feeds) -> Void in
 			if let arr = feeds {
 				self.newsFeeds = arr
 				
+				ArticleManager.sharedManager().setFeeds(arr)
+				ArticleManager.sharedManager().downloadArticles()
+				
 				if (self.newsFeeds.count > 0) {
 					self.newsFeeds.insert("ALL_FEEDS".localized, atIndex: 0)
 				}
 			}
-			dispatch_async(dispatch_get_main_queue(), { () -> Void in
-				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
-				// This enables us to attach a completion block to the animation, reloading data before
-				// animation is complete causes glitching.
-				CATransaction.begin()
-				CATransaction.setCompletionBlock({ () -> Void in
-					self.tableView.reloadData()
-				})
-				self.refreshControl?.endRefreshing()
-				CATransaction.commit()
+			// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+			// This enables us to attach a completion block to the animation, reloading data before
+			// animation is complete causes glitching.
+			CATransaction.begin()
+			CATransaction.setCompletionBlock({ () -> Void in
+				self.tableView.reloadData()
 			})
+			self.refreshControl?.endRefreshing()
+			CATransaction.commit()
 		}
 	}
 	
@@ -121,6 +125,7 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 //	}
 	
 	func addFeedDidAddFeeds(feeds: [Feed]) {
+		self.refreshControl?.beginRefreshing()
 		getFeeds()
 	}
 	
@@ -148,20 +153,33 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 			}
 			cell?.textLabel?.text = feed as? String
 			cell?.accessoryType = .DisclosureIndicator
+			let count = ArticleManager.sharedManager().countUnReadArticles()
+			if count > 0 {
+				let badge = BadgeView(text: "\(count)")
+				cell?.accessoryView = badge
+				badge.setNeedsLayout()
+				badge.layoutIfNeeded()
+			} else {
+				cell?.accessoryView = nil
+			}
 			return cell!
 		} else {
 			var cell = tableView.dequeueReusableCellWithIdentifier("feed") as? FeedTableViewCell
-			if cell == nil {
-				cell = FeedTableViewCell(reuseIdentifier: "feed")
-			}
 			if let f = feed as? Feed {
-				cell?.title = f.title
-				cell?.feedDescription = f.feedDescription
-				f.getImage({ (image) -> Void in
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						cell?.feedImage = image
-					})
-				})
+				if cell == nil {
+					cell = FeedTableViewCell(feed: f, reuseIdentifier: "feed")
+				} else {
+					cell?.feed = f
+				}
+				let count = ArticleManager.sharedManager().countUnReadArticles(f)
+				if count > 0 {
+					let badge = BadgeView(text: "\(count)")
+					cell?.accessoryView = badge
+					badge.setNeedsLayout()
+					badge.layoutIfNeeded()
+				} else {
+					cell?.accessoryView = nil
+				}
 			}
 			cell?.accessoryType = .DisclosureIndicator
 			return cell!
@@ -178,10 +196,8 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 			if let feedID = (self.newsFeeds[indexPath.row] as? Feed)?.id {
 				ZeeguuAPI.sharedAPI().stopFollowingFeed(feedID, completion: { (success) -> Void in
 					if success {
-						dispatch_async(dispatch_get_main_queue(), { () -> Void in
-							self.newsFeeds.removeAtIndex(indexPath.row)
-							tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-						})
+						self.newsFeeds.removeAtIndex(indexPath.row)
+						tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
 					}
 				})
 			}
@@ -191,15 +207,18 @@ class FeedOverviewTableViewController: ZGTableViewController, AddFeedTableViewCo
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		var vc: UIViewController? = nil
 		if let _ = newsFeeds[indexPath.row] as? String {
-			var arr = newsFeeds
-			arr.removeFirst()
-			vc = ArticleListViewController(feeds: arr as! [Feed])
+			vc = ArticleListViewController()
 		} else if let row = newsFeeds[indexPath.row] as? Feed {
 			vc = ArticleListViewController(feed: row)
 		}
 		if let vc = vc {
 			self.navigationController?.pushViewController(vc, animated: true)
 		}
+	}
+	
+	func userDidLogin(notification: NSNotification) {
+		self.refreshControl?.beginRefreshing()
+		getFeeds()
 	}
 
 }

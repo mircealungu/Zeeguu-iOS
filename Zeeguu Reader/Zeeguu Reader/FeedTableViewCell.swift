@@ -32,40 +32,31 @@ class FeedTableViewCell: UITableViewCell {
 	private var titleField: UILabel
 	private var descriptionField: UILabel
 	private var feedImageView: UIImageView
-	
-	var title: String? {
+
+	private var _feed: Feed
+	var feed: Feed {
 		get {
-			return titleField.text
+			return _feed
 		}
 		set {
-			titleField.text = newValue
+			titleField.text = newValue.title
+			descriptionField.text = newValue.feedDescription
+			newValue.getImage { (image) in
+				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					self.feedImageView.image = image
+				})
+			}
 		}
 	}
 	
-	var feedDescription: String? {
-		get {
-			return descriptionField.text
-		}
-		set {
-			descriptionField.text = newValue
-		}
-	}
-	
-	var feedImage: UIImage? {
-		get {
-			return feedImageView.image
-		}
-		set {
-			feedImageView.image = newValue
-		}
-	}
-	
-	init(reuseIdentifier: String?) {
+	init(feed: Feed, reuseIdentifier: String?) {
 		titleField = UILabel.autoLayoutCapable()
 		descriptionField = UILabel.autoLayoutCapable()
 		feedImageView = UIImageView.autoLayoutCapable()
+		_feed = feed
 		super.init(style: .Default, reuseIdentifier: reuseIdentifier)
 		setupLayout()
+		self.feed = _feed // Make sure labels and image are set
 	}
 
 	required init?(coder aDecoder: NSCoder) {

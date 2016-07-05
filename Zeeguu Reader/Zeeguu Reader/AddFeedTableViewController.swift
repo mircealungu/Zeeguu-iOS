@@ -28,7 +28,7 @@ import UIKit
 import Zeeguu_API_iOS
 
 class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
-	let rows = ["URL".localized]
+	var rows: [[AnyObject]] = [["URL".localized]]
 	
 	let urlField = UITextField.autoLayoutCapable()
 	var delegate: AddFeedTableViewControllerDelegate?
@@ -51,7 +51,22 @@ class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 		let cancelButton = UIBarButtonItem(title: "CANCEL".localized, style: .Plain, target: self, action: #selector(AddFeedTableViewController.cancel(_:)))
 		self.navigationItem.leftBarButtonItem = cancelButton
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddFeedTableViewController.textFieldChanged(_:)), name: UITextFieldTextDidChangeNotification, object: urlField)
+		let textFieldChangedSelector = #selector(AddFeedTableViewController.textFieldChanged(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: textFieldChangedSelector, name: UITextFieldTextDidChangeNotification, object: urlField)
+		
+		self.tableView.rowHeight = UITableViewAutomaticDimension
+		self.tableView.estimatedRowHeight = 80
+		
+		ZeeguuAPI.sharedAPI().getLearnedLanguage { (langCode) in
+			if let lc = langCode {
+				ZeeguuAPI.sharedAPI().getInterestingFeeds(lc) { (feeds) in
+					if let fs = feeds where fs.count > 0 {
+						self.rows.append(fs)
+						self.tableView.insertSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
+					}
+				}
+			}
+		}
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -62,26 +77,68 @@ class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 	// MARK: - Table view data source
 	
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 1
-	}
-	
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return rows.count
 	}
 	
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return rows[section].count
+	}
+	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cellTitle = rows[indexPath.row]
-		var cell = tableView.dequeueReusableCellWithIdentifier(cellTitle)
-		if (cell == nil) {
-			if (indexPath.row == 0) {
-				cell = ZGTextFieldTableViewCell(title: cellTitle, textField: urlField, reuseIdentifier: cellTitle)
+		let sec = indexPath.section
+		let row = indexPath.row
+		
+		let object = rows[sec][row]
+		var cell: UITableViewCell!
+		
+		if sec == 0 {
+			cell = tableView.dequeueReusableCellWithIdentifier("cell")
+			if cell == nil {
+				if let cellTitle = object as? String where indexPath.row == 0 {
+					cell = ZGTextFieldTableViewCell(title: cellTitle, textField: urlField, reuseIdentifier: "cell")
+				}
 			}
-			
+		} else if sec == 1 {
+			var c = tableView.dequeueReusableCellWithIdentifier("feed") as? FeedTableViewCell
+			if let f = object as? Feed {
+				if c == nil {
+					c = FeedTableViewCell(feed: f, reuseIdentifier: "feed")
+				} else {
+					c?.feed = f
+				}
+				cell = c
+				cell.accessoryType = .DisclosureIndicator
+			}
 		}
 		
 		// Configure the cell...
 		
 		return cell!
+	}
+	
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let sec = indexPath.section
+		let row = indexPath.row
+		
+		if sec == 0 {
+			tableView.deselectRowAtIndexPath(indexPath, animated: true)
+		} else if sec == 1 {
+			if let feed = rows[sec][row] as? Feed {
+				ZeeguuAPI.sharedAPI().enableDebugOutput = true
+				ZeeguuAPI.sharedAPI().startFollowingFeeds([feed.url]) { (success) -> Void in
+					ZeeguuAPI.sharedAPI().enableDebugOutput = false
+					self.delegate?.addFeedDidAddFeeds([feed])
+					self.dismissViewControllerAnimated(true, completion: nil)
+				}
+			}
+		}
+	}
+	
+	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		if section == 1 {
+			return "INTERESTING_FEEDS".localized
+		}
+		return nil
 	}
 	
 	func textFieldChanged(notification: NSNotification) {
@@ -132,9 +189,8 @@ class AddFeedTableViewController: UITableViewController, UITextFieldDelegate {
 	
 	func cancel(sender: UIBarButtonItem) {
 		urlField.resignFirstResponder()
-		self.dismissViewControllerAnimated(true, completion: { () -> Void in
-			self.delegate?.addFeedDidCancel()
-		})
+		self.delegate?.addFeedDidCancel()
+		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 
 }

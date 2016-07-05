@@ -23,10 +23,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zeeguuLogo" translatesAutoresizingMaskIntoConstraints="NO" id="n3X-vU-bCo">
+                                <rect key="frame" x="266" y="208" width="68" height="68"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="n3X-vU-bCo" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="3ec-lX-rnJ"/>
                             <constraint firstItem="nvJ-41-WDM" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="riI-9e-k9S"/>
+                            <constraint firstItem="nvJ-41-WDM" firstAttribute="top" secondItem="n3X-vU-bCo" secondAttribute="bottom" constant="8" id="wkp-qM-D0b"/>
                             <constraint firstItem="nvJ-41-WDM" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="yl6-A5-8Ql"/>
                         </constraints>
                     </view>
@@ -36,4 +41,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="zeeguuLogo" width="68" height="68"/>
+    </resources>
 </document>

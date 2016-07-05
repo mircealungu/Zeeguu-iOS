@@ -32,9 +32,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
 	var window: UIWindow?
 
+	private var becomesActiveDate: NSDate?
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
+		
+		let selector = #selector(AppDelegate.userLoggedIn(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name: UserLoggedInNotification, object: nil)
+		
+		let def = NSUserDefaults.standardUserDefaults()
+		if def.objectForKey(InsertTranslationInTextDefaultsKey) == nil {
+			def.setBool(true, forKey: InsertTranslationInTextDefaultsKey)
+			def.synchronize()
+		}
+		
 		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		self.window?.backgroundColor = UIColor.whiteColor()
 		self.setupArticleRootViewController()
@@ -73,9 +84,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		self.window?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
 	}
 	
+	func userLoggedIn(notification: NSNotification) {
+		let def = NSUserDefaults.standardUserDefaults()
+		if def.boolForKey(DidShowWelcomeScreenKey) == false {
+			def.setBool(true, forKey: DidShowWelcomeScreenKey)
+			def.synchronize()
+			
+			let vc = UINavigationController(rootViewController: WelcomeViewController())
+			vc.modalPresentationStyle = .FormSheet
+			self.window?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+		}
+	}
+	
 	func applicationWillResignActive(application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+		guard let date = becomesActiveDate else {
+			return
+		}
+		let interval = -date.timeIntervalSinceNow
+		ZeeguuAPI.sendMonitoringStatusToServer("userUsedAppInSeconds", value: String(interval))
 	}
 
 	func applicationDidEnterBackground(application: UIApplication) {
@@ -89,6 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
 	func applicationDidBecomeActive(application: UIApplication) {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+		becomesActiveDate = NSDate()
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
@@ -105,16 +134,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 					secondaryAsNavController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem() // Make sure navigation controller does not become empty
 					
 					selectedNVC.pushViewController(topAsDetailController, animated: true)
-				} else if let tabBarController = primaryViewController as? UITabBarController, firstNVC = tabBarController.viewControllers?[0] as? UINavigationController, topVC = firstNVC.topViewController as? ArticleListViewController where topVC.articles.contains(art) {
-					secondaryAsNavController.setViewControllers([ArticleViewController()], animated: false)
-					secondaryAsNavController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem() // Make sure navigation controller does not become empty
-					
-					firstNVC.pushViewController(topAsDetailController, animated: false)
+					selectedNVC.setToolbarHidden(secondaryAsNavController.toolbarHidden, animated: true)
 				}
-				
 			} else {
 				// Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
 				return true
+			}
+		} else if let secondaryAsNavController = secondaryViewController as? UINavigationController, topAsDetailController = secondaryAsNavController.topViewController as? ExercisesViewController {
+			if let tabBarVC = primaryViewController as? UITabBarController, selectedNVC = tabBarVC.selectedViewController as? UINavigationController, _ = selectedNVC.topViewController as? ProfileTableViewController {
+				secondaryAsNavController.setViewControllers([ArticleViewController()], animated: false)
+				secondaryAsNavController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem() // Make sure navigation controller does not become empty
+				
+				selectedNVC.pushViewController(topAsDetailController, animated: false)
 			}
 		}
 	    return false
@@ -123,7 +154,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 	func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
 		if let tabBarController = primaryViewController as? UITabBarController, selectedNVC = tabBarController.selectedViewController as? UINavigationController, topVC = selectedNVC.topViewController as? ArticleViewController {
 			// There is an article viewController in the sidebar, move it to detailViewController of splitview
-			selectedNVC.popViewControllerAnimated(true)
+			selectedNVC.popViewControllerAnimated(false)
+			return UINavigationController(rootViewController: topVC)
+		} else if let tabBarVC = primaryViewController as? UITabBarController, selectedNVC = tabBarVC.selectedViewController as? UINavigationController, topVC = selectedNVC.topViewController as? ExercisesViewController {
+			selectedNVC.popViewControllerAnimated(false)
 			return UINavigationController(rootViewController: topVC)
 		}
 		return nil

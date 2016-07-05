@@ -33,14 +33,13 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	
 	init(parent: ArticleViewController) {
 		let s1 = ["FONTSIZE".localized]
-		let s2 = ["INSTANT_TRANSLATION".localized, "TRANSLATE_WORD_PAIR".localized, "TRANSLATE_SENTENCE".localized]
-		let s3 = ["DISABLE_LINKS".localized, "PRONOUNCE_TRANSLATED_WORD".localized]
+		let s2 = [ArticleViewTranslationMode.Instant.getTitle(), ArticleViewTranslationMode.WordPair.getTitle(), ArticleViewTranslationMode.Sentence.getTitle()]
+		let s3 = ["DISABLE_LINKS".localized, "PRONOUNCE_TRANSLATED_WORD".localized, "INSERT_TRANSLATION_IN_TEXT".localized]
 		
 		data = [s1, s2, s3]
 		self.parent = parent
 		super.init(style: .Grouped)
 		self.modalPresentationStyle = .Popover
-		self.popoverPresentationController?.delegate = self
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -108,7 +107,16 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 				let sw = UISwitch()
 				sw.addTarget(self, action: #selector(ArticleViewOptionsTableViewController.setPronounceTranslatedWord(_:)), forControlEvents: .ValueChanged)
 				cell?.accessoryView = sw
-				sw.on = self.parent.pronounceTranslatedWord
+				
+				let def = NSUserDefaults.standardUserDefaults()
+				sw.on = def.boolForKey(PronounceTranslatedWordKey)
+			} else if row == 2 {
+				let sw = UISwitch()
+				sw.addTarget(self, action: #selector(ArticleViewOptionsTableViewController.setInsertTranslationInText(_:)), forControlEvents: .ValueChanged)
+				cell?.accessoryView = sw
+				
+				let def = NSUserDefaults.standardUserDefaults()
+				sw.on = def.boolForKey(InsertTranslationInTextDefaultsKey)
 			}
 		}
 		
@@ -126,6 +134,10 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 			} else if row == 2 {
 				parent.translationMode = .Sentence
 			}
+			if let pop = self.popoverPresentationController {
+				pop.delegate?.popoverPresentationControllerDidDismissPopover?(pop)
+			}
+			self.dismissViewControllerAnimated(true, completion: nil)
 		}
 		self.tableView.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(1, 1)), withRowAnimation: .Automatic)
 	}
@@ -144,10 +156,6 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 		return nil
 	}
 	
-	func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-		return .None
-	}
-	
 	func letterImageWithFontSize(fontSize: CGFloat) -> UIImage {
 		let letter: NSString = "A"
 		let size = letter.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(fontSize)])
@@ -160,17 +168,24 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 	
 	func changeFontSize(sender: UIStepper) {
 		let action = ZGJavaScriptAction.ChangeFontSize(Int(sender.value))
-		parent.webview.evaluateJavaScript(action.getJavaScriptExpression()) { (result, error) in
-			print("result: \(result)")
-			print("error: \(error)")
-		}
+		parent.webview.executeJavaScriptAction(action)
 	}
 	
 	func setLinkState(sender: UISwitch) {
 		self.parent.disableLinks = sender.on
 	}
+ 
+ 	func setPronounceTranslatedWord(sender: UISwitch) {
+		let def = NSUserDefaults.standardUserDefaults()
+		def.setBool(sender.on, forKey: PronounceTranslatedWordKey)
+		def.synchronize()
+ 	}
 	
-	func setPronounceTranslatedWord(sender: UISwitch) {
-		self.parent.pronounceTranslatedWord = sender.on
+	func setInsertTranslationInText(sender: UISwitch) {
+		let def = NSUserDefaults.standardUserDefaults()
+		def.setBool(sender.on, forKey: InsertTranslationInTextDefaultsKey)
+		def.synchronize()
+		
+		parent.webview.executeJavaScriptAction(ZGJavaScriptAction.SetInsertsTranslation(sender.on))
 	}
 }

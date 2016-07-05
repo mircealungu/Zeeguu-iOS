@@ -45,9 +45,12 @@
 import UIKit
 
 /// The `Bookmark` class represents a bookmark. It holds the `date`, `word`, `translation` and more about the bookmark.
-public class Bookmark {
+public class Bookmark: ZGSerializable {
 	
 	// MARK: Properties -
+	
+	/// The id of this bookmark
+	public var id: String
 	
 	/// The date of this bookmark
 	public var date: NSDate
@@ -74,6 +77,7 @@ public class Bookmark {
 	/**
 	Construct a new `Bookmark` object.
 	
+	- parameter id: The id of this bookmark
 	- parameter title: The title of the article in which `word` was translated
 	- parameter context: The context in which `word` was translated
 	- parameter url: The url of the article in which `word` was translated
@@ -83,7 +87,8 @@ public class Bookmark {
 	- parameter translation: The translation(s)
 	- parameter translationLanguage: The language of `translation`
 	*/
-	public init(title: String, context: String? = nil, url: String, bookmarkDate: String, word: String, wordLanguage: String, translation: [String], translationLanguage: String) {
+	public init(id: String, title: String, context: String? = nil, url: String, bookmarkDate: String, word: String, wordLanguage: String, translation: [String], translationLanguage: String) {
+		self.id = id
 		self.title = title
 		self.context = context
 		self.url = url
@@ -100,6 +105,92 @@ public class Bookmark {
 
 		let date = formatter.dateFromString(bookmarkDate)
 		self.date = date!
+	}
+	
+	/**
+	Construct a new `Bookmark` object from the data in the dictionary.
+	
+	- parameter dictionary: The dictionary that contains the data from which to construct an `Bookmark` object.
+	*/
+	@objc public required init?(dictionary dict: [String : AnyObject]) {
+		guard let id = dict["id"] as? String,
+			title = dict["title"] as? String,
+			url = dict["url"] as? String,
+			date = dict["date"] as? NSDate,
+			word = dict["word"] as? String,
+			wordLanguage = dict["wordLanguage"] as? String,
+			translation = dict["translation"] as? [String],
+			translationLanguage = dict["translationLanguage"] as? String else {
+				return nil
+		}
+		self.id = id
+		self.title = title
+		self.url = url
+		self.date = date
+		self.word = word
+		self.wordLanguage = wordLanguage
+		self.translation = translation
+		self.translationLanguage = translationLanguage
+		self.context = dict["context"] as? String
+	}
+	
+	// MARK: Methods -
+	
+	/**
+	The dictionary representation of this `Bookmark` object.
+	
+	- returns: A dictionary that contains all data of this `Bookmark` object.
+	*/
+	@objc public func dictionaryRepresentation() -> [String: AnyObject] {
+		var dict = [String: AnyObject]()
+		dict["id"] = self.id
+		dict["title"] = self.title
+		dict["url"] = self.url
+		dict["date"] = self.date
+		dict["word"] = self.word
+		dict["wordLanguage"] = self.wordLanguage
+		dict["translation"] = self.translation
+		dict["translationLanguage"] = self.translationLanguage
+		dict["context"] = self.context
+		return dict
+	}
+	
+	/// Deletes this bookmark.
+	///
+	/// - parameter completion: A block that will receive a boolean indicating if the bookmark could be deleted or not.
+	public func delete(completion: (success: Bool) -> Void) {
+		ZeeguuAPI.sharedAPI().deleteBookmarkWithID(self.id) { (success) in
+			completion(success: success)
+		}
+	}
+	
+	/// Adds a translation to this bookmark.
+	///
+	/// - parameter translation: The translation to add to this bookmark.
+	/// - parameter completion: A block that will receive a boolean indicating if the translation could be added or not.
+	public func addTranslation(translation: String, completion: (success: Bool) -> Void) {
+		ZeeguuAPI.sharedAPI().addNewTranslationToBookmarkWithID(self.id, translation: translation) { (success) in
+			completion(success: success)
+		}
+	}
+	
+	/// Deletes a translation from this bookmark.
+	///
+	/// - parameter translation: The translation to remove from this bookmark.
+	/// - parameter completion: A block that will receive a boolean indicating if the translation could be deleted or not.
+	public func deleteTranslation(translation: String, completion: (success: Bool) -> Void) {
+		ZeeguuAPI.sharedAPI().deleteTranslationFromBookmarkWithID(self.id, translation: translation) { (success) in
+			completion(success: success)
+		}
+	}
+	
+	/// Retrieves all translations for this bookmark.
+	///
+	/// - parameter completion: A block that will receive a dictionary with the translations.
+	public func getTranslations(completion: (dict: JSON?) -> Void) {
+		ZeeguuAPI.sharedAPI().getTranslationsForBookmarkWithID(self.id) { (dict) in
+			completion(dict: dict)
+		}
 	}
 	
 }

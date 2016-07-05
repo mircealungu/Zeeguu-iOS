@@ -25,17 +25,6 @@
 //
 
 function setupZeeguuJS() {
-	var myCustomViewport = 'width=device-width';
-	var viewportElement = document.querySelector('meta[name=viewport]');
-	if (viewportElement) {
-		viewportElement.content = myCustomViewport;
-	} else {
-		viewportElement = document.createElement('meta');
-		viewportElement.name = 'viewport';
-		viewportElement.content = myCustomViewport;
-		document.getElementsByTagName('head')[0].appendChild(viewportElement);
-	}
-
 	encloseAllText();
 	encloseAllWords();
 	addClickListeners()
@@ -79,7 +68,7 @@ function encloseAllWords() {
 		var word = /([a-zA-Z0-9À-ÖØ-öø-ÿĀ-ſƀ-ɏ_-]+)/g;
 		// Used https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_script to create above regex
 
-		var dot = /\./g;
+		var dot = /[\.\?!]/g;
 
 		var newText = zgjq(el).text().replace(word, "<" + zeeguuWordTagName + ">$1</" + zeeguuWordTagName + ">");
 		newText = newText.replace(dot, function (x) {
@@ -87,6 +76,28 @@ function encloseAllWords() {
 		});
 		zgjq(el).html(newText);
 	});
+}
+
+function encloseElementsInSentence(elements) {
+	if (elements.length > 0) {
+		var sentence = document.createElement(zeeguuSentenceTagName);
+		var first = elements[0];
+		first.parentNode.insertBefore(sentence, first);
+
+		elements.forEach(function (el) {
+			sentence.appendChild(el);
+		});
+		return sentence;
+	}
+	return null;
+}
+
+function removeElementsFromSentence(sentence) {
+	var children = Array.prototype.slice.call(sentence.childNodes);
+	children.forEach(function (el) {
+		sentence.parentNode.insertBefore(el, sentence);
+	});
+	sentence.parentNode.removeChild(sentence);
 }
 
 function addClickListeners() {

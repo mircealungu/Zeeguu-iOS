@@ -29,17 +29,17 @@ import Zeeguu_API_iOS
 
 class ArticleListViewController: ZGTableViewController {
 	
-	var feeds = [Feed]()
+	var feed: Feed?
 	var articles = [Article]()
 	var loadedAllContents = false
 	
-	convenience init(feed: Feed) {
-		self.init(feeds: [feed])
+	init(feed: Feed? = nil) {
+		self.feed = feed
+		super.init(style: .Plain)
 	}
 	
-	convenience init(feeds: [Feed]) {
-		self.init()
-		self.feeds = feeds
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	override func viewDidLoad() {
@@ -47,8 +47,7 @@ class ArticleListViewController: ZGTableViewController {
 		
 		self.tableView.estimatedRowHeight = 100
 		
-		self.title = "APP_TITLE".localized
-		self.navigationItem.title = "APP_TITLE".localized
+		self.title = "NEWS".localized
 		
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			self.clearsSelectionOnViewWillAppear = true
@@ -61,41 +60,40 @@ class ArticleListViewController: ZGTableViewController {
 	}
 	
 	func getArticles() {
-		for i in 0 ..< feeds.count {
-			ZeeguuAPI.sharedAPI().getFeedItemsForFeed(feeds[i], completion: { (articles) -> Void in
-				if let arts = articles {
-					for art in arts {
-						if !self.articles.contains({ $0 == art }) {
-							self.articles.append(art);
-						}
-					}
-					self.articles.sortInPlace({ (lhs, rhs) -> Bool in
-						return lhs.date > rhs.date
-					})
-				}
-				if (i == self.feeds.count - 1) {
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
-						// This enables us to attach a completion block to the animation, reloading data before
-						// animation is complete causes glitching.
-						CATransaction.begin()
-						CATransaction.setCompletionBlock({ () -> Void in
-							self.tableView.reloadData()
-							self.getDifficulties()
-						})
-						self.refreshControl?.endRefreshing()
-						CATransaction.commit()
-					})
-				}
+		self.articles = ArticleManager.sharedManager().getArticles(self.feed)
+		
+		self.reloadTableView()
+		
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { 
+			self.articles = ArticleManager.sharedManager().downloadArticles(self.feed)
+			dispatch_async(dispatch_get_main_queue(), {
+				self.reloadTableView()
 			})
 		}
 	}
 	
+	func reloadTableView() {
+		// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+		// This enables us to attach a completion block to the animation, reloading data before
+		// animation is complete causes glitching.
+		CATransaction.begin()
+		CATransaction.setCompletionBlock({ () -> Void in
+			self.tableView.reloadData()
+			self.getDifficulties()
+		})
+		self.refreshControl?.endRefreshing()
+		CATransaction.commit()
+	}
+	
 	func getDifficulties() {
 		Article.getDifficultiesForArticles(self.articles) { (success) in
-			dispatch_async(dispatch_get_main_queue(), {
-				self.tableView.reloadData()
-			})
+			print("get difficulty success: \(success)")
+			if success {
+				dispatch_async(dispatch_get_main_queue(), {
+					ArticleManager.sharedManager().updateLocalArticles(self.articles)
+					self.tableView.reloadData()
+				})
+			}
 		}
 	}
 	
@@ -160,6 +158,10 @@ class ArticleListViewController: ZGTableViewController {
 		guard let split = self.splitViewController else {
 			return
 		}
+		articles[indexPath.row].isRead = true
+		ArticleManager.sharedManager().updateLocalArticles(articles)
+//		tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+		tableView.reloadData()
 		let article = articles[indexPath.row]
 		let vc = ArticleViewController(article: article)
 		
@@ -172,6 +174,7 @@ class ArticleListViewController: ZGTableViewController {
 		vc.navigationItem.leftItemsSupplementBackButton = true
 		split.showDetailViewController(nav, sender: self)
 		UIApplication.sharedApplication().sendAction(split.displayModeButtonItem().action, to: split.displayModeButtonItem().target, from: nil, forEvent: nil)
+		ZeeguuAPI.sendMonitoringStatusToServer("userOpensArticle", value: "1")
 	}
 }
 

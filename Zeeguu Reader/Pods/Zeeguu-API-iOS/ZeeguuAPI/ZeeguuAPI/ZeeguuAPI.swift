@@ -36,6 +36,9 @@ public class ZeeguuAPI {
 	/// Whether to enable debug output. Set this to `true` to see debug output and find out why an endpoint is not returning what you expect.
 	public var enableDebugOutput = false
 	
+	/// Wheter completion blocks are executed on the main thread. Set this to true before calling an endpoint to have the completion block of that endpoint executed on the main thread.
+	public var runCompletionOnMainThread: Bool = true
+	
 	var currentSessionID: Int {
 		didSet {
 			let def = NSUserDefaults.standardUserDefaults()
@@ -70,6 +73,16 @@ public class ZeeguuAPI {
 	}
 	
 	// MARK: Methods -
+	
+	// MARK: URLs
+ 
+	public static func getLoginWithSessionRequest() -> NSURLRequest {
+		return ZeeguuAPI.sharedAPI().requestWithEndPoint(.LoginWithSession, method: .POST, parameters: ["session_id": String(ZeeguuAPI.sharedAPI().currentSessionID)])
+	}
+ 
+	public static func getMobileExercisesRequest() -> NSURLRequest {
+		return ZeeguuAPI.sharedAPI().requestWithEndPoint(.MRecognize, method: .GET)
+	}
 	
 	// MARK: User operations
 	
@@ -496,15 +509,19 @@ public class ZeeguuAPI {
 	/// - parameter title: The title of the article in which the word was translated.
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was translated.
+	/// - parameter language: The language of the article in which the word was translated. If `language` is nil, the learned language of the user is used.
 	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
-	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
+	public func translateWord(word: String, title: String, context: String, url: String, language: String? = nil, completion: (translation: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
 		
 		self.getLearnedAndNativeLanguage { (dict) -> Void in
 			if (dict != nil) {
-				if let learned = dict!["learned"].string, native = dict!["native"].string {
+				if var learned = dict!["learned"].string, let native = dict!["native"].string {
+					if let lang = language {
+						learned = lang
+					}
 					let request = self.requestWithEndPoint(.TranslateAndBookmark, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
 						self.checkJSONResponse(response, error: error, completion: completion)
@@ -524,15 +541,19 @@ public class ZeeguuAPI {
 	/// - parameter word: The word to translate.
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was translated.
+	/// - parameter language: The language of the article in which the word was translated. If `language` is nil, the learned language of the user is used.
 	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
-	public func getTranslationsForWord(word: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
+	public func getTranslationsForWord(word: String, context: String, url: String, language: String? = nil, completion: (translation: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
 		
 		self.getLearnedAndNativeLanguage { (dict) -> Void in
 			if (dict != nil) {
-				if let learned = dict!["learned"].string, native = dict!["native"].string {
+				if var learned = dict!["learned"].string, let native = dict!["native"].string {
+					if let lang = language {
+						learned = lang
+					}
 					let request = self.requestWithEndPoint(.GetPossibleTranslations, pathComponents: [learned, native], method: .POST, parameters: ["context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
 						self.checkJSONResponse(response, error: error, completion: completion)
@@ -853,4 +874,55 @@ public class ZeeguuAPI {
 			completion(articles: nil)
 		}
 	}
+	
+	/// Retrieves a list of news feed that a user could start following.
+	///
+	/// - parameter language: The ID of the feed for which to retrieve a list of feed items.
+	/// - parameter completion: A block that will receive an array with the feed items.
+	public func getInterestingFeeds(language: String, completion: (feeds: [Feed]?) -> Void) {
+		let request = self.requestWithEndPoint(.GetInterestingFeeds, pathComponents: [language], method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if let res = response, json = JSON.parse(res).array {
+				var feeds = [Feed]()
+				
+				for value in json {
+					if let title = value["title"].string, url = value["url"].string, id = value["id"].int, desc = value["description"].string, imURL = value["image_url"].string {
+						feeds.append(Feed(id: String(id), title: title, url: url, description: desc, language: language, imageURL: imURL))
+					}
+				}
+				completion(feeds: feeds)
+			} else {
+				completion(feeds: nil)
+			}
+		}
+	}
+	
+	/// Sends user activity data to the server, where it is stored for further analysis.
+	///
+	/// - parameter language: The ID of the feed for which to retrieve a list of feed items.
+	/// - parameter completion: A block that will receive an array with the feed items.
+	public func uploadUserActivityData(event: String, value: String, extraData: [String: AnyObject]?, completion: (success: Bool) -> Void) {
+		var extraData = extraData
+		var params = ["event": event, "value": value]
+		
+		let formatter = NSDateFormatter()
+		formatter.timeZone = NSTimeZone(name: "GMT")
+		formatter.dateFormat = "y-MM-dd'T'HH:mm:ss"
+		params["time"] = formatter.stringFromDate(NSDate())
+		
+		if extraData == nil {
+			extraData = [:]
+		}
+		
+		if let ed = extraData, json = try? NSJSONSerialization.dataWithJSONObject(ed, options: NSJSONWritingOptions(rawValue: 0)), str = NSString(data: json, encoding: NSUTF8StringEncoding) as? String {
+			params["extra_data"] = str
+		}
+		
+		let request = self.requestWithEndPoint(.UploadUserActivityData, method: .POST, parameters: params)
+		
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkBooleanResponse(response, error: error, completion: completion)
+		}
+	}
+	
 }

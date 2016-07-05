@@ -31,6 +31,8 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 	
 	var data = [[(String, String)]]()
 	
+	private let estimatedRowHeight: CGFloat = 80
+	
 	convenience init() {
 		self.init(style: .Grouped)
 		
@@ -41,7 +43,12 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.tableView.estimatedRowHeight = 80
+		let didLoginSelector = #selector(ProfileTableViewController.userDidLogin(_:))
+		let didLogoutSelector = #selector(ProfileTableViewController.userDidLogout(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: didLoginSelector, name: UserLoggedInNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: didLogoutSelector, name: UserLoggedOutNotification, object: nil)
+		
+		self.tableView.estimatedRowHeight = estimatedRowHeight
 		
 		let logoutButton = UIBarButtonItem(title: "LOGOUT".localized, style: .Done, target: self, action: #selector(ProfileTableViewController.logout(_:)))
 		self.navigationItem.leftBarButtonItem = logoutButton
@@ -60,24 +67,25 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 			if let d = dict {
 				self.data.append([(String, String)]())
 				self.data.append([(String, String)]())
+				self.data.append([(String, String)]())
 				
 				self.data[0].append(("NAME".localized, d["name"].stringValue))
 				self.data[0].append(("EMAIL".localized, d["email"].stringValue))
 				
 				self.data[1].append(("LEARN_LANGUAGE".localized, d["learned_language"].stringValue))
 				self.data[1].append(("BASE_LANGUAGE".localized, d["native_language"].stringValue))
+				
+				self.data[2].append(("EXERCISES".localized, ""))
 			}
-			dispatch_async(dispatch_get_main_queue(), { () -> Void in
-				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
-				// This enables us to attach a completion block to the animation, reloading data before
-				// animation is complete causes glitching.
-				CATransaction.begin()
-				CATransaction.setCompletionBlock({ () -> Void in
-					self.tableView.reloadData()
-				})
-				self.refreshControl?.endRefreshing()
-				CATransaction.commit()
+			// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+			// This enables us to attach a completion block to the animation, reloading data before
+			// animation is complete causes glitching.
+			CATransaction.begin()
+			CATransaction.setCompletionBlock({ () -> Void in
+				self.tableView.reloadData()
 			})
+			self.refreshControl?.endRefreshing()
+			CATransaction.commit()
 		}
 	}
 	
@@ -113,7 +121,7 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 			cell.detailTextLabel?.text = LanguagesTableViewController.getNameForLanguageCode(d.1)
 		}
 		
-		if (indexPath.section == 1) {
+		if indexPath.section == 1 || indexPath.section == 2 {
 			cell.accessoryType = .DisclosureIndicator
 		}
 		return cell
@@ -128,6 +136,24 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 				let vc = LanguagesTableViewController(chooseType: .BaseLanguage, preselectedLanguage: self.data[indexPath.section][indexPath.row].1, delegate: self)
 				self.navigationController?.pushViewController(vc, animated: true)
 			}
+		} else if indexPath.section == 2 {
+			if indexPath.row == 0 {
+				guard let split = self.splitViewController else {
+					return
+				}
+				let vc = ExercisesViewController()
+				var controllers = split.viewControllers
+				controllers.removeLast()
+				
+				let nav = UINavigationController(rootViewController: vc)
+				
+				vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+				vc.navigationItem.leftItemsSupplementBackButton = true
+				split.showDetailViewController(nav, sender: self)
+				UIApplication.sharedApplication().sendAction(split.displayModeButtonItem().action, to: split.displayModeButtonItem().target, from: nil, forEvent: nil)
+				ZeeguuAPI.sendMonitoringStatusToServer("userOpensExercises", value: "1")
+			}
+			tableView.deselectRowAtIndexPath(indexPath, animated: true)
 		}
 	}
 	
@@ -156,8 +182,19 @@ class ProfileTableViewController: ZGTableViewController, LanguagesTableViewContr
 	
 	func logout(sender: AnyObject) {
 		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
+			NSNotificationCenter.defaultCenter().postNotificationName(UserLoggedOutNotification, object: self)
 			(UIApplication.sharedApplication().delegate as? AppDelegate)?.presentLogin()
 		}
+	}
+	
+	func userDidLogin(notification: NSNotification) {
+		self.refreshControl?.beginRefreshing()
+		getUserData()
+	}
+	
+	func userDidLogout(notification: NSNotification) {
+		self.refreshControl?.beginRefreshing()
+		getUserData()
 	}
 	
 }

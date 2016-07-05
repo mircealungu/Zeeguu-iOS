@@ -36,7 +36,7 @@ public func ==(lhs: Article, rhs: Article) -> Bool {
 }
 
 /// The `Article` class represents an article. It holds the source (`feed`), `title`, `url`, `date`, `summary` and more about the article.
-public class Article: CustomStringConvertible, Equatable {
+public class Article: CustomStringConvertible, Equatable, ZGSerializable {
 	
 	// MARK: Properties -
 	
@@ -47,9 +47,19 @@ public class Article: CustomStringConvertible, Equatable {
 	/// The url of this article
 	public var url: String
 	/// The publication date of this article
-	public var date: String
+	public var date: NSDate
 	/// The summary of this article
 	public var summary: String
+	/// Whether this article has been read by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var isRead: Bool
+	/// Whether this article has been starred by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var isStarred: Bool
+	/// Whether this article has been liked by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var isLiked: Bool
+	/// The difficulty that the user has given to this article. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var userDifficulty: ArticleDifficulty
+	/// Whether this article has been read completely by the user. This propery is purely for use within an app. This boolean will not be populated from the server.
+	public var hasReadAll: Bool
 	
 	private var imageURL: String?
 	private var image: UIImage?
@@ -90,10 +100,10 @@ public class Article: CustomStringConvertible, Equatable {
 	/// - parameter withDifficulty: Whether to calculate difficulty for the retrieved contents. Setting this to `true` will send the language code of the first article's feed as the language of all contents.
 	/// - parameter completion: A block that will indicate success. If `success` is `true`, all `Article` objects have been given their contents. Otherwise nothing has happened to the `Article` objects. If `articles` is empty, `success` is `false`.
 	public static func getContentsForArticles(articles: [Article], withDifficulty: Bool = false, completion: (success: Bool) -> Void) {
-		if articles.count == 0 {
+		let urls = articles.flatMap({ $0.isContentLoaded && (!withDifficulty || $0.isDifficultyLoaded) ? nil : $0.url })
+		if urls.count == 0 {
 			return completion(success: false) // No articles to get content for
 		}
-		let urls = articles.map({ $0.url })
 		
 		let langCode: String? = withDifficulty ? articles[0].feed.language : nil
 		ZeeguuAPI.sharedAPI().getContentFromURLs(urls, langCode: langCode, maxTimeout: urls.count * 10) { (contents) in
@@ -122,11 +132,92 @@ public class Article: CustomStringConvertible, Equatable {
 		self.feed = feed
 		self.title = title;
 		self.url = url;
-		self.date = date;
+		
+		let formatter = NSDateFormatter()
+		let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+		formatter.locale = enUSPosixLocale
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+		
+		let date = formatter.dateFromString(date)
+		self.date = date!
 		self.summary = summary
+		self.isRead = false
+		self.isStarred = false
+		self.isLiked = false
+		self.userDifficulty = .Unknown
+		self.hasReadAll = false
+	}
+	
+	/**
+	Construct a new `Article` object from the data in the dictionary.
+	
+	- parameter dictionary: The dictionary that contains the data from which to construct an `Article` object.
+	*/
+	@objc public required init?(dictionary dict: [String: AnyObject]) {
+		var savedDate = dict["date"] as? NSDate
+		if let date = dict["date"] as? String {
+			let formatter = NSDateFormatter()
+			let enUSPosixLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+			formatter.locale = enUSPosixLocale
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+			
+			let date = formatter.dateFromString(date)
+			savedDate = date
+		}
+		guard let feed = dict["feed"] as? Feed,
+			title = dict["title"] as? String,
+			url = dict["url"] as? String,
+			date = savedDate,
+			summary = dict["summary"] as? String else {
+				return nil
+		}
+		self.feed = feed
+		self.title = title
+		self.url = url
+		self.date = date
+		self.summary = summary
+		self.isRead = dict["isRead"] as? Bool == true
+		self.isStarred = dict["isStarred"] as? Bool == true
+		self.imageURL = dict["imageURL"] as? String
+		self.image = dict["image"] as? UIImage
+		self.contents = dict["contents"] as? String
+		if let difficulty = dict["difficulty"] as? String {
+			self.difficulty = ArticleDifficulty(rawValue: difficulty)
+		}
+		self.isLiked = dict["isLiked"] as? Bool == true
+		if let str = dict["userDifficulty"] as? String, userDifficulty = ArticleDifficulty(rawValue: str) {
+			self.userDifficulty = userDifficulty
+		} else {
+			self.userDifficulty = .Unknown
+		}
+		self.hasReadAll = dict["hasReadAll"] as? Bool == true
 	}
 	
 	// MARK: Methods -
+	
+	/**
+	The dictionary representation of this `Article` object.
+	
+	- returns: A dictionary that contains all data of this `Article` object.
+	*/
+	@objc public func dictionaryRepresentation() -> [String: AnyObject] {
+		var dict = [String: AnyObject]()
+		dict["feed"] = self.feed
+		dict["title"] = self.title
+		dict["url"] = self.url
+		dict["date"] = self.date
+		dict["summary"] = self.summary
+		dict["isRead"] = self.isRead
+		dict["isStarred"] = self.isStarred
+		dict["imageURL"] = self.imageURL
+		dict["image"] = self.image
+		dict["contents"] = self.contents
+		dict["difficulty"] = self.difficulty?.rawValue
+		dict["isLiked"] = self.isLiked
+		dict["userDifficulty"] = self.userDifficulty.rawValue
+		dict["hasReadAll"] = self.hasReadAll
+		return dict
+	}
 	
 	/**
 	Get the contents of this article. This method will make sure that the contents are cached within this `Article` object, so calling this method again will not retrieve the contents again, but will return the cached version instead.

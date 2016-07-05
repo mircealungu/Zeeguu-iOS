@@ -32,6 +32,8 @@ class HistoryTableViewController: ZGTableViewController {
 	var bookmarks = [[Bookmark]]()
 	var dates = [String]()
 	
+	private let estimatedRowHeight: CGFloat = 80
+	
 	convenience init() {
 		self.init(style: .Plain)
 		
@@ -42,7 +44,7 @@ class HistoryTableViewController: ZGTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.tableView.estimatedRowHeight = 80
+		self.tableView.estimatedRowHeight = estimatedRowHeight
 		
 		self.clearsSelectionOnViewWillAppear = true
 		
@@ -50,12 +52,22 @@ class HistoryTableViewController: ZGTableViewController {
 		self.refreshControl?.addTarget(self, action: #selector(HistoryTableViewController.getBookmarks), forControlEvents: .ValueChanged)
 		self.refreshControl?.beginRefreshing()
 		getBookmarks()
+		
+		let selector = #selector(HistoryTableViewController.getBookmarksForNotification(_:))
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name: UserTranslatedWordNotification, object: nil)
+	}
+	
+	func getBookmarksForNotification(notification: NSNotification) {
+		self.refreshControl?.beginRefreshing()
+		self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
+		getBookmarks()
 	}
 	
 	func getBookmarks() {
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
+			var items = [[Bookmark]]()
+			var filled = false
 			if let d = dict?.array {
-				var items = [[Bookmark]]()
 				var counter = 0
 				
 				for arr in d {
@@ -63,6 +75,7 @@ class HistoryTableViewController: ZGTableViewController {
 					let date: String = arr["date"].stringValue
 					if let bms = arr["bookmarks"].array {
 						for bm in bms {
+							let id = bm["id"].stringValue
 							let from = bm["from"].stringValue
 							let fromLang = bm["from_lang"].stringValue
 							let title = bm["title"].stringValue
@@ -71,25 +84,26 @@ class HistoryTableViewController: ZGTableViewController {
 							let to = bm["to"].arrayObject
 							let url = bm["url"].stringValue
 							
-							items[counter].append(Bookmark(title: title, context: context, url: url, bookmarkDate: date, word: from, wordLanguage: fromLang, translation: to as! [String], translationLanguage: toLang))
+							items[counter].append(Bookmark(id: id, title: title, context: context, url: url, bookmarkDate: date, word: from, wordLanguage: fromLang, translation: to as! [String], translationLanguage: toLang))
 						}
 					}
 					self.dates.append(date)
 					counter += 1
 				}
-				self.bookmarks = items
+				filled = true
 			}
-			dispatch_async(dispatch_get_main_queue(), { () -> Void in
-				// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
-				// This enables us to attach a completion block to the animation, reloading data before
-				// animation is complete causes glitching.
-				CATransaction.begin()
-				CATransaction.setCompletionBlock({ () -> Void in
-					self.tableView.reloadData()
-				})
-				self.refreshControl?.endRefreshing()
-				CATransaction.commit()
+			// The CATransaction calls are there to capture the animation of `self.refresher.endRefreshing()`
+			// This enables us to attach a completion block to the animation, reloading data before
+			// animation is complete causes glitching.
+			CATransaction.begin()
+			CATransaction.setCompletionBlock({ () -> Void in
+				if filled {
+					self.bookmarks = items
+				}
+				self.tableView.reloadData()
 			})
+			self.refreshControl?.endRefreshing()
+			CATransaction.commit()
 		}
 	}
 	
@@ -109,26 +123,26 @@ class HistoryTableViewController: ZGTableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let sec = indexPath.section
+		let row = indexPath.row
 		let queueCell = tableView.dequeueReusableCellWithIdentifier("Cell")
-		var cell: UITableViewCell
-		if let c = queueCell {
-			cell = c
-		} else {
-			cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
-		}
+		var cell: HistoryTableViewCell
 		
-		let feed = bookmarks[indexPath.section][indexPath.row]
-		cell.textLabel?.text = feed.word
-		cell.detailTextLabel?.text = feed.translation[0]
-		cell.accessoryType = .DisclosureIndicator
+		let bookmark = bookmarks[sec][row]
+		if let c = queueCell as? HistoryTableViewCell {
+			cell = c
+			cell.bookmark = bookmark
+		} else {
+			cell = HistoryTableViewCell(bookmark: bookmark, reuseIdentifier: "Cell")
+		}
 		
 		return cell
 	}
 	
-//	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//		// Return false if you do not want the specified item to be editable.
-//		return true
-//	}
+	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		// Return false if you do not want the specified item to be editable.
+		return true
+	}
 	
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		let formatter = NSDateFormatter()
@@ -138,18 +152,21 @@ class HistoryTableViewController: ZGTableViewController {
 		return formatter.stringFromDate(self.bookmarks[section][0].date)
 	}
 	
-//	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//		if editingStyle == .Delete {
-//			self.newsFeeds.removeAtIndex(indexPath.row)
-//			let def = NSUserDefaults.standardUserDefaults()
-//			
-//			var feeds = self.newsFeeds
-//			feeds.removeFirst()
-//			def.setObject(feeds, forKey: feedsKey)
-//			
-//			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//		}
-//	}
+	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		if editingStyle == .Delete {
+			let sec = indexPath.section
+			let row = indexPath.row
+			let bm = self.bookmarks[sec][row]
+			bm.delete() { (success) in
+				if (success) {
+					dispatch_async(dispatch_get_main_queue(), { 
+						self.bookmarks[sec].removeAtIndex(row)
+						tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+					})
+				}
+			}
+		}
+	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let bookmark = self.bookmarks[indexPath.section][indexPath.row]
@@ -158,24 +175,7 @@ class HistoryTableViewController: ZGTableViewController {
 		
 		self.navigationController?.pushViewController(vc, animated: true)
 		
-//		let vc = ArticleListViewController()
-//		
-//		if let split = self.splitViewController {
-//			var controllers = split.viewControllers
-//			controllers.removeLast()
-//			
-//			let nav = UINavigationController(rootViewController: vc)
-//			
-//			vc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-//			vc.navigationItem.leftItemsSupplementBackButton = true
-//			split.showDetailViewController(nav, sender: self)
-//			if let sv = self.splitViewController {
-//				UIApplication.sharedApplication().sendAction(sv.displayModeButtonItem().action, to: sv.displayModeButtonItem().target, from: nil, forEvent: nil)
-//			}
-//		} else {
-//			vc.hidesBottomBarWhenPushed = true
-//			self.navigationController?.pushViewController(vc, animated: true)
-//		}
+		ZeeguuAPI.sendMonitoringStatusToServer("userOpensHistoryItem", value: "1")
 	}
 
 }
