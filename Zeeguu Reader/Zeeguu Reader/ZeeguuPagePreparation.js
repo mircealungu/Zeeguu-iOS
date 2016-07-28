@@ -147,7 +147,7 @@ function enterParagraphOutSideCurrent(el, directionIsPrevious) {
 		return null;
 	}
 
-	if (el == el.parentNode[firstLastChildOfParagraph] && parentSibling.nodeType != 3 /* is not a text node */ &&  isWalkThroughParent(parentSibling)) { // There is a link (or bold, etc.) next to the parent
+	if (el == el.parentNode[firstLastChildOfParagraph] && parentSibling.nodeType != 3 /* is not a text node */ && isWalkThroughParent(parentSibling)) { // There is a link (or bold, etc.) next to the parent
 		// Assume that each 'a' element has a zeeguu paragraph as first child
 		var zeeguuParagraph = el.parentNode[siblingProperty].firstChild;
 		return zeeguuParagraph[firstLastChildOfLink];
