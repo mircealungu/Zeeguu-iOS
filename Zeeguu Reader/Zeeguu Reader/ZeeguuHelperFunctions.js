@@ -107,6 +107,6 @@ function getContextOfSelection(first, second, secondFollowsFirst, textInBetween)
 	return contextOfSecond + textInBetween + contextOfFirst;
 }
 
-function isWalkThroughParent(el) {
+function isWalkThroughElement(el) {
 	return zeeguuInlineTextElementsToWalkThrough.indexOf(el.tagName.toLowerCase()) != -1;
 }
