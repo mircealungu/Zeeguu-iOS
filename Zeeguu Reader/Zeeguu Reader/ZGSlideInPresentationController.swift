@@ -81,8 +81,8 @@ class ZGSlideInPresentationController: NSObject, UIViewControllerTransitioningDe
 				self.presentDimView.addGestureRecognizer(recog)
 			}
 			
-			containerView!.addSubview(self.presentDimView)
-			containerView!.addSubview(toViewController!.view)
+			containerView.addSubview(self.presentDimView)
+			containerView.addSubview(toViewController!.view)
 			toViewController!.view.frame = CGRectMake(fromViewController!.view.frame.size.width, 0, 320, UIScreen.mainScreen().bounds.size.height)
 			UIView.animateWithDuration(presentDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () in
 				self.presentDimView.alpha = 1
