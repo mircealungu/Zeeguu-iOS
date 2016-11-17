@@ -163,7 +163,7 @@ class ArticleViewOptionsTableViewController: UITableViewController, UIPopoverPre
 		letter.drawAtPoint(CGPointZero, withAttributes: [NSFontAttributeName: UIFont.systemFontOfSize(fontSize), NSForegroundColorAttributeName: UIColor.blackColor()])
 		let im = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
-		return im
+		return im!
 	}
 	
 	func changeFontSize(sender: UIStepper) {
