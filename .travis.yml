@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode7.3
+osx_image: xcode8.1
 script:
     - xcodebuild clean -workspace "Zeeguu Reader/Zeeguu Reader.xcworkspace" -scheme "Zeeguu Reader" | xcpretty
     - set -o pipefail && xcodebuild test -workspace "Zeeguu Reader/Zeeguu Reader.xcworkspace" -scheme "Zeeguu Reader" -destination 'platform=iOS Simulator,name=iPad Air 2' | xcpretty

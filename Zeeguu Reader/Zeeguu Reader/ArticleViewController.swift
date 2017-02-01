@@ -157,7 +157,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate, WKScriptMes
 		let optionsBut = UIBarButtonItem(title: "OPTIONS".localized, style: .Plain, target: self, action: #selector(ArticleViewController.showOptions(_:)))
 		self.navigationItem.rightBarButtonItem = optionsBut
 		
-		if let str = article?.url, url = NSURL(string: "http://www.readability.com/m?url=\(str)") {
+		if let str = article?.url, url = NSURL(string: str) {
 			self.showLoadingView()
 			webview.loadRequest(NSURLRequest(URL: url))
 		}
